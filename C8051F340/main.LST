@@ -1,0 +1,2031 @@
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 1   
+
+
+C51 COMPILER V8.18, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: e:\SiLabs\MCU\IDEfiles\C51\BIN\C51.exe main.c DB OE BR CD SB LC OR LARGE
+
+line level    source
+
+   1          #include "reg52_ext.h"              /* define 8052 registers */
+   1      =1  //-----------------------------------------------------------------------------
+   2      =1  // c8051F340.h
+   3      =1  //-----------------------------------------------------------------------------
+   4      =1  // Copyright 2005 Silicon Laboratories, Inc.
+   5      =1  // http://www.silabs.com
+   6      =1  //
+   7      =1  // Program Description:
+   8      =1  //
+   9      =1  // Register/bit definitions for the C8051F34x family.
+  10      =1  //
+  11      =1  //
+  12      =1  // FID:            34X000000
+  13      =1  // Target:         C8051F340, 'F341, 'F342, 'F343, 'F344, 'F345, 'F346, 'F347,
+  14      =1  //                 'F348, 'F349, 'F34A, 'F34B
+  15      =1  // Tool chain:     Keil
+  16      =1  // Command Line:   None
+  17      =1  //
+  18      =1  // Release 1.2 - 16 SEP 2008 (PKC)
+  19      =1  //    -Added 'F348/9/A/B to the target part numbers list.
+  20      =1  //
+  21      =1  // Release 1.1
+  22      =1  //    -All changes by GP
+  23      =1  //    -17 NOV 2005
+  24      =1  //    -Converted file to new coding guidelines
+  25      =1  //    -Added #defines for interrupt priorities
+  26      =1  //    -Added #ifndef/#define to allow multiple includes of file
+  27      =1  //    -Converted Bit Definitions to absolute addresses for easier porting
+  28      =1  //
+  29      =1  // Release 1.0
+  30      =1  //    -Initial Revision (CM)
+  31      =1  //    -08 AUG 2005
+  32      =1  //    -Latest release before new firmware coding standard
+  33      =1  //
+  34      =1  
+  35      =1  #ifndef C8051F340_H
+  36      =1  #define C8051F340_H
+  37      =1  
+  38      =1  //-----------------------------------------------------------------------------
+  39      =1  // Byte Registers
+  40      =1  //-----------------------------------------------------------------------------
+  41      =1  
+  42      =1  sfr  P0           =  0x80;             // Port 0 Latch
+  43      =1  sfr  SP           =  0x81;             // Stack Pointer
+  44      =1  sfr  DPL          =  0x82;             // Data Pointer Low
+  45      =1  sfr  DPH          =  0x83;             // Data Pointer High
+  46      =1  sfr  EMI0TC       =  0x84;             // EMIF Timing
+  47      =1  sfr  EMI0CF       =  0x85;             // EMIF Configuration
+  48      =1  sfr  OSCLCN       =  0x86;             // Internal Low-Freq Oscillator Control
+  49      =1  sfr  PCON         =  0x87;             // Power Control
+  50      =1  sfr  TCON         =  0x88;             // Timer/Counter Control
+  51      =1  sfr  TMOD         =  0x89;             // Timer/Counter Mode
+  52      =1  sfr  TL0          =  0x8A;             // Timer/Counter 0 Low
+  53      =1  sfr  TL1          =  0x8B;             // Timer/Counter 1 Low
+  54      =1  sfr  TH0          =  0x8C;             // Timer/Counter 0 High
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 2   
+
+  55      =1  sfr  TH1          =  0x8D;             // Timer/Counter 1 High
+  56      =1  sfr  CKCON        =  0x8E;             // Clock Control
+  57      =1  sfr  PSCTL        =  0x8F;             // Program Store R/W Control
+  58      =1  sfr  P1           =  0x90;             // Port 1 Latch
+  59      =1  sfr  TMR3CN       =  0x91;             // Timer/Counter 3Control
+  60      =1  sfr  TMR3RLL      =  0x92;             // Timer/Counter 3 Reload Low
+  61      =1  sfr  TMR3RLH      =  0x93;             // Timer/Counter 3 Reload High
+  62      =1  sfr  TMR3L        =  0x94;             // Timer/Counter 3Low
+  63      =1  sfr  TMR3H        =  0x95;             // Timer/Counter 3 High
+  64      =1  sfr  USB0ADR      =  0x96;             // USB0 Indirect Address Register
+  65      =1  sfr  USB0DAT      =  0x97;             // USB0 Data Register
+  66      =1  sfr  SCON0        =  0x98;             // UART0 Control
+  67      =1  sfr  SBUF0        =  0x99;             // UART0 Data Buffer
+  68      =1  sfr  CPT1CN       =  0x9A;             // Comparator1 Control
+  69      =1  sfr  CPT0CN       =  0x9B;             // Comparator0 Control
+  70      =1  sfr  CPT1MD       =  0x9C;             // Comparator1 Mode Selection
+  71      =1  sfr  CPT0MD       =  0x9D;             // Comparator0 Mode Selection
+  72      =1  sfr  CPT1MX       =  0x9E;             // Comparator1 MUX Selection
+  73      =1  sfr  CPT0MX       =  0x9F;             // Comparator0 MUX Selection
+  74      =1  sfr  P2           =  0xA0;             // Port 2 Latch
+  75      =1  sfr  SPI0CFG      =  0xA1;             // SPI Configuration
+  76      =1  sfr  SPI0CKR      =  0xA2;             // SPI Clock Rate Control
+  77      =1  sfr  SPI0DAT      =  0xA3;             // SPI Data
+  78      =1  sfr  P0MDOUT      =  0xA4;             // Port 0 Output Mode Configuration
+  79      =1  sfr  P1MDOUT      =  0xA5;             // Port 1 Output Mode Configuration
+  80      =1  sfr  P2MDOUT      =  0xA6;             // Port 2 Output Mode Configuration
+  81      =1  sfr  P3MDOUT      =  0xA7;             // Port 3 Output Mode Configuration
+  82      =1  sfr  IE           =  0xA8;             // Interrupt Enable
+  83      =1  sfr  CLKSEL       =  0xA9;             // Clock Select
+  84      =1  sfr  EMI0CN       =  0xAA;             // External Memory Interface Control
+  85      =1  sfr  SBCON1       =  0xAC;             // UART1 Baud Rate Generator Control
+  86      =1  sfr  P4MDOUT      =  0xAE;             // Port 4 Output Mode Configuration
+  87      =1  sfr  PFE0CN       =  0xAF;             // Prefetch Engine Control
+  88      =1  sfr  P3           =  0xB0;             // Port 3 Latch
+  89      =1  sfr  OSCXCN       =  0xB1;             // External Oscillator Control
+  90      =1  sfr  OSCICN       =  0xB2;             // Internal Oscillator Control
+  91      =1  sfr  OSCICL       =  0xB3;             // Internal Oscillator Calibration
+  92      =1  sfr  SBRLL1       =  0xB4;             // UART1 Baud Rate Generator Low
+  93      =1  sfr  SBRLH1       =  0xB5;             // UART1 Baud Rate Generator High
+  94      =1  sfr  FLSCL        =  0xB6;             // Flash Scale
+  95      =1  sfr  FLKEY        =  0xB7;             // Flash Lock and Key
+  96      =1  sfr  IP           =  0xB8;             // Interrupt Priority
+  97      =1  sfr  CLKMUL       =  0xB9;             // Clock Multiplier
+  98      =1  sfr  AMX0N        =  0xBA;             // AMUX0 Negative Channel Select
+  99      =1  sfr  AMX0P        =  0xBB;             // AMUX0 Positive Channel Select
+ 100      =1  sfr  ADC0CF       =  0xBC;             // ADC0 Configuration
+ 101      =1  sfr  ADC0L        =  0xBD;             // ADC0 Low
+ 102      =1  sfr  ADC0H        =  0xBE;             // ADC0 High
+ 103      =1  sfr  SMB0CN       =  0xC0;             // SMBus Control
+ 104      =1  sfr  SMB0CF       =  0xC1;             // SMBus Configuration
+ 105      =1  sfr  SMB0DAT      =  0xC2;             // SMBus Data
+ 106      =1  sfr  ADC0GTL      =  0xC3;             // ADC0 Greater-Than Compare Low
+ 107      =1  sfr  ADC0GTH      =  0xC4;             // ADC0 Greater-Than Compare High
+ 108      =1  sfr  ADC0LTL      =  0xC5;             // ADC0 Less-Than Compare Word Low
+ 109      =1  sfr  ADC0LTH      =  0xC6;             // ADC0 Less-Than Compare Word High
+ 110      =1  sfr  P4           =  0xC7;             // Port 4 Latch
+ 111      =1  sfr  TMR2CN       =  0xC8;             // Timer/Counter 2 Control
+ 112      =1  sfr  REG0CN       =  0xC9;             // Voltage Regulator Control
+ 113      =1  sfr  TMR2RLL      =  0xCA;             // Timer/Counter 2 Reload Low
+ 114      =1  sfr  TMR2RLH      =  0xCB;             // Timer/Counter 2 Reload High
+ 115      =1  sfr  TMR2L        =  0xCC;             // Timer/Counter 2 Low
+ 116      =1  sfr  TMR2H        =  0xCD;             // Timer/Counter 2 High
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 3   
+
+ 117      =1  sfr  PSW          =  0xD0;             // Program Status Word
+ 118      =1  sfr  REF0CN       =  0xD1;             // Voltage Reference Control
+ 119      =1  sfr  SCON1        =  0xD2;             // UART1 Control
+ 120      =1  sfr  SBUF1        =  0xD3;             // UART1 Data Buffer
+ 121      =1  sfr  P0SKIP       =  0xD4;             // Port 0 Skip
+ 122      =1  sfr  P1SKIP       =  0xD5;             // Port 1 Skip
+ 123      =1  sfr  P2SKIP       =  0xD6;             // Port 2 Skip
+ 124      =1  sfr  USB0XCN      =  0xD7;             // USB0 Transceiver Control
+ 125      =1  sfr  PCA0CN       =  0xD8;             // PCA0 Control
+ 126      =1  sfr  PCA0MD       =  0xD9;             // PCA0 Mode
+ 127      =1  sfr  PCA0CPM0     =  0xDA;             // PCA0 Module 0 Mode Register
+ 128      =1  sfr  PCA0CPM1     =  0xDB;             // PCA0 Module 1 Mode Register
+ 129      =1  sfr  PCA0CPM2     =  0xDC;             // PCA0 Module 2 Mode Register
+ 130      =1  sfr  PCA0CPM3     =  0xDD;             // PCA0 Module 3 Mode Register
+ 131      =1  sfr  PCA0CPM4     =  0xDE;             // PCA0 Module 4 Mode Register
+ 132      =1  sfr  P3SKIP       =  0xDF;             // Port 3 Skip
+ 133      =1  sfr  ACC          =  0xE0;             // Accumulator
+ 134      =1  sfr  XBR0         =  0xE1;             // Port I/O Crossbar Control 0
+ 135      =1  sfr  XBR1         =  0xE2;             // Port I/O Crossbar Control 1
+ 136      =1  sfr  XBR2         =  0xE3;             // Port I/O Crossbar Control 2
+ 137      =1  sfr  IT01CF       =  0xE4;             // INT0/INT1 Configuration
+ 138      =1  sfr  SMOD1        =  0xE5;             // UART1 Mode
+ 139      =1  sfr  EIE1         =  0xE6;             // Extended Interrupt Enable 1
+ 140      =1  sfr  EIE2         =  0xE7;             // Extended Interrupt Enable 2
+ 141      =1  sfr  ADC0CN       =  0xE8;             // ADC0 Control
+ 142      =1  sfr  PCA0CPL1     =  0xE9;             // PCA0 Capture 1 Low
+ 143      =1  sfr  PCA0CPH1     =  0xEA;             // PCA0 Capture 1 High
+ 144      =1  sfr  PCA0CPL2     =  0xEB;             // PCA0 Capture 2 Low
+ 145      =1  sfr  PCA0CPH2     =  0xEC;             // PCA0 Capture 2 High
+ 146      =1  sfr  PCA0CPL3     =  0xED;             // PCA0 Capture 3 Low
+ 147      =1  sfr  PCA0CPH3     =  0xEE;             // PCA0 Capture 3 High
+ 148      =1  sfr  RSTSRC       =  0xEF;             // Reset Source Configuration/Status
+ 149      =1  sfr  B            =  0xF0;             // B Register
+ 150      =1  sfr  P0MDIN       =  0xF1;             // Port 0 Input Mode Configuration
+ 151      =1  sfr  P1MDIN       =  0xF2;             // Port 1 Input Mode Configuration
+ 152      =1  sfr  P2MDIN       =  0xF3;             // Port 2 Input Mode Configuration
+ 153      =1  sfr  P3MDIN       =  0xF4;             // Port 3 Input Mode Configuration
+ 154      =1  sfr  P4MDIN       =  0xF5;             // Port 4 Input Mode Configuration
+ 155      =1  sfr  EIP1         =  0xF6;             // Extended Interrupt Priority 1
+ 156      =1  sfr  EIP2         =  0xF7;             // Extended Interrupt Priority 2
+ 157      =1  sfr  SPI0CN       =  0xF8;             // SPI0 Control
+ 158      =1  sfr  PCA0L        =  0xF9;             // PCA0 Counter Low
+ 159      =1  sfr  PCA0H        =  0xFA;             // PCA0 Counter High
+ 160      =1  sfr  PCA0CPL0     =  0xFB;             // PCA0 Capture 0 Low
+ 161      =1  sfr  PCA0CPH0     =  0xFC;             // PCA0 Capture 0 High
+ 162      =1  sfr  PCA0CPL4     =  0xFD;             // PCA0 Capture 4 Low
+ 163      =1  sfr  PCA0CPH4     =  0xFE;             // PCA0 Capture 4 High
+ 164      =1  sfr  VDM0CN       =  0xFF;             // VDD Monitor Control
+ 165      =1  
+ 166      =1  
+ 167      =1  //-----------------------------------------------------------------------------
+ 168      =1  // Bit Definitions
+ 169      =1  //-----------------------------------------------------------------------------
+ 170      =1  
+ 171      =1  // TCON 0x88
+ 172      =1  sbit TF1     = 0x8F;                   // Timer1 overflow flag
+ 173      =1  sbit TR1     = 0x8E;                   // Timer1 on/off control
+ 174      =1  sbit TF0     = 0x8D;                   // Timer0 overflow flag
+ 175      =1  sbit TR0     = 0x8C;                   // Timer0 on/off control
+ 176      =1  sbit IE1     = 0x8B;                   // Ext interrupt 1 edge flag
+ 177      =1  sbit IT1     = 0x8A;                   // Ext interrupt 1 type
+ 178      =1  sbit IE0     = 0x89;                   // Ext interrupt 0 edge flag
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 4   
+
+ 179      =1  sbit IT0     = 0x88;                   // Ext interrupt 0 type
+ 180      =1  
+ 181      =1  // SCON0 0x98
+ 182      =1  sbit S0MODE  = 0x9F;                   // Serial mode control bit 0
+ 183      =1                                         // Bit6 UNUSED
+ 184      =1  sbit MCE0    = 0x9D;                   // Multiprocessor communication enable
+ 185      =1  sbit REN0    = 0x9C;                   // Receive enable
+ 186      =1  sbit TB80    = 0x9B;                   // Transmit bit 8
+ 187      =1  sbit RB80    = 0x9A;                   // Receive bit 8
+ 188      =1  sbit TI0     = 0x99;                   // Transmit interrupt flag
+ 189      =1  sbit RI0     = 0x98;                   // Receive interrupt flag
+ 190      =1  
+ 191      =1  // IE 0xA8
+ 192      =1  sbit EA      = 0xAF;                   // Global interrupt enable
+ 193      =1  sbit ESPI0   = 0xAE;                   // SPI0 interrupt enable
+ 194      =1  sbit ET2     = 0xAD;                   // Timer2 interrupt enable
+ 195      =1  sbit ES0     = 0xAC;                   // UART0 interrupt enable
+ 196      =1  sbit ET1     = 0xAB;                   // Timer1 interrupt enable
+ 197      =1  sbit EX1     = 0xAA;                   // External interrupt 1 enable
+ 198      =1  sbit ET0     = 0xA9;                   // Timer0 interrupt enable
+ 199      =1  sbit EX0     = 0xA8;                   // External interrupt 0 enable
+ 200      =1  
+ 201      =1  // IP 0xB8
+ 202      =1                                         // Bit7 UNUSED
+ 203      =1  sbit PSPI0   = 0xBE;                   // SPI0 interrupt priority
+ 204      =1  sbit PT2     = 0xBD;                   // Timer2 priority
+ 205      =1  sbit PS0     = 0xBC;                   // UART0 priority
+ 206      =1  sbit PT1     = 0xBB;                   // Timer1 priority
+ 207      =1  sbit PX1     = 0xBA;                   // External interrupt 1 priority
+ 208      =1  sbit PT0     = 0xB9;                   // Timer0 priority
+ 209      =1  sbit PX0     = 0xB8;                   // External interrupt 0 priority
+ 210      =1  
+ 211      =1  // SMB0CN 0xC0
+ 212      =1  sbit MASTER  = 0xC7;                   // Master/slave indicator
+ 213      =1  sbit TXMODE  = 0xC6;                   // Transmit mode indicator
+ 214      =1  sbit STA     = 0xC5;                   // Start flag
+ 215      =1  sbit STO     = 0xC4;                   // Stop flag
+ 216      =1  sbit ACKRQ   = 0xC3;                   // Acknowledge request
+ 217      =1  sbit ARBLOST = 0xC2;                   // Arbitration lost indicator
+ 218      =1  sbit ACK     = 0xC1;                   // Acknowledge flag
+ 219      =1  sbit SI      = 0xC0;                   // SMBus interrupt flag
+ 220      =1  
+ 221      =1  // TMR2CN 0xC8
+ 222      =1  sbit TF2H    = 0xCF;                   // Timer2 high byte overflow flag
+ 223      =1  sbit TF2L    = 0xCE;                   // Timer2 low byte overflow flag
+ 224      =1  sbit TF2LEN  = 0xCD;                   // Timer2 low byte interrupt enable
+ 225      =1  sbit T2SOF   = 0xCC;                   // Timer2 start-of-frame capture enable
+ 226      =1  sbit T2SPLIT = 0xCB;                   // Timer2 split mode enable
+ 227      =1  sbit TR2     = 0xCA;                   // Timer2 on/off control
+ 228      =1                                         // Bit1 UNUSED
+ 229      =1  sbit T2XCLK  = 0xC8;                   // Timer2 external clock select
+ 230      =1  
+ 231      =1  // PSW 0xD0
+ 232      =1  sbit CY      = 0xD7;                   // Carry flag
+ 233      =1  sbit AC      = 0xD6;                   // Auxiliary carry flag
+ 234      =1  sbit F0      = 0xD5;                   // User flag 0
+ 235      =1  sbit RS1     = 0xD4;                   // Register bank select 1
+ 236      =1  sbit RS0     = 0xD3;                   // Register bank select 0
+ 237      =1  sbit OV      = 0xD2;                   // Overflow flag
+ 238      =1  sbit F1      = 0xD1;                   // User flag 1
+ 239      =1  sbit P       = 0xD0;                   // Accumulator parity flag
+ 240      =1  
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 5   
+
+ 241      =1  // PCA0CN 0xD8
+ 242      =1  sbit CF      = 0xDF;                   // PCA0 counter overflow flag
+ 243      =1  sbit CR      = 0xDE;                   // PCA0 counter run control
+ 244      =1                                         // Bit5 UNUSED
+ 245      =1  sbit CCF4    = 0xDC;                   // PCA0 module4 capture/compare flag
+ 246      =1  sbit CCF3    = 0xDB;                   // PCA0 module3 capture/compare flag
+ 247      =1  sbit CCF2    = 0xDA;                   // PCA0 module2 capture/compare flag
+ 248      =1  sbit CCF1    = 0xD9;                   // PCA0 module1 capture/compare flag
+ 249      =1  sbit CCF0    = 0xD8;                   // PCA0 module0 capture/compare flag
+ 250      =1  
+ 251      =1  // ADC0CN 0xE8
+ 252      =1  sbit AD0EN   = 0xEF;                   // ADC0 enable
+ 253      =1  sbit AD0TM   = 0xEE;                   // ADC0 track mode
+ 254      =1  sbit AD0INT  = 0xED;                   // ADC0 converision complete interrupt flag
+ 255      =1  sbit AD0BUSY = 0xEC;                   // ADC0 busy flag
+ 256      =1  sbit AD0WINT = 0xEB;                   // ADC0 window compare interrupt flag
+ 257      =1  sbit AD0CM2  = 0xEA;                   // ADC0 conversion mode select 2
+ 258      =1  sbit AD0CM1  = 0xE9;                   // ADC0 conversion mode select 1
+ 259      =1  sbit AD0CM0  = 0xE8;                   // ADC0 conversion mode select 0
+ 260      =1  
+ 261      =1  // SPI0CN 0xF8
+ 262      =1  sbit SPIF    = 0xFF;                   // SPI0 interrupt flag
+ 263      =1  sbit WCOL    = 0xFE;                   // SPI0 write collision flag
+ 264      =1  sbit MODF    = 0xFD;                   // SPI0 mode fault flag
+ 265      =1  sbit RXOVRN  = 0xFC;                   // SPI0 rx overrun flag
+ 266      =1  sbit NSSMD1  = 0xFB;                   // SPI0 slave select mode 1
+ 267      =1  sbit NSSMD0  = 0xFA;                   // SPI0 slave select mode 0
+ 268      =1  sbit TXBMT   = 0xF9;                   // SPI0 transmit buffer empty
+ 269      =1  sbit SPIEN   = 0xF8;                   // SPI0 SPI enable
+ 270      =1  
+ 271      =1  
+ 272      =1  //-----------------------------------------------------------------------------
+ 273      =1  // Interrupt Priorities
+ 274      =1  //-----------------------------------------------------------------------------
+ 275      =1  
+ 276      =1  #define INTERRUPT_INT0             0   // External Interrupt 0
+ 277      =1  #define INTERRUPT_TIMER0           1   // Timer0 Overflow
+ 278      =1  #define INTERRUPT_INT1             2   // External Interrupt 1
+ 279      =1  #define INTERRUPT_TIMER1           3   // Timer1 Overflow
+ 280      =1  #define INTERRUPT_UART0            4   // Serial Port 0
+ 281      =1  #define INTERRUPT_TIMER2           5   // Timer2 Overflow
+ 282      =1  #define INTERRUPT_SPI0             6   // Serial Peripheral Interface 0
+ 283      =1  #define INTERRUPT_SMBUS0           7   // SMBus0 Interface
+ 284      =1  #define INTERRUPT_USB0             8   // USB Interface
+ 285      =1  #define INTERRUPT_ADC0_WINDOW      9   // ADC0 Window Comparison
+ 286      =1  #define INTERRUPT_ADC0_EOC         10  // ADC0 End Of Conversion
+ 287      =1  #define INTERRUPT_PCA0             11  // PCA0 Peripheral
+ 288      =1  #define INTERRUPT_COMPARATOR0      12  // Comparator0
+ 289      =1  #define INTERRUPT_COMPARATOR1      13  // Comparator1
+ 290      =1  #define INTERRUPT_TIMER3           14  // Timer3 Overflow
+ 291      =1  #define INTERRUPT_VBUS_LEVEL       15  // VBUS level-triggered interrupt
+ 292      =1  #define INTERRUPT_UART1            16  // Serial Port 1
+ 293      =1  
+ 294      =1  //-----------------------------------------------------------------------------
+ 295      =1  // Header File PreProcessor Directive
+ 296      =1  //-----------------------------------------------------------------------------
+ 297      =1  
+ 298      =1  // #endif                                 
+ 299      =1  
+ 300      =1  // #define C8051F340_H
+ 301      =1  
+ 302      =1  //Fim do header original. Modificações e extensões abaixo.
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 6   
+
+ 303      =1  
+ 304      =1  /*  8052 Extensions  */
+ 305      =1  sfr T2CON  = 0xC8;
+ 306      =1  sfr T2MOD  = 0xC9;
+ 307      =1  sfr RCAP2L = 0xCA;
+ 308      =1  sfr RCAP2H = 0xCB;
+ 309      =1  sfr TL2    = 0xCC;
+ 310      =1  sfr TH2    = 0xCD;
+ 311      =1  
+ 312      =1  /* PORT 0 - Adicionada por Douglas Melchioretto */ 
+ 313      =1  sbit P0_0  = P0^0;
+ 314      =1  sbit P0_1  = P0^1;
+ 315      =1  sbit P0_2  = P0^2;
+ 316      =1  sbit P0_3  = P0^3;
+ 317      =1  sbit P0_4  = P0^4;
+ 318      =1  sbit P0_5  = P0^5;
+ 319      =1  sbit P0_6  = P0^6;
+ 320      =1  sbit P0_7  = P0^7;
+ 321      =1  
+ 322      =1  /* PORT 1 - Adicionada por Douglas Melchioretto */
+ 323      =1  sbit P1_0  = P1^0;
+ 324      =1  sbit P1_1  = P1^1;
+ 325      =1  sbit P1_2  = P1^2;
+ 326      =1  sbit P1_3  = P1^3;
+ 327      =1  sbit P1_4  = P1^4;
+ 328      =1  sbit P1_5  = P1^5;
+ 329      =1  sbit P1_6  = P1^6;
+ 330      =1  sbit P1_7  = P1^7;
+ 331      =1  
+ 332      =1  /* PORT 2 - Adicionada por Douglas Melchioretto */
+ 333      =1  sbit P2_0  = P2^0;
+ 334      =1  sbit P2_1  = P2^1;
+ 335      =1  sbit P2_2  = P2^2;
+ 336      =1  sbit P2_3  = P2^3;
+ 337      =1  sbit P2_4  = P2^4;
+ 338      =1  sbit P2_5  = P2^5;
+ 339      =1  sbit P2_6  = P2^6;
+ 340      =1  sbit P2_7  = P2^7;
+ 341      =1  
+ 342      =1  
+ 343      =1  
+ 344      =1  /*  SCON  */
+ 345      =1  sbit SM0   = SCON0^7;
+ 346      =1  sbit SM1   = SCON0^6;
+ 347      =1  sbit SM2   = SCON0^5;
+ 348      =1  sbit REN   = SCON0^4;
+ 349      =1  sbit TB8   = SCON0^3;
+ 350      =1  sbit RB8   = SCON0^2;
+ 351      =1  sbit TI    = SCON0^1;
+ 352      =1  sbit RI    = SCON0^0;
+ 353      =1  
+ 354      =1  /*  P1  */
+ 355      =1  sbit T2EX  = P1^1; // 8052 only
+ 356      =1  sbit T2    = P1^0; // 8052 only
+ 357      =1               
+ 358      =1  /*  T2CON  */
+ 359      =1  sbit TF2    = T2CON^7;
+ 360      =1  sbit EXF2   = T2CON^6;
+ 361      =1  sbit RCLK   = T2CON^5;
+ 362      =1  sbit TCLK   = T2CON^4;
+ 363      =1  sbit EXEN2  = T2CON^3;
+ 364      =1  sbit C_T2   = T2CON^1;
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 7   
+
+ 365      =1  sbit CP_RL2 = T2CON^0;
+ 366      =1  
+ 367      =1  #endif
+   2          #include <stdio.h>                  /* define I/O functions  */
+*** WARNING C318 IN LINE 2 OF main.c: can't open file 'stdio.h'
+   3          #include "protocolo.h"                          /* arquivo de definicoes de constantes */
+   1      =1  /*********************
+   2      =1   * Projeto RoboMovel
+   3      =1   * Arquivo: protocolo.h
+   4      =1   * Descricao: Reune o mapeamentos de dispositivos a setem utilizados
+   5      =1   *            na comunicacao serial com a interace de controle
+   6      =1   * Autor:Douglas Melchioretto
+   7      =1   *
+   8      =1   * Versao Atualizada: 02/06/2010
+   9      =1  *********************/
+  10      =1  
+  11      =1  // ATENCAO ! OS VALORES COMPREENDIDOS DE 0X00h A 0X1Fh SAO RESERVADOS
+  12      =1  // PADRAO RS-232.
+  13      =1  // MAIS INFORMACOES: http://easysw.com/~mike/serial/serial.html#advanced
+  14      =1  // Sera que precisaremos converter em string (char[]) antes de transmitir
+  15      =1  // para evitar o uso de simbolos reservados ASCII ?
+  16      =1  
+  17      =1  #define ON                0x0001
+  18      =1  //#define TRUE                0x0001
+  19      =1  #define OFF               0x0000
+  20      =1  //#define FALSE               0x0000
+  21      =1  
+  22      =1  #define ENCODER_DIREITO       0x0020
+  23      =1  #define ENCODER_ESQUERDO      0x0021
+  24      =1  
+  25      =1  // Se implementar leitura em funcao de sensor, precisa contatenar o estado..
+  26      =1  // ON ou OFF ou a medida 1BYTE (0 a 255 CM)
+  27      =1  // Identificacoo dos Sensores
+  28      =1  
+  29      =1  #define SENSOR_OPTICO_0       0x0022
+  30      =1  #define SENSOR_OPTICO_1       0x0023
+  31      =1  #define SENSOR_OPTICO_2       0x0024
+  32      =1  #define SENSOR_OPTICO_3       0x0025
+  33      =1  #define SENSOR_OPTICO_4       0x0026
+  34      =1  #define SENSOR_OPTICO_5       0x0027
+  35      =1  
+  36      =1  #define ENCODER_VALUE_SIZE    0x0004 // 4 bytes (32 bits)
+  37      =1  // Numero de Bytes - 32 bits - O Robo vai ter que andar 1385 km para estourar esse contador :D
+  38      =1  // Tendo em vista que o encoder eh de 2000 pulsos por volta da roda que tem 64,5 cm de comprimento
+  39      =1  // Se colocar apenas 2 bytes, soh podermos medir 21 m e 3 bytes (nada usual) - 5,4 km
+  40      =1  // Ainda podemos economizar esse bytes na transmissao, transmitindo apenas a diferenca....
+  41      =1  // Dessa maneira utilizando 1 byte como tamanho maximo, pode-se descrever um deslocamento de ate 8,256 cm
+  42      =1  // Vale lembrar que caso sejam modificadas as caracteristicas mecanicas do sistema de propulsao (rodas) es
+             -sa conta
+  43      =1  // deve ser refeita.
+  44      =1  
+  45      =1  // Implementacao dos estados dos sensores ON/OFF
+  46      =1  
+  47      =1  #define SENSOR_ONOFF_1    0x0030
+  48      =1  #define SENSOR_ONOFF_2    0x0031
+  49      =1  #define SENSOR_ONOFF_3    0x0032
+  50      =1  #define SENSOR_ONOFF_4    0x0034
+  51      =1  #define SENSOR_ONOFF_5    0x0035
+  52      =1  #define SENSOR_ONOFF_6    0x0036
+  53      =1  #define SENSOR_ONOFF_7    0x0037
+  54      =1  #define SENSOR_ONOFF_8    0x0038
+  55      =1  #define SENSOR_ONOFF_9    0x0039
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 8   
+
+  56      =1  #define SENSOR_ONOFF_10   0x003A
+  57      =1  #define SENSOR_ONOFF_11   0x003B
+  58      =1  #define SENSOR_ONOFF_12   0x003C
+  59      =1  #define SENSOR_ONOFF_13   0x003D
+  60      =1  #define SENSOR_ONOFF_14   0x003E
+  61      =1  #define SENSOR_ONOFF_15   0x003F
+  62      =1  
+  63      =1  #define SONAR_PAN         0x0050 // IDENTIFICADOR DO ANGULO PAN (PWM) DO SONAR ( 1 Byte 0 - 255 )
+  64      =1  #define SONAR_DISTANCIA   0x0051 // IDENTIFICADOR DA DISTANCIA DO SONAR (2 Bytes)
+  65      =1  #define BUSSOLA           0x0052 // IDENTIFICADOR DA BUSSOLA ELETRONICA
+  66      =1                                   // Precisa identificar qual serao os dados transmitidos
+  67      =1  #define GPS                       0x53   // IDENTIFICADOR DE INFORMACAO DO GPS
+  68      =1  #define NMEA               183   // VERSAO NMEA
+  69      =1  #define NMEA_SPEED        4800 // TAXA DE TRANSMISSAO PADRAO NMEA-0183
+  70      =1  // Mais informacoes uteis sobre NMEA-0183
+  71      =1  // http://www.kh-gps.de/nmea.faq
+  72      =1  
+  73      =1  // Tags que identificam comandos a serem enviados ao ROBO
+  74      =1  
+  75      =1  #define RODA_LEFT        0xA0 // Nivel das PWMS de Movimentacao ou passos
+  76      =1  #define RODA_RIGHT       0xA1 // Nivel das PWMS de Movimentacao ou passos
+  77      =1  
+  78      =1  //#define QQCOISA        0xA2
+  79      =1  //#define QQCOISA2       0xA3
+  80      =1  
+  81      =1  #define CAMERA_PAN       0xA4
+  82      =1  // Vai definir o Angulo Panoramico (Esquerda-Direita) 127 = CENTRO
+  83      =1  #define CAMERA_TILT      0xA5
+  84      =1  // Informacao Absoluta - Vai definir Angulo de Inclinacao (Acima-Abaixo) 127 = CENTRO
+  85      =1  #define CAMERA_ZOOM      0xA6 // Reservado para possivel uso futuro...
+  86      =1  
+  87      =1  #define SONAR_PAN_SET    0xA7
+  88      =1  
+  89      =1  #define STOP             0xFF // Parada De Emergencia !!!!
+  90      =1  // Caso a conexao tcp caia ou um evento watchdog ocorra ( timeout nos pacotes keep-alive
+  91      =1  // do sinal de monitoramento ) parara imediatamente o robo !
+  92      =1  
+  93      =1  #define SONAR_DISPARO    0x00F1
+  94      =1  
+  95      =1  #define DISPAROS_MEDIA   0x000A
+  96      =1  // Solicita um disparo do sonar de maneira assincrona, ou seja fora do modo de varredura.
+  97      =1  //
+  98      =1  #define SONAR_VARREDURA  0x00F2
+  99      =1  // Ativa modo de varredura automatica e envio das informacoes dos encoders, do sonar (e do angulo de PAN d
+             -o sonar, tendo em vista que no modo varredura ele se modifica automaticamente)
+ 100      =1  
+ 101      =1  #define SONAR_MEDIDA    0x00F3
+ 102      =1  
+ 103      =1  #define RESET           0x00F0 // Ordem para RESET GLOBAL
+ 104      =1  #define FIM_COMANDO         0x00FE
+ 105      =1  
+ 106      =1  #define MASCARA_SENTIDO  0x0080  // Mascara que define o bit de sentido da PWM
+ 107      =1  #define MASCARA_PWM      0x007F  // Mascara que define o bit de valor   da PWM
+   4          
+   5          
+   6          //#define DEBUG                                 // SE COMENTAR ESSE DEFINE, GERA O CODIGO SEM AS MENSAGEMS DE DEBUG !!!
+   7          #define PWM_RIGHT_FORWARD P1_4  // DEFINE O PINO NO QUE GERA A PWM PARA A RODA RIREITA GIRAR PARA FRENTE
+   8          #define PWM_RIGHT_REVERSE P1_5  // DEFINE O PINO NO QUE GERA A PWM PARA A RODA RIREITA GIRAR PARA TRAS
+   9          #define PWM_LEFT_FORWARD  P1_6  // DEFINE O PINO NO QUE GERA A PWM PARA A RODA ESQUERA GIRAR PARA FRENTE
+  10          #define PWM_LEFT_REVERSE  P1_7  // DEFINE O PINO NO QUE GERA A PWM PARA A RODA ESQUERA GIRAR PARA TRAS
+  11          
+  12          #define TERRA   0x1F
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 9   
+
+  13          #define VCC     0x1F
+  14          #define CANAL_0 0x00                    // DIRECIONA A LEITURA DO CANAL 0 PARA o PINO P2.0
+  15          #define CANAL_1 0x01                    // DIRECIONA A LEITURA DO CANAL 1 PARA o PINO P2.1
+  16          #define CANAL_2 0x02                    // DIRECIONA A LEITURA DO CANAL 2 PARA o PINO P2.2
+  17          #define CANAL_3 0x03                    // DIRECIONA A LEITURA DO CANAL 3 PARA o PINO P2.3
+  18          #define CANAL_4 0x04                    // DIRECIONA A LEITURA DO CANAL 4 PARA o PINO P2.5 
+  19          #define CANAL_5 0x05                    // DIRECIONA A LEITURA DO CANAL 5 PARA o PINO P2.6
+  20          
+  21          #define SYSCLK       48000000   // SYSCLK frequency in Hz
+  22          #define BAUDRATE0      115200   // Baud rate of UART0 in bps
+  23          #define BAUDRATE1      115200   // Baud rate of UART1 in bps
+  24          sfr16   SBRL1 = 0xB4;
+  25          
+  26          #define PASSO_DE_VELOCIDADE 5  // DEFINE O PASSO DE VELOCIDADE. PODE SER DIMINUIDO PARA OBTER MAIS NIVEIS
+  27          #define TMAX 75                            // TEMPO MAXIMO DAS PWMS DE CONTROLE DE MOVIMENTO - QUANTO MAIOR, MENOR A FREQUENCIA
+             - DE CHAVEAMENTO
+  28                                                                          // 2048 - APROXIMADAMENTE 430 Hz -  Para CLOCK de 11.092
+  29          
+  30          unsigned int pwm_right=0;                       // DETERMINA O VALOR DA PWM DA RODA DIREITA - INDEPENDE SO SENTIDO DE ROTACAO
+  31          unsigned int pwm_left=0;                        // DETERMINA O VALOR DA PWM DA RODA ESQUERDA - INDEPENDE SO SENTIDO DE ROTACAO
+  32          
+  33          unsigned char sensorCount = 0;   // Marca qual sensor acabou de ter sua leitura convertida.
+  34          unsigned char valores_velhos[6]; // armazena as conversoes mais antigas
+  35          unsigned char valores_novos[6];  // Armazena as conversoes mais recentes.
+  36          bit flag_nova_conversao=0;               // Indica que ocorreu uma varredura completa dos sensores.
+  37          bit flag_novo_comando=0;                 // Indica que foi recebido um novo comando.
+  38          unsigned int timer3count = 0;    // Contador para gerar delay no Timer 3.
+  39          
+  40          unsigned char Rx_Buff;
+  41          unsigned char Tx_Buff;
+  42          
+  43          bit sentido;                                    // SENTIDO GERAL DO ROBO... TALVEZ NAO SEJA MAIS NECESSARIA LOGO...
+  44          
+  45          bit flag_pode_enviar = 0;
+  46          bit sentido_roda_esquerda=1;    // DEFINE O SENTIDO DE ROTACAO DA RODA ESQUERA - MUDA NA EXECUCAO DO SOFTWARE
+  47          bit sentido_roda_direita=1;             // DEFINE O SENTIDO DE ROTACAO DA RODA DIREITA - MUDA NA EXECUCAO DO SOFTWARE
+  48          bit flag_nova_configuracao_do_tempo=1;
+  49          char comando[8];                                // RECEBE O COMANDO PELA PORTA SERIAL PELO HIPER-TERMINAL...
+  50                                                                          // PROVAMENTE SERA MODIFICADO PARA UM VETOR DE CHAR QUANDO DE DESEJAR 
+  51                                                                          // OBTER DADOS DO ROBO OU COMANDOS DE MOVIMENTACAO MAIS COMPLEXOS...
+  52          
+  53          unsigned char i;                                // INDICE AUXILIAR PARA LOOPS
+  54          
+  55          
+  56          bit UART = 0;
+  57          
+  58          char putchar (char c)  {
+  59   1      
+  60   1         if (UART == 0) {
+  61   2      
+  62   2            if (c == '\n')  {                // check for newline character
+  63   3               while (!flag_pode_enviar);    // wait until UART0 is ready to transmit
+  64   3               flag_pode_enviar = 0;         // clear interrupt flag
+  65   3               SBUF0 = 0x0d;                 // output carriage return command
+  66   3            }
+  67   2            while (!flag_pode_enviar);                    // wait until UART0 is ready to transmit
+  68   2            flag_pode_enviar = 0;                         // clear interrupt flag
+  69   2            return (SBUF0 = c);              // output <c> using UART 0
+  70   2         }
+  71   1      
+  72   1         else if (UART == 1) {
+  73   2            if (c == '\n')  {                // check for newline character
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 10  
+
+  74   3               while (!(SCON1 & 0x02));      // wait until UART1 is ready to transmit
+  75   3               SCON1 &= ~0x02;               // clear TI1 interrupt flag
+  76   3               SBUF1 = 0x0d;                 // output carriage return
+  77   3            }
+  78   2            while (!(SCON1 & 0x02));         // wait until UART1 is ready to transmit
+  79   2            SCON1 &= ~0x02;                  // clear TI1 interrupt flag
+  80   2            return (SBUF1 = c);              // output <c> using UART 1
+  81   2         }
+  82   1      }
+  83          
+  84          void pwm_setup(){
+  85   1          // 0000 0011
+  86   1              TMOD = (TMOD | 0x03);   // Programa o Timer0 para para Operacao em modo 3, como 2 timers de 8
+  87   1                                                              // bits cada. [ TCOM.M0=1 ] [ TCOM.M1=1 ]
+  88   1                                                              // operando na forma de Timer ( Counter(1) / Timer(0) = 0) [ TCOM.C/T ]
+  89   1                                                              // controlados por software  ( GATE=0 )
+  90   1              ET0 = 1;                                // Enable or disable the Timer 0 overflow interrupt.
+  91   1              ET1 = 0;                                // Disable the Timer 1 overflow interrupt. Agora controlando o timer0 "TL0"
+  92   1              TR0 = 1;                                // Ativa Timer 0 No registro controlador do Timer
+  93   1              TR1 = 0;                                // Desativa Timer 1 No registro controlador do Timer.Agora controlando o timer0 "TL0"
+  94   1              EA = 1;                 // Ativa Todas as Interrupcoes
+  95   1      }
+  96          
+  97          
+  98          void Delay(void)
+  99          {
+ 100   1         int x;
+ 101   1         for(x = 0;x < 500;x)
+ 102   1            x++;
+ 103   1      }
+ 104          
+ 105          void SYSTEMCLOCK_Init (void)                    //Retirado do exemplo de Comunicação UART do Kit da SLI LABS
+ 106                                                                                          //C8051F340
+ 107          {
+ 108   1         OSCICN |= 0x03;                     // Configure internal oscillator for
+ 109   1                                             // its maximum frequency and enable
+ 110   1                                             // missing clock detector
+ 111   1      
+ 112   1         CLKMUL  = 0x00;                     // Select internal oscillator as
+ 113   1                                             // input to clock multiplier
+ 114   1      
+ 115   1         CLKMUL |= 0x80;                     // Enable clock multiplier
+ 116   1         Delay();                            // Delay for clock multiplier to begin
+ 117   1         CLKMUL |= 0xC0;                     // Initialize the clock multiplier
+ 118   1         Delay();                            // Delay for clock multiplier to begin
+ 119   1      
+ 120   1         while(!(CLKMUL & 0x20));            // Wait for multiplier to lock
+ 121   1         CLKSEL  = 0x03;                     // Select system clock
+ 122   1      }
+ 123          
+ 124          void PORT_Init (void)                                   //Retirado do exemplo de comunicação UART do Kit
+ 125          {  
+ 126   1         XBR0 = 0x01;                        // route UART 0 to crossbar
+ 127   1         XBR2 = 0x01;                        // route UART 1 to crossbar
+ 128   1         XBR1 = 0x40;                        // enable crossbar
+ 129   1         P0MDOUT |= 0x11;                    // set P0.4 to push-pull output
+ 130   1         P2MDOUT |= 0x04;                    // set LED to push-pull
+ 131   1         P1MDOUT = 0x00;                                         // Mantem todas os pinos do Port 1 em OpenDrain (0) ou PushPull (1)
+ 132   1         P1MDIN  = 0xFF;                                         // Mantem todas os pinos do Port 1 como entradas Digitais
+ 133   1      }
+ 134          
+ 135          void servos_setup(){
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 11  
+
+ 136   1              // Usara o Modulo PCA Counter/Timer
+ 137   1              // Diponibiliza 5 canais (0 a 4) para geracao de PWM para os Servos !
+ 138   1              // 1 Ultrasom, 3 para Camera
+ 139   1      }
+ 140          
+ 141          void serial_setup(){
+ 142   1      
+ 143   1         // 0001 0000
+ 144   1         SCON0 = 0x10;                       // SCON0: 8-bit variable bit rate
+ 145   1                                             //        level of STOP bit is ignored
+ 146   1                                             //        RX enabled
+ 147   1                                             //        ninth bits are zeros
+ 148   1                                             //        clear RI0 and TI0 bits
+ 149   1      
+ 150   1              // UartBaudRate =  T1 CLK / ( 256 - T1H ) * 0.5
+ 151   1      
+ 152   1         if (SYSCLK/BAUDRATE0/2/256 < 1) {
+ 153   2            TH1 = -(SYSCLK/BAUDRATE0/2);
+ 154   2            CKCON &= ~0x0B;                  // T1M = 1; SCA1:0 = xx
+ 155   2            CKCON |=  0x08;
+ 156   2         } else if (SYSCLK/BAUDRATE0/2/256 < 4) {
+ 157   2            TH1 = -(SYSCLK/BAUDRATE0/2/4);
+ 158   2            CKCON &= ~0x0B;                  // T1M = 0; SCA1:0 = 01                 
+ 159   2            CKCON |=  0x09;
+ 160   2         } else if (SYSCLK/BAUDRATE0/2/256 < 12) {
+ 161   2            TH1 = -(SYSCLK/BAUDRATE0/2/12);
+ 162   2            CKCON &= ~0x0B;                  // T1M = 0; SCA1:0 = 00
+ 163   2         } else {
+ 164   2            TH1 = -(SYSCLK/BAUDRATE0/2/48);
+ 165   2            CKCON &= ~0x0B;                  // T1M = 0; SCA1:0 = 10
+ 166   2            CKCON |=  0x02;
+ 167   2         }
+ 168   1      
+ 169   1         TL1 = TH1;      // init Timer1
+ 170   1         // 0000 1111 - apaga os 4 primeiros bits
+ 171   1         TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit autoreload
+ 172   1         // seta 0010 0000
+ 173   1         TMOD |=  0x20;                       
+ 174   1         TR1 = 1;        // START Timer1
+ 175   1         TI0 = 1;        // Indicate TX0 ready
+ 176   1         ES0 = 1;
+ 177   1      }
+ 178          
+ 179          void ativa_direita(void){
+ 180   1              if (sentido_roda_direita) {             // Avalia sentido da roda direita (em frente == 1)
+ 181   2                      PWM_RIGHT_REVERSE = OFF;        // Desliga o PWM para tras
+ 182   2                      PWM_RIGHT_FORWARD = ON;         // Liga o PWM para frente
+ 183   2              }
+ 184   1              else {
+ 185   2                      PWM_RIGHT_FORWARD = OFF;        // Desliga o PWM para frente
+ 186   2                      PWM_RIGHT_REVERSE = ON;         // Liga o PWM para tras
+ 187   2              }
+ 188   1      }
+ 189          
+ 190          void desativa_direita(void){
+ 191   1              PWM_RIGHT_REVERSE = OFF;                // Desliga o PWM para tras
+ 192   1              PWM_RIGHT_FORWARD = OFF;                // Desliga o PWM para frente
+ 193   1      }
+ 194          
+ 195          void ativa_esquerda(void){
+ 196   1              if (sentido_roda_esquerda) {    // Avalia sentido da roda direita (em frente == 1)
+ 197   2                      PWM_LEFT_REVERSE = OFF;         // Desliga o PWM para tras
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 12  
+
+ 198   2                      PWM_LEFT_FORWARD = ON;          // Liga o PWM para frente
+ 199   2              }
+ 200   1              else {
+ 201   2                      PWM_LEFT_FORWARD = OFF;         // Desliga o PWM para frente
+ 202   2                      PWM_LEFT_REVERSE = ON;          // Liga o PWM para tras
+ 203   2              }
+ 204   1      }
+ 205          
+ 206          void desativa_esquerda(void){
+ 207   1              PWM_LEFT_REVERSE = OFF;         // Desliga o PWM para tras
+ 208   1              PWM_LEFT_FORWARD = OFF;         // Desliga o PWM para frente
+ 209   1      }
+ 210          
+ 211          // Versao Nova - Usado no Micro 8051F340 (48Mhz)
+ 212          void timer0_IT() interrupt 1 {
+ 213   1              static unsigned int pwm_aux=TMAX;
+ 214   1              static unsigned int pwm_left_temp=0;
+ 215   1              static unsigned int pwm_right_temp=0;
+ 216   1      
+ 217   1              TR0 = OFF;                                                      // Desliga o Timer 0 - Obrigatorio, pois precisamos 
+ 218   1                                                                                      // setar os valores do timer a cada vez que este este 
+ 219   1                                                                                      // estra na rotina de tratamento da interrupcao,ora com 
+ 220   1                                                                                      // valores maiores ora com valores menores.
+ 221   1      
+ 222   1              pwm_aux++;  // Incrementa contador de overflows
+ 223   1              if ( pwm_aux == TMAX ) {
+ 224   2                      // Fim de Ciclo de Geracao da PWM ( 251 Hz )
+ 225   2                      pwm_left_temp=pwm_left;   // Recarega com valores de pwm
+ 226   2                      pwm_right_temp=pwm_right; // Recarega com valores de pwm
+ 227   2                      pwm_aux=0;                                // Reseta contador
+ 228   2              }
+ 229   1              else {
+ 230   2                      if (pwm_left_temp>0) { 
+ 231   3                              ativa_esquerda(); 
+ 232   3                      } 
+ 233   2                      else { 
+ 234   3                              desativa_esquerda();
+ 235   3                      }
+ 236   2                      if (pwm_right_temp>0) {
+ 237   3                              ativa_direita();
+ 238   3                      }
+ 239   2                      else { 
+ 240   3                              desativa_direita();
+ 241   3                      }
+ 242   2                      if (pwm_left_temp >0) pwm_left_temp--; 
+ 243   2                      if (pwm_right_temp>0) pwm_right_temp--; 
+ 244   2              }
+ 245   1      
+ 246   1              TL0=0;      // Zera Timer
+ 247   1              TF0 = 0;        // Limpa Flag de Interrupcao do Timer 0    
+ 248   1              TR0 = 1;        // Ligar o Timer 0
+ 249   1      }
+ 250          
+ 251          void ADC_setup () {     // USAR TIMER 3
+ 252   1              REF0CN = 0x08;          // Seleciona VDD como tensao de referencia.
+ 253   1              AMX0N = TERRA;          // Define a entrada negativa do ADC0 como GND.
+ 254   1              ADC0CF = 11<<3;         // Configura o CLOCK do passo da conversao como 4.8MHZ
+ 255   1              ADC0CF |= 0x04;         // Configura o ADC0 para ignorar os 2 bits menos
+ 256   1                                                      // significativos da conversao
+ 257   1              AMX0P = CANAL_0;        // Seleciona a entrada da conversao como o canal 0 (P2.0)
+ 258   1          TMR3CN &= ~0x01;
+ 259   1              CKCON &= 0x3F;
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 13  
+
+ 260   1              TMR3L = 0xFF;           // Configura o valor maximo da contagem como 255
+ 261   1              TMR3RLL = 0;
+ 262   1              EIE1 |= 0x88;
+ 263   1              TMR3CN = 0x28;          // Habilita interrupcao do timer 3 pelo low byte.
+ 264   1              ADC0CN = 0x80;          // Seleciona inicio de conversao no set do bit ADCBUSY.
+ 265   1      }
+ 266          
+ 267          void interrupt_timer3() interrupt 14 {  // Trata a interrupcao do Timer 3
+ 268   1      
+ 269   1              // 784 - 50 ms
+ 270   1              // 3136 - 200 ms
+ 271   1              if(timer3count == 3136 * 5) { // Contar para gerar um delay de 200ms
+ 272   2                      AD0BUSY =1;                               // Iniciar as conversoes no ADC0.
+ 273   2                      timer3count = 0;
+ 274   2              }
+ 275   1              else timer3count++;
+ 276   1              TMR3CN &= ~0x40;
+ 277   1      }
+ 278          
+ 279          void interrupt_ADC() interrupt 10 { // Tratamento da interrupcao do ADC0
+ 280   1              switch(sensorCount){
+ 281   2                      case 0:
+ 282   2                              AMX0P =  CANAL_1;       // Seleciona a entrada da conversao como o canal 1 (P2.1)
+ 283   2                      break;
+ 284   2                      case 1:
+ 285   2                              AMX0P =  CANAL_2;       // Seleciona a entrada da conversao como o canal 2 (P2.2)
+ 286   2                      break;
+ 287   2                      case 2:
+ 288   2                              AMX0P =  CANAL_3;       // Seleciona a entrada da conversao como o canal 3 (P2.3)
+ 289   2                      break;
+ 290   2                      case 3:
+ 291   2                              AMX0P =  CANAL_4;       // Seleciona a entrada da conversao como o canal 4 (P2.5)
+ 292   2                      break;
+ 293   2                      case 4:
+ 294   2                              AMX0P =  CANAL_5;       // Seleciona a entrada da conversao como o canal 5 (P2.6)
+ 295   2                      break;
+ 296   2                      case 5:
+ 297   2                              AMX0P =  CANAL_0;       // Seleciona a entrada da conversao como o canal 0 (P2.0)
+ 298   2                              flag_nova_conversao = 1;
+ 299   2                      break;
+ 300   2              }
+ 301   1              valores_novos[sensorCount] = ADC0H;
+ 302   1              if(sensorCount == 5) { 
+ 303   2                      sensorCount = 0xFF; // Sinaliza que nao havera mais conversoes
+ 304   2              }
+ 305   1              sensorCount++;
+ 306   1              if(sensorCount != 0) AD0BUSY = 1; // Dispara a proxima conversao.
+ 307   1              AD0INT = 0;
+ 308   1      }
+ 309          
+ 310          void enviar_distancias() {
+ 311   1      
+ 312   1              unsigned char comando_send[4];
+ 313   1              unsigned char indice;
+ 314   1              unsigned char indice2;
+ 315   1              for(indice = 0; indice < 6; indice++){
+ 316   2                      if ( valores_velhos[indice] != valores_novos[indice] ) {
+ 317   3                              comando_send[0] = SENSOR_OPTICO_0 + indice;
+ 318   3                              comando_send[1] = valores_novos[indice] + (valores_novos[indice] == 0);
+ 319   3                              comando_send[2] = FIM_COMANDO;
+ 320   3                              comando_send[3] = '\n';
+ 321   3                              for(indice2 = 0; indice2 < 4 ; indice2++) {             
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 14  
+
+ 322   4                                      while(!flag_pode_enviar);
+ 323   4                                      flag_pode_enviar = 0;
+ 324   4                                      SBUF0 = comando_send[indice2];
+ 325   4                              }
+ 326   3                      }
+ 327   2              }
+ 328   1      }
+ 329          
+ 330          void interrupt_encoder() interrupt 0 {
+ 331   1              //TODO
+ 332   1      }
+ 333          
+ 334          void interrupt_serial() interrupt 4 { // Tratamento da interrupcao da UART0
+ 335   1              static short int indice = 0;
+ 336   1              if (RI0 == 1){                                  
+ 337   2                      comando[indice] = SBUF0;
+ 338   2                      if(comando[indice] == '\n' || indice ==5) { // Limitando comando em 6 caracteres
+ 339   3                              comando[indice] = '\0';
+ 340   3                              indice = 0;
+ 341   3                              flag_novo_comando = 1;
+ 342   3                      }       
+ 343   2                      else indice++;
+ 344   2                      RI0=0;
+ 345   2              }
+ 346   1      
+ 347   1              if(TI0 == 1) {
+ 348   2                      TI0 = 0;
+ 349   2                      flag_pode_enviar = 1;
+ 350   2              }
+ 351   1      
+ 352   1      }
+ 353          void main (void)  {     /* main program */
+ 354   1      
+ 355   1          PCA0MD &= ~0x40;    // Disable Watchdog timer
+ 356   1      
+ 357   1              SYSTEMCLOCK_Init(); // Inicialização do Clock da Serial
+ 358   1              PORT_Init();            
+ 359   1      
+ 360   1              serial_setup();         // Configura a comunicacao serial
+ 361   1              pwm_setup();            // Configura o PWM
+ 362   1      
+ 363   1              ADC_setup();            // Configura o ADC0
+ 364   1              EA = 1;                         // Habilita todas as interrupcoes
+ 365   1      
+ 366   1              pwm_left  = 35;         // hardcode - teste da PWM
+ 367   1              pwm_right = 35;         // hardcode - teste da PWM
+ 368   1              sentido_roda_esquerda = 1;
+ 369   1              sentido_roda_direita = 1;
+ 370   1      
+ 371   1        while (1)  { // Loop infinito....
+ 372   2              if(flag_nova_conversao){        // Novos valores de conversao disponiveis
+ 373   3                      enviar_distancias();
+ 374   3                      flag_nova_conversao = 0;
+ 375   3                      for (i=0; i<6; i++) {
+ 376   4                              valores_velhos[i] = valores_novos[i]; // Armazena valores velhos
+ 377   4                      }
+ 378   3              }
+ 379   2      
+ 380   2              if(flag_novo_comando){
+ 381   3      
+ 382   3      #ifdef DEBUG
+                          printf("Comando Recebido : %c %c %c %c -",comando[0],comando[1],comando[2],comando[3]);
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 15  
+
+              #endif
+ 385   3                      flag_novo_comando = 0;
+ 386   3                      switch (comando[0]) {
+ 387   4                              case RODA_LEFT:
+ 388   4                                      #ifdef DEBUG
+                                                      printf("RODA_LEFT\n");
+                                              #endif
+ 391   4                                      sentido_roda_esquerda = (comando[1] & MASCARA_SENTIDO);
+ 392   4                                      pwm_left = (comando[1] & MASCARA_PWM) * PASSO_DE_VELOCIDADE;
+ 393   4                                      break;
+ 394   4                              case RODA_RIGHT:
+ 395   4                                      #ifdef DEBUG
+                                                      printf("RODA_RIGHT\n");
+                                              #endif
+ 398   4                                      sentido_roda_direita=(comando[1] & MASCARA_SENTIDO);
+ 399   4                                      pwm_right = (comando[1] & MASCARA_PWM) * PASSO_DE_VELOCIDADE;
+ 400   4                                      break;
+ 401   4                      
+ 402   4                              case STOP: 
+ 403   4                                      pwm_right=pwm_left=0;
+ 404   4                                      #ifdef DEBUG
+                                                      printf("STOP ! \n");
+                                              #endif
+ 407   4                                      break;
+ 408   4                      
+ 409   4                              default:
+ 410   4                                      #ifdef DEBUG
+                                                      printf("Comando Invalido !");
+                                              #endif
+ 413   4                              break;
+ 414   4                      } 
+ 415   3              }
+ 416   2       }
+ 417   1      }
+ 418          
+ 419          
+*** WARNING C291 IN LINE 82 OF MAIN.C: not every exit path returns a value
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 16  
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION _putchar (BEGIN)
+                                           ; SOURCE LINE # 58
+;---- Variable 'c' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 60
+0000 200014      R     JB      UART,?C0001
+                                           ; SOURCE LINE # 62
+0003 EF                MOV     A,R7
+0004 B40A08            CJNE    A,#0AH,?C0005
+0007         ?C0003:
+                                           ; SOURCE LINE # 63
+0007 3000FD      R     JNB     flag_pode_enviar,?C0003
+000A         ?C0004:
+                                           ; SOURCE LINE # 64
+000A C200        R     CLR     flag_pode_enviar
+                                           ; SOURCE LINE # 65
+000C 75990D            MOV     SBUF0,#0DH
+                                           ; SOURCE LINE # 66
+000F         ?C0005:
+                                           ; SOURCE LINE # 67
+000F 3000FD      R     JNB     flag_pode_enviar,?C0005
+0012         ?C0006:
+                                           ; SOURCE LINE # 68
+0012 C200        R     CLR     flag_pode_enviar
+                                           ; SOURCE LINE # 69
+0014 8F99              MOV     SBUF0,R7
+0016 22                RET     
+                                           ; SOURCE LINE # 70
+0017         ?C0001:
+                                           ; SOURCE LINE # 72
+0017 300019      R     JNB     UART,?C0007
+                                           ; SOURCE LINE # 73
+001A EF                MOV     A,R7
+001B B40A0B            CJNE    A,#0AH,?C0013
+001E         ?C0011:
+                                           ; SOURCE LINE # 74
+001E E5D2              MOV     A,SCON1
+0020 30E1FB            JNB     ACC.1,?C0011
+0023         ?C0012:
+                                           ; SOURCE LINE # 75
+0023 53D2FD            ANL     SCON1,#0FDH
+                                           ; SOURCE LINE # 76
+0026 75D30D            MOV     SBUF1,#0DH
+                                           ; SOURCE LINE # 77
+0029         ?C0013:
+                                           ; SOURCE LINE # 78
+0029 E5D2              MOV     A,SCON1
+002B 30E1FB            JNB     ACC.1,?C0013
+002E         ?C0014:
+                                           ; SOURCE LINE # 79
+002E 53D2FD            ANL     SCON1,#0FDH
+                                           ; SOURCE LINE # 80
+0031 8FD3              MOV     SBUF1,R7
+                                           ; SOURCE LINE # 81
+                                           ; SOURCE LINE # 82
+0033         ?C0007:
+0033 22                RET     
+             ; FUNCTION _putchar (END)
+
+             ; FUNCTION pwm_setup (BEGIN)
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 17  
+
+                                           ; SOURCE LINE # 84
+                                           ; SOURCE LINE # 86
+0000 438903            ORL     TMOD,#03H
+                                           ; SOURCE LINE # 90
+0003 D2A9              SETB    ET0
+                                           ; SOURCE LINE # 91
+0005 C2AB              CLR     ET1
+                                           ; SOURCE LINE # 92
+0007 D28C              SETB    TR0
+                                           ; SOURCE LINE # 93
+0009 C28E              CLR     TR1
+                                           ; SOURCE LINE # 94
+000B D2AF              SETB    EA
+                                           ; SOURCE LINE # 95
+000D 22                RET     
+             ; FUNCTION pwm_setup (END)
+
+             ; FUNCTION Delay (BEGIN)
+                                           ; SOURCE LINE # 98
+                                           ; SOURCE LINE # 99
+                                           ; SOURCE LINE # 101
+;---- Variable 'x' assigned to Register 'R6/R7' ----
+0000 E4                CLR     A
+0001 FF                MOV     R7,A
+0002 FE                MOV     R6,A
+0003         ?C0016:
+                                           ; SOURCE LINE # 102
+0003 0F                INC     R7
+0004 BF0001            CJNE    R7,#00H,?C0095
+0007 0E                INC     R6
+0008         ?C0095:
+0008 BE01F8            CJNE    R6,#01H,?C0016
+000B BFF4F5            CJNE    R7,#0F4H,?C0016
+                                           ; SOURCE LINE # 103
+000E         ?C0019:
+000E 22                RET     
+             ; FUNCTION Delay (END)
+
+             ; FUNCTION SYSTEMCLOCK_Init (BEGIN)
+                                           ; SOURCE LINE # 105
+                                           ; SOURCE LINE # 107
+                                           ; SOURCE LINE # 108
+0000 43B203            ORL     OSCICN,#03H
+                                           ; SOURCE LINE # 112
+0003 E4                CLR     A
+0004 F5B9              MOV     CLKMUL,A
+                                           ; SOURCE LINE # 115
+0006 43B980            ORL     CLKMUL,#080H
+                                           ; SOURCE LINE # 116
+0009 120000      R     LCALL   Delay
+                                           ; SOURCE LINE # 117
+000C 43B9C0            ORL     CLKMUL,#0C0H
+                                           ; SOURCE LINE # 118
+000F 120000      R     LCALL   Delay
+0012         ?C0020:
+                                           ; SOURCE LINE # 120
+0012 E5B9              MOV     A,CLKMUL
+0014 30E5FB            JNB     ACC.5,?C0020
+0017         ?C0021:
+                                           ; SOURCE LINE # 121
+0017 75A903            MOV     CLKSEL,#03H
+                                           ; SOURCE LINE # 122
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 18  
+
+001A 22                RET     
+             ; FUNCTION SYSTEMCLOCK_Init (END)
+
+             ; FUNCTION PORT_Init (BEGIN)
+                                           ; SOURCE LINE # 124
+                                           ; SOURCE LINE # 125
+                                           ; SOURCE LINE # 126
+0000 75E101            MOV     XBR0,#01H
+                                           ; SOURCE LINE # 127
+0003 75E301            MOV     XBR2,#01H
+                                           ; SOURCE LINE # 128
+0006 75E240            MOV     XBR1,#040H
+                                           ; SOURCE LINE # 129
+0009 43A411            ORL     P0MDOUT,#011H
+                                           ; SOURCE LINE # 130
+000C 43A604            ORL     P2MDOUT,#04H
+                                           ; SOURCE LINE # 131
+000F E4                CLR     A
+0010 F5A5              MOV     P1MDOUT,A
+                                           ; SOURCE LINE # 132
+0012 75F2FF            MOV     P1MDIN,#0FFH
+                                           ; SOURCE LINE # 133
+0015 22                RET     
+             ; FUNCTION PORT_Init (END)
+
+             ; FUNCTION servos_setup (BEGIN)
+                                           ; SOURCE LINE # 135
+                                           ; SOURCE LINE # 139
+0000 22                RET     
+             ; FUNCTION servos_setup (END)
+
+             ; FUNCTION serial_setup (BEGIN)
+                                           ; SOURCE LINE # 141
+                                           ; SOURCE LINE # 144
+0000 759810            MOV     SCON0,#010H
+                                           ; SOURCE LINE # 152
+                                           ; SOURCE LINE # 153
+0003 758D30            MOV     TH1,#030H
+                                           ; SOURCE LINE # 154
+0006 538EF4            ANL     CKCON,#0F4H
+                                           ; SOURCE LINE # 155
+0009 438E08            ORL     CKCON,#08H
+                                           ; SOURCE LINE # 156
+                                           ; SOURCE LINE # 157
+                                           ; SOURCE LINE # 158
+                                           ; SOURCE LINE # 159
+                                           ; SOURCE LINE # 160
+                                           ; SOURCE LINE # 161
+                                           ; SOURCE LINE # 162
+                                           ; SOURCE LINE # 163
+                                           ; SOURCE LINE # 164
+                                           ; SOURCE LINE # 165
+                                           ; SOURCE LINE # 166
+                                           ; SOURCE LINE # 167
+000C         ?C0026:
+                                           ; SOURCE LINE # 169
+000C 858D8B            MOV     TL1,TH1
+                                           ; SOURCE LINE # 171
+000F 53890F            ANL     TMOD,#0FH
+                                           ; SOURCE LINE # 173
+0012 438920            ORL     TMOD,#020H
+                                           ; SOURCE LINE # 174
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 19  
+
+0015 D28E              SETB    TR1
+                                           ; SOURCE LINE # 175
+0017 D299              SETB    TI0
+                                           ; SOURCE LINE # 176
+0019 D2AC              SETB    ES0
+                                           ; SOURCE LINE # 177
+001B 22                RET     
+             ; FUNCTION serial_setup (END)
+
+             ; FUNCTION ativa_direita (BEGIN)
+                                           ; SOURCE LINE # 179
+                                           ; SOURCE LINE # 180
+0000 300005      R     JNB     sentido_roda_direita,?C0032
+                                           ; SOURCE LINE # 181
+0003 C295              CLR     P1_5
+                                           ; SOURCE LINE # 182
+0005 D294              SETB    P1_4
+                                           ; SOURCE LINE # 183
+0007 22                RET     
+0008         ?C0032:
+                                           ; SOURCE LINE # 184
+                                           ; SOURCE LINE # 185
+0008 C294              CLR     P1_4
+                                           ; SOURCE LINE # 186
+000A D295              SETB    P1_5
+                                           ; SOURCE LINE # 187
+                                           ; SOURCE LINE # 188
+000C         ?C0034:
+000C 22                RET     
+             ; FUNCTION ativa_direita (END)
+
+             ; FUNCTION desativa_direita (BEGIN)
+                                           ; SOURCE LINE # 190
+                                           ; SOURCE LINE # 191
+0000 C295              CLR     P1_5
+                                           ; SOURCE LINE # 192
+0002 C294              CLR     P1_4
+                                           ; SOURCE LINE # 193
+0004 22                RET     
+             ; FUNCTION desativa_direita (END)
+
+             ; FUNCTION ativa_esquerda (BEGIN)
+                                           ; SOURCE LINE # 195
+                                           ; SOURCE LINE # 196
+0000 300005      R     JNB     sentido_roda_esquerda,?C0036
+                                           ; SOURCE LINE # 197
+0003 C297              CLR     P1_7
+                                           ; SOURCE LINE # 198
+0005 D296              SETB    P1_6
+                                           ; SOURCE LINE # 199
+0007 22                RET     
+0008         ?C0036:
+                                           ; SOURCE LINE # 200
+                                           ; SOURCE LINE # 201
+0008 C296              CLR     P1_6
+                                           ; SOURCE LINE # 202
+000A D297              SETB    P1_7
+                                           ; SOURCE LINE # 203
+                                           ; SOURCE LINE # 204
+000C         ?C0038:
+000C 22                RET     
+             ; FUNCTION ativa_esquerda (END)
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 20  
+
+
+             ; FUNCTION desativa_esquerda (BEGIN)
+                                           ; SOURCE LINE # 206
+                                           ; SOURCE LINE # 207
+0000 C297              CLR     P1_7
+                                           ; SOURCE LINE # 208
+0002 C296              CLR     P1_6
+                                           ; SOURCE LINE # 209
+0004 22                RET     
+             ; FUNCTION desativa_esquerda (END)
+
+             ; FUNCTION timer0_IT (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C083              PUSH    DPH
+0004 C082              PUSH    DPL
+0006 C0D0              PUSH    PSW
+0008 75D000            MOV     PSW,#00H
+000B C007              PUSH    AR7
+                                           ; SOURCE LINE # 212
+                                           ; SOURCE LINE # 217
+000D C28C              CLR     TR0
+                                           ; SOURCE LINE # 222
+000F 900000      R     MOV     DPTR,#pwm_aux+01H
+0012 E0                MOVX    A,@DPTR
+0013 04                INC     A
+0014 F0                MOVX    @DPTR,A
+0015 7006              JNZ     ?C0096
+0017 900000      R     MOV     DPTR,#pwm_aux
+001A E0                MOVX    A,@DPTR
+001B 04                INC     A
+001C F0                MOVX    @DPTR,A
+001D         ?C0096:
+                                           ; SOURCE LINE # 223
+001D 900000      R     MOV     DPTR,#pwm_aux
+0020 E0                MOVX    A,@DPTR
+0021 7004              JNZ     ?C0097
+0023 A3                INC     DPTR
+0024 E0                MOVX    A,@DPTR
+0025 644B              XRL     A,#04BH
+0027         ?C0097:
+0027 7027              JNZ     ?C0040
+                                           ; SOURCE LINE # 225
+0029 900000      R     MOV     DPTR,#pwm_left
+002C E0                MOVX    A,@DPTR
+002D FF                MOV     R7,A
+002E A3                INC     DPTR
+002F E0                MOVX    A,@DPTR
+0030 900000      R     MOV     DPTR,#pwm_left_temp
+0033 CF                XCH     A,R7
+0034 F0                MOVX    @DPTR,A
+0035 A3                INC     DPTR
+0036 EF                MOV     A,R7
+0037 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 226
+0038 900000      R     MOV     DPTR,#pwm_right
+003B E0                MOVX    A,@DPTR
+003C FF                MOV     R7,A
+003D A3                INC     DPTR
+003E E0                MOVX    A,@DPTR
+003F 900000      R     MOV     DPTR,#pwm_right_temp
+0042 CF                XCH     A,R7
+0043 F0                MOVX    @DPTR,A
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 21  
+
+0044 A3                INC     DPTR
+0045 EF                MOV     A,R7
+0046 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 227
+0047 900000      R     MOV     DPTR,#pwm_aux
+004A E4                CLR     A
+004B F0                MOVX    @DPTR,A
+004C A3                INC     DPTR
+004D F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 228
+004E 8064              SJMP    ?C0041
+0050         ?C0040:
+                                           ; SOURCE LINE # 229
+                                           ; SOURCE LINE # 230
+0050 D3                SETB    C
+0051 900000      R     MOV     DPTR,#pwm_left_temp+01H
+0054 E0                MOVX    A,@DPTR
+0055 9400              SUBB    A,#00H
+0057 900000      R     MOV     DPTR,#pwm_left_temp
+005A E0                MOVX    A,@DPTR
+005B 9400              SUBB    A,#00H
+005D 4005              JC      ?C0042
+                                           ; SOURCE LINE # 231
+005F 120000      R     LCALL   ativa_esquerda
+                                           ; SOURCE LINE # 232
+0062 8003              SJMP    ?C0043
+0064         ?C0042:
+                                           ; SOURCE LINE # 233
+                                           ; SOURCE LINE # 234
+0064 120000      R     LCALL   desativa_esquerda
+                                           ; SOURCE LINE # 235
+0067         ?C0043:
+                                           ; SOURCE LINE # 236
+0067 D3                SETB    C
+0068 900000      R     MOV     DPTR,#pwm_right_temp+01H
+006B E0                MOVX    A,@DPTR
+006C 9400              SUBB    A,#00H
+006E 900000      R     MOV     DPTR,#pwm_right_temp
+0071 E0                MOVX    A,@DPTR
+0072 9400              SUBB    A,#00H
+0074 4005              JC      ?C0044
+                                           ; SOURCE LINE # 237
+0076 120000      R     LCALL   ativa_direita
+                                           ; SOURCE LINE # 238
+0079 8003              SJMP    ?C0045
+007B         ?C0044:
+                                           ; SOURCE LINE # 239
+                                           ; SOURCE LINE # 240
+007B 120000      R     LCALL   desativa_direita
+                                           ; SOURCE LINE # 241
+007E         ?C0045:
+                                           ; SOURCE LINE # 242
+007E D3                SETB    C
+007F 900000      R     MOV     DPTR,#pwm_left_temp+01H
+0082 E0                MOVX    A,@DPTR
+0083 9400              SUBB    A,#00H
+0085 900000      R     MOV     DPTR,#pwm_left_temp
+0088 E0                MOVX    A,@DPTR
+0089 9400              SUBB    A,#00H
+008B 400C              JC      ?C0046
+008D A3                INC     DPTR
+008E E0                MOVX    A,@DPTR
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 22  
+
+008F 24FF              ADD     A,#0FFH
+0091 F0                MOVX    @DPTR,A
+0092 900000      R     MOV     DPTR,#pwm_left_temp
+0095 E0                MOVX    A,@DPTR
+0096 34FF              ADDC    A,#0FFH
+0098 F0                MOVX    @DPTR,A
+0099         ?C0046:
+                                           ; SOURCE LINE # 243
+0099 D3                SETB    C
+009A 900000      R     MOV     DPTR,#pwm_right_temp+01H
+009D E0                MOVX    A,@DPTR
+009E 9400              SUBB    A,#00H
+00A0 900000      R     MOV     DPTR,#pwm_right_temp
+00A3 E0                MOVX    A,@DPTR
+00A4 9400              SUBB    A,#00H
+00A6 400C              JC      ?C0041
+00A8 A3                INC     DPTR
+00A9 E0                MOVX    A,@DPTR
+00AA 24FF              ADD     A,#0FFH
+00AC F0                MOVX    @DPTR,A
+00AD 900000      R     MOV     DPTR,#pwm_right_temp
+00B0 E0                MOVX    A,@DPTR
+00B1 34FF              ADDC    A,#0FFH
+00B3 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 244
+00B4         ?C0041:
+                                           ; SOURCE LINE # 246
+00B4 758A00            MOV     TL0,#00H
+                                           ; SOURCE LINE # 247
+00B7 C28D              CLR     TF0
+                                           ; SOURCE LINE # 248
+00B9 D28C              SETB    TR0
+                                           ; SOURCE LINE # 249
+00BB D007              POP     AR7
+00BD D0D0              POP     PSW
+00BF D082              POP     DPL
+00C1 D083              POP     DPH
+00C3 D0E0              POP     ACC
+00C5 32                RETI    
+             ; FUNCTION timer0_IT (END)
+
+             ; FUNCTION ADC_setup (BEGIN)
+                                           ; SOURCE LINE # 251
+                                           ; SOURCE LINE # 252
+0000 75D108            MOV     REF0CN,#08H
+                                           ; SOURCE LINE # 253
+0003 75BA1F            MOV     AMX0N,#01FH
+                                           ; SOURCE LINE # 254
+0006 75BC58            MOV     ADC0CF,#058H
+                                           ; SOURCE LINE # 255
+0009 43BC04            ORL     ADC0CF,#04H
+                                           ; SOURCE LINE # 257
+000C E4                CLR     A
+000D F5BB              MOV     AMX0P,A
+                                           ; SOURCE LINE # 258
+000F 5391FE            ANL     TMR3CN,#0FEH
+                                           ; SOURCE LINE # 259
+0012 538E3F            ANL     CKCON,#03FH
+                                           ; SOURCE LINE # 260
+0015 7594FF            MOV     TMR3L,#0FFH
+                                           ; SOURCE LINE # 261
+0018 F592              MOV     TMR3RLL,A
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 23  
+
+                                           ; SOURCE LINE # 262
+001A 43E688            ORL     EIE1,#088H
+                                           ; SOURCE LINE # 263
+001D 759128            MOV     TMR3CN,#028H
+                                           ; SOURCE LINE # 264
+0020 75E880            MOV     ADC0CN,#080H
+                                           ; SOURCE LINE # 265
+0023 22                RET     
+             ; FUNCTION ADC_setup (END)
+
+             ; FUNCTION interrupt_timer3 (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C083              PUSH    DPH
+0004 C082              PUSH    DPL
+0006 C0D0              PUSH    PSW
+                                           ; SOURCE LINE # 267
+                                           ; SOURCE LINE # 271
+0008 900000      R     MOV     DPTR,#timer3count
+000B E0                MOVX    A,@DPTR
+000C B43D10            CJNE    A,#03DH,?C0050
+000F A3                INC     DPTR
+0010 E0                MOVX    A,@DPTR
+0011 B4400B            CJNE    A,#040H,?C0050
+                                           ; SOURCE LINE # 272
+0014 D2EC              SETB    AD0BUSY
+                                           ; SOURCE LINE # 273
+0016 900000      R     MOV     DPTR,#timer3count
+0019 E4                CLR     A
+001A F0                MOVX    @DPTR,A
+001B A3                INC     DPTR
+001C F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 274
+001D 800E              SJMP    ?C0051
+001F         ?C0050:
+                                           ; SOURCE LINE # 275
+001F 900000      R     MOV     DPTR,#timer3count+01H
+0022 E0                MOVX    A,@DPTR
+0023 04                INC     A
+0024 F0                MOVX    @DPTR,A
+0025 7006              JNZ     ?C0099
+0027 900000      R     MOV     DPTR,#timer3count
+002A E0                MOVX    A,@DPTR
+002B 04                INC     A
+002C F0                MOVX    @DPTR,A
+002D         ?C0099:
+002D         ?C0051:
+                                           ; SOURCE LINE # 276
+002D 5391BF            ANL     TMR3CN,#0BFH
+                                           ; SOURCE LINE # 277
+0030 D0D0              POP     PSW
+0032 D082              POP     DPL
+0034 D083              POP     DPH
+0036 D0E0              POP     ACC
+0038 32                RETI    
+             ; FUNCTION interrupt_timer3 (END)
+
+             ; FUNCTION interrupt_ADC (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C083              PUSH    DPH
+0004 C082              PUSH    DPL
+0006 C0D0              PUSH    PSW
+0008 75D000            MOV     PSW,#00H
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 24  
+
+000B C007              PUSH    AR7
+                                           ; SOURCE LINE # 279
+                                           ; SOURCE LINE # 280
+000D 900000      R     MOV     DPTR,#sensorCount
+0010 E0                MOVX    A,@DPTR
+0011 14                DEC     A
+0012 6015              JZ      ?C0055
+0014 14                DEC     A
+0015 6017              JZ      ?C0056
+0017 14                DEC     A
+0018 6019              JZ      ?C0057
+001A 14                DEC     A
+001B 601B              JZ      ?C0058
+001D 14                DEC     A
+001E 601D              JZ      ?C0059
+0020 2405              ADD     A,#05H
+0022 701E              JNZ     ?C0053
+                                           ; SOURCE LINE # 281
+0024         ?C0054:
+                                           ; SOURCE LINE # 282
+0024 75BB01            MOV     AMX0P,#01H
+                                           ; SOURCE LINE # 283
+0027 8019              SJMP    ?C0053
+                                           ; SOURCE LINE # 284
+0029         ?C0055:
+                                           ; SOURCE LINE # 285
+0029 75BB02            MOV     AMX0P,#02H
+                                           ; SOURCE LINE # 286
+002C 8014              SJMP    ?C0053
+                                           ; SOURCE LINE # 287
+002E         ?C0056:
+                                           ; SOURCE LINE # 288
+002E 75BB03            MOV     AMX0P,#03H
+                                           ; SOURCE LINE # 289
+0031 800F              SJMP    ?C0053
+                                           ; SOURCE LINE # 290
+0033         ?C0057:
+                                           ; SOURCE LINE # 291
+0033 75BB04            MOV     AMX0P,#04H
+                                           ; SOURCE LINE # 292
+0036 800A              SJMP    ?C0053
+                                           ; SOURCE LINE # 293
+0038         ?C0058:
+                                           ; SOURCE LINE # 294
+0038 75BB05            MOV     AMX0P,#05H
+                                           ; SOURCE LINE # 295
+003B 8005              SJMP    ?C0053
+                                           ; SOURCE LINE # 296
+003D         ?C0059:
+                                           ; SOURCE LINE # 297
+003D 75BB00            MOV     AMX0P,#00H
+                                           ; SOURCE LINE # 298
+0040 D200        R     SETB    flag_nova_conversao
+                                           ; SOURCE LINE # 299
+                                           ; SOURCE LINE # 300
+0042         ?C0053:
+                                           ; SOURCE LINE # 301
+0042 900000      R     MOV     DPTR,#sensorCount
+0045 E0                MOVX    A,@DPTR
+0046 FF                MOV     R7,A
+0047 2400        R     ADD     A,#LOW valores_novos
+0049 F582              MOV     DPL,A
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 25  
+
+004B E4                CLR     A
+004C 3400        R     ADDC    A,#HIGH valores_novos
+004E F583              MOV     DPH,A
+0050 E5BE              MOV     A,ADC0H
+0052 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 302
+0053 EF                MOV     A,R7
+0054 B40506            CJNE    A,#05H,?C0060
+                                           ; SOURCE LINE # 303
+0057 900000      R     MOV     DPTR,#sensorCount
+005A 74FF              MOV     A,#0FFH
+005C F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 304
+005D         ?C0060:
+                                           ; SOURCE LINE # 305
+005D 900000      R     MOV     DPTR,#sensorCount
+0060 E0                MOVX    A,@DPTR
+0061 04                INC     A
+0062 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 306
+0063 E0                MOVX    A,@DPTR
+0064 6002              JZ      ?C0061
+0066 D2EC              SETB    AD0BUSY
+0068         ?C0061:
+                                           ; SOURCE LINE # 307
+0068 C2ED              CLR     AD0INT
+                                           ; SOURCE LINE # 308
+006A D007              POP     AR7
+006C D0D0              POP     PSW
+006E D082              POP     DPL
+0070 D083              POP     DPH
+0072 D0E0              POP     ACC
+0074 32                RETI    
+             ; FUNCTION interrupt_ADC (END)
+
+             ; FUNCTION enviar_distancias (BEGIN)
+                                           ; SOURCE LINE # 310
+                                           ; SOURCE LINE # 315
+;---- Variable 'indice' assigned to Register 'R4' ----
+0000 E4                CLR     A
+0001 FC                MOV     R4,A
+0002         ?C0063:
+                                           ; SOURCE LINE # 316
+0002 7400        R     MOV     A,#LOW valores_novos
+0004 2C                ADD     A,R4
+0005 F582              MOV     DPL,A
+0007 E4                CLR     A
+0008 3400        R     ADDC    A,#HIGH valores_novos
+000A F583              MOV     DPH,A
+000C E0                MOVX    A,@DPTR
+000D FE                MOV     R6,A
+000E 7400        R     MOV     A,#LOW valores_velhos
+0010 2C                ADD     A,R4
+0011 F582              MOV     DPL,A
+0013 E4                CLR     A
+0014 3400        R     ADDC    A,#HIGH valores_velhos
+0016 F583              MOV     DPH,A
+0018 E0                MOVX    A,@DPTR
+0019 6E                XRL     A,R6
+001A 6041              JZ      ?C0065
+                                           ; SOURCE LINE # 317
+001C EC                MOV     A,R4
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 26  
+
+001D 2422              ADD     A,#022H
+001F 900000      R     MOV     DPTR,#comando_send
+0022 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 318
+0023 EE                MOV     A,R6
+0024 7004              JNZ     ?C0067
+0026 7F01              MOV     R7,#01H
+0028 8002              SJMP    ?C0068
+002A         ?C0067:
+002A 7F00              MOV     R7,#00H
+002C         ?C0068:
+002C 7400        R     MOV     A,#LOW valores_novos
+002E 2C                ADD     A,R4
+002F F582              MOV     DPL,A
+0031 E4                CLR     A
+0032 3400        R     ADDC    A,#HIGH valores_novos
+0034 F583              MOV     DPH,A
+0036 E0                MOVX    A,@DPTR
+0037 2F                ADD     A,R7
+0038 900000      R     MOV     DPTR,#comando_send+01H
+003B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 319
+003C A3                INC     DPTR
+003D 74FE              MOV     A,#0FEH
+003F F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 320
+0040 A3                INC     DPTR
+0041 740A              MOV     A,#0AH
+0043 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 321
+;---- Variable 'indice2' assigned to Register 'R7' ----
+0044 E4                CLR     A
+0045 FF                MOV     R7,A
+0046         ?C0069:
+0046         ?C0072:
+                                           ; SOURCE LINE # 322
+0046 3000FD      R     JNB     flag_pode_enviar,?C0072
+0049         ?C0073:
+                                           ; SOURCE LINE # 323
+0049 C200        R     CLR     flag_pode_enviar
+                                           ; SOURCE LINE # 324
+004B 7400        R     MOV     A,#LOW comando_send
+004D 2F                ADD     A,R7
+004E F582              MOV     DPL,A
+0050 E4                CLR     A
+0051 3400        R     ADDC    A,#HIGH comando_send
+0053 F583              MOV     DPH,A
+0055 E0                MOVX    A,@DPTR
+0056 F599              MOV     SBUF0,A
+                                           ; SOURCE LINE # 325
+0058 0F                INC     R7
+0059 EF                MOV     A,R7
+005A B404E9            CJNE    A,#04H,?C0069
+                                           ; SOURCE LINE # 326
+                                           ; SOURCE LINE # 327
+005D         ?C0065:
+005D 0C                INC     R4
+005E EC                MOV     A,R4
+005F B406A0            CJNE    A,#06H,?C0063
+                                           ; SOURCE LINE # 328
+0062         ?C0074:
+0062 22                RET     
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 27  
+
+             ; FUNCTION enviar_distancias (END)
+
+             ; FUNCTION interrupt_encoder (BEGIN)
+                                           ; SOURCE LINE # 330
+                                           ; SOURCE LINE # 332
+0000 32                RETI    
+             ; FUNCTION interrupt_encoder (END)
+
+             ; FUNCTION interrupt_serial (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C083              PUSH    DPH
+0004 C082              PUSH    DPL
+0006 C0D0              PUSH    PSW
+0008 75D000            MOV     PSW,#00H
+000B C006              PUSH    AR6
+000D C007              PUSH    AR7
+                                           ; SOURCE LINE # 334
+                                           ; SOURCE LINE # 336
+000F 30985B            JNB     RI0,?C0076
+                                           ; SOURCE LINE # 337
+0012 900000      R     MOV     DPTR,#indice
+0015 E0                MOVX    A,@DPTR
+0016 FE                MOV     R6,A
+0017 A3                INC     DPTR
+0018 E0                MOVX    A,@DPTR
+0019 FF                MOV     R7,A
+001A 2400        R     ADD     A,#LOW comando
+001C F582              MOV     DPL,A
+001E 7400        R     MOV     A,#HIGH comando
+0020 3E                ADDC    A,R6
+0021 F583              MOV     DPH,A
+0023 E599              MOV     A,SBUF0
+0025 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 338
+0026 7400        R     MOV     A,#LOW comando
+0028 2F                ADD     A,R7
+0029 F582              MOV     DPL,A
+002B 7400        R     MOV     A,#HIGH comando
+002D 3E                ADDC    A,R6
+002E F583              MOV     DPH,A
+0030 E0                MOVX    A,@DPTR
+0031 640A              XRL     A,#0AH
+0033 600C              JZ      ?C0078
+0035 900000      R     MOV     DPTR,#indice
+0038 E0                MOVX    A,@DPTR
+0039 7004              JNZ     ?C0100
+003B A3                INC     DPTR
+003C E0                MOVX    A,@DPTR
+003D 6405              XRL     A,#05H
+003F         ?C0100:
+003F 701C              JNZ     ?C0077
+0041         ?C0078:
+                                           ; SOURCE LINE # 339
+0041 900000      R     MOV     DPTR,#indice
+0044 E0                MOVX    A,@DPTR
+0045 FE                MOV     R6,A
+0046 A3                INC     DPTR
+0047 E0                MOVX    A,@DPTR
+0048 2400        R     ADD     A,#LOW comando
+004A F582              MOV     DPL,A
+004C 7400        R     MOV     A,#HIGH comando
+004E 3E                ADDC    A,R6
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 28  
+
+004F F583              MOV     DPH,A
+0051 E4                CLR     A
+0052 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 340
+0053 900000      R     MOV     DPTR,#indice
+0056 F0                MOVX    @DPTR,A
+0057 A3                INC     DPTR
+0058 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 341
+0059 D200        R     SETB    flag_novo_comando
+                                           ; SOURCE LINE # 342
+005B 800E              SJMP    ?C0079
+005D         ?C0077:
+                                           ; SOURCE LINE # 343
+005D 900000      R     MOV     DPTR,#indice+01H
+0060 E0                MOVX    A,@DPTR
+0061 04                INC     A
+0062 F0                MOVX    @DPTR,A
+0063 7006              JNZ     ?C0101
+0065 900000      R     MOV     DPTR,#indice
+0068 E0                MOVX    A,@DPTR
+0069 04                INC     A
+006A F0                MOVX    @DPTR,A
+006B         ?C0101:
+006B         ?C0079:
+                                           ; SOURCE LINE # 344
+006B C298              CLR     RI0
+                                           ; SOURCE LINE # 345
+006D         ?C0076:
+                                           ; SOURCE LINE # 347
+006D 309904            JNB     TI0,?C0081
+                                           ; SOURCE LINE # 348
+0070 C299              CLR     TI0
+                                           ; SOURCE LINE # 349
+0072 D200        R     SETB    flag_pode_enviar
+                                           ; SOURCE LINE # 350
+                                           ; SOURCE LINE # 352
+0074         ?C0081:
+0074 D007              POP     AR7
+0076 D006              POP     AR6
+0078 D0D0              POP     PSW
+007A D082              POP     DPL
+007C D083              POP     DPH
+007E D0E0              POP     ACC
+0080 32                RETI    
+             ; FUNCTION interrupt_serial (END)
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 353
+                                           ; SOURCE LINE # 355
+0000 53D9BF            ANL     PCA0MD,#0BFH
+                                           ; SOURCE LINE # 357
+0003 120000      R     LCALL   SYSTEMCLOCK_Init
+                                           ; SOURCE LINE # 358
+0006 120000      R     LCALL   PORT_Init
+                                           ; SOURCE LINE # 360
+0009 120000      R     LCALL   serial_setup
+                                           ; SOURCE LINE # 361
+000C 120000      R     LCALL   pwm_setup
+                                           ; SOURCE LINE # 363
+000F 120000      R     LCALL   ADC_setup
+                                           ; SOURCE LINE # 364
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 29  
+
+0012 D2AF              SETB    EA
+                                           ; SOURCE LINE # 366
+0014 900000      R     MOV     DPTR,#pwm_left
+0017 E4                CLR     A
+0018 F0                MOVX    @DPTR,A
+0019 A3                INC     DPTR
+001A 7423              MOV     A,#023H
+001C F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 367
+001D 900000      R     MOV     DPTR,#pwm_right
+0020 E4                CLR     A
+0021 F0                MOVX    @DPTR,A
+0022 A3                INC     DPTR
+0023 7423              MOV     A,#023H
+0025 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 368
+0026 D200        R     SETB    sentido_roda_esquerda
+                                           ; SOURCE LINE # 369
+0028 D200        R     SETB    sentido_roda_direita
+002A         ?C0082:
+                                           ; SOURCE LINE # 371
+                                           ; SOURCE LINE # 372
+002A 300030      R     JNB     flag_nova_conversao,?C0084
+                                           ; SOURCE LINE # 373
+002D 120000      R     LCALL   enviar_distancias
+                                           ; SOURCE LINE # 374
+0030 C200        R     CLR     flag_nova_conversao
+                                           ; SOURCE LINE # 375
+0032 E4                CLR     A
+0033 900000      R     MOV     DPTR,#i
+0036 F0                MOVX    @DPTR,A
+0037         ?C0085:
+                                           ; SOURCE LINE # 376
+0037 900000      R     MOV     DPTR,#i
+003A E0                MOVX    A,@DPTR
+003B FF                MOV     R7,A
+003C 2400        R     ADD     A,#LOW valores_novos
+003E F582              MOV     DPL,A
+0040 E4                CLR     A
+0041 3400        R     ADDC    A,#HIGH valores_novos
+0043 F583              MOV     DPH,A
+0045 E0                MOVX    A,@DPTR
+0046 FE                MOV     R6,A
+0047 7400        R     MOV     A,#LOW valores_velhos
+0049 2F                ADD     A,R7
+004A F582              MOV     DPL,A
+004C E4                CLR     A
+004D 3400        R     ADDC    A,#HIGH valores_velhos
+004F F583              MOV     DPH,A
+0051 EE                MOV     A,R6
+0052 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 377
+0053 900000      R     MOV     DPTR,#i
+0056 E0                MOVX    A,@DPTR
+0057 04                INC     A
+0058 F0                MOVX    @DPTR,A
+0059 E0                MOVX    A,@DPTR
+005A B406DA            CJNE    A,#06H,?C0085
+                                           ; SOURCE LINE # 378
+005D         ?C0084:
+                                           ; SOURCE LINE # 380
+005D 3000CA      R     JNB     flag_novo_comando,?C0082
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 30  
+
+                                           ; SOURCE LINE # 385
+0060 C200        R     CLR     flag_novo_comando
+                                           ; SOURCE LINE # 386
+0062 900000      R     MOV     DPTR,#comando
+0065 E0                MOVX    A,@DPTR
+0066 245F              ADD     A,#05FH
+0068 6024              JZ      ?C0091
+006A 24A2              ADD     A,#0A2H
+006C 6042              JZ      ?C0092
+006E 245F              ADD     A,#05FH
+0070 70B8              JNZ     ?C0082
+                                           ; SOURCE LINE # 387
+0072         ?C0090:
+                                           ; SOURCE LINE # 391
+0072 900000      R     MOV     DPTR,#comando+01H
+0075 E0                MOVX    A,@DPTR
+0076 FF                MOV     R7,A
+0077 33                RLC     A
+0078 9200        R     MOV     sentido_roda_esquerda,C
+                                           ; SOURCE LINE # 392
+007A EF                MOV     A,R7
+007B 547F              ANL     A,#07FH
+007D FF                MOV     R7,A
+007E 33                RLC     A
+007F 95E0              SUBB    A,ACC
+0081 FE                MOV     R6,A
+0082 7C00              MOV     R4,#00H
+0084 7D05              MOV     R5,#05H
+0086 120000      E     LCALL   ?C?IMUL
+0089 900000      R     MOV     DPTR,#pwm_left
+                                           ; SOURCE LINE # 393
+008C 801A              SJMP    ?C0102
+                                           ; SOURCE LINE # 394
+008E         ?C0091:
+                                           ; SOURCE LINE # 398
+008E 900000      R     MOV     DPTR,#comando+01H
+0091 E0                MOVX    A,@DPTR
+0092 FF                MOV     R7,A
+0093 33                RLC     A
+0094 9200        R     MOV     sentido_roda_direita,C
+                                           ; SOURCE LINE # 399
+0096 EF                MOV     A,R7
+0097 547F              ANL     A,#07FH
+0099 FF                MOV     R7,A
+009A 33                RLC     A
+009B 95E0              SUBB    A,ACC
+009D FE                MOV     R6,A
+009E 7C00              MOV     R4,#00H
+00A0 7D05              MOV     R5,#05H
+00A2 120000      E     LCALL   ?C?IMUL
+00A5 900000      R     MOV     DPTR,#pwm_right
+00A8         ?C0102:
+00A8 EE                MOV     A,R6
+00A9 F0                MOVX    @DPTR,A
+00AA A3                INC     DPTR
+00AB EF                MOV     A,R7
+00AC F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 400
+00AD 020000      R     LJMP    ?C0082
+                                           ; SOURCE LINE # 402
+00B0         ?C0092:
+                                           ; SOURCE LINE # 403
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 31  
+
+00B0 E4                CLR     A
+00B1 900000      R     MOV     DPTR,#pwm_left
+00B4 F0                MOVX    @DPTR,A
+00B5 A3                INC     DPTR
+00B6 F0                MOVX    @DPTR,A
+00B7 900000      R     MOV     DPTR,#pwm_right
+00BA F0                MOVX    @DPTR,A
+00BB A3                INC     DPTR
+00BC F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 407
+00BD 020000      R     LJMP    ?C0082
+             ; FUNCTION main (END)
+
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 32  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+P0 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0080H  1
+TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
+TL0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008AH  1
+TL1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008BH  1
+TH1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008DH  1
+CKCON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008EH  1
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+TMR3CN . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0091H  1
+TMR3RLL. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0092H  1
+TMR3L. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0094H  1
+SCON0. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+SBUF0. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0099H  1
+P2 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A0H  1
+P0MDOUT. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A4H  1
+P1MDOUT. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A5H  1
+P2MDOUT. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A6H  1
+CLKSEL . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A9H  1
+OSCICN . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B2H  1
+CLKMUL . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B9H  1
+AMX0N. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BAH  1
+AMX0P. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BBH  1
+ADC0CF . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BCH  1
+ADC0H. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BEH  1
+REF0CN . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D1H  1
+SCON1. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D2H  1
+SBUF1. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D3H  1
+PCA0MD . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D9H  1
+XBR0 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E1H  1
+XBR1 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E2H  1
+XBR2 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E3H  1
+EIE1 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E6H  1
+ADC0CN . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E8H  1
+P1MDIN . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F2H  1
+TR1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008EH  1
+TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
+TR0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008CH  1
+TI0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+RI0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
+ES0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ACH  1
+ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
+ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
+AD0INT . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00EDH  1
+AD0BUSY. . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ECH  1
+T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
+P1_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0094H  1
+P1_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
+P1_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0096H  1
+P1_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0097H  1
+pwm_right. . . . . . . . . . . . . . .  PUBLIC   XDATA  U_INT    0008H  2
+pwm_left . . . . . . . . . . . . . . .  PUBLIC   XDATA  U_INT    000AH  2
+sensorCount. . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   000CH  1
+valores_velhos . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    000DH  6
+valores_novos. . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    0013H  6
+flag_nova_conversao. . . . . . . . . .  PUBLIC   DATA   BIT      0000H  1
+flag_novo_comando. . . . . . . . . . .  PUBLIC   DATA   BIT      0001H  1
+timer3count. . . . . . . . . . . . . .  PUBLIC   XDATA  U_INT    0019H  2
+C51 COMPILER V8.18   MAIN                                                                  04/19/2011 14:17:04 PAGE 33  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+Rx_Buff. . . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   001BH  1
+Tx_Buff. . . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   001CH  1
+sentido. . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0002H  1
+flag_pode_enviar . . . . . . . . . . .  PUBLIC   DATA   BIT      0003H  1
+sentido_roda_esquerda. . . . . . . . .  PUBLIC   DATA   BIT      0004H  1
+sentido_roda_direita . . . . . . . . .  PUBLIC   DATA   BIT      0005H  1
+flag_nova_configuracao_do_tempo. . . .  PUBLIC   DATA   BIT      0006H  1
+comando. . . . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    001DH  8
+i. . . . . . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   0025H  1
+UART . . . . . . . . . . . . . . . . .  PUBLIC   DATA   BIT      0007H  1
+_putchar . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  c. . . . . . . . . . . . . . . . . .  * REG *  DATA   CHAR     0007H  1
+pwm_setup. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+Delay. . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  x. . . . . . . . . . . . . . . . . .  * REG *  DATA   INT      0006H  2
+SYSTEMCLOCK_Init . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+PORT_Init. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+servos_setup . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+serial_setup . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+ativa_direita. . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+desativa_direita . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+ativa_esquerda . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+desativa_esquerda. . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+timer0_IT. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  pwm_aux. . . . . . . . . . . . . . .  STATIC   XDATA  U_INT    0000H  2
+  pwm_left_temp. . . . . . . . . . . .  STATIC   XDATA  U_INT    0002H  2
+  pwm_right_temp . . . . . . . . . . .  STATIC   XDATA  U_INT    0004H  2
+ADC_setup. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+interrupt_timer3 . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+interrupt_ADC. . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+enviar_distancias. . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  comando_send . . . . . . . . . . . .  AUTO     XDATA  ARRAY    0000H  4
+  indice . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0004H  1
+  indice2. . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+interrupt_encoder. . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+interrupt_serial . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  indice . . . . . . . . . . . . . . .  STATIC   XDATA  INT      0006H  2
+main . . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1024    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     38       4
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      8    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)
