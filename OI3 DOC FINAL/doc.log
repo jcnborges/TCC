@@ -1,0 +1,843 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.7.3)  4 JUL 2010 15:02
+entering extended mode
+**C:/Users/Marin/Desktop/OI3*DOC*FINAL/doc.tex
+("C:/Users/Marin/Desktop/OI3 DOC FINAL/doc.tex"
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, french, portuguese, l
+oaded.
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\size12.clo"
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files\MiKTeX 2.8\tex\generic\babel\babel.sty"
+Package: babel 2008/07/06 v3.8l The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Program Files\MiKTeX 2.8\tex\generic\babel\portuges.ldf"
+Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\babel\babel.def"
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+\l@brazilian = a dialect from \language\l@portuges 
+Package babel Info: Making " an active character on input line 145.
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\inputenc.sty"
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\latin1.def"
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\lm\lmodern.sty"
+Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\fontenc.sty"
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\t1enc.def"
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\textcomp.sty"
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\ts1enc.def"
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+)
+(C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\pdfpages\pdfpages.sty
+Package: pdfpages 2010/01/12 v0.4j Insert pages of external PDF documents (AM)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\tools\calc.sty"
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count88
+\calc@Bcount=\count89
+\calc@Adimen=\dimen104
+\calc@Bdimen=\dimen105
+\calc@Askip=\skip43
+\calc@Bskip=\skip44
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count90
+\calc@Cskip=\skip45
+)
+(C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\eso-pic\eso-pic.sty
+Package: eso-pic 2009/10/07 v2.0a eso-pic (RN)
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\atbegshi.sty"
+Package: atbegshi 2010/03/25 v1.12 At begin shipout hook (HO)
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2010/04/08 v1.5 LaTeX kernel commands for general use (HO)
+)
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2010/01/28 v2.1 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\xcolor\xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
+\Gread@gobject=\count91
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+)
+\Gin@req@height=\dimen106
+\Gin@req@width=\dimen107
+)
+(C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\pdfpages\pppdftex.def
+File: pppdftex.def 2010/01/12 v0.4j Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box26
+\AM@toc@title=\toks17
+\c@AM@survey=\count92
+\AM@templatesizebox=\box27
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count93
+\float@exts=\toks18
+\float@box=\box28
+\@float@everytoks=\toks19
+\@floatcapt=\box29
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\hyperref\hyperref.sty"
+Package: hyperref 2010/03/30 v6.80u Hypertext links for LaTeX
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2010/03/01 v1.9 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2010/01/28 v1.3 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+))
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\pdfescape.sty"
+Package: pdfescape 2010/03/01 v1.9 Provides hex, PDF name and string conversion
+s (HO)
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2010/04/01 v0.9 Utility functions of pdfTeX for LuaTeX (HO)
+
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+))
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\ifxetex\ifxetex.sty"
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\oberdiek\hycolor.sty"
+Package: hycolor 2009/12/12 v1.6 Color options of hyperref/bookmark (HO)
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\oberdiek\xcolor-patch.sty"
+Package: xcolor-patch 2009/12/12 xcolor patch
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\oberdiek\letltxmacro.sty"
+Package: letltxmacro 2008/06/24 v1.3 Let assignment for LaTeX macros (HO)
+)
+\@linkdim=\dimen108
+\Hy@linkcounter=\count94
+\Hy@pagecounter=\count95
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\hyperref\pd1enc.def"
+File: pd1enc.def 2010/03/30 v6.80u Hyperref: PDFDocEncoding definition (HO)
+)
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\intcalc.sty"
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\00miktex\hyperref.cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2010/02/22 v3.7 Keyval support for LaTeX options (HO)
+)
+Package hyperref Info: Hyper figures OFF on input line 3609.
+Package hyperref Info: Link nesting OFF on input line 3614.
+Package hyperref Info: Hyper index ON on input line 3617.
+Package hyperref Info: Plain pages OFF on input line 3624.
+Package hyperref Info: Backreferencing OFF on input line 3629.
+
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 3825.
+("C:\Program Files\MiKTeX 2.8\tex\latex\ltxmisc\url.sty"
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4105.
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\bitset.sty"
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\bigintcalc.sty"
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+))
+\Fld@menulength=\count96
+\Field@Width=\dimen109
+\Fld@charsize=\dimen110
+\Field@toks=\toks20
+Package hyperref Info: Hyper figures OFF on input line 5083.
+Package hyperref Info: Link nesting OFF on input line 5088.
+Package hyperref Info: Hyper index ON on input line 5091.
+Package hyperref Info: backreferencing OFF on input line 5098.
+Package hyperref Info: Link coloring OFF on input line 5103.
+Package hyperref Info: Link coloring with OCG OFF on input line 5108.
+Package hyperref Info: PDF/A mode OFF on input line 5113.
+LaTeX Info: Redefining \ref on input line 5153.
+LaTeX Info: Redefining \pageref on input line 5157.
+\Hy@abspage=\count97
+\c@Item=\count98
+\c@Hfootnote=\count99
+)
+* hyperref using default driver hpdftex *
+("C:\Program Files\MiKTeX 2.8\tex\latex\hyperref\hpdftex.def"
+File: hpdftex.def 2010/03/30 v6.80u Hyperref driver for pdfTeX
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\oberdiek\atveryend.sty"
+Package: atveryend 2010/03/24 v1.5 Hooks at very end of document (HO)
+Package atveryend Info: \enddocument detected (standard).
+)
+\Fld@listcount=\count100
+\c@bookmark@seq@number=\count101
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\oberdiek\rerunfilecheck.sty"
+Package: rerunfilecheck 2010/03/16 v1.6 Rerun checks for auxiliary files (HO)
+
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\uniquecounter.sty"
+Package: uniquecounter 2009/12/18 v1.1 Provides unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+71.
+)
+\Hy@SectionHShift=\skip46
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsmath.sty"
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip47
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks21
+\ex@=\dimen111
+))
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen112
+)
+("C:\Program Files\MiKTeX 2.8\tex\latex\ams\math\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count102
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count103
+\leftroot@=\count104
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count105
+\DOTSCASE@=\count106
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box30
+\strutbox@=\box31
+\big@size=\dimen113
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count107
+\c@MaxMatrixCols=\count108
+\dotsspace@=\muskip11
+\c@parentequation=\count109
+\dspbrk@lvl=\count110
+\tag@help=\toks22
+\row@=\count111
+\column@=\count112
+\maxfields@=\count113
+\andhelp@=\toks23
+\eqnshift@=\dimen114
+\alignsep@=\dimen115
+\tagshift@=\dimen116
+\tagwidth@=\dimen117
+\totwidth@=\dimen118
+\lineht@=\dimen119
+\@envbody=\toks24
+\multlinegap=\skip48
+\multlinetaggap=\skip49
+\mathdisplay@stack=\toks25
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\listings.sty
+\lst@mode=\count114
+\lst@gtempboxa=\box32
+\lst@token=\toks26
+\lst@length=\count115
+\lst@currlwidth=\dimen120
+\lst@column=\count116
+\lst@pos=\count117
+\lst@lostspace=\dimen121
+\lst@width=\dimen122
+\lst@newlines=\count118
+\lst@lineno=\count119
+\lst@maxwidth=\dimen123
+
+(C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count120
+\lst@skipnumbers=\count121
+\lst@framebox=\box33
+)
+(C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
+("C:\Users\Marin\Desktop\OI3 DOC FINAL\doc.aux")
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 16.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 16.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\lm\t1lmr.fd"
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+\AtBeginShipoutBox=\box34
+
+("C:\Program Files\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count122
+\scratchdimen=\dimen124
+\scratchbox=\box35
+\nofMPsegments=\count123
+\nofMParguments=\count124
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count125
+\MPscratchDim=\dimen125
+\MPnumerator=\count126
+\everyMPtoPDFconversion=\toks28
+)
+Package hyperref Info: Link coloring OFF on input line 16.
+ ("C:\Program Files\MiKTeX 2.8\tex\latex\hyperref\nameref.sty"
+Package: nameref 2010/01/25 v2.36 Cross-referencing by name of section
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\oberdiek\refcount.sty"
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
+)
+("C:\Program Files\MiKTeX 2.8\tex\generic\oberdiek\gettitlestring.sty"
+Package: gettitlestring 2009/12/18 v1.3 Cleanup title references (HO)
+)
+\c@section@level=\count127
+)
+LaTeX Info: Redefining \ref on input line 16.
+LaTeX Info: Redefining \pageref on input line 16.
+
+("C:\Users\Marin\Desktop\OI3 DOC FINAL\doc.out")
+("C:\Users\Marin\Desktop\OI3 DOC FINAL\doc.out")
+\@outlinefile=\write3
+\c@lstlisting=\count128
+
+<capa.pdf, id=201, page=1, 597.50829pt x 845.0471pt>
+File: capa.pdf Graphic file (type pdf)
+ <use capa.pdf, page 1>
+File: capa.pdf Graphic file (type pdf)
+
+<use capa.pdf, page 1>
+File: capa.pdf Graphic file (type pdf)
+ <use capa.pdf, page 1>
+File: capa.pdf Graphic file (type pdf)
+ <use capa.pdf, page 1>
+File: capa.pdf Graphic file (type pdf)
+
+<use capa.pdf, page 1> [1
+
+ <C:/Users/Marin/Desktop/OI3 DOC FINAL/capa.pdf{C:/Users/Marin/AppData/Local/Mi
+KTeX/2.8/pdftex/config/pdftex.map}>]
+<capa.pdf, id=218, page=2, 597.50829pt x 845.0471pt>
+File: capa.pdf Graphic file (type pdf)
+ <use capa.pdf, page 2>
+File: capa.pdf Graphic file (type pdf)
+
+<use capa.pdf, page 2>
+File: capa.pdf Graphic file (type pdf)
+ <use capa.pdf, page 2> [2 <C:/Users/Marin/Desktop/OI3 DOC FINAL/capa.pdf>] ("C
+:\Users\Marin\Desktop\OI3 DOC FINAL\doc.toc"
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 3.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\lm\ot1lmr.fd"
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 3.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\lm\omllmm.fd"
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 3.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\lm\omslmsy.fd"
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 3.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\lm\omxlmex.fd"
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 3.
+ [3])
+\tf@toc=\write4
+ [4]
+("C:\Users\Marin\Desktop\OI3 DOC FINAL\doc.lof")
+\tf@lof=\write5
+ [5]
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 38.
+
+("C:\Program Files\MiKTeX 2.8\tex\latex\lm\ts1lmr.fd"
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [6] [7]
+<visaogeral.png, id=339, 394.273pt x 510.708pt>
+File: visaogeral.png Graphic file (type png)
+ <use visaogeral.png> [8]
+[9 <C:/Users/Marin/Desktop/OI3 DOC FINAL/visaogeral.png>]
+<dsupervisorio.png, id=353, 531.586pt x 377.41pt>
+File: dsupervisorio.png Graphic file (type png)
+ <use dsupervisorio.png>
+[10] [11 <C:/Users/Marin/Desktop/OI3 DOC FINAL/dsupervisorio.png>]
+<daltonivel.png, id=366, 510.708pt x 535.601pt>
+File: daltonivel.png Graphic file (type png)
+ <use daltonivel.png> [12 <C:/Users/Marin/Desktop/OI3 DOC FINAL/daltonivel.png>
+]
+<dbaixonivel.png, id=377, 519.541pt x 619.916pt>
+File: dbaixonivel.png Graphic file (type png)
+ <use dbaixonivel.png> [13]
+[14 <C:/Users/Marin/Desktop/OI3 DOC FINAL/dbaixonivel.png>] [15] [16] [17]
+<dcasouso2.jpg, id=417, 921.4425pt x 481.8pt>
+File: dcasouso2.jpg Graphic file (type jpg)
+ <use dcasouso2.jpg> [18] [19 <C:/Users/Marin/Desktop/OI3 DOC FINAL/dcasouso2.j
+pg>]
+<dclasse.jpg, id=430, 1150.2975pt x 893.3375pt>
+File: dclasse.jpg Graphic file (type jpg)
+ <use dclasse.jpg> [20 <C:/Users/Marin/Desktop/OI3 DOC FINAL/dclasse.jpg>]
+<dbloc.png, id=437, 558.58687pt x 432.86719pt>
+File: dbloc.png Graphic file (type png)
+ <use dbloc.png> [21]
+<curvaresp.png, id=445, 716.6775pt x 634.62094pt>
+File: curvaresp.png Graphic file (type png)
+ <use curvaresp.png> [22 <C:/Users/Marin/Desktop/OI3 DOC FINAL/dbloc.png (PNG c
+opy)>]
+<regulador.jpg, id=455, 252.945pt x 209.28188pt>
+File: regulador.jpg Graphic file (type jpg)
+ <use regulador.jpg> [23 <C:/Users/Marin/Desktop/OI3 DOC FINAL/curvaresp.png (P
+NG copy)>]
+<dimsens.png, id=466, 623.32875pt x 654.94687pt>
+File: dimsens.png Graphic file (type png)
+ <use dimsens.png> [24 <C:/Users/Marin/Desktop/OI3 DOC FINAL/regulador.jpg>] [2
+5 <C:/Users/Marin/Desktop/OI3 DOC FINAL/dimsens.png (PNG copy)>]
+Overfull \hbox (35.02675pt too wide) in paragraph at lines 336--337
+\T1/lmr/m/n/12 C8051F340DK e fa-zer um buf-fer para os si-nais de PWM ge-ra-dos
+ pela C8051F340DK. 
+ []
+
+<dplaca.png, id=479, 273.6624pt x 371.4678pt>
+File: dplaca.png Graphic file (type png)
+ <use dplaca.png> [26] [27 <C:/Users/Marin/Desktop/OI3 DOC FINAL/dplaca.png>]
+<roboBellator.jpg, id=491, 1606.0pt x 1204.5pt>
+File: roboBellator.jpg Graphic file (type jpg)
+ <use roboBellator.jpg> [28]
+<pcembarcado.png, id=498, 849.92531pt x 482.55281pt>
+File: pcembarcado.png Graphic file (type png)
+ <use pcembarcado.png>
+[29 <C:/Users/Marin/Desktop/OI3 DOC FINAL/roboBellator.jpg>] [30 <C:/Users/Mari
+n/Desktop/OI3 DOC FINAL/pcembarcado.png (PNG copy)>]
+<figposicionamento.png, id=518, 1273.32857pt x 954.99643pt>
+File: figposicionamento.png Graphic file (type png)
+
+<use figposicionamento.png>
+<figposicionamento2.png, id=519, 1273.32857pt x 954.99643pt>
+File: figposicionamento2.png Graphic file (type png)
+
+<use figposicionamento2.png> [31 <C:/Users/Marin/Desktop/OI3 DOC FINAL/figposic
+ionamento.png>] [32 <C:/Users/Marin/Desktop/OI3 DOC FINAL/figposicionamento2.pn
+g>] <joystick.png, id=543, 596.2275pt x 254.9525pt>
+File: joystick.png Graphic file (type png)
+ <use joystick.png>
+Underfull \hbox (badness 10000) in paragraph at lines 473--473
+[]\T1/lmr/m/n/12 Figura 16: []Joystick de Sony Plays-ta-tion 2. Fonte
+ []
+
+[33] [34 <C:/Users/Marin/Desktop/OI3 DOC FINAL/joystick.png (PNG copy)>]
+<supervisor_remoto.jpg, id=559, 779.16093pt x 489.32813pt>
+File: supervisor_remoto.jpg Graphic file (type jpg)
+
+<use supervisor_remoto.jpg> [35] [36 <C:/Users/Marin/Desktop/OI3 DOC FINAL/supe
+rvisor_remoto.jpg>] <controlePrincipal.png, id=571, 585.68813pt x 427.5975pt>
+File: controlePrincipal.png Graphic file (type png)
+
+<use controlePrincipal.png> [37 <C:/Users/Marin/Desktop/OI3 DOC FINAL/controleP
+rincipal.png (PNG copy)>] [38]
+<ouvinteMensagens.png, id=584, 321.45094pt x 345.54094pt>
+File: ouvinteMensagens.png Graphic file (type png)
+
+<use ouvinteMensagens.png> [39] [40 <C:/Users/Marin/Desktop/OI3 DOC FINAL/ouvin
+teMensagens.png>] <supervisorRemoto2.jpg, id=596, 779.16093pt x 489.32813pt>
+File: supervisorRemoto2.jpg Graphic file (type jpg)
+
+<use supervisorRemoto2.jpg> [41 <C:/Users/Marin/Desktop/OI3 DOC FINAL/superviso
+rRemoto2.jpg>] [42] [43] [44]
+Overfull \hbox (24.00569pt too wide) in paragraph at lines 675--676
+[]\T1/lmr/m/n/12 Os mo-to-res fun-ci-o-nam de acordo com os PWMs ge-ra-dos pela
+ C8051F340DK. 
+ []
+
+[45] [46]
+Underfull \hbox (badness 8056) in paragraph at lines 700--701
+[]\T1/lmr/m/n/12 SILICON LA-BO-RA-TO-RIES; C8051F340DK Da-tasheet, dis-po-
+ []
+
+
+Underfull \hbox (badness 3646) in paragraph at lines 700--701
+\T1/lmr/m/n/12 ní-vel em: <http://datasheet.octopart.com/C8051F340DK-Silicon-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 701--702
+[]\T1/lmr/m/n/12 GENIUS; iLook 300 - Es-pe-ci-fi-ca-ções.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 701--702
+\T1/lmr/m/n/12 Dis-po-ní-vel em: <http://www.genius-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 701--702
+\T1/lmr/m/n/12 europe.com/en/produktdetail.php?ID2=83&ID=31&ID3=479>.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 703--704
+[]\T1/lmr/m/n/12 VIA TE-CH-NO-LO-GIES; EPIA M-Series
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 703--704
+\T1/lmr/m/n/12 Mini-ITX Main-bo-ard. Dis-po-ní-vel em:
+ []
+
+
+Overfull \hbox (61.78093pt too wide) in paragraph at lines 703--704
+\T1/lmr/m/n/12 <http://www.via.com.tw/servlet/downloadSvl?id=81&download_file_i
+d=3300>.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 704--705
+[]\T1/lmr/m/n/12 EDIMAX; EW-7128g PCI Wi-re-less Lan
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 704--705
+\T1/lmr/m/n/12 PC Card Da-tasheet. Dis-po-ní-vel em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 704--705
+\T1/lmr/m/n/12 <http://www.edimax.com/images/Image/datasheet/Wireless/EW-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 705--706
+[]\T1/lmr/m/n/12 GNU; Ge-ne-ral Pu-blic Li-cense V2.0. Dis-po-ní-vel em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 705--706
+\T1/lmr/m/n/12 <http://www.gnu.org/licenses/gpl-2.0.html>. Acesso em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 707--708
+[]\T1/lmr/m/n/12 GNU; Ge-ne-ral Pu-blic Li-cense V3.0. Dis-po-ní-vel em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 707--708
+\T1/lmr/m/n/12 <http://www.gnu.org/licenses/gpl-3.0.html>. Acesso em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 708--709
+[]\T1/lmr/m/n/12 VideoLAN; VLC me-dia player. Dis-po-ní-vel em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 712--713
+[]\T1/lmr/m/n/12 Berkley Source Dis-tri-bu-tion Li-cense. Dis-po-ní-vel em:
+ []
+
+[47
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 713--714
+[]\T1/lmr/m/n/12 GNU; Les-ser Ge-ne-ral Pu-blic Li-cense. Dis-po-ní-vel em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 713--714
+\T1/lmr/m/n/12 <http://www.gnu.org/licenses/lgpl-3.0.html>. Acesso em:
+ []
+
+[48] (C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+) (C:\Users\Marin\AppData\Roaming\MiKTeX\2.8\tex\latex\listings\lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 722.
+
+("C:\Users\Marin\Desktop\OI3 DOC FINAL\protocolo.h"
+Overfull \hbox (89.3971pt too wide) in paragraph at lines 4--5
+[][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (47.09735pt too wide) in paragraph at lines 5--6
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (11.84756pt too wide) in paragraph at lines 34--35
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[49]
+Overfull \hbox (61.19727pt too wide) in paragraph at lines 67--68
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[50]
+Overfull \hbox (11.84756pt too wide) in paragraph at lines 82--84
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[51])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 726.
+ [52]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 726.
+ ("C:\Users\Marin\Desktop\OI3 DOC FINAL\doc.aux")
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 726.
+Package rerunfilecheck Info: File `doc.out' has not changed.
+(rerunfilecheck)             Checksum: 111D0096680F9F0001A93B25B7C5984F;3476.
+ ) 
+Here is how much of TeX's memory you used:
+ 9738 strings out of 495257
+ 139364 string characters out of 3179653
+ 283074 words of memory out of 3000000
+ 12471 multiletter control sequences out of 15000+200000
+ 43048 words of font info for 36 fonts, out of 3000000 for 9000
+ 16 hyphenation exceptions out of 8191
+ 38i,18n,49p,918b,1801s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.8/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Program Files/
+MiKTeX 2.8/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTeX 2.8/fonts/enc/
+dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.8/fonts/enc/dvips/lm/lm-rm.en
+c}{C:/Program Files/MiKTeX 2.8/fonts/enc/dvips/lm/lm-mathit.enc}<C:/Program Fil
+es/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTe
+X 2.8/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.8/fon
+ts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/public/l
+m/lmmi12.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/public/lm/lmmi8.pfb><C:/P
+rogram Files/MiKTeX 2.8/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTe
+X 2.8/fonts/type1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/p
+ublic/lm/lmri12.pfb><C:/Program Files/MiKTeX 2.8/fonts/type1/public/lm/lmsy10.p
+fb>
+Output written on doc.pdf (52 pages, 4528696 bytes).
+PDF statistics:
+ 883 PDF objects out of 1000 (max. 8388607)
+ 280 named destinations out of 1000 (max. 500000)
+ 518 words of extra memory for PDF output out of 10000 (max. 10000000)
+
