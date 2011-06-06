@@ -123,7 +123,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FOLHA DE ROSTO 
+% FOLHA DE ROSTO
 
 \newcommand{\esporient}[2]
 {
@@ -253,7 +253,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   DEDICATORIA  
+%   DEDICATORIA
 
 \newenvironment{dedicatoria}%
 {%
@@ -276,7 +276,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% AGRADECIMENTOS 
+% AGRADECIMENTOS
 
 \newenvironment{agradecimentos}%
 {%
@@ -286,11 +286,11 @@
 }%
 {
 	\newpage
-} 
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% EPIGRAFE  
+% EPIGRAFE
 
 \newenvironment{epigrafe}%
 {%
@@ -335,7 +335,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ABSTRACT
- 
+
 \renewenvironment{abstract}%
 {%
 	\if@openright\cleardoublepage\else\clearpage\fi%
@@ -531,7 +531,7 @@
 			\MakeUppercase{#1}\hspace{0.4em}\nobreak\dotfill\nobreak
 			\ifthenelse{\boolean{ABNTpagenumstyle}}
 			{%
-				\hb@xt@\@pnumwidth{\hss 
+				\hb@xt@\@pnumwidth{\hss
 				\ifthenelse{\not\equal{#2}{}}{{#2}}{}}
 				\begin{spacing}{\taxaespacomeio}\par\end{spacing}
 			}
@@ -717,7 +717,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LEGENDAS 
+% LEGENDAS
 
 \newcommand{\captionfonts}{\small}
 
@@ -747,6 +747,6 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% REFERENCIAS 
+% REFERENCIAS
 
 \renewcommand{\ABNTbibliographyname}{REFER\^ENCIAS}
