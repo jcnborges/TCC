@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2011.6.6)  6 JUN 2011 15:55
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2011.6.6)  14 JUN 2011 14:44
 entering extended mode
 **C:/Coisas*de*Yuri/9Periodo/TCC/TCC/monografia-tex/modelo_daeln.tex
 ("C:/Coisas de Yuri/9Periodo/TCC/TCC/monografia-tex/modelo_daeln.tex"
@@ -343,20 +343,21 @@ Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\times.sty"
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
+("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\inicio.tex"
 ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\modelo_daeln.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 33.
 
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -367,7 +368,7 @@ Package lastpage Info: Please have a look at the pagesLTS package at
 (lastpage)             or
 (lastpage)             http://www.ctan.org/tex-archive/ 
 (lastpage)             install/macros/latex/contrib/pagesLTS.tds.zip
-(lastpage)             ! on input line 46.
+(lastpage)             ! on input line 33.
 
 ("C:\Coisas de Yuri\Programas\MikTex\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -383,36 +384,36 @@ Package lastpage Info: Please have a look at the pagesLTS package at
 \everyMPtoPDFconversion=\toks24
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 48.
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 48
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 35
 .
  ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\ot1ztmcm.fd"
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 48
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 35
 .
 
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\omlztmcm.fd"
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 48
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 35
 .
 
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\omsztmcm.fd"
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 48
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 35
 .
 
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\omxztmcm.fd"
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 48.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 48.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 48.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
  [1
 
 {C:/Users/Yuri/AppData/Local/MiKTeX/2.8/pdftex/config/pdftex.map}] [1] [1
@@ -457,55 +458,55 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 [10
 
 
-]
+]) ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\cap1.tex"
 Cap\'{\i }tulo 1.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 98.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 4.
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 115.
-
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 21.
 
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 115.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 21.
  [11
 
 
-] [12]
+])
+("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\cap2.tex" [12]
 Cap\'{\i }tulo 2.
-LaTeX Font Info:    Try loading font information for OMS+pcr on input line 125.
-
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 5.
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\omspcr.fd"
 File: omspcr.fd 
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 125.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 5.
 
 <./figs/dummy.png, id=52, 301.125pt x 301.125pt>
 File: ./figs/dummy.png Graphic file (type png)
  <use ./figs/dummy.png>
-Package pdftex.def Info: ./figs/dummy.png used on input line 133.
+Package pdftex.def Info: ./figs/dummy.png used on input line 13.
 (pdftex.def)             Requested size: 91.04742pt x 91.04579pt.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 134.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 134.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 134.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
 
 [13
 
  <C:/Coisas de Yuri/9Periodo/TCC/TCC/monografia-tex/figs/dummy.png>]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 162.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 162.
-
-[14]
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 42.
+)
+("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\concl.tex" [14]
 Cap\'{\i }tulo 3.
+) ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\final.tex"
 ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\modelo_daeln.bbl" [15
 
 ])
@@ -525,26 +526,26 @@ AED: lastpage setting LastPage
 | Comentario, sugestao ou critica sobre o abnTeX? Entre em contato: |
 |                  http://abntex.codigolivre.org.br                 |
 +-------------------------------------------------------------------+
-("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\modelo_daeln.aux") ) 
+("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\modelo_daeln.aux") ) ) 
 Here is how much of TeX's memory you used:
- 3814 strings out of 495261
- 54102 string characters out of 3179240
- 111621 words of memory out of 3000000
+ 3829 strings out of 495261
+ 54714 string characters out of 3179240
+ 111637 words of memory out of 3000000
  6863 multiletter control sequences out of 15000+200000
  52695 words of font info for 118 fonts, out of 3000000 for 9000
  16 hyphenation exceptions out of 8191
- 36i,8n,43p,944b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Coi
-sas de Yuri/Programas/MikTex/fonts/enc/dvips/fontname/8r.enc}<C:/Coisas de Yuri
-/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Coisas de Yuri/
-Programas/MikTex/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Coisas de Yuri/P
-rogramas/MikTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Coisas de Yuri/Pro
-gramas/MikTex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Coisas de Yuri/Prog
-ramas/MikTex/fonts/type1/urw/courier/ucrr8a.pfb><C:/Coisas de Yuri/Programas/Mi
-kTex/fonts/type1/urw/symbol/usyr.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/
-type1/urw/symbol/usyr.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/t
-imes/utmb8a.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/times/utmr8
-a.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/times/utmri8a.pfb>
+ 36i,8n,43p,957b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/C
+oisas de Yuri/Programas/MikTex/fonts/enc/dvips/fontname/8r.enc}<C:/Coisas de Yu
+ri/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Coisas de Yur
+i/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Coisas de Yuri
+/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Coisas de Yuri/P
+rogramas/MikTex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Coisas de Yuri/Pr
+ogramas/MikTex/fonts/type1/urw/courier/ucrr8a.pfb><C:/Coisas de Yuri/Programas/
+MikTex/fonts/type1/urw/symbol/usyr.pfb><C:/Coisas de Yuri/Programas/MikTex/font
+s/type1/urw/symbol/usyr.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw
+/times/utmb8a.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/times/utm
+r8a.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/times/utmri8a.pfb>
 Output written on modelo_daeln.pdf (20 pages, 128084 bytes).
 PDF statistics:
  111 PDF objects out of 1000 (max. 8388607)
