@@ -1,0 +1,4 @@
+Disco Encoder: ruhlatec pwb c4557-80019 rev a/0200 1800ct 200lpi
+Sensor Encoder: T-345866 >PC<
+Buffer motor: SN74LS244N
+Reg Tensao: LM317T G4099VW CHN009
