@@ -1,0 +1,2 @@
+Disco Encoder: ruhlatec pwb c4557-80019 rev a/0200 1800ct 200lpi
+Sensor Encoder: T-345866 >PC<

@@ -1,0 +1,79 @@
+% ---------- Preambulo ----------
+\instituicao{Universidade Tecnol\'ogica Federal do Paran\'a} % nome da instituicao
+\departamento{Departamento Acad\^emico de Eletr\^onica} % nome do departamento
+\programa{Curso Superior de Tecnologia em Mecatr\^onica Industrial} % nome do curso
+
+\documento{Trabalho de Conclus\~ao de Curso} % [Trabalho de Conclus\~ao de Curso] ou [Relat\'orio de Est\'agio]
+\titulacao{Tecn\'ologo} % [T\'ecnico], [Tecn\'ologo] ou [Engenheiro]
+
+\titulo{T\'itulo em Portugu\^es} % titulo do trabalho em portugues
+\title{Title in English} % titulo do trabalho em ingles
+
+\autor{Nome do Primeiro Autor Júlio} % primeiro autor do trabalho
+\autordois{Nome do Segundo Autor} % segundo autor do trabalho, caso exista
+%\autortres{Nome do Terceiro Autor} % terceiro autor do trabalho, caso exista
+%\autorquatro{Nome do Quarto Autor} % quarto autor do trabalho, caso exista
+\cita{SOBRENOME 1, Nome 1; SOBRENOME 2, Nome 2} % sobrenome (maiusculas) e nome do(s) autor(es) do trabalho, separados por ponto-e-virgula (ate quatro autores para TCC)
+
+\palavraschave{Palavra-chave 1, Palavra-chave 2, ...} % palavras-chave do trabalho
+\keywords{Keyword 1, Keyword 2, ...} % palavras-chave do trabalho em ingles
+
+\comentario{\UTFPRdocumentodata\ apresentado ao \UTFPRdepartamentodata\ como requisito parcial para obten\c{c}\~ao do grau de \UTFPRtitulacaodata\ no \UTFPRprogramadata\ da \ABNTinstituicaodata.}
+
+\orientador{Nome do Orientador} % nome do orientador do trabalho
+%\orientador[Orientadora:]{Nome da Orientadora} % <- no caso de orientadora, usar esta sintaxe
+\coorientador{Nome do Co-orientador} % nome do co-orientador do trabalho, caso exista
+%\coorientador[Co-orientadora:]{Nome da Co-orientadora} % <- no caso de co-orientadora, usar esta sintaxe
+
+\local{Curitiba} % cidade
+\data{2009} % ano
+
+
+%---------- Inicio do Documento ----------
+\begin{document}
+
+\capa % geracao automatica da capa
+\folhaderosto % geracao automatica da folha de rosto
+%\termodeaprovacao % <- ainda a ser implementado corretamente
+
+% dedicatï¿½ria (opcional)
+\begin{dedicatoria}
+Texto da dedicat\'oria.
+\end{dedicatoria}
+
+% agradecimentos (opcional)
+\begin{agradecimentos}
+Texto dos agradecimentos.
+\end{agradecimentos}
+
+% epigrafe (opcional)
+\begin{epigrafe}
+Texto da ep\'igrafe.
+\end{epigrafe}
+
+%resumo
+\begin{resumo}
+Texto do resumo (m\'aximo de 500 palavras).
+\end{resumo}
+
+%abstract
+\begin{abstract}
+Abstract text (maximum of 500 words).
+\end{abstract}
+
+% listas (opcionais, mas recomenda-se a partir de 5 elementos)
+\listadefiguras % geracao automatica da lista de figuras
+\listadetabelas % geracao automatica da lista de tabelas
+\listadesiglas % geracao automatica da lista de siglas
+\listadesimbolos % geracao automatica da lista de simbolos
+
+% sumario
+\sumario % geracao automatica do sumario
+
+
+%---------- Inicio do Texto ----------
+% recomenda-se a escrita de cada capitulo em um arquivo texto separado (exemplo: intro.tex, fund.tex, exper.tex, concl.tex, etc.) e a posterior inclusao dos mesmos no mestre do documento utilizando o comando \input{}, da seguinte forma:
+%\input{intro.tex}
+%\input{fund.tex}
+%\input{exper.tex}
+%\input{concl.tex}
