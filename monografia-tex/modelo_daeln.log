@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2011.6.6)  14 JUN 2011 14:44
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2011.6.6)  20 JUL 2011 15:00
 entering extended mode
 **C:/Coisas*de*Yuri/9Periodo/TCC/TCC/monografia-tex/modelo_daeln.tex
 ("C:/Coisas de Yuri/9Periodo/TCC/TCC/monografia-tex/modelo_daeln.tex"
@@ -460,21 +460,24 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 
 ]) ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\cap1.tex"
 Cap\'{\i }tulo 1.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 4.
-("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\ot1pcr.fd"
+[11
+
+
+]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 52.
+ ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 21.
 
+LaTeX Warning: Citation `DAELN2006' on page 12 undefined on input line 58.
+
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 63.
 ("C:\Coisas de Yuri\Programas\MikTex\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 21.
- [11
-
-
-])
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
+)
 ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\cap2.tex" [12]
 Cap\'{\i }tulo 2.
 LaTeX Font Info:    Try loading font information for OMS+pcr on input line 5.
@@ -483,6 +486,9 @@ File: omspcr.fd
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 5.
+
+
+LaTeX Warning: Citation `Goossens2007' on page 13 undefined on input line 9.
 
 <./figs/dummy.png, id=52, 301.125pt x 301.125pt>
 File: ./figs/dummy.png Graphic file (type png)
@@ -496,21 +502,63 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
 
-[13
 
- <C:/Coisas de Yuri/9Periodo/TCC/TCC/monografia-tex/figs/dummy.png>]
+LaTeX Warning: Citation `Lamport1986' on page 13 undefined on input line 21.
+
+
+LaTeX Warning: Citation `Buerger1989' on page 13 undefined on input line 21.
+
+
+LaTeX Warning: Citation `Kopka2003' on page 13 undefined on input line 21.
+
+
+LaTeX Warning: Citation `Mittelbach2004' on page 13 undefined on input line 21.
+
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 42.
-)
+[13
+
+ <C:/Coisas de Yuri/9Periodo/TCC/TCC/monografia-tex/figs/dummy.png>])
 ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\concl.tex" [14]
 Cap\'{\i }tulo 3.
+
+LaTeX Warning: Citation `CTAN2009' on page 15 undefined on input line 4.
+
+
+LaTeX Warning: Citation `TeX-Br2009' on page 15 undefined on input line 4.
+
+
+LaTeX Warning: Citation `Wikibooks2009' on page 15 undefined on input line 4.
+
+
+LaTeX Warning: Citation `TeXnicCenter2009' on page 15 undefined on input line 6
+.
+
+
+LaTeX Warning: Citation `JabRef2009' on page 15 undefined on input line 8.
+
+
+LaTeX Warning: Citation `Mendeley2009' on page 15 undefined on input line 8.
+
 ) ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\final.tex"
 ("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\modelo_daeln.bbl" [15
 
-])
-[16
+]
+Underfull \hbox (badness 10000) in paragraph at lines 10--14
+[]\OT1/ptm/m/n/12 ABNTEX. \OT1/ptm/b/n/12 Ab-sur-das nor-mas para T[]X\OT1/ptm/
+m/n/12 . 2009. Dis-pon[]vel em:
+ []
+
+
+Underfull \hbox (badness 2521) in paragraph at lines 10--14
+\OML/ztmcm/m/it/12 <$\OT1/ptm/m/n/12 http://sourceforge.net/apps/mediawiki/abnt
+ex/index.php$\OML/ztmcm/m/it/12 >$\OT1/ptm/m/n/12 . Acesso em: 8 de no-vem-bro
+ []
+
+) [16
 
 ]
 Apendice A.
@@ -526,27 +574,31 @@ AED: lastpage setting LastPage
 | Comentario, sugestao ou critica sobre o abnTeX? Entre em contato: |
 |                  http://abntex.codigolivre.org.br                 |
 +-------------------------------------------------------------------+
-("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\modelo_daeln.aux") ) ) 
+("C:\Coisas de Yuri\9Periodo\TCC\TCC\monografia-tex\modelo_daeln.aux")
+
+LaTeX Warning: There were undefined references.
+
+ ) ) 
 Here is how much of TeX's memory you used:
- 3829 strings out of 495261
- 54714 string characters out of 3179240
- 111637 words of memory out of 3000000
- 6863 multiletter control sequences out of 15000+200000
- 52695 words of font info for 118 fonts, out of 3000000 for 9000
+ 3791 strings out of 495261
+ 54018 string characters out of 3179240
+ 115161 words of memory out of 3000000
+ 6826 multiletter control sequences out of 15000+200000
+ 51588 words of font info for 117 fonts, out of 3000000 for 9000
  16 hyphenation exceptions out of 8191
  36i,8n,43p,957b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/C
-oisas de Yuri/Programas/MikTex/fonts/enc/dvips/fontname/8r.enc}<C:/Coisas de Yu
-ri/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Coisas de Yur
-i/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Coisas de Yuri
-/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Coisas de Yuri/P
-rogramas/MikTex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Coisas de Yuri/Pr
-ogramas/MikTex/fonts/type1/urw/courier/ucrr8a.pfb><C:/Coisas de Yuri/Programas/
-MikTex/fonts/type1/urw/symbol/usyr.pfb><C:/Coisas de Yuri/Programas/MikTex/font
-s/type1/urw/symbol/usyr.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw
-/times/utmb8a.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/times/utm
-r8a.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on modelo_daeln.pdf (20 pages, 128084 bytes).
+{C:/Coisas de Yuri/Programas/MikTex/fonts/enc/dvips/fontname/8r.enc}<C:/Coi
+sas de Yuri/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Cois
+as de Yuri/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Coisa
+s de Yuri/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Coisas 
+de Yuri/Programas/MikTex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Coisas d
+e Yuri/Programas/MikTex/fonts/type1/urw/courier/ucrr8a.pfb><C:/Coisas de Yuri/P
+rogramas/MikTex/fonts/type1/urw/symbol/usyr.pfb><C:/Coisas de Yuri/Programas/Mi
+kTex/fonts/type1/urw/symbol/usyr.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/
+type1/urw/times/utmb8a.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/
+times/utmr8a.pfb><C:/Coisas de Yuri/Programas/MikTex/fonts/type1/urw/times/utmr
+i8a.pfb>
+Output written on modelo_daeln.pdf (20 pages, 129230 bytes).
 PDF statistics:
  111 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

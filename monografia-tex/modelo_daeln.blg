@@ -2,9 +2,38 @@ This is BibTeX, Version 0.99cThe top-level auxiliary file: modelo_daeln.aux
 The style file: abnt-alf.bst
 Database file #1: abnt-options.bib
 Database file #2: reflatex.bib
+Warning--I didn't find a database entry for "DAELN2006"
+Warning--I didn't find a database entry for "Goossens2007"
+Warning--I didn't find a database entry for "Lamport1986"
+Warning--I didn't find a database entry for "Buerger1989"
+Warning--I didn't find a database entry for "Kopka2003"
+Warning--I didn't find a database entry for "Mittelbach2004"
+Warning--I didn't find a database entry for "CTAN2009"
+Warning--I didn't find a database entry for "TeX-Br2009"
+Warning--I didn't find a database entry for "Wikibooks2009"
+Warning--I didn't find a database entry for "TeXnicCenter2009"
+Warning--I didn't find a database entry for "JabRef2009"
+Warning--I didn't find a database entry for "Mendeley2009"
+Too many commas in name 1 of "MENDONÇA, M.; ARRUDA, L.V.R.; NEVES, F." for entry MENDONCA
+while executing---line 2123 of file abnt-alf.bst
+Too many commas in name 1 of "MENDONÇA, M.; ARRUDA, L.V.R.; NEVES, F." for entry MENDONCA
+while executing---line 2123 of file abnt-alf.bst
+Too many commas in name 1 of "MENDONÇA, M.; ARRUDA, L.V.R.; NEVES, F." for entry MENDONCA
+while executing---line 2123 of file abnt-alf.bst
+Too many commas in name 1 of "MENDONÇA, M.; ARRUDA, L.V.R.; NEVES, F." for entry MENDONCA
+while executing---line 2123 of file abnt-alf.bst
+Too many commas in name 1 of "MENDONÇA, M.; ARRUDA, L.V.R.; NEVES, F." for entry MENDONCA
+while executing---line 2123 of file abnt-alf.bst
+Too many commas in name 1 of "MENDONÇA, M.; ARRUDA, L.V.R.; NEVES, F." for entry MENDONCA
+while executing---line 2178 of file abnt-alf.bst
+Too many commas in name 1 of "MENDONÇA, M.; ARRUDA, L.V.R.; NEVES, F." for entry MENDONCA
+while executing---line 2178 of file abnt-alf.bst
+Too many commas in name 1 of "MENDONÇA, M.; ARRUDA, L.V.R.; NEVES, F." for entry MENDONCA
+while executing---line 2178 of file abnt-alf.bst
 +---------------------------------------------------------+
 | Estilo bibliografico abnt-alf.bst versao 1.52           |
 | Implementa a NBR6023, NBR10520 e NBR10523               |
 | Em caso de duvidas ou problemas com este estilo procure |
 | http://abntex.codigolivre.org.br                        |
 +---------------------------------------------------------+
+(There were 8 error messages)

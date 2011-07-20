@@ -1,9 +1,51 @@
 %---------- Primeiro Capitulo ----------
-\chapter{Introdu\c{c}\~ao}
+\chapter{Introdução}
 
-O presente documento \'e um exemplo de uso do estilo de formata\c{c}\~ao \LaTeX\ elaborado para atender \`as Normas para Elabora\c{c}\~ao de Trabalhos Acad\^emicos da UTFPR. O estilo de formata\c{c}\~ao {\ttfamily abnt-UTFPR.cls} tem por base o pacote \textsc{abn}\TeX~-- cuja leitura da documenta\c{c}\~ao \cite{abnTeX2009} \'e fortemente sugerida~-- e o estilo de formata\c{c}\~ao \LaTeX\ da UFPR.
-
-Para melhor entendimento do uso do estilo de formata\c{c}\~ao {\ttfamily abnt-UTFPR.cls}, aconselha-se que o potencial usu\'ario analise os comandos existentes no arquivo \TeX\ ({\ttfamily modelo\_*.tex}) e os resultados obtidos no arquivo PDF ({\ttfamily modelo\_*.pdf}) depois do processamento pelo software \LaTeX\ + \textsc{Bib}\TeX~\cite{LaTeX2009,BibTeX2009}. Recomenda-se a consulta ao material de refer\^encia do software para a sua correta utiliza\c{c}\~ao~\cite{Lamport1986,Buerger1989,Kopka2003,Mittelbach2004}.
+O problema do controle de navegação de robôs móveis autônomos é
+um campo da Engenharia da Computação que representa um grande
+desafio, devido ao fato de o ambiente ser dinâmico, haver sensoriamento
+sujeito a ruídos e exigências de controle e tomada de decisão em tempo
+real. Um sistema de navegação deve garantir que o robô móvel atinja
+satisfatoriamente o destino de sua trajetória, enviando ao robô os comandos
+necessários para a sua locomoção, de maneira precisa e suave, ao mesmo
+tempo em que permite reações rápidas às mudanças de ambiente para
+evitar colisões.
+Na robótica móvel, existem dois principais paradigmas que guiam os
+projetos de diversas arquiteturas de sistemas de navegação: o reativo e o
+deliberativo. O paradigma reativo procura reproduzir a reação imediata dos
+animais aos estímulos do ambiente. Geralmente, arquiteturas reativas são
+empregadas como uma camada de nível inferior na navegação de robôs
+móveis, pois apresentam a vantagem de resposta em tempo real uma vez
+que mapeiam a leitura dos sensores, diretamente, em ações. Arquiteturas
+deliberativas, por outro lado, intercalam o processo da tomada de decisão,
+desde a percepção até a ação, com uma etapa de planejamento a qual
+demanda grande tempo computacional, impedindo a atuação do robô em
+tempo real. Atualmente, são definidas arquiteturas híbridas, conjugando
+ambos os paradigmas\cite{FRACASSO}.
+Ao realizar uma breve pesquisa para análise do estado da arte, foi possível
+perceber que existem vários trabalhos que apresentam novos métodos
+para navegação autônoma através do uso de lógica Fuzzy. Entretanto,
+não foi encontrado um trabalho propondo a comparação entre métodos
+já existentes. Com o intuito de preencher esta lacuna, a equipe optou
+desenvolver este projeto.
+Um dos modelos analisados neste trabalho é o modelo ED-FCM
+proposto por Mendonça no ano de 2010\cite{MENDONCA}. A sigla ED-FCM significa Event-
+Driven Fuzzy Cognitive Maps e quer dizer Mapas Cognitivos Difusos
+Dirigidos A Eventos.
+Para realizar a comparação prática destes algoritmos, provou-se necessária uma
+plataforma robótica, obtida através reconstrução do robô Bellator. O Bellator é um robô móvel que estava
+em construção em outro projeto mas foi abandonado. Este robô, sua reconstrução 
+e adaptação às necessidades da equipe, é parte do projeto e é documentada em detalhes
+neste documento. Esta adaptação leva em conta
+também a possibilidade de utilização do Bellator para projetos futuros.
+As principais motivações deste trabalho são o desenvolvimento de uma
+plataforma robótica adequada para pesquisas acadêmicas, tendo em
+vista a falta de plataformas disponíveis com este propósito, e o estudo de
+sistemas de controle de navegação robótica, que é um ramo de pesquisa
+de elevado valor acadêmico. A possibilidade de disponibilizar uma nova
+plataforma robótica para futuros estudos acadêmicos e estudar um algoritmo
+de navegação pouco explorado são os maiores incentivos da equipe para a
+realização deste trabalho.
 
 \section{Motiva\c{c}\~ao}
 
