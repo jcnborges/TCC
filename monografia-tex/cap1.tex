@@ -34,7 +34,7 @@ Driven Fuzzy Cognitive Maps e quer dizer Mapas Cognitivos Difusos
 Dirigidos A Eventos.
 Para realizar a comparação prática destes algoritmos, provou-se necessária uma
 plataforma robótica, obtida através reconstrução do robô Bellator. O Bellator é um robô móvel que estava
-em construção em outro projeto mas foi abandonado. Este robô, sua reconstrução 
+em construção em outro projeto mas foi abandonado. Este robô, sua reconstrução
 e adaptação às necessidades da equipe, é parte do projeto e é documentada em detalhes
 neste documento. Esta adaptação leva em conta
 também a possibilidade de utilização do Bellator para projetos futuros.
@@ -55,12 +55,36 @@ Uma das principais vantagens do uso do estilo de formata\c{c}\~ao {\ttfamily abn
 
 \subsection{Objetivo Geral}
 
-Prover um modelo de formata\c{c}\~ao \LaTeX\ que atenda \`as Normas para Elabora\c{c}\~ao de Trabalhos Acad\^emicos da UTFPR~\cite{UTFPR2008} e \`as Normas de Apresenta\c{c}\~ao de Trabalhos Acad\^emicos do DAELN~\cite{DAELN2006}.
+Os principais objetivos do projeto são construir uma plataforma robótica estável cujo hardware e software
+deverão ser bem documentados, visando extensibilidade para projetos futuros, e utilizar-se desta plataforma para testar dois algoritmos de navegação fuzzy, comparando-os segundo diversos critérios, tais como: tamanho e complexidade do código, custo
+computacional, tempo de resposta, eficácia.
 
 \subsection{Objetivos Espec\'ificos}
 
-\begin{itemize}
-	\item Obter documentos acad\^emicos automaticamente formatados com corre\c{c}\~ao e perfei\c{c}\~ao est\'etica.
-	\item Desonerar autores da tediosa tarefa de formatar documentos acad\^emicos, permitindo sua concentra\c{c}\~ao no conte\'udo do mesmo.
-	\item Desonerar orientadores e examinadores da tediosa tarefa de conferir a formata\c{c}\~ao de documentos acad\^emicos, permitindo sua concentra\c{c}\~ao no conte\'udo do mesmo.
-\end{itemize}
+Os objetivos específicos deste projeto remetem não apenas à análise de algoritmos de navegação fuzzy mas também quanto à qualidade da re-construção da plataforma robótica. 
+De maneira geral, a plataforma deve ser capaz de detectar
+obstáculos próximos a mesma através de sensores de distância, e deverá se deslocar por meio de um par de motores de corrente
+contínua acoplados a rodas revestidas de borracha. As rodas devem ser equipadas com encoders para auxílio à odometria. A
+plataforma deve executar comandos de movimentação, os quais são:
+translação para frente e para trás, e rotação, no sentido horário e anti
+horário. Um sistema microcontrolador deve processar os sinais dos sensores
+de distância e dos encoders das rodas, e implementar rotinas de baixo
+nível para acessar os dados dessa leitura. Esse sistema também deve
+implementar rotinas de baixo nível para controlar a potência dos motores
+e calcular deslocamento, velocidade e aceleração linear e angular da
+plataforma.
+A plataforma deve ser extensível a qualquer outro sistema de
+processamento. O microcontrolador desta deve implementar rotinas de
+baixo nível para comunicação de dados. A plataforma deve apresentar
+interface de alto nível para leitura dos dados dos sensores e recebimento de
+comandos de movimentação.
+A documentação de hardware e software da plataforma deve atender
+aos requisitos de um projeto de engenharia, incluindo: diagramas de blocos, diagramas esquemáticos,
+diagramas UML de classes, casos de uso, entre outros.
+Os dois algoritmos de navegação deverão ser implementados em uma hardware acoplado à plataforma robótica, visando reduzir atrasos de comunicação. Este hardware deverá ser capaz de ler os dados dos sensores do robô como fonte de informações para os algoritmos e enviar comandos de movimentação ao mesmo.
+Os testes dos algoritmos deverão realizados inicialmente em um
+ambiente aberto e livre de obstáculos, onde o robô deverá deslocar-se em uma trajetória de
+um ponto inicial a um ponto final com velocidade constante. Posteriormente,
+o ambiente será limitado progressivamente, acrescentando-se obstáculos
+entre os dois pontos da trajetória. Em cada caso, os dois algoritmos
+serão experimentados sob as mesmas condições.
