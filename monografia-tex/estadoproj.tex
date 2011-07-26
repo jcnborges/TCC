@@ -1,0 +1,36 @@
+%---------- Estado inicial do Projeto ----------
+\chapter{Estado do Projeto}
+\label{chap:estpro}
+
+Este capítulo visa descrever com quais recursos a equipe iniciou a execução do projeto, tanto materiais como imateriais. Ou seja, este capítulo descreve a situação do robô e seus componentes físicos, o principal recurso material do projeto e, também, de seus componentes de software e a documentação dos mesmos, da forma como entregue à equipe no início do projeto.
+
+\section{Visão Geral}
+
+O robô disponibilizado à equipe para a realização do projeto, o Bellator, é resultado de um projeto não concluído, visando a implementação de uma plataforma robótica controlada remotamente por joystick. Para tal, o robô foi dividido em três camadas: Baixo nível, Alto nível e Supervisório. A camada de baio nível seria responsável por controlar os motores do robô, bem como receber leituras dos sensores do mesmo. A camada de alto nível comunicaria-se com a camada de baixo nível via conexão serial, faria obtenção de vídeo através de uma webcam e comunicaria-se com a camada supervisória através de uma conexão sem-fio. Esta última seria a interface com o usuário para realizar o controle remoto do robô. O diagrama esquemático a seguir demonstra esta situação:
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.2\textwidth]{./figs/diagsis.png} % <- formatos PNG, JPG e PDF
+	\caption[Diagrama original do Bellator]{Diagrama original do projeto Bellator, retirado da monografia do mesmo.}
+	\fonte{\cite{BELLATOR}}
+	\label{fig:diagsis}
+\end{figure}
+
+A partir da figura \ref{fig:diagsis}, o funcionamento do projeto bellator pode ser analisado. A camada de baixo nível é composta pelo robô bellator, equipado com dois motores elétricos Bosch FPG 12V, seis sensores de distância "2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7.2 Ampére hora, duas pontes H e a placa micro-controlada C8051F340, capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa está conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, este PC Embarcado envia comandos de movimentação para a camada de baixo nível e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC Embarcado também comunica-se com a camada de alto nível para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo. Além disso, o PC Embarcado envia, também via comunicação sem-fio, um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com máquina virtual java, fornece as informações recebidas da camada de alto nível para o usuário, ajudando-o a tomar decisões sobre a locomoção do robô e recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível.
+
+O leitor pode observar desde já que o projeto Bellator apresenta objetivos muito distintos do projeto "Algoritmos de Navegação Fuzzy Uma Análise Qualitativa". Assim, não será feita uma descrição detalhada de todos os componentes do projeto bellator. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram re-aproveitados.
+
+\section{Recebimento do Robô}
+
+O robô Bellator foi entregue a equipe no dia TODO, em uma caixa, desmontado, juntamente de toda a documentação disponível do mesmo, por mídia digital. A caixa continha os seguintes itens:
+\begin{itemize} %TODO Conferir
+\item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acoplados
+\item Cinco sensores de distância "2Y0A02F98" da Sharp
+\item Uma bateria Unybatt 12V-7.2 Ampére hora
+\item Uma placa micro-controlada C8051F340
+\item Um PC Embarcado VIA EPIA ME60000 Mini-ITX
+\end{itemize}
+O chassi do robô e seus componentes acoplados são a base da plataforma robótica a ser utilizada pela equipe e críticas para a execução do projeto. Os sensores de distância, um a menos que os disponíveis no projeto Bellator, são essenciais para a localização do robô e de obstáculos, sendo críticoos para o projeto, também. A placa micro-controlada também é um recurso crítico para o projeto pois é um componente responsável por todo o controle de baixo nível do robô que, além disso, possui software reaproveitável e documentado. A bateria é um recurso necessário para o projeto, porém é de fácil acquisição, ao contrário dos outros componentes aqui citados. Visto a importância destes elementos para o projeto, eles serão descritos em maiores detalhes na seção TODO, com apoio da documentação produzida pelo projeto Bellator.
+Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não foram recebidos ou não serão utilizados no novo projeto. A webcam e joystick mencionados na seção anterior não foram entregues, pois não serão necessários para este projeto, visto que um sistema de navegação autonoma não necessita de Joystick e, no caso deste projeto, não será capaz de utilizar-se de um stream de vídeo. O PC Embarcado foi entregue destituído de qualquer documentação sobre os componentes de software do mesmo. Além disso, como o novo objetivo do robô não necessita de comunicação sem-fio e não utilizará stream de vídeo, motivo principal para a utilização deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que será descrita em detalhes na seção TODO.
+
+A documentação disponível à equipe, produzida pelo projeto Bellator, descreve em detalhes os componentes de hardware da plataforma robótica Bellator, do software de controle supervisório e da camada de baixo nível do robô, ou seja, o software da placa C8051F340\ref{BELLATOR}. Esta documentação será utilizada como referência para o reaproveitamento da plataforma robótica, com exceção da documentação referente ao software de controle supervisório, que não será utilizado.
