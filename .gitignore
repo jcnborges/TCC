@@ -1,0 +1,11 @@
+# Ignore pdflatex generated files
+
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.lsb
+*.lsg
+*.toc
