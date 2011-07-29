@@ -9,3 +9,12 @@
 *.lsb
 *.lsg
 *.toc
+
+# Ignore .bak files from editors
+
+*.bak
+
+# Ignore databases like Thumbs.db
+
+*.db
+
