@@ -3,3 +3,93 @@
 \label{chap:esprob}
 
 Este capítulo visa descrever todas as especificações do hardware do robô Bellator, utilizado na realização deste projeto.
+
+\section{Sensor IR 2Y0A02F98}
+\label{sec:sensores}
+Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, o robô possui cinco sensores analógicos de distância por infravermelho modelo 2Y0A02F98 da Sharp, dispostos uniformemente nas laterais da plataforma Bellator. Estes sensores já estavam instalados no robô como resultado do projeto Bellator. A documentação relacionada a este sensor foi retirada da monografia de tal projeto \cite{BELLATOR}, adaptada à nova situação.
+
+Este sensor mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva} .
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/curvaresp.png}
+  \caption[Curva de resposta do sensor de distância.]
+  {Curva de resposta do sensor de distância. Fonte: datasheet.}
+  \label{curva}
+\end{figure}
+
+Pode-se observar que o modelo é pouco influenciado pelas cores dos objetos refletidos, isto devido ao método de medição baseado em triangulação \cite{datasheetsensor}. O sensor possui uma tensão de alimentação recomendada na faixa de 4.5 a 5.5V, a qual não é atendida pela plataforma utilizada \cite{datasheetkit}, sendo necessária utilização de alimentação especial. Esta alimentação é realizada através de um circuito regulador de tensão, o qual utiliza alimentação da própria bateria acoplada ao robô. O cálculo dos valores dos resistores foram baseados na equação \ref{eqRegulador}.
+\begin{equation}
+\label{eqRegulador}
+V_{OUT} = 1,25V (1 + R_{2}/R_{1})
+\end{equation}
+O diagrama esquemático do regulador de tensão é mostrado na figura \ref{regulador}.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/regulador.jpg}
+  \caption[Diagrama esquemático do regulador de tensão dos sensores de distância.]
+  {Diagrama esquemático do regulador de tensão dos sensores de distância.}
+  \label{regulador}
+\end{figure}
+
+As respectivas dimensões do sensor IR, em milímetros, são mostradas na figura \ref{dimsens}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/dimsens.png}
+  \caption[Dimensões do sensor GP2Y0A02F98YK.]
+  {Dimensões do sensor GP2Y0A02F98YK. Fonte: datasheet.}
+  \label{dimsens}
+\end{figure}
+
+Para agregar os sensores à plataforma, primeiramente foi levantada a curva de resposta dos mesmos. Com estes dados, foi feita uma aproximação polinomial da curva de resposta e, com a equação resultante \ref{eq_sensores}, foram calculados 256 pontos entre o intervalo de operação. Esta tabela resultante, de formato tensão(V) X distância(cm), foi armazenada no nível supervisor remoto para ser utilizada para obtenção das respostas dos sensores (distância em centímetros). %TODO Não há mais supervisor remoto! Resolver e adaptar o texto.
+
+\begin{equation}
+\label{eq_sensores}
+V_{medido} = 2,01091E-8x^4-8,7740E-6x^3+0,0014x^2-0,1152x+4,3134
+\end{equation}
+
+O modelo em questão é adequado ao projeto pois, como sua principal finalidade é a de ajudar a navegação do robô em ambientes fechados, sua faixa de resposta de 20 a 150 centímetros é suficiente para detecção de objetos. Contudo, há a possibilidade de num projeto futuro serem acrescentados outros tipos de sensores mais precisos voltados à medição de distâncias menores. 
+
+\section{C8051F340DK}
+\label{sec:C8051F340DK}
+
+O C8051F340 é uma unidade micro controladora (MCU) equipada com um processador  da família 8051 e vários dispositivos periféricos dispostos em uma placa de circuito impresso. Esta unidade faz parte do robô Bellator e já foi anexada ao mesmo durante a execução do projeto Bellator. Novamente, estas especificações foram retiradas da monografia do projeto Bellator. A C8051F340 possui as seguintes especificações \cite{datasheetkit}:
+
+\begin{itemize}
+  \item Conversor ADC 10 bits de até 200ksps (amostras por segundo)
+  \item Dois comparadores
+  \item Brown-out Reset e Power-on Reset
+  \item Tensão de Referência interna
+  \item Porta USB 2.0
+  \item Duas interfaces seriais (UART) e uma interface SPI
+  \item Fonte de Alimentação de 2.7 até 5.25V regulada internamente
+  \item Micro-processador 8051 de até 48 MIPS
+  \item 4352 Bytes de memória RAM
+  \item 40 Portas I/O
+  \item 4 Timers de 16 bits
+  \item Seleção de Clock interno de alta ou baixa velocidade ou clock externo
+\end{itemize}
+
+Um diagrama em blocos do kit, retirado do datasheet, pode ser visto abaixo:
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/dbloc.png}
+  \caption[Diagrama em blocos do kit C8051F340DK.]
+  {Diagrama em blocos do kit C8051F340DK. Fonte: datasheet.}
+  \label{dbloc}
+\end{figure}
+
+\section{Robô Bellator}
+\label{sec:robobellator} %TODO Atualizar figura/Dados
+
+O robô Bellator, como mencionado no capítulo \ref{chap:estpro}, foi reaproveitado do projeto Bellator e esta especificação foi adaptado da monografia do mesmo. O robô possui duas rodas de tração e uma roda de apoio. As rodas de tração estão nas laterais da parte traseira do robô e possuem diâmetro de 20 centímetros e espessura de aproximadamente 4 centímetros. Ambas possuem um encoder de quadratura acoplado, o qual tem resolução de 1800 pulsos por volta. A roda de apoio está no centro da parte dianteira do robô e possui diâmetro de aproximadamente 6 centímetros e espessura de 2 centímetros. Todas as rodas são da marca Schioppa. Os outros componentes do robô estão listados a seguir:
+\begin{itemize}
+  \item[-] 2 Motores Bosch FPG 12V
+  \item[-] Bateria Unybatt 12V-7.2 Ampére-hora
+  \item[-] Duas pontes H L 298
+\end{itemize}
+
+Uma imagem do robô, parcialmente montado, pode ser visualizada a seguir:
