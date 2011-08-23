@@ -3,39 +3,38 @@
 #include "protocolo.h"				/* arquivo de definicoes de constantes */
 
 
-//#define DEBUG 				// SE COMENTAR ESSE DEFINE, GERA O CODIGO SEM AS MENSAGEMS DE DEBUG !!!
-#define PWM_RIGHT_FORWARD P1_4	// DEFINE O PINO NO QUE GERA A PWM PARA A RODA RIREITA GIRAR PARA FRENTE
-#define PWM_RIGHT_REVERSE P1_5	// DEFINE O PINO NO QUE GERA A PWM PARA A RODA RIREITA GIRAR PARA TRAS
-#define PWM_LEFT_FORWARD  P1_6	// DEFINE O PINO NO QUE GERA A PWM PARA A RODA ESQUERA GIRAR PARA FRENTE
-#define PWM_LEFT_REVERSE  P1_7	// DEFINE O PINO NO QUE GERA A PWM PARA A RODA ESQUERA GIRAR PARA TRAS
+//#define DEBUG			// SE COMENTAR ESSE DEFINE, GERA O CODIGO SEM AS MENSAGEMS DE DEBUG !!!
+#define PWM_RIGHT_FORWARD P1_4	// DEFINE O PINO QUE TERA A PWM PARA A RODA DIREITA GIRAR PARA FRENTE
+#define PWM_RIGHT_REVERSE P1_5	// DEFINE O PINO QUE TERA A PWM PARA A RODA DIREITA GIRAR PARA TRAS
+#define PWM_LEFT_FORWARD  P1_6	// DEFINE O PINO QUE TERA A PWM PARA A RODA ESQUERA GIRAR PARA FRENTE
+#define PWM_LEFT_REVERSE  P1_7	// DEFINE O PINO QUE TERA A PWM PARA A RODA ESQUERA GIRAR PARA TRAS
 
 #define TERRA   0x1F
 #define VCC     0x1F
-#define CANAL_0 0x00 			// DIRECIONA A LEITURA DO CANAL 0 PARA o PINO P2.0
-#define CANAL_1 0x01 			// DIRECIONA A LEITURA DO CANAL 1 PARA o PINO P2.1
-#define CANAL_2 0x02 			// DIRECIONA A LEITURA DO CANAL 2 PARA o PINO P2.2
-#define CANAL_3 0x03 			// DIRECIONA A LEITURA DO CANAL 3 PARA o PINO P2.3
-#define CANAL_4 0x04			// DIRECIONA A LEITURA DO CANAL 4 PARA o PINO P2.5 
-#define CANAL_5 0x05 			// DIRECIONA A LEITURA DO CANAL 5 PARA o PINO P2.6
+#define CANAL_0 0x00 		// DIRECIONA A LEITURA DO CANAL 0 PARA o PINO P2.0
+#define CANAL_1 0x01 		// DIRECIONA A LEITURA DO CANAL 1 PARA o PINO P2.1
+#define CANAL_2 0x02 		// DIRECIONA A LEITURA DO CANAL 2 PARA o PINO P2.2
+#define CANAL_3 0x03 		// DIRECIONA A LEITURA DO CANAL 3 PARA o PINO P2.3
+#define CANAL_4 0x04		// DIRECIONA A LEITURA DO CANAL 4 PARA o PINO P2.5 
+#define CANAL_5 0x05		// DIRECIONA A LEITURA DO CANAL 5 PARA o PINO P2.6
 
 #define SYSCLK       48000000   // SYSCLK frequency in Hz
 #define BAUDRATE0      115200   // Baud rate of UART0 in bps
 #define BAUDRATE1      115200   // Baud rate of UART1 in bps
 sfr16   SBRL1 = 0xB4;
 
-#define PASSO_DE_VELOCIDADE 5  // DEFINE O PASSO DE VELOCIDADE. PODE SER DIMINUIDO PARA OBTER MAIS NIVEIS
-#define TMAX 75				   // TEMPO MAXIMO DAS PWMS DE CONTROLE DE MOVIMENTO - QUANTO MAIOR, MENOR A FREQUENCIA DE CHAVEAMENTO
-								// 2048 - APROXIMADAMENTE 430 Hz -  Para CLOCK de 11.092
+#define PASSO_DE_VELOCIDADE 5	// DEFINE O PASSO DE VELOCIDADE. PODE SER DIMINUIDO PARA OBTER MAIS NIVEIS
+#define TMAX 75			// PWMS com duty cycle de 75 overflows do timer0
 
-unsigned int pwm_right=0;			// DETERMINA O VALOR DA PWM DA RODA DIREITA - INDEPENDE SO SENTIDO DE ROTACAO
-unsigned int pwm_left=0;			// DETERMINA O VALOR DA PWM DA RODA ESQUERDA - INDEPENDE SO SENTIDO DE ROTACAO
+unsigned int pwm_right=0;	// PWM RODA DIREITA
+unsigned int pwm_left=0;	// PWM RODA ESQUERDA
 
-unsigned char sensorCount = 0;	 // Marca qual sensor acabou de ter sua leitura convertida.
-unsigned char valores_velhos[6]; // armazena as conversoes mais antigas
-unsigned char valores_novos[6];	 // Armazena as conversoes mais recentes.
-bit flag_nova_conversao=0;		 // Indica que ocorreu uma varredura completa dos sensores.
-bit flag_novo_comando=0;		 // Indica que foi recebido um novo comando.
-unsigned int timer3count = 0;	 // Contador para gerar delay no Timer 3.
+unsigned char sensorCount = 0;	// Marca qual sensor acabou de ter sua leitura convertida.
+unsigned char valores_velhos[6];// armazena as conversoes mais antigas
+unsigned char valores_novos[6];	// Armazena as conversoes mais recentes.
+bit flag_nova_conversao=0	// Indica que ocorreu uma varredura completa dos sensores.
+bit flag_novo_comando=0;	// Indica que foi recebido um novo comando.
+unsigned int timer3count = 0;	// Contador para gerar delay no Timer 3.
 
 unsigned char Rx_Buff;
 unsigned char Tx_Buff;
@@ -102,7 +101,7 @@ void Delay(void)
       x++;
 }
 
-void SYSTEMCLOCK_Init (void)			//Retirado do exemplo de Comunicação UART do Kit da SLI LABS
+void SYSTEMCLOCK_Init (void)			//Retirado do exemplo de Comunicaï¿½ï¿½o UART do Kit da SLI LABS
 										//C8051F340
 {
    OSCICN |= 0x03;                     // Configure internal oscillator for
@@ -121,7 +120,7 @@ void SYSTEMCLOCK_Init (void)			//Retirado do exemplo de Comunicação UART do Kit 
    CLKSEL  = 0x03;                     // Select system clock
 }
 
-void PORT_Init (void)					//Retirado do exemplo de comunicação UART do Kit
+void PORT_Init (void)					//Retirado do exemplo de comunicaï¿½ï¿½o UART do Kit
 {  
    XBR0 = 0x01;                        // route UART 0 to crossbar
    XBR2 = 0x01;                        // route UART 1 to crossbar
@@ -354,7 +353,7 @@ void main (void)  {     /* main program */
 
     PCA0MD &= ~0x40;    // Disable Watchdog timer
 
-	SYSTEMCLOCK_Init(); // Inicialização do Clock da Serial
+	SYSTEMCLOCK_Init(); // Inicializaï¿½ï¿½o do Clock da Serial
 	PORT_Init();		
 
 	serial_setup();		// Configura a comunicacao serial
