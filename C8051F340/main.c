@@ -129,11 +129,11 @@ void PORT_Init (void)					//Retirado do exemplo de comunica??o UART do Kit
    XBR0 = 0x01;                        // route UART 0 to crossbar
    XBR2 = 0x01;							// route UART 1 to crossbar
    XBR1 = 0x40;							// enable crossbar
-   P0MDIN  |= 0x03;						// P0.0 e P0.1 entrada digital
-   P0MDOUT |= 0x11;                    // set P0.4 to push-pull output
-   P2MDOUT |= 0x04;                    // set LED to push-pull
+   P0MDIN  = 0xFF;						// Port P0 = entrada digital
+   P0MDOUT = 0x00;                     // Port P0 = saida OpenDrain
    P1MDOUT = 0x00; 					   // Mantem todas os pinos do Port 1 em OpenDrain (0) ou PushPull (1)
    P1MDIN  = 0xFF;					   // Mantem todas os pinos do Port 1 como entradas Digitais
+   P2MDOUT |= 0x04;                    // set LED to push-pull
 }
 
 void serial_setup(){
@@ -175,9 +175,7 @@ void serial_setup(){
 }
 
 void encoder_setup(){	
-	IT01CF = 0x10;	// INT0 e INT1 ativo alto, P0.0 - INT0, P0.1 - INT1
-	//P0_0 = 0;		// Pino 0.0 em nivel baixo
-	//P0_1 = 0;		// Pino 0.1 em nivel baixo
+	IT01CF = 0xB9;	// INT0 e INT1 ativo alto, P0.1 = INT0, P0.3 = INT1
 	IT0 = 1;		// Edge sensitive INT0
 	IT1 = 1;		// Edge sensitive INT1
 	IE0 = 0;		// Apaga flag interrupcao INT0
@@ -340,14 +338,14 @@ void enviar_distancias() {
 
 void interrupt_encoder_right() interrupt 0 {
 	//TODO
-	//PORT0.0
+	//PORT0.1
 	encoder_right_count++;
 	IE0 = 0;
 }
 
 void interrupt_encoder_left() interrupt 2 {
 	//TODO
-	//PORT0.1
+	//PORT0.3
 	encoder_left_count++;
 	IE1 = 0;
 }
