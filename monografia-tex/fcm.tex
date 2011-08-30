@@ -6,11 +6,25 @@ O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cogniti
 
 A estrutura de um mapa cognitivo fuzzy é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os "nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada "nó" é associado a outros através de conexões, a cada qual está associado um peso numérico, o qual representa uma variável fuzzy relacionado ao nível de causalidade entre os conceitos.
 
+Um FCM descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma variável, ou uma característica do sistema. Os conceitos do mapa cognitivo (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das interconexões (relações causais wi,j) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos.
+
+\begin{equation}\label{fcm-matrix}
+    wi,j=\left(
+       \begin{array}{ccccc}
+         0 & w12 & 0 & 0 & w15 \\
+         0 & 0 & w23 & 0 & w25 \\
+         0 & w32 & 0 & w34 & 0 \\
+         w41 & 0 & w43 & 0 & w45 \\
+         w51 & 0 & 0 & w54 & 0 \\
+       \end{array}
+     \right)
+\end{equation}
+
 \begin{figure}[!htb]
     \centering
     \includegraphics{./figs/fcm.png}
     \caption[Mapa Cognitivo Fuzzy]{Exemplo de um FCM (grafo).}
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm}
-\end{figure} 
+\end{figure}
 

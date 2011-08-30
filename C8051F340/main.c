@@ -1,13 +1,13 @@
 #include "reg52_ext.h"              /* define 8052 registers */
-#include <stdio.h>                  /* define I/O functions  */
+//#include <stdio.h>                  /* define I/O functions  */
 #include "protocolo.h"				/* arquivo de definicoes de constantes */
 
 
-//#define DEBUG			// SE COMENTAR ESSE DEFINE, GERA O CODIGO SEM AS MENSAGEMS DE DEBUG !!!
-#define PWM_RIGHT_FORWARD P1_4	// DEFINE O PINO QUE TERA A PWM PARA A RODA DIREITA GIRAR PARA FRENTE
-#define PWM_RIGHT_REVERSE P1_5	// DEFINE O PINO QUE TERA A PWM PARA A RODA DIREITA GIRAR PARA TRAS
-#define PWM_LEFT_FORWARD  P1_6	// DEFINE O PINO QUE TERA A PWM PARA A RODA ESQUERA GIRAR PARA FRENTE
-#define PWM_LEFT_REVERSE  P1_7	// DEFINE O PINO QUE TERA A PWM PARA A RODA ESQUERA GIRAR PARA TRAS
+//#define DEBUG 				// SE COMENTAR ESSE DEFINE, GERA O CODIGO SEM AS MENSAGEMS DE DEBUG !!!
+#define PWM_RIGHT_FORWARD P1_0	// DEFINE O PINO NO QUE GERA A PWM PARA A RODA DIREITA GIRAR PARA FRENTE
+#define PWM_RIGHT_REVERSE P1_2	// DEFINE O PINO NO QUE GERA A PWM PARA A RODA DIREITA GIRAR PARA TRAS
+#define PWM_LEFT_FORWARD  P1_4	// DEFINE O PINO NO QUE GERA A PWM PARA A RODA ESQUERA GIRAR PARA FRENTE
+#define PWM_LEFT_REVERSE  P1_6	// DEFINE O PINO NO QUE GERA A PWM PARA A RODA ESQUERA GIRAR PARA TRAS
 
 #define TERRA   0x1F
 #define VCC     0x1F
@@ -32,7 +32,7 @@ unsigned int pwm_left=0;	// PWM RODA ESQUERDA
 unsigned char sensorCount = 0;	// Marca qual sensor acabou de ter sua leitura convertida.
 unsigned char valores_velhos[6];// armazena as conversoes mais antigas
 unsigned char valores_novos[6];	// Armazena as conversoes mais recentes.
-bit flag_nova_conversao=0	// Indica que ocorreu uma varredura completa dos sensores.
+bit flag_nova_conversao=0;	// Indica que ocorreu uma varredura completa dos sensores.
 bit flag_novo_comando=0;	// Indica que foi recebido um novo comando.
 unsigned int timer3count = 0;	// Contador para gerar delay no Timer 3.
 
@@ -53,6 +53,10 @@ unsigned char i;				// INDICE AUXILIAR PARA LOOPS
 
 
 bit UART = 0;
+
+unsigned int encoder_right_count = 0;
+unsigned int encoder_left_count = 0;
+
 
 char putchar (char c)  {
 
@@ -101,7 +105,7 @@ void Delay(void)
       x++;
 }
 
-void SYSTEMCLOCK_Init (void)			//Retirado do exemplo de Comunica��o UART do Kit da SLI LABS
+void SYSTEMCLOCK_Init (void)			//Retirado do exemplo de Comunica??o UART do Kit da SLI LABS
 										//C8051F340
 {
    OSCICN |= 0x03;                     // Configure internal oscillator for
@@ -120,21 +124,16 @@ void SYSTEMCLOCK_Init (void)			//Retirado do exemplo de Comunica��o UART do 
    CLKSEL  = 0x03;                     // Select system clock
 }
 
-void PORT_Init (void)					//Retirado do exemplo de comunica��o UART do Kit
+void PORT_Init (void)					//Retirado do exemplo de comunica??o UART do Kit
 {  
    XBR0 = 0x01;                        // route UART 0 to crossbar
-   XBR2 = 0x01;                        // route UART 1 to crossbar
-   XBR1 = 0x40;                        // enable crossbar
-   P0MDOUT |= 0x11;                    // set P0.4 to push-pull output
-   P2MDOUT |= 0x04;                    // set LED to push-pull
+   XBR2 = 0x01;							// route UART 1 to crossbar
+   XBR1 = 0x40;							// enable crossbar
+   P0MDIN  = 0xFF;						// Port P0 = entrada digital
+   P0MDOUT = 0x00;                     // Port P0 = saida OpenDrain
    P1MDOUT = 0x00; 					   // Mantem todas os pinos do Port 1 em OpenDrain (0) ou PushPull (1)
    P1MDIN  = 0xFF;					   // Mantem todas os pinos do Port 1 como entradas Digitais
-}
-
-void servos_setup(){
-	// Usara o Modulo PCA Counter/Timer
-	// Diponibiliza 5 canais (0 a 4) para geracao de PWM para os Servos !
-	// 1 Ultrasom, 3 para Camera
+   P2MDOUT |= 0x04;                    // set LED to push-pull
 }
 
 void serial_setup(){
@@ -175,6 +174,17 @@ void serial_setup(){
    ES0 = 1;
 }
 
+void encoder_setup(){	
+	IT01CF = 0xB9;	// INT0 e INT1 ativo alto, P0.1 = INT0, P0.3 = INT1
+	IT0 = 1;		// Edge sensitive INT0
+	IT1 = 1;		// Edge sensitive INT1
+	IE0 = 0;		// Apaga flag interrupcao INT0
+	IE1 = 0;		// Apaga flag interrupcao INT1	
+	EX0 = 1;		// Habilita INT0 (interrupcao externa)
+	EX1 = 1;		// Habilita INT1 (interrupcao externa)
+
+}
+		
 void ativa_direita(void){
 	if (sentido_roda_direita) {		// Avalia sentido da roda direita (em frente == 1)
 		PWM_RIGHT_REVERSE = OFF;	// Desliga o PWM para tras
@@ -326,8 +336,18 @@ void enviar_distancias() {
 	}
 }
 
-void interrupt_encoder() interrupt 0 {
+void interrupt_encoder_right() interrupt 0 {
 	//TODO
+	//PORT0.1
+	encoder_right_count++;
+	IE0 = 0;
+}
+
+void interrupt_encoder_left() interrupt 2 {
+	//TODO
+	//PORT0.3
+	encoder_left_count++;
+	IE1 = 0;
 }
 
 void interrupt_serial() interrupt 4 { // Tratamento da interrupcao da UART0
@@ -353,19 +373,20 @@ void main (void)  {     /* main program */
 
     PCA0MD &= ~0x40;    // Disable Watchdog timer
 
-	SYSTEMCLOCK_Init(); // Inicializa��o do Clock da Serial
+	SYSTEMCLOCK_Init(); // Inicializa??o do Clock da Serial
 	PORT_Init();		
 
 	serial_setup();		// Configura a comunicacao serial
 	pwm_setup();		// Configura o PWM
+	encoder_setup();	// Configura o encoder
 
 	ADC_setup();		// Configura o ADC0
 	EA = 1;				// Habilita todas as interrupcoes
 
 	pwm_left  = 35; 	// hardcode - teste da PWM
 	pwm_right = 35; 	// hardcode - teste da PWM
-	sentido_roda_esquerda = 1;
-	sentido_roda_direita = 1;
+	sentido_roda_esquerda = 0;
+	sentido_roda_direita = 0;
 
   while (1)  { // Loop infinito....
 	if(flag_nova_conversao){	// Novos valores de conversao disponiveis
