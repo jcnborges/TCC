@@ -1,20 +1,17 @@
 
 BL51 BANKED LINKER/LOCATER V6.20 - SN: Eval Version
 COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
-"D:\9o Semestre\TCC\C8051F340\main.obj"  TO "D:\9o Semestre\TCC\C8051F340\main" PW(78) PL(68) RS(256) XD(0H)  
+"D:\9o Semestre\TCC2\TCC\C8051F340\main.obj"  TO "D:\9o Semestre\TCC2\TCC\C8051F340\main" PW(78) PL(68) RS(256) XD(0H) 
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_PUTCHAR?MAIN
 
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERVOS_SETUP?MAIN
-
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0444H BYTE (53%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 04A0H BYTE (57%) *
 ******************************************************************************
 
 >> 
 >> 
 >> 
-Program Size: data=10.0 xdata=42 code=1254
-LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
+Program Size: data=10.0 xdata=46 code=1346
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
