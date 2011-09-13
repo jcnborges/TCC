@@ -1,6 +1,6 @@
 \chapter{Mapas Cognitivos Fuzzy}
 
-Esta seção tem como objetivo explicar o que são mapas cognitivos fuzzy, também conhecidos como FCM (Fuzzy Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo, apresentar exemplos, descrever uma metodologia para construí-lo e uma metodologia de aprendizado de máquina em sistemas inteligentes utilizando FCM.
+Esta seção tem como objetivo explicar o que são mapas cognitivos fuzzy, também conhecidos como FCM (Fuzzy Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo e apresentar um exemplo, que descreve o uso em uma situação real.
 
 O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, em volta do qual os elementos são dispostos radialmente e de forma intuitiva, de acordo com a importância dos conceitos. Um mapa cognitivo pode ser tratato matematicamente por meio de operações com matrizes e baseado na teoria de grafos. Desse modo, crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas, interligadas por relações de causa e efeito. Esse modelo propõe uma organização de idéias onde é possível predizer as consequências que essa organização implica ao universo representado, sendo considerado um modelo matemático da "estrutura de crenças". O mapa cognitivo fuzzy é gerado quando se incluem a essa estrutura incertezas através da lógica Fuzzy.
 
@@ -28,7 +28,8 @@ Um FCM descreve um sistema em termos de conceitos, onde cada conceito representa
      \right)
 \end{equation}
 
-Para se construir um FCM, deve-se apresentar os fatores relevantes e as variáveis físicas que compõe a planta do processo representado. Esses elementos tornar-se-ão os conceitos do mapa. Em seguida, é preciso determinar as relações de causa e efeito que ligam cada conceito, definindo, para cada relação, se a mesma é positiva, negativa ou neutra e a respectiva intensidade.
+O FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos, e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. 
 
+Uma vantagem do FCM é a interatividade entre os conceitos, a qual permite que um problema seja dividido em várias partes e cada parte seja representada por um mapa cognitivo modular, que é interconectado aos demais mapas do problema. Outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento, a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente. 
 
 
