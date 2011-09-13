@@ -10,79 +10,64 @@ satisfatoriamente o destino de sua trajetória, enviando ao robô os comandos
 necessários para a sua locomoção, de maneira precisa e suave, ao mesmo
 tempo em que permite reações rápidas às mudanças de ambiente para
 evitar colisões.
-Na robótica móvel, existem dois principais paradigmas que guiam os
-projetos de diversas arquiteturas de sistemas de navegação: o reativo e o
-deliberativo. O paradigma reativo procura reproduzir a reação imediata dos
-animais aos estímulos do ambiente. Geralmente, arquiteturas reativas são
-empregadas como uma camada de nível inferior na navegação de robôs
-móveis, pois apresentam a vantagem de resposta em tempo real uma vez
-que mapeiam a leitura dos sensores, diretamente, em ações. Arquiteturas
-deliberativas, por outro lado, intercalam o processo da tomada de decisão,
-desde a percepção até a ação, com uma etapa de planejamento a qual
-demanda grande tempo computacional, impedindo a atuação do robô em
-tempo real. Atualmente, são definidas arquiteturas híbridas, conjugando
-ambos os paradigmas\cite{FRACASSO}.
+
+O presente trabalho é um estudo comparativo entre dois algoritmos de navegação, 
+que serão implementados em um robô. Um dos algoritmos estudados é o algoritmo ED-FCM
+proposto por Mendonça no ano de 2010\cite{MENDONCA}. A sigla ED-FCM significa Event-
+Driven Fuzzy Cognitive Maps e quer dizer Mapas Cognitivos Difusos
+Dirigidos A Eventos. %TODO: Falta citar o algoritmo Fuzzy.%
+
+
+\section{Motivação}
+
 Ao realizar uma breve pesquisa para análise do estado da arte, foi possível
 perceber que existem vários trabalhos que apresentam novos métodos
 para navegação autônoma através do uso de lógica Fuzzy. Entretanto,
 não foi encontrado um trabalho propondo a comparação entre métodos
 já existentes. Com o intuito de preencher esta lacuna, a equipe optou
 desenvolver este projeto.
-Um dos modelos analisados neste trabalho é o modelo ED-FCM
-proposto por Mendonça no ano de 2010\cite{MENDONCA}. A sigla ED-FCM significa Event-
-Driven Fuzzy Cognitive Maps e quer dizer Mapas Cognitivos Difusos
-Dirigidos A Eventos.
+
 Para realizar a comparação prática destes algoritmos, provou-se necessária uma
-plataforma robótica, obtida através reconstrução do robô Bellator. O Bellator é um robô móvel que estava
-em construção em outro projeto mas foi abandonado. Este robô, sua reconstrução
-e adaptação às necessidades da equipe, é parte do projeto e é documentada em detalhes
-neste documento. Esta adaptação leva em conta
-também a possibilidade de utilização do Bellator para projetos futuros.
-As principais motivações deste trabalho são o desenvolvimento de uma
+plataforma robótica, que foi obtida através da reconstrução do robô Bellator. 
+O Bellator é um robô móvel que estava em construção em outro projeto mas foi abandonado.
+Este robô, sua reconstruçãoe adaptação às necessidades da equipe, são partes do projeto
+e foram documentadas neste relatório. Esta adaptação levou em conta a possibilidade de 
+utilização do Bellator para projetos futuros.
+
+As principais motivações deste trabalho foram o desenvolvimento de uma
 plataforma robótica adequada para pesquisas acadêmicas, tendo em
 vista a falta de plataformas disponíveis com este propósito, e o estudo de
-sistemas de controle de navegação robótica, que é um ramo de pesquisa
-de elevado valor acadêmico. A possibilidade de disponibilizar uma nova
-plataforma robótica para futuros estudos acadêmicos e estudar um algoritmo
-de navegação pouco explorado são os maiores incentivos da equipe para a
-realização deste trabalho.
-
-\section{Motivação}
-
-
+algoritmos de navegação robótica, que é um ramo de pesquisa
+de elevado valor acadêmico. 
 
 \section{Objetivos}
 
-Os principais objetivos do projeto são construir uma plataforma robótica estável cujo hardware e software
-deverão ser bem documentados, visando extensibilidade para projetos futuros, e utilizar-se desta plataforma para testar dois algoritmos de navegação fuzzy, comparando-os segundo diversos critérios, tais como: tamanho e complexidade do código, custo
-computacional, tempo de resposta, eficácia.
+Os objetivos do presente trabalho são a reconstrução do robô Bellator, o desenvolvimento
+da documentação de hardware e software do mesmo e a execução do experimento no qual
+serão comparados dois algoritmos de navegação.
 
-Especificamente, o projeto remete não apenas à análise de algoritmos de navegação fuzzy mas também quanto à qualidade da re-construção da plataforma robótica.
-De maneira geral, a plataforma deve ser capaz de detectar
-obstáculos próximos a mesma através de sensores de distância, e deverá se deslocar por meio de um par de motores de corrente
-contínua acoplados a rodas revestidas de borracha. As rodas devem ser equipadas com encoders para auxílio à odometria. A
-plataforma deve executar comandos de movimentação, os quais são:
-translação para frente e para trás, e rotação, no sentido horário e anti
-horário. Um sistema microcontrolador deve processar os sinais dos sensores
-de distância e dos encoders das rodas, e implementar rotinas de baixo
-nível para acessar os dados dessa leitura. Esse sistema também deve
-implementar rotinas de baixo nível para controlar a potência dos motores
-e calcular deslocamento, velocidade e aceleração linear e angular da
-plataforma.
-A plataforma deve ser extensível a qualquer outro sistema de
-processamento. O microcontrolador desta deve implementar rotinas de
-baixo nível para comunicação de dados. A plataforma deve apresentar
-interface de alto nível para leitura dos dados dos sensores e recebimento de
-comandos de movimentação.
-A documentação de hardware e software da plataforma deve atender
-aos requisitos de um projeto de engenharia, incluindo: diagramas de blocos, diagramas esquemáticos,
-diagramas UML de classes, casos de uso, entre outros.
-Os dois algoritmos de navegação deverão ser implementados em uma hardware acoplado à plataforma robótica, visando reduzir atrasos de comunicação. Este hardware deverá ser capaz de ler os dados dos sensores do robô como fonte de informações para os algoritmos e enviar comandos de movimentação ao mesmo.
-Os testes dos algoritmos deverão realizados inicialmente em um
-ambiente aberto e livre de obstáculos, onde o robô deverá deslocar-se em uma trajetória de
-um ponto inicial a um ponto final com velocidade constante. Posteriormente,
-o ambiente será limitado progressivamente, acrescentando-se obstáculos
-entre os dois pontos da trajetória. Em cada caso, os dois algoritmos
-serão experimentados sob as mesmas condições. 
+A plataforma deve ser capaz de detectar
+obstáculos próximos a mesma através de sensores de distância e deverá se 
+deslocar por meio de um par de motores de corrente contínua acoplados a rodas.
+As rodas devem ser equipadas com encoders para auxílio à odometria. A plataforma deve 
+executar comandos de movimentação, os quais são: translação para frente e para trás, e 
+rotação, no sentido horário e antihorário. Um sistema microcontrolador deve processar 
+os sinais dos sensores de distância e dos encoders das rodas, e implementar rotinas 
+de baixo nível para disponibilizar esses dados. Esse sistema também deve
+implementar rotinas de baixo nível para controlar a potência dos motores com base
+na informação dos encoders. O microcontrolador deve implementar rotinas de
+baixo nível para comunicação de dados. O hardware e o software desenvolvidos 
+devem ser documentados.
+
+Os dois algoritmos de navegação devem ser implementados em um hardware acoplado à 
+plataforma robótica, visando reduzir atrasos de comunicação. Este hardware deverá 
+ser capaz de ler os dados dos sensores do robô, como fonte de dados para os algoritmos, 
+e enviar comandos de movimentação ao mesmo.
+
+Os testes dos algoritmos devem ser realizados inicialmente em um
+ambiente aberto e livre de obstáculos, onde o robô deve deslocar-se de
+um ponto inicial a um ponto final. Posteriormente, o ambiente será limitado,
+acrescentando-se obstáculos entre os dois pontos. Em cada caso, os dois algoritmos
+serão experimentados sob as mesmas condições.
 
 \section{Apresentação do Documento}
