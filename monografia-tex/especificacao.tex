@@ -50,7 +50,7 @@ Para agregar os sensores à plataforma, primeiramente foi levantada a curva de re
 V_{medido} = 2,01091E-8x^4-8,7740E-6x^3+0,0014x^2-0,1152x+4,3134
 \end{equation}
 
-O modelo em questão é adequado ao projeto pois, como sua principal finalidade é a de ajudar a navegação do robô em ambientes fechados, sua faixa de resposta de 20 a 150 centímetros é suficiente para detecção de objetos. Contudo, há a possibilidade de num projeto futuro serem acrescentados outros tipos de sensores mais precisos voltados à medição de distâncias menores. 
+O modelo em questão é adequado ao projeto pois, como sua principal finalidade é a de ajudar a navegação do robô em ambientes fechados, sua faixa de resposta de 20 a 150 centímetros é suficiente para detecção de objetos. Contudo, há a possibilidade de num projeto futuro serem acrescentados outros tipos de sensores mais precisos voltados à medição de distâncias menores.
 
 \section{C8051F340DK}
 \label{sec:C8051F340DK}
@@ -85,11 +85,31 @@ Um diagrama em blocos do kit, retirado do datasheet, pode ser visto abaixo:
 \section{Robô Bellator}
 \label{sec:robobellator} %TODO Atualizar figura/Dados
 
-O robô Bellator, como mencionado no capítulo \ref{chap:estpro}, foi reaproveitado do projeto Bellator e esta especificação foi adaptado da monografia do mesmo. O robô possui duas rodas de tração e uma roda de apoio. As rodas de tração estão nas laterais da parte traseira do robô e possuem diâmetro de 20 centímetros e espessura de aproximadamente 4 centímetros. Ambas possuem um encoder de quadratura acoplado, o qual tem resolução de 1800 pulsos por volta. A roda de apoio está no centro da parte dianteira do robô e possui diâmetro de aproximadamente 6 centímetros e espessura de 2 centímetros. Todas as rodas são da marca Schioppa. Os outros componentes do robô estão listados a seguir:
+O robô Bellator, como mencionado no capítulo \ref{chap:estpro}, foi reaproveitado do projeto Bellator e esta especificação foi adaptada da monografia do mesmo. O robô possui duas rodas de tração e uma roda de apoio. As rodas de tração estão nas laterais da parte traseira do robô e possuem diâmetro de 20 centímetros e espessura de aproximadamente 4 centímetros. Ambas possuem um encoder de quadratura acoplado, o qual tem resolução de 1800 pulsos por volta. A roda de apoio está no centro da parte dianteira do robô e possui diâmetro de aproximadamente 6 centímetros e espessura de 2 centímetros. Todas as rodas são da marca Schioppa. Os outros componentes do robô estão listados a seguir:
 \begin{itemize}
   \item[-] 2 Motores Bosch FPG 12V
   \item[-] Bateria Unybatt 12V-7.2 Ampére-hora
   \item[-] Duas pontes H L 298
 \end{itemize}
 
-Uma imagem do robô, parcialmente montado, pode ser visualizada a seguir:
+Uma imagem do robô, parcialmente montado, pode ser visualizada a seguir: 
+
+\section{Placa de Roteamento} %Ainda vou(yuri) melhorar esta seção
+\label{sec:espplacaroteamento}
+
+A placa de roteamento é um componente desenvolvido com base na mesma placa já disponível do projeto Bellator. Como explicado na seção \ref{sec:recrobo}, a placa de roteamento recebida com o robô era muito rudimentar e, por isto, foi reconstruída pela equipe. As especificações da nova placa de roteamento são:
+\begin{itemize}
+
+\end{itemize}
+
+O diagrama esquemático da placa descrita pode ser observado a seguir.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/roteamento_sch.png}
+  \caption[Diagrama esquemático da placa de roteamento.]
+  {Diagrama esquemático da placa de roteamento.}
+  \label{roteamentosch}
+\end{figure}
+
+O projeto da placa, métodos de desenvolvimento, requisitos entre outros, descritos de forma detalhada, estão disponíveis na seção \ref{sec:desroteamento}. 
