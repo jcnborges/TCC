@@ -11,7 +11,7 @@ necessários para a sua locomoção, de maneira precisa e suave, ao mesmo
 tempo em que permite reações rápidas às mudanças de ambiente para
 evitar colisões.
 
-O presente trabalho é um estudo comparativo entre dois algoritmos de navegação, 
+O presente trabalho é um estudo comparativo entre dois algoritmos de navegação,
 que serão implementados em um robô. Um dos algoritmos estudados é o algoritmo ED-FCM
 proposto por Mendonça no ano de 2010\cite{MENDONCA}. A sigla ED-FCM significa Event-
 Driven Fuzzy Cognitive Maps e quer dizer Mapas Cognitivos Difusos
@@ -28,17 +28,17 @@ já existentes. Com o intuito de preencher esta lacuna, a equipe optou
 desenvolver este projeto.
 
 Para realizar a comparação prática destes algoritmos, provou-se necessária uma
-plataforma robótica, que foi obtida através da reconstrução do robô Bellator. 
+plataforma robótica, que foi obtida através da reconstrução do robô Bellator.
 O Bellator é um robô móvel que estava em construção em outro projeto mas foi abandonado.
 Este robô, sua reconstruçãoe adaptação às necessidades da equipe, são partes do projeto
-e foram documentadas neste relatório. Esta adaptação levou em conta a possibilidade de 
+e foram documentadas neste relatório. Esta adaptação levou em conta a possibilidade de
 utilização do Bellator para projetos futuros.
 
 As principais motivações deste trabalho foram o desenvolvimento de uma
 plataforma robótica adequada para pesquisas acadêmicas, tendo em
 vista a falta de plataformas disponíveis com este propósito, e o estudo de
 algoritmos de navegação robótica, que é um ramo de pesquisa
-de elevado valor acadêmico. 
+de elevado valor acadêmico.
 
 \section{Objetivos}
 
@@ -47,21 +47,20 @@ da documentação de hardware e software do mesmo e a execução do experimento no q
 serão comparados dois algoritmos de navegação.
 
 A plataforma deve ser capaz de detectar
-obstáculos próximos a mesma através de sensores de distância e deverá se 
+obstáculos próximos a mesma através de sensores de distância e deverá se
 deslocar por meio de um par de motores de corrente contínua acoplados a rodas.
-As rodas devem ser equipadas com encoders para auxílio à odometria. A plataforma deve 
-executar comandos de movimentação, os quais são: translação para frente e para trás, e 
-rotação, no sentido horário e antihorário. Um sistema microcontrolador deve processar 
-os sinais dos sensores de distância e dos encoders das rodas, e implementar rotinas 
+As rodas devem ser equipadas com encoders para auxílio à odometria. A plataforma deve
+executar comandos de movimentação, os quais são: translação para frente e para trás, e
+rotação, no sentido horário e antihorário. Um sistema microcontrolador deve processar
+os sinais dos sensores de distância e dos encoders das rodas, e implementar rotinas
 de baixo nível para disponibilizar esses dados. Esse sistema também deve
 implementar rotinas de baixo nível para controlar a potência dos motores com base
 na informação dos encoders. O microcontrolador deve implementar rotinas de
-baixo nível para comunicação de dados. O hardware e o software desenvolvidos 
-devem ser documentados.
+baixo nível para comunicação de dados. O hardware e o software desenvolvidos devem ser documentados.
 
-Os dois algoritmos de navegação devem ser implementados em um hardware acoplado à 
-plataforma robótica, visando reduzir atrasos de comunicação. Este hardware deverá 
-ser capaz de ler os dados dos sensores do robô, como fonte de dados para os algoritmos, 
+Os dois algoritmos de navegação devem ser implementados em um hardware acoplado à
+plataforma robótica, visando reduzir atrasos de comunicação. Este hardware deverá
+ser capaz de ler os dados dos sensores do robô, como fonte de dados para os algoritmos,
 e enviar comandos de movimentação ao mesmo.
 
 Os testes dos algoritmos devem ser realizados inicialmente em um
@@ -69,5 +68,8 @@ ambiente aberto e livre de obstáculos, onde o robô deve deslocar-se de
 um ponto inicial a um ponto final. Posteriormente, o ambiente será limitado,
 acrescentando-se obstáculos entre os dois pontos. Em cada caso, os dois algoritmos
 serão experimentados sob as mesmas condições.
+
+\section{Metodologia}
+
 
 \section{Apresentação do Documento}
