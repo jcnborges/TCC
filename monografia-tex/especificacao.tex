@@ -92,14 +92,18 @@ O robô Bellator, como mencionado no capítulo \ref{chap:estpro}, foi reaproveitad
   \item[-] Duas pontes H L 298
 \end{itemize}
 
-Uma imagem do robô, parcialmente montado, pode ser visualizada a seguir: 
+Uma imagem do robô, parcialmente montado, pode ser visualizada a seguir:
 
-\section{Placa de Roteamento} %Ainda vou(yuri) melhorar esta seção
+\section{Placa de Roteamento} 
 \label{sec:espplacaroteamento}
 
 A placa de roteamento é um componente desenvolvido com base na mesma placa já disponível do projeto Bellator. Como explicado na seção \ref{sec:recrobo}, a placa de roteamento recebida com o robô era muito rudimentar e, por isto, foi reconstruída pela equipe. As especificações da nova placa de roteamento são:
 \begin{itemize}
-
+    \item Dimensões:
+    \item Trilhas de cobre de aproximadamente 1mm
+    \item Regulador de tensão LM317T: Entrada até 40V, Saída 5.05V
+    \item Buffer para PWM: 74LS244
+    \item Conectores para cabos flat, PWM, Sensores e Encoders
 \end{itemize}
 
 O diagrama esquemático da placa descrita pode ser observado a seguir.
@@ -112,4 +116,4 @@ O diagrama esquemático da placa descrita pode ser observado a seguir.
   \label{roteamentosch}
 \end{figure}
 
-O projeto da placa, métodos de desenvolvimento, requisitos entre outros, descritos de forma detalhada, estão disponíveis na seção \ref{sec:desroteamento}. 
+O projeto da placa, métodos de desenvolvimento, requisitos, entre outros estão descritos de forma detalhada na seção \ref{sec:desroteamento}. 
