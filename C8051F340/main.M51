@@ -1,23 +1,23 @@
-BL51 BANKED LINKER/LOCATER V6.20              08/30/2011  09:36:23  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.20              10/11/2011  11:22:37  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.20, INVOKED BY:
-E:\SILABS\MCU\IDEFILES\C51\BIN\BL51.EXE D:\9o Semestre\TCC2\TCC\C8051F340\main
->> .obj TO D:\9o Semestre\TCC2\TCC\C8051F340\main PW (78) PL (68) RS (256) XD 
->> (0H)
+C:\SILABS\MCU\IDEFILES\C51\BIN\BL51.EXE C:\Coisas de Yuri\10Periodo\TCC\C8051F
+>> 340\main.obj TO C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main PW (78) PL (
+>> 68) RS (256) XD (0H)
 
 
 MEMORY MODEL: LARGE
 
 
 INPUT MODULES INCLUDED:
-  D:\9o Semestre\TCC2\TCC\C8051F340\main.obj (MAIN)
-  E:\SILABS\MCU\IDEFILES\C51\LIB\C51L.LIB (?C_STARTUP)
-  E:\SILABS\MCU\IDEFILES\C51\LIB\C51L.LIB (?C?IMUL)
-  E:\SILABS\MCU\IDEFILES\C51\LIB\C51L.LIB (?C_INIT)
+  C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main.obj (MAIN)
+  C:\SILABS\MCU\IDEFILES\C51\LIB\C51L.LIB (?C_STARTUP)
+  C:\SILABS\MCU\IDEFILES\C51\LIB\C51L.LIB (?C?IMUL)
+  C:\SILABS\MCU\IDEFILES\C51\LIB\C51L.LIB (?C_INIT)
 
 
-LINK MAP OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
+LINK MAP OF MODULE:  C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main (MAIN)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -67,24 +67,25 @@ LINK MAP OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
             CODE    0C79H     001CH     UNIT         ?PR?SERIAL_SETUP?MAIN
             CODE    0C95H     001BH     UNIT         ?PR?SYSTEMCLOCK_INIT?MAIN
 >> 
-BL51 BANKED LINKER/LOCATER V6.20            08/30/2011  09:36:23  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.20            10/11/2011  11:22:37  PAGE 2
 
 
-            CODE    0CB0H     0016H     UNIT         ?PR?PORT_INIT?MAIN
-            CODE    0CC6H     0014H     UNIT         ?PR?ENCODER_SETUP?MAIN
-            CODE    0CDAH     0012H     UNIT         ?C?LIB_CODE
-            CODE    0CECH     000FH     UNIT         ?PR?DELAY?MAIN
-            CODE    0CFBH     000EH     UNIT         ?PR?PWM_SETUP?MAIN
-            CODE    0D09H     000DH     UNIT         ?PR?ATIVA_DIREITA?MAIN
-            CODE    0D16H     000DH     UNIT         ?PR?ATIVA_ESQUERDA?MAIN
-            CODE    0D23H     0005H     UNIT         ?PR?DESATIVA_DIREITA?MAIN
+            CODE    0CB0H     0018H     UNIT         ?PR?PORT_INIT?MAIN
+            CODE    0CC8H     0012H     UNIT         ?C?LIB_CODE
+            CODE    0CDAH     0010H     UNIT         ?PR?ENCODER_SETUP?MAIN
+            CODE    0CEAH     000FH     UNIT         ?PR?DELAY?MAIN
+            CODE    0CF9H     000EH     UNIT         ?PR?PWM_SETUP?MAIN
+            CODE    0D07H     000DH     UNIT         ?PR?ATIVA_DIREITA?MAIN
+            CODE    0D14H     000DH     UNIT         ?PR?ATIVA_ESQUERDA?MAIN
+            CODE    0D21H     0005H     UNIT         ?PR?DESATIVA_DIREITA?MAIN
 >> 
-            CODE    0D28H     0005H     UNIT         ?PR?DESATIVA_ESQUERDA?MAI
+            CODE    0D26H     0005H     UNIT         ?PR?DESATIVA_ESQUERDA?MAI
 >> N
 
 
 
-OVERLAY MAP OF MODULE:   D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
+OVERLAY MAP OF MODULE:   C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main (MAIN)
+>> 
 
 
 SEGMENT                                    XDATA_GROUP
@@ -118,7 +119,8 @@ SEGMENT                                    XDATA_GROUP
 
 
 
-SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
+SYMBOL TABLE OF MODULE:  C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main (MAIN)
+>> 
 
   VALUE           TYPE          NAME
   ----------------------------------
@@ -133,11 +135,11 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   D:008EH         PUBLIC        CKCON
   D:0090H         PUBLIC        P1
   D:0091H         PUBLIC        TMR3CN
+BL51 BANKED LINKER/LOCATER V6.20            10/11/2011  11:22:37  PAGE 3
+
+
   D:0092H         PUBLIC        TMR3RLL
   D:0094H         PUBLIC        TMR3L
-BL51 BANKED LINKER/LOCATER V6.20            08/30/2011  09:36:23  PAGE 3
-
-
   D:0098H         PUBLIC        SCON0
   D:0099H         PUBLIC        SBUF0
   D:00A0H         PUBLIC        P2
@@ -181,8 +183,6 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   B:00E8H.5       PUBLIC        AD0INT
   B:00E8H.4       PUBLIC        AD0BUSY
   D:00C8H         PUBLIC        T2CON
-  B:0080H.0       PUBLIC        P0_0
-  B:0080H.1       PUBLIC        P0_1
   B:0090H.0       PUBLIC        P1_0
   B:0090H.2       PUBLIC        P1_2
   B:0090H.4       PUBLIC        P1_4
@@ -203,7 +203,7 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   B:0020H.5       PUBLIC        sentido_roda_direita
   B:0020H.6       PUBLIC        flag_nova_configuracao_do_tempo
   X:001DH         PUBLIC        comando
-BL51 BANKED LINKER/LOCATER V6.20            08/30/2011  09:36:23  PAGE 4
+BL51 BANKED LINKER/LOCATER V6.20            10/11/2011  11:22:37  PAGE 4
 
 
   X:0025H         PUBLIC        i
@@ -211,16 +211,16 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   X:0026H         PUBLIC        encoder_right_count
   X:0028H         PUBLIC        encoder_left_count
   C:0BE7H         PUBLIC        _putchar
-  C:0CFBH         PUBLIC        pwm_setup
-  C:0CECH         PUBLIC        Delay
+  C:0CF9H         PUBLIC        pwm_setup
+  C:0CEAH         PUBLIC        Delay
   C:0C95H         PUBLIC        SYSTEMCLOCK_Init
   C:0CB0H         PUBLIC        PORT_Init
   C:0C79H         PUBLIC        serial_setup
-  C:0CC6H         PUBLIC        encoder_setup
-  C:0D09H         PUBLIC        ativa_direita
-  C:0D23H         PUBLIC        desativa_direita
-  C:0D16H         PUBLIC        ativa_esquerda
-  C:0D28H         PUBLIC        desativa_esquerda
+  C:0CDAH         PUBLIC        encoder_setup
+  C:0D07H         PUBLIC        ativa_direita
+  C:0D21H         PUBLIC        desativa_direita
+  C:0D14H         PUBLIC        ativa_esquerda
+  C:0D26H         PUBLIC        desativa_esquerda
   C:0800H         PUBLIC        timer0_IT
   C:0C1BH         PUBLIC        ADC_setup
   C:0BAEH         PUBLIC        interrupt_timer3
@@ -256,27 +256,27 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   C:0C1AH         LINE#         85
   -------         ENDPROC       _PUTCHAR
   -------         PROC          PWM_SETUP
-  C:0CFBH         LINE#         87
-  C:0CFBH         LINE#         89
-  C:0CFEH         LINE#         93
-  C:0D00H         LINE#         94
-  C:0D02H         LINE#         95
-  C:0D04H         LINE#         96
-  C:0D06H         LINE#         97
-  C:0D08H         LINE#         98
+  C:0CF9H         LINE#         87
+  C:0CF9H         LINE#         89
+  C:0CFCH         LINE#         93
+  C:0CFEH         LINE#         94
+  C:0D00H         LINE#         95
+  C:0D02H         LINE#         96
+  C:0D04H         LINE#         97
+  C:0D06H         LINE#         98
   -------         ENDPROC       PWM_SETUP
   -------         PROC          DELAY
   -------         DO            
   D:0006H         SYMBOL        x
   -------         ENDDO         
-  C:0CECH         LINE#         101
-  C:0CECH         LINE#         102
-BL51 BANKED LINKER/LOCATER V6.20            08/30/2011  09:36:23  PAGE 5
+  C:0CEAH         LINE#         101
+  C:0CEAH         LINE#         102
+BL51 BANKED LINKER/LOCATER V6.20            10/11/2011  11:22:37  PAGE 5
 
 
-  C:0CECH         LINE#         104
-  C:0CEFH         LINE#         105
-  C:0CFAH         LINE#         106
+  C:0CEAH         LINE#         104
+  C:0CEDH         LINE#         105
+  C:0CF8H         LINE#         106
   -------         ENDPROC       DELAY
   -------         PROC          SYSTEMCLOCK_INIT
   C:0C95H         LINE#         108
@@ -299,10 +299,10 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   C:0CB6H         LINE#         131
   C:0CB9H         LINE#         132
   C:0CBCH         LINE#         133
-  C:0CBCH         LINE#         134
-  C:0CBFH         LINE#         135
-  C:0CC2H         LINE#         136
-  C:0CC5H         LINE#         137
+  C:0CBFH         LINE#         134
+  C:0CC1H         LINE#         135
+  C:0CC4H         LINE#         136
+  C:0CC7H         LINE#         137
   -------         ENDPROC       PORT_INIT
   -------         PROC          SERIAL_SETUP
   C:0C79H         LINE#         139
@@ -332,56 +332,54 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   C:0C94H         LINE#         175
   -------         ENDPROC       SERIAL_SETUP
   -------         PROC          ENCODER_SETUP
-  C:0CC6H         LINE#         177
-  C:0CC6H         LINE#         178
-  C:0CC8H         LINE#         179
-  C:0CCAH         LINE#         180
-  C:0CCDH         LINE#         181
-  C:0CCFH         LINE#         182
-  C:0CD1H         LINE#         183
-BL51 BANKED LINKER/LOCATER V6.20            08/30/2011  09:36:23  PAGE 6
+  C:0CDAH         LINE#         177
+  C:0CDAH         LINE#         178
+  C:0CDDH         LINE#         179
+  C:0CDFH         LINE#         180
+  C:0CE1H         LINE#         181
+  C:0CE3H         LINE#         182
+  C:0CE5H         LINE#         183
+BL51 BANKED LINKER/LOCATER V6.20            10/11/2011  11:22:37  PAGE 6
 
 
-  C:0CD3H         LINE#         184
-  C:0CD5H         LINE#         185
-  C:0CD7H         LINE#         186
-  C:0CD9H         LINE#         188
+  C:0CE7H         LINE#         184
+  C:0CE9H         LINE#         186
   -------         ENDPROC       ENCODER_SETUP
   -------         PROC          ATIVA_DIREITA
-  C:0D09H         LINE#         190
-  C:0D09H         LINE#         191
-  C:0D0CH         LINE#         192
-  C:0D0EH         LINE#         193
-  C:0D10H         LINE#         194
+  C:0D07H         LINE#         188
+  C:0D07H         LINE#         189
+  C:0D0AH         LINE#         190
+  C:0D0CH         LINE#         191
+  C:0D0EH         LINE#         192
+  C:0D0FH         LINE#         193
+  C:0D0FH         LINE#         194
   C:0D11H         LINE#         195
-  C:0D11H         LINE#         196
+  C:0D13H         LINE#         196
   C:0D13H         LINE#         197
-  C:0D15H         LINE#         198
-  C:0D15H         LINE#         199
   -------         ENDPROC       ATIVA_DIREITA
   -------         PROC          DESATIVA_DIREITA
+  C:0D21H         LINE#         199
+  C:0D21H         LINE#         200
   C:0D23H         LINE#         201
-  C:0D23H         LINE#         202
-  C:0D25H         LINE#         203
-  C:0D27H         LINE#         204
+  C:0D25H         LINE#         202
   -------         ENDPROC       DESATIVA_DIREITA
   -------         PROC          ATIVA_ESQUERDA
-  C:0D16H         LINE#         206
-  C:0D16H         LINE#         207
-  C:0D19H         LINE#         208
-  C:0D1BH         LINE#         209
-  C:0D1DH         LINE#         210
+  C:0D14H         LINE#         204
+  C:0D14H         LINE#         205
+  C:0D17H         LINE#         206
+  C:0D19H         LINE#         207
+  C:0D1BH         LINE#         208
+  C:0D1CH         LINE#         209
+  C:0D1CH         LINE#         210
   C:0D1EH         LINE#         211
-  C:0D1EH         LINE#         212
+  C:0D20H         LINE#         212
   C:0D20H         LINE#         213
-  C:0D22H         LINE#         214
-  C:0D22H         LINE#         215
   -------         ENDPROC       ATIVA_ESQUERDA
   -------         PROC          DESATIVA_ESQUERDA
+  C:0D26H         LINE#         215
+  C:0D26H         LINE#         216
   C:0D28H         LINE#         217
-  C:0D28H         LINE#         218
-  C:0D2AH         LINE#         219
-  C:0D2CH         LINE#         220
+  C:0D2AH         LINE#         218
   -------         ENDPROC       DESATIVA_ESQUERDA
   -------         PROC          TIMER0_IT
   -------         DO            
@@ -389,98 +387,98 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   X:0002H         SYMBOL        pwm_left_temp
   X:0004H         SYMBOL        pwm_right_temp
   -------         ENDDO         
-  C:0800H         LINE#         223
-  C:080DH         LINE#         228
-  C:080FH         LINE#         233
-  C:081DH         LINE#         234
-  C:0829H         LINE#         236
-  C:0838H         LINE#         237
-  C:0847H         LINE#         238
-  C:084EH         LINE#         239
-  C:0850H         LINE#         240
-  C:0850H         LINE#         241
-  C:085FH         LINE#         242
-  C:0862H         LINE#         243
-  C:0864H         LINE#         244
-  C:0864H         LINE#         245
-  C:0867H         LINE#         246
-  C:0867H         LINE#         247
-  C:0876H         LINE#         248
-  C:0879H         LINE#         249
-BL51 BANKED LINKER/LOCATER V6.20            08/30/2011  09:36:23  PAGE 7
+  C:0800H         LINE#         221
+  C:080DH         LINE#         226
+  C:080FH         LINE#         231
+  C:081DH         LINE#         232
+  C:0829H         LINE#         234
+  C:0838H         LINE#         235
+  C:0847H         LINE#         236
+  C:084EH         LINE#         237
+  C:0850H         LINE#         238
+  C:0850H         LINE#         239
+  C:085FH         LINE#         240
+  C:0862H         LINE#         241
+  C:0864H         LINE#         242
+  C:0864H         LINE#         243
+  C:0867H         LINE#         244
+  C:0867H         LINE#         245
+  C:0876H         LINE#         246
+  C:0879H         LINE#         247
+  C:087BH         LINE#         248
+  C:087BH         LINE#         249
+BL51 BANKED LINKER/LOCATER V6.20            10/11/2011  11:22:37  PAGE 7
 
 
-  C:087BH         LINE#         250
-  C:087BH         LINE#         251
-  C:087EH         LINE#         252
-  C:087EH         LINE#         253
-  C:0899H         LINE#         254
+  C:087EH         LINE#         250
+  C:087EH         LINE#         251
+  C:0899H         LINE#         252
+  C:08B4H         LINE#         253
   C:08B4H         LINE#         255
-  C:08B4H         LINE#         257
-  C:08B7H         LINE#         258
-  C:08B9H         LINE#         259
-  C:08BBH         LINE#         260
+  C:08B7H         LINE#         256
+  C:08B9H         LINE#         257
+  C:08BBH         LINE#         258
   -------         ENDPROC       TIMER0_IT
   -------         PROC          ADC_SETUP
-  C:0C1BH         LINE#         262
-  C:0C1BH         LINE#         263
-  C:0C1EH         LINE#         264
-  C:0C21H         LINE#         265
-  C:0C24H         LINE#         266
-  C:0C27H         LINE#         268
-  C:0C2AH         LINE#         269
-  C:0C2DH         LINE#         270
-  C:0C30H         LINE#         271
-  C:0C33H         LINE#         272
-  C:0C35H         LINE#         273
-  C:0C38H         LINE#         274
-  C:0C3BH         LINE#         275
-  C:0C3EH         LINE#         276
+  C:0C1BH         LINE#         260
+  C:0C1BH         LINE#         261
+  C:0C1EH         LINE#         262
+  C:0C21H         LINE#         263
+  C:0C24H         LINE#         264
+  C:0C27H         LINE#         266
+  C:0C2AH         LINE#         267
+  C:0C2DH         LINE#         268
+  C:0C30H         LINE#         269
+  C:0C33H         LINE#         270
+  C:0C35H         LINE#         271
+  C:0C38H         LINE#         272
+  C:0C3BH         LINE#         273
+  C:0C3EH         LINE#         274
   -------         ENDPROC       ADC_SETUP
   -------         PROC          INTERRUPT_TIMER3
-  C:0BAEH         LINE#         278
-  C:0BB6H         LINE#         282
-  C:0BC2H         LINE#         283
-  C:0BC4H         LINE#         284
-  C:0BCBH         LINE#         285
-  C:0BCDH         LINE#         286
-  C:0BDBH         LINE#         287
-  C:0BDEH         LINE#         288
+  C:0BAEH         LINE#         276
+  C:0BB6H         LINE#         280
+  C:0BC2H         LINE#         281
+  C:0BC4H         LINE#         282
+  C:0BCBH         LINE#         283
+  C:0BCDH         LINE#         284
+  C:0BDBH         LINE#         285
+  C:0BDEH         LINE#         286
   -------         ENDPROC       INTERRUPT_TIMER3
   -------         PROC          INTERRUPT_ADC
-  C:0A96H         LINE#         290
-  C:0AA3H         LINE#         291
-  C:0ABAH         LINE#         292
-  C:0ABAH         LINE#         293
-  C:0ABDH         LINE#         294
-  C:0ABFH         LINE#         295
-  C:0ABFH         LINE#         296
-  C:0AC2H         LINE#         297
-  C:0AC4H         LINE#         298
-  C:0AC4H         LINE#         299
-  C:0AC7H         LINE#         300
-  C:0AC9H         LINE#         301
-  C:0AC9H         LINE#         302
-  C:0ACCH         LINE#         303
-  C:0ACEH         LINE#         304
-  C:0ACEH         LINE#         305
-  C:0AD1H         LINE#         306
-  C:0AD3H         LINE#         307
-  C:0AD3H         LINE#         308
-  C:0AD6H         LINE#         309
+  C:0A96H         LINE#         288
+  C:0AA3H         LINE#         289
+  C:0ABAH         LINE#         290
+  C:0ABAH         LINE#         291
+  C:0ABDH         LINE#         292
+  C:0ABFH         LINE#         293
+  C:0ABFH         LINE#         294
+  C:0AC2H         LINE#         295
+  C:0AC4H         LINE#         296
+  C:0AC4H         LINE#         297
+  C:0AC7H         LINE#         298
+  C:0AC9H         LINE#         299
+  C:0AC9H         LINE#         300
+  C:0ACCH         LINE#         301
+  C:0ACEH         LINE#         302
+  C:0ACEH         LINE#         303
+  C:0AD1H         LINE#         304
+  C:0AD3H         LINE#         305
+  C:0AD3H         LINE#         306
+  C:0AD6H         LINE#         307
+  C:0AD8H         LINE#         308
+  C:0AD8H         LINE#         309
   C:0AD8H         LINE#         310
-  C:0AD8H         LINE#         311
-  C:0AD8H         LINE#         312
-  C:0AE9H         LINE#         313
-  C:0AEDH         LINE#         314
-  C:0AF3H         LINE#         315
-  C:0AF3H         LINE#         316
-BL51 BANKED LINKER/LOCATER V6.20            08/30/2011  09:36:23  PAGE 8
+  C:0AE9H         LINE#         311
+  C:0AEDH         LINE#         312
+  C:0AF3H         LINE#         313
+  C:0AF3H         LINE#         314
+  C:0AF9H         LINE#         315
+  C:0AFEH         LINE#         316
+BL51 BANKED LINKER/LOCATER V6.20            10/11/2011  11:22:37  PAGE 8
 
 
-  C:0AF9H         LINE#         317
-  C:0AFEH         LINE#         318
-  C:0B00H         LINE#         319
+  C:0B00H         LINE#         317
   -------         ENDPROC       INTERRUPT_ADC
   -------         PROC          ENVIAR_DISTANCIAS
   -------         DO            
@@ -488,99 +486,99 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
   D:0004H         SYMBOL        indice
   D:0007H         SYMBOL        indice2
   -------         ENDDO         
-  C:0B0BH         LINE#         321
-  C:0B0BH         LINE#         326
-  C:0B0DH         LINE#         327
-  C:0B27H         LINE#         328
-  C:0B2EH         LINE#         329
-  C:0B47H         LINE#         330
-  C:0B4BH         LINE#         331
-  C:0B4FH         LINE#         332
-  C:0B51H         LINE#         333
-  C:0B54H         LINE#         334
-  C:0B56H         LINE#         335
-  C:0B63H         LINE#         336
-  C:0B68H         LINE#         337
-  C:0B68H         LINE#         338
-  C:0B6DH         LINE#         339
+  C:0B0BH         LINE#         319
+  C:0B0BH         LINE#         324
+  C:0B0DH         LINE#         325
+  C:0B27H         LINE#         326
+  C:0B2EH         LINE#         327
+  C:0B47H         LINE#         328
+  C:0B4BH         LINE#         329
+  C:0B4FH         LINE#         330
+  C:0B51H         LINE#         331
+  C:0B54H         LINE#         332
+  C:0B56H         LINE#         333
+  C:0B63H         LINE#         334
+  C:0B68H         LINE#         335
+  C:0B68H         LINE#         336
+  C:0B6DH         LINE#         337
   -------         ENDPROC       ENVIAR_DISTANCIAS
   -------         PROC          INTERRUPT_ENCODER_RIGHT
-  C:0C3FH         LINE#         341
-  C:0C45H         LINE#         344
-  C:0C53H         LINE#         345
-  C:0C55H         LINE#         346
+  C:0C3FH         LINE#         339
+  C:0C45H         LINE#         342
+  C:0C53H         LINE#         343
+  C:0C55H         LINE#         344
   -------         ENDPROC       INTERRUPT_ENCODER_RIGHT
   -------         PROC          INTERRUPT_ENCODER_LEFT
-  C:0C5CH         LINE#         348
-  C:0C62H         LINE#         351
-  C:0C70H         LINE#         352
-  C:0C72H         LINE#         353
+  C:0C5CH         LINE#         346
+  C:0C62H         LINE#         349
+  C:0C70H         LINE#         350
+  C:0C72H         LINE#         351
   -------         ENDPROC       INTERRUPT_ENCODER_LEFT
   -------         PROC          INTERRUPT_SERIAL
   -------         DO            
   X:0006H         SYMBOL        indice
   -------         ENDDO         
-  C:0A15H         LINE#         355
-  C:0A24H         LINE#         357
-  C:0A27H         LINE#         358
-  C:0A3BH         LINE#         359
-  C:0A56H         LINE#         360
-  C:0A68H         LINE#         361
-  C:0A6EH         LINE#         362
-  C:0A70H         LINE#         363
-  C:0A72H         LINE#         364
-  C:0A80H         LINE#         365
+  C:0A15H         LINE#         353
+  C:0A24H         LINE#         355
+  C:0A27H         LINE#         356
+  C:0A3BH         LINE#         357
+  C:0A56H         LINE#         358
+  C:0A68H         LINE#         359
+  C:0A6EH         LINE#         360
+  C:0A70H         LINE#         361
+  C:0A72H         LINE#         362
+  C:0A80H         LINE#         363
+  C:0A82H         LINE#         364
   C:0A82H         LINE#         366
-  C:0A82H         LINE#         368
-  C:0A85H         LINE#         369
-  C:0A87H         LINE#         370
+  C:0A85H         LINE#         367
+  C:0A87H         LINE#         368
+  C:0A89H         LINE#         369
   C:0A89H         LINE#         371
-  C:0A89H         LINE#         373
   -------         ENDPROC       INTERRUPT_SERIAL
   -------         PROC          MAIN
+  C:08C6H         LINE#         372
   C:08C6H         LINE#         374
-  C:08C6H         LINE#         376
-  C:08C9H         LINE#         378
-  C:08CCH         LINE#         379
-  C:08CFH         LINE#         381
-BL51 BANKED LINKER/LOCATER V6.20            08/30/2011  09:36:23  PAGE 9
+  C:08C9H         LINE#         376
+  C:08CCH         LINE#         377
+  C:08CFH         LINE#         379
+  C:08D2H         LINE#         380
+  C:08D5H         LINE#         381
+BL51 BANKED LINKER/LOCATER V6.20            10/11/2011  11:22:37  PAGE 9
 
 
-  C:08D2H         LINE#         382
-  C:08D5H         LINE#         383
-  C:08D8H         LINE#         385
-  C:08DBH         LINE#         386
-  C:08DDH         LINE#         388
-  C:08E6H         LINE#         389
-  C:08EFH         LINE#         390
-  C:08F1H         LINE#         391
-  C:08F3H         LINE#         393
-  C:08F3H         LINE#         394
-  C:08F6H         LINE#         395
-  C:08F9H         LINE#         396
-  C:08FBH         LINE#         397
-  C:0900H         LINE#         398
-  C:091CH         LINE#         399
+  C:08D8H         LINE#         383
+  C:08DBH         LINE#         384
+  C:08DDH         LINE#         386
+  C:08E6H         LINE#         387
+  C:08EFH         LINE#         388
+  C:08F1H         LINE#         389
+  C:08F3H         LINE#         391
+  C:08F3H         LINE#         392
+  C:08F6H         LINE#         393
+  C:08F9H         LINE#         394
+  C:08FBH         LINE#         395
+  C:0900H         LINE#         396
+  C:091CH         LINE#         397
+  C:0926H         LINE#         398
   C:0926H         LINE#         400
-  C:0926H         LINE#         402
-  C:0929H         LINE#         407
-  C:092BH         LINE#         408
-  C:093BH         LINE#         409
-  C:093BH         LINE#         413
-  C:0943H         LINE#         414
-  C:0955H         LINE#         415
-  C:0957H         LINE#         416
-  C:0957H         LINE#         420
-  C:095FH         LINE#         421
-  C:0976H         LINE#         422
-  C:0979H         LINE#         424
-  C:0979H         LINE#         425
-  C:0986H         LINE#         429
+  C:0929H         LINE#         405
+  C:092BH         LINE#         406
+  C:093BH         LINE#         407
+  C:093BH         LINE#         411
+  C:0943H         LINE#         412
+  C:0955H         LINE#         413
+  C:0957H         LINE#         414
+  C:0957H         LINE#         418
+  C:095FH         LINE#         419
+  C:0976H         LINE#         420
+  C:0979H         LINE#         422
+  C:0979H         LINE#         423
+  C:0986H         LINE#         427
   -------         ENDPROC       MAIN
   -------         ENDMOD        MAIN
 
   -------         MODULE        ?C?IMUL
-  C:0CDAH         PUBLIC        ?C?IMUL
+  C:0CC8H         PUBLIC        ?C?IMUL
   -------         ENDMOD        ?C?IMUL
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -588,10 +586,10 @@ SYMBOL TABLE OF MODULE:  D:\9o Semestre\TCC2\TCC\C8051F340\main (MAIN)
 
 ******************************************************************************
 >> 
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 04A0H BYTE (57%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 049EH BYTE (57%) *
 >> 
 ******************************************************************************
 >> 
 
-Program Size: data=10.0 xdata=46 code=1346
+Program Size: data=10.0 xdata=46 code=1344
 LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
