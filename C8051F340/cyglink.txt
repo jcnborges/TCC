@@ -1,1 +1,1 @@
-"D:\9o Semestre\TCC2\TCC\C8051F340\main.obj"  TO "D:\9o Semestre\TCC2\TCC\C8051F340\main" PW(78) PL(68) RS(256) XD(0H) 
+"D:\10o Semestre\TCC\C8051F340\main.obj"  TO "D:\10o Semestre\TCC\C8051F340\main" PW(78) PL(68) RS(256) XD(0H) 

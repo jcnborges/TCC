@@ -175,9 +175,9 @@ void serial_setup(){
 }
 
 void encoder_setup(){	
-	IT01CF = 0xB9;	// INT0 e INT1 ativo alto, P0.1 = INT0, P0.3 = INT1
-	IT0 = 1;		// Edge sensitive INT0
-	IT1 = 1;		// Edge sensitive INT1
+	IT01CF = 0x31;	// INT0 e INT1 ativo alto, P0.1 = INT0, P0.3 = INT1
+	IT0 = 0;		// Edge sensitive INT0
+	IT1 = 0;		// Edge sensitive INT1
 	IE0 = 0;		// Apaga flag interrupcao INT0
 	IE1 = 0;		// Apaga flag interrupcao INT1	
 	EX0 = 1;		// Habilita INT0 (interrupcao externa)
@@ -336,11 +336,30 @@ void enviar_distancias() {
 	}
 }
 
+void enviar_info_encoders(unsigned char arg) {
+
+	unsigned char comando_send[4];
+	unsigned char indice;
+	comando_send[0] = ENCODER + arg;
+	comando_send[1] = FIM_COMANDO;
+	comando_send[2] = '\n';
+	for(indice = 0; indice < 3 ; indice++) {		
+		while(!flag_pode_enviar);
+		flag_pode_enviar = 0;
+		SBUF0 = comando_send[indice];
+	}
+}
+
 void interrupt_encoder_right() interrupt 0 {
 	//TODO
 	//PORT0.1
 	encoder_right_count++;
 	IE0 = 0;
+	if (encoder_right_count > 180) 
+	{
+		encoder_right_count = 0;
+		enviar_info_encoders(0);
+	}
 }
 
 void interrupt_encoder_left() interrupt 2 {
@@ -348,6 +367,11 @@ void interrupt_encoder_left() interrupt 2 {
 	//PORT0.3
 	encoder_left_count++;
 	IE1 = 0;
+	if (encoder_left_count > 180)
+	{
+		encoder_left_count = 0;
+		enviar_info_encoders(1);
+	}
 }
 
 void interrupt_serial() interrupt 4 { // Tratamento da interrupcao da UART0
@@ -390,7 +414,7 @@ void main (void)  {     /* main program */
 
   while (1)  { // Loop infinito....
 	if(flag_nova_conversao){	// Novos valores de conversao disponiveis
-		enviar_distancias();
+		//enviar_distancias();
 		flag_nova_conversao = 0;
 		for (i=0; i<6; i++) {
 			valores_velhos[i] = valores_novos[i]; // Armazena valores velhos

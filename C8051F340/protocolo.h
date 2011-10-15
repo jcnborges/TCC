@@ -19,8 +19,9 @@
 #define OFF               0x0000
 //#define FALSE		      0x0000
 
-#define ENCODER_DIREITO       0x0020
-#define ENCODER_ESQUERDO      0x0021
+#define ENCODER					0x0020	 	
+//#define ENCODER_DIREITO       	0x0020
+//#define ENCODER_ESQUERDO      	0x0021
 
 // Se implementar leitura em funcao de sensor, precisa contatenar o estado..
 // ON ou OFF ou a medida 1BYTE (0 a 255 CM)
