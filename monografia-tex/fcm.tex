@@ -28,8 +28,42 @@ Um FCM descreve um sistema em termos de conceitos, onde cada conceito representa
      \right)
 \end{equation}
 
-O FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos, e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. 
+O FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos, e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações.
 
-Uma vantagem do FCM é a interatividade entre os conceitos, a qual permite que um problema seja dividido em várias partes e cada parte seja representada por um mapa cognitivo modular, que é interconectado aos demais mapas do problema. Outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento, a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente. 
+Uma vantagem do FCM é a interatividade entre os conceitos, a qual permite que um problema seja dividido em várias partes e cada parte seja representada por um mapa cognitivo modular, que é interconectado aos demais mapas do problema. Outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento, a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
+Em \cite{FCMENDONCA} os mapas cognitivos Fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo}, na qual é ilustrado um tanque com duas válvulas de entrada para diferentes tipos de líquidos, um misturador, uma válvula de saída para o líquido misturado e um medidor de massa específica que mede a quantidade de líquido produzida. As válvulas V_1 e V_2 introduzem 
+dois líquidos diferentes. Durante a reação, um medidor G de massa específica verifica se a mistura atingiu
+o ponto adequado. A válvula V_3 é ativada e o produto da mistura é esvaziado.
 
+\begin{figure}[!htb]
+    \centering
+    \includegraphics{./figs/fcm-exemplo-planta.png}
+    \caption[Mapa Cognitivo Fuzzy]{Aplicação do FCM em processo industrial.}
+    \fonte{\cite{FCMENDONCA}}
+    \label{fig:fcm}
+\end{figure}
+
+Analisando-se o problema, os seguintes conceitos podem ser definidos:
+
+\begin{itemize}
+\item Conceito 1: Volume de líquido no tanque;
+\item Conceito 2: Estado da válvula 1 (fechada, aberta ou parcialmente aberta);
+\item Conceito 3: Estado da válvula 2 (fechada, aberta ou parcialmente aberta);
+\item Conceito 4: Estado da válvula 3 (fechada, aberta ou parcialmente aberta);
+\item Conceito 5: Valor medido pelo sensor G para massa específica do líquido.
+\end{itemize}
+
+Interligando-se os conceitos com as relações de causa e efeito ponderadas, obtém-se o seguinte FCM para
+o controlador do processo:
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics{./figs/fcm-exemplo-fcm.png}
+    \caption[Mapa Cognitivo Fuzzy]{FCM do controlador.}
+    \fonte{\cite{FCMENDONCA}}
+    \label{fig:fcm}
+\end{figure}
+
+\section{Considerações}
+FCM é um modelo linguístico, próxima à linguagem humana, que é baseado na teoria de grafos e que permite interconectar conceitos através de relações de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integração com métodos de treinamento de inteligência artificial. O FCM é indicado para modelagem de sistemas complexos.
