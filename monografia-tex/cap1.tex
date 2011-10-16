@@ -75,7 +75,9 @@ estudo, implementação e testes dos dois algoritmos de navegação.
 
 A reconstrução do robô consistiu na avaliação do estado do robô, o projeto e implementação
 do hardware e os testes de integração. Durante a avaliação, foram testados os sensores de distância,
-os encoders das rodas, os motores DC e as respectivas pontes H.
+os encoders das rodas, os motores DC e as respectivas pontes H. Uma placa de roteamento foi confeccionada
+para alimentar os sensores de distância e os encoders. Essa placa também trata os sinais dos encoders amplificando-os através de um amplificador operacional. Outra função da placa é rotear os sinais dos sensores 
+de distância e encoders aos respectivos pinos de entrada do microcontrolador. A placa também possui um buffer através da qual os sinais de PWM gerados pelo microcontrolador são roteados para as respectivas pontes H.
 
 O experimento consistiu no estudo das metologias fuzzy e FCM para elaboração de algoritmos de navegação,
 o projeto e implementação dos dois algoritmos e o teste em campo.
