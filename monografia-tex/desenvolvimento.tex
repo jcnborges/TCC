@@ -2,13 +2,48 @@
 \chapter{Desenvolvimento}
 \label{chap:desenv}
 
-\section{Introdução}
+Este capítulo contém em detalhes o trabalho realizado pela equipe, dividido nas seguintes seções:
+\begin{itemize}
+    \item[-] Teste dos Componentes: esta seção contém em detalhes quais e em que ordem foram realizados os
+     testes de componentes do robô.
+    \item[-] Código do microcontrolador C8051F340: contém informações a respeito das mudanças no código do
+    microcontrolador.
+    \item[-] Placa de roteamento: contém as especificações da placa de roteamento, assim como os motivos
+    que levarem a equipe a desenvolver esta placa, o projeto da mesma, e o resultado.
+\end{itemize}
 
 \section{Teste dos Componentes}
+\label{sec:testecomp}
 
-Após o recebimento do robô, foram realizados testes para garantir a funcionalidade dos componentes recebidos, visto que a falha de alguns destes componentes poderiam implicar na impossibilidade de continuar o projeto ou em atrasos significativos. Estes testes também foram necessários para determinar de forma mais precisa o que poderia ser reaproveitado do projeto Bellator. De acordo com a documentação do projeto Bellator \cite{BELLATOR}, o robô deveria ser capaz de, se montado conforme as instruções na mesma, funcionar como um sistema controlado remotamente. A equipe optou por testar apenas a camada de baixo nível, como definida no projeto Bellator, isoladamente. O robô foi montando utilizando-se do chassi e seus componentes acoplados, a placa de roteamento, a bateria e a placa C8051F340. Foi observado mal-funcionamento da placa de roteamento, que foi fácilmente reparada através da troca de um transistor.
+Após o recebimento do robô, foram realizados testes para garantir a funcionalidade dos componentes recebidos, já que o robô 
+estava com suas peças empilhadas numa caixa e não era possível confiar no funcionamento adequado de nenhum dos componentes, além de que a falha de alguns componentes implicaria na impossibilidade de continuar o projeto ou em atrasos significativos. Estes testes também foram necessários para determinar de forma mais precisa o que poderia ser reaproveitado do projeto Bellator. De acordo com a documentação do projeto Bellator~\cite{BELLATOR}, o robô deveria ser capaz de, se montado conforme as instruções na mesma, funcionar como um sistema controlado remotamente. Como o objetivo deste projeto não envolve controlar
+o robô remotamente, foi testada apenas a camada de baixo nível.
 
-Com os componentes mais críticos testados, a equipe tentou testar o PC Embarcado. Porém, a ausência de documentação sobre este documento impossibilitou o teste e, após inúmeras tentativas falhas de utilização do mesmo, a equipe optou por não utilizar o PC Embarcado VIA EPIA ME60000 para o projeto, visando reduzir o crescente atraso causado por este. A camada supervisória do projeto Bellator não foi testada, visto que o robô passará a ser autônomo, não necessitando de uma camada supervisória.
+O primeiro passo da etapa de testes foi verificar o funcionamento da placa C8051F340, peça fundamental para o desenvolvimento do projeto, que apresentou o funcionamento adequado, gerando os PWMs dos motores conforme necessário (visualizados no osciloscópio), e realizando a leitura dos sensores e conversão A/D conforme esperado. Em seguida, foram iniciados os testes utilizando a placa de roteamento já existente, que apresentou defeito. Após alguns testes, foi constatado que a placa havia sido desconfigurada, várias soldas foram removidas, o circuito em si estava alterado. Então, a equipe reorganizou a placa, realizou novos testes, mas não obteve sucesso. Foi então verificado que
+o regulador de tensão não estava funcionando. Este foi substituído e a placa finalmente funcionou conforme esperado.
+
+Com a placa de roteamento antiga funcionando, foi possível realizar o teste dos motores, utilizando os PWMs gerados pelo
+microcontrolador C8051F340 (entrada do buffer da placa de roteamento). Nesse teste, não ocorreram problemas, os motores funcionaram conforme esperado.
+
+Das duas baterias inicialmente disponíveis, uma não estava funcionando conforme a especificação, o que levou a equipe
+a adquirir uma nova bateria 12V para reposição da bateria danificada.
+
+Com todos os componentes acima citados testados, o que faltava para completar os testes da camada de baixo nível era apenas
+o teste dos encoders. Esta etapa foi uma das mais difíceis, pois a equipe não tinha informação nem do modelo do encoder. 
+Depois de muito procurar, foi encontrado um datasheet de um encoder equivalente ao presente no robô, datasheet este que foi fundamental para determinar como alimentar e testar o encoder. Em posse da informação de como usar o encoder, o teste foi realizado tanto para o encoder esquerdo como o direito. O encoder direito funcionou normalmente, porém o esquerdo não. Então, a equipe percebeu que a solda dos fios do encoder não estava boa. Após refazer as soldas, o encoder esquerdo foi testado 
+novamente e funcionou.
+
+Tendo realizado os testes dos componentes mais críticos, o passo seguinte foi tentar utilizar o PC Embarcado VIA EPIA ME6000.
+Após muitas tentativas falhas e busca por informações sem resultados, a equipe optou por não utilizar este componente, já que
+sua documentação era escassa e o tempo perdido na tentativa de utilizá-la já estava acima do planejado. O PC Embarcado foi substituído pela placa TS-7260, que possui uma documentação muito melhor, poder de processamento superior, e funcionou
+nos primeiros testes.
+
+\section{Código do microcontrolador C8051F340}
+\label{sec:codmicro}
+Uma das necessidades do código do microcontrolador é o tratamento dos sinais dos encoders para obter informações de odometria, informações estas essenciais para a navegação autônoma. O código do projeto Bellator~\cite{BELLATOR} não continha o tratamento
+dos sinais dos encoders. Portanto, foi necessário alterar o código do microcontrolador para tratar os sinais
+dos encoders e enviar informações de odometria. Para tal, foram utilizadas duas interrupções externas da placa C8051F340 (uma
+para cada encoder). Nestas interrupções, cada pulso do encoder é contado (obviamente cada encoder possui seu contador separadamente). A informação de odometria é então enviada através da comunicação serial. Como o encoder dá 1800 pulsos por volta, a resolução é de 360/1800 = 0.2 graus.  Contudo, tamanha precisão é exagerada, e a equipe optou por enviar através apenas uma mensagem (através da porta serial) a cada 180 pulsos do encoder, ou seja, 36 graus de rotação ou um décimo de volta.
 
 \section{Placa de Roteamento}
 \label{sec:desroteamento}
@@ -17,12 +52,13 @@ A placa de roteamento é um componente fundamental do projeto, responsável por re
 
 \begin{itemize}
     \item[-] Necessidade de alimentação dedicada para alguns componentes
+    \item[-] Necessidade de tratamento dos sinais dos encoders
     \item[-] Roteamento das leituras de cada sensor para o pino I/O correto da C8051F340
     \item[-] Necessidade de um buffer para o PWM
     \item[-] Melhor organização do robô
 \end{itemize}
 
-Como descrito nas especificações do robô (\ref{chap:esprob}, o robô Bellator possui, dentre outros componentes, cinco sensores, dois encoders e duas pontes H. Os cinco sensores e dois encoders necessitam de alimentação de aproximadamente 5 Volts para operação. Os encoders produzem um sinal que precisa ser amplificado antes da utilização, e as duas pontes H necessitam de um sinal de PWM de baixa impedância. Além disso, o consumo de corrente total destes componentes ultrapassa a capacidade de fornecimento de corrente da C8051F340. #TODO - Explicar consumo de corrente e alimentação.
+Como descrito nas especificações do robô (\ref{chap:esprob}, o robô Bellator possui, dentre outros componentes, cinco sensores, dois encoders e duas pontes H. Os cinco sensores e dois encoders necessitam de alimentação de aproximadamente 5 Volts para operação. Os encoders produzem um sinal que precisa ser amplificado antes da utilização, e as duas pontes H necessitam de um sinal de PWM de baixa impedância. Além disso, o consumo de corrente total destes componentes ultrapassa a capacidade de fornecimento de corrente da C8051F340. %TODO - Explicar consumo de corrente e alimentação.
 
 Por fim, a dificuldade de conectar, de forma prática, todos os componentes do robô com a C8051F340 bem como a quantidade excessiva de fios resultante fez com que a equipe concluísse que a placa de roteamento é indispensável.
 
@@ -56,6 +92,7 @@ De posse do diagrama esquemático apresentado na figura \ref{roteamentosch} a equ
   \label{roteamentosch}
 \end{figure}
 
-%Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. Por que usar o Eagle. 
+%Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. Por que usar o Eagle.
 
 \section{Considerações}
+Nesta seção foram descritos os passos da equipe  
