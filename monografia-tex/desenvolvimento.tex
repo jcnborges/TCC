@@ -2,6 +2,14 @@
 \chapter{Desenvolvimento}
 \label{chap:desenv}
 
+\section{Introdução}
+
+\section{Teste dos Componentes}
+
+Após o recebimento do robô, foram realizados testes para garantir a funcionalidade dos componentes recebidos, visto que a falha de alguns destes componentes poderiam implicar na impossibilidade de continuar o projeto ou em atrasos significativos. Estes testes também foram necessários para determinar de forma mais precisa o que poderia ser reaproveitado do projeto Bellator. De acordo com a documentação do projeto Bellator \cite{BELLATOR}, o robô deveria ser capaz de, se montado conforme as instruções na mesma, funcionar como um sistema controlado remotamente. A equipe optou por testar apenas a camada de baixo nível, como definida no projeto Bellator, isoladamente. O robô foi montando utilizando-se do chassi e seus componentes acoplados, a placa de roteamento, a bateria e a placa C8051F340. Foi observado mal-funcionamento da placa de roteamento, que foi fácilmente reparada através da troca de um transistor.
+
+Com os componentes mais críticos testados, a equipe tentou testar o PC Embarcado. Porém, a ausência de documentação sobre este documento impossibilitou o teste e, após inúmeras tentativas falhas de utilização do mesmo, a equipe optou por não utilizar o PC Embarcado VIA EPIA ME60000 para o projeto, visando reduzir o crescente atraso causado por este. A camada supervisória do projeto Bellator não foi testada, visto que o robô passará a ser autônomo, não necessitando de uma camada supervisória.
+
 \section{Placa de Roteamento}
 \label{sec:desroteamento}
 
@@ -28,7 +36,7 @@ De acordo com os fatores descritos, a equipe construiu uma lista de requisitos p
     \item[-] Fornecer amplificação para o sinal do encoder
 \end{itemize}
 
-Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou necessária a implementação de um regulador de tensão. O buffer para o sinal de PWM foi feito através do CI 74LS244N e a amplificação dos sinais dos Encoders utilizando-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos flat, para a interação com a C8051F340, bem como pinos para conectores do hardware do robô Bellator. O diagrama esquemático resultante pode ser visualizado a seguir.
+Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou necessária a implementação de um regulador de tensão. O buffer para o sinal de PWM foi feito através do CI 74LS244N e a amplificação dos sinais dos Encoders utilizando-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos flat, para a interação com a C8051F340, bem como pinos para conectores do hardware do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio do software Eagle e o resultado pode ser visualizado a seguir.
 
 \begin{figure}[!htb]
   \centering
@@ -37,4 +45,17 @@ Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa d
   {Diagrama esquemático da placa de roteamento.}
   \label{roteamentosch}
 \end{figure}
-%Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. 
+
+De posse do diagrama esquemático apresentado na figura \ref{roteamentosch} a equipe realizou o roteamento de uma placa de circuito impresso que atenda ao mesmo diagrama esquemático, também utilizando o software Eagle.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/roteamento_brd.png}
+  \caption[Roteamento final produzido pela equipe.]
+  {Roteamento final produzido pela equipe.}
+  \label{roteamentosch}
+\end{figure}
+
+%Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. Por que usar o Eagle. 
+
+\section{Considerações}

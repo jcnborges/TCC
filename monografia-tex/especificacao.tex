@@ -1,10 +1,10 @@
 %---------- Especificações do hardware do robô ----------
-\chapter{Especificações do Robô}
+\section{Especificações do Robô}
 \label{chap:esprob}
 
 Este capítulo visa descrever todas as especificações do hardware do robô Bellator, utilizado na realização deste projeto.
 
-\section{Sensor IR 2Y0A02F98}
+\subsection{Sensor IR 2Y0A02F98}
 \label{sec:sensores}
 Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, o robô possui cinco sensores analógicos de distância por infravermelho modelo 2Y0A02F98 da Sharp, dispostos uniformemente nas laterais da plataforma Bellator. Estes sensores já estavam instalados no robô como resultado do projeto Bellator. A documentação relacionada a este sensor foi retirada da monografia de tal projeto \cite{BELLATOR}, adaptada à nova situação.
 
@@ -52,7 +52,7 @@ V_{medido} = 2,01091E-8x^4-8,7740E-6x^3+0,0014x^2-0,1152x+4,3134
 
 O modelo em questão é adequado ao projeto pois, como sua principal finalidade é a de ajudar a navegação do robô em ambientes fechados, sua faixa de resposta de 20 a 150 centímetros é suficiente para detecção de objetos. Contudo, há a possibilidade de num projeto futuro serem acrescentados outros tipos de sensores mais precisos voltados à medição de distâncias menores.
 
-\section{C8051F340DK}
+\subsection{C8051F340DK}
 \label{sec:C8051F340DK}
 
 O C8051F340 é uma unidade micro controladora (MCU) equipada com um processador  da família 8051 e vários dispositivos periféricos dispostos em uma placa de circuito impresso. Esta unidade faz parte do robô Bellator e já foi anexada ao mesmo durante a execução do projeto Bellator. Novamente, estas especificações foram retiradas da monografia do projeto Bellator. A C8051F340 possui as seguintes especificações \cite{datasheetkit}:
@@ -82,7 +82,7 @@ Um diagrama em blocos do kit, retirado do datasheet, pode ser visto abaixo:
   \label{dbloc}
 \end{figure}
 
-\section{Robô Bellator}
+\subsection{Robô Bellator}
 \label{sec:robobellator} %TODO Atualizar figura/Dados
 
 O robô Bellator, como mencionado no capítulo \ref{chap:estpro}, foi reaproveitado do projeto Bellator e esta especificação foi adaptada da monografia do mesmo. O robô possui duas rodas de tração e uma roda de apoio. As rodas de tração estão nas laterais da parte traseira do robô e possuem diâmetro de 20 centímetros e espessura de aproximadamente 4 centímetros. Ambas possuem um encoder de quadratura acoplado, o qual tem resolução de 1800 pulsos por volta. A roda de apoio está no centro da parte dianteira do robô e possui diâmetro de aproximadamente 6 centímetros e espessura de 2 centímetros. Todas as rodas são da marca Schioppa. Os outros componentes do robô estão listados a seguir:
@@ -94,7 +94,7 @@ O robô Bellator, como mencionado no capítulo \ref{chap:estpro}, foi reaproveitad
 
 Uma imagem do robô, parcialmente montado, pode ser visualizada a seguir:
 
-\section{Placa de Roteamento} 
+\subsection{Placa de Roteamento}
 \label{sec:espplacaroteamento}
 
 A placa de roteamento é um componente desenvolvido com base na mesma placa já disponível do projeto Bellator. Como explicado na seção \ref{sec:recrobo}, a placa de roteamento recebida com o robô era muito rudimentar e, por isto, foi reconstruída pela equipe. As especificações da nova placa de roteamento são:
