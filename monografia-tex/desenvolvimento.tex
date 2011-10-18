@@ -15,7 +15,7 @@ Este capítulo contém em detalhes o trabalho realizado pela equipe, dividido nas 
 \section{Teste dos Componentes}
 \label{sec:testecomp}
 
-Após o recebimento do robô, foram realizados testes para garantir a funcionalidade dos componentes recebidos, já que o robô 
+Após o recebimento do robô, foram realizados testes para garantir a funcionalidade dos componentes recebidos, já que o robô
 estava com suas peças empilhadas numa caixa e não era possível confiar no funcionamento adequado de nenhum dos componentes, além de que a falha de alguns componentes implicaria na impossibilidade de continuar o projeto ou em atrasos significativos. Estes testes também foram necessários para determinar de forma mais precisa o que poderia ser reaproveitado do projeto Bellator. De acordo com a documentação do projeto Bellator~\cite{BELLATOR}, o robô deveria ser capaz de, se montado conforme as instruções na mesma, funcionar como um sistema controlado remotamente. Como o objetivo deste projeto não envolve controlar
 o robô remotamente, foi testada apenas a camada de baixo nível.
 
@@ -29,8 +29,8 @@ Das duas baterias inicialmente disponíveis, uma não estava funcionando conforme 
 a adquirir uma nova bateria 12V para reposição da bateria danificada.
 
 Com todos os componentes acima citados testados, o que faltava para completar os testes da camada de baixo nível era apenas
-o teste dos encoders. Esta etapa foi uma das mais difíceis, pois a equipe não tinha informação nem do modelo do encoder. 
-Depois de muito procurar, foi encontrado um datasheet de um encoder equivalente ao presente no robô, datasheet este que foi fundamental para determinar como alimentar e testar o encoder. Em posse da informação de como usar o encoder, o teste foi realizado tanto para o encoder esquerdo como o direito. O encoder direito funcionou normalmente, porém o esquerdo não. Então, a equipe percebeu que a solda dos fios do encoder não estava boa. Após refazer as soldas, o encoder esquerdo foi testado 
+o teste dos encoders. Esta etapa foi uma das mais difíceis, pois a equipe não tinha informação nem do modelo do encoder.
+Depois de muito procurar, foi encontrado um datasheet de um encoder equivalente ao presente no robô, datasheet este que foi fundamental para determinar como alimentar e testar o encoder. Em posse da informação de como usar o encoder, o teste foi realizado tanto para o encoder esquerdo como o direito. O encoder direito funcionou normalmente, porém o esquerdo não. Então, a equipe percebeu que a solda dos fios do encoder não estava boa. Após refazer as soldas, o encoder esquerdo foi testado
 novamente e funcionou.
 
 Tendo realizado os testes dos componentes mais críticos, o passo seguinte foi tentar utilizar o PC Embarcado VIA EPIA ME6000.
@@ -95,4 +95,4 @@ De posse do diagrama esquemático apresentado na figura \ref{roteamentosch} a equ
 %Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. Por que usar o Eagle.
 
 \section{Considerações}
-Nesta seção foram descritos os passos da equipe  
+Nesta seção foram descritos os passos da equipe desde os testes iniciais com o robô até o projeto da nova placa de roteamento. Com a realização destas tarefas, o objetivo de reconstrução da camada de baixo nível do robô Bellator foi alcançado. 
