@@ -10,7 +10,7 @@ Esta seção visa descrever com quais recursos a equipe iniciou a execução do trab
 
 \subsection{Visão Geral}
 
-O robô disponibilizado à equipe para a realização desse trabalho, o Bellator, é resultado de um projeto não concluído, visando a implementação de uma plataforma robótica controlada remotamente por joystick. Para tal, o robô foi dividido em três camadas: baixo nível, alto nível e supervisório. A camada de baixo nível seria responsável por controlar os motores do robô, bem como receber leituras dos sensores do mesmo. A camada de alto nível comunicar-se-ia com a camada de baixo nível via conexão serial, faria obtenção de vídeo através de uma webcam e comunicar-se-ia com a camada supervisória através de uma conexão sem fio. Esta última seria a interface com o usuário para realizar o controle remoto do robô. O diagrama esquemático da figura \ref{fig:diafsis} demonstra essa situação.
+O robô disponibilizado à equipe para a realização desse trabalho, o Bellator, é resultado de um projeto não concluído, visando a implementação de uma plataforma robótica controlada remotamente por joystick. Para tal, o robô foi dividido em três camadas: baixo nível, alto nível e supervisório. A camada de baixo nível seria responsável por controlar os motores do robô, bem como receber leituras dos sensores do mesmo. A camada de alto nível comunicar-se-ia com a camada de baixo nível via conexão serial, faria obtenção de vídeo através de uma webcam e comunicar-se-ia com a camada supervisória através de uma conexão sem fio. Esta última seria a interface com o usuário para realizar o controle remoto do robô. O diagrama esquemático da figura \ref{fig:diagsis} demonstra essa situação.
 
 \begin{figure}[!htb]
 	\centering
@@ -43,6 +43,9 @@ O chassi do robô e seus componentes acoplados são a base da plataforma robótica 
 Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não foram recebidos ou não serão utilizados nesse trabalho. A webcam e joystick não foram entregues pois não serão necessários, visto que um sistema de navegação autônomo não necessita de joystick e esse trabalho não abordará navegação através de imagem de vídeo. A placa de roteamento entregue será utilizada nos testes dos componentes, visto que é essencial para o funcionamento do robô. Esta placa será reprojetada e reconstruída. O PC embarcado foi entregue destituído de qualquer documentação. Além disso, como o novo objetivo do robô não necessita de comunicação semfio e não utilizará stream de vídeo, motivo principal para a utilização deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que será descrita em detalhes na seção \ref{chap:esprob}.
 
 A documentação disponível à equipe, produzida durante o projeto Bellator, descreve em detalhes os componentes de hardware dessa plataforma robótica, o software de controle supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340\cite{BELLATOR}. Essa documentação será utilizada como referência para o reaproveitamento do projeto Bellator nesse trabalho, com exceção da documentação referente ao software de controle supervisório, que não será utilizado.
+
+\subsection{Considerações}
+A possibilidade de reaproveitamento parcial do projeto Bellator e o recebimento desse material consistiram uma importante epata nesse trabalho. A plataforma Bellator é uma opção de recurso ao apoio do estudo qualitativo proposto nesse TCC.
 
 \input{especificacao}
 
@@ -110,7 +113,7 @@ Para projetar um sistema fuzzy, o seguinte conjunto de passos pode ser seguido~\
     até obter um comportamento satisfatório.
 \end{enumerate}
 
-\subsection
+\subsection{Considerações}
 
 O conceito de incerteza introduzido pela Lógica Fuzzy permite a modelagem de sistemas problemas de decisão cujas variáveis são dinâmicas e admitem vários níveis de classificação. O problema de navegação robótica
 é um sistema dinâmico, pois as decisões são tomadas sob a influência de vários sensores ao mesmo tempo, e a abordagem Fuzzy é uma opção para solucioná-lo.
@@ -131,7 +134,7 @@ A estrutura de um mapa cognitivo fuzzy é um grafo direcionado, figura \ref{fig:f
     \label{fig:fcm}
 \end{figure}
 
-Um FCM descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma variável, ou uma característica do sistema. Os conceitos do mapa cognitivo (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das interconexões (relações causais wi,j) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos.
+O FCM descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma variável, ou uma característica do sistema. Os conceitos do mapa cognitivo (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das interconexões (relações causais wi,j) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos.
 
 \begin{equation}\label{fcm-matrix}
     wi,j=\left(
@@ -149,7 +152,7 @@ O FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, o
 
 Uma vantagem do FCM é a interatividade entre os conceitos, a qual permite que um problema seja dividido em várias partes e cada parte seja representada por um mapa cognitivo modular, que é interconectado aos demais mapas do problema. Outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento, a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
-Em \cite{FCMENDONCA} os mapas cognitivos Fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo}, na qual é ilustrado um tanque com duas válvulas de entrada para diferentes tipos de líquidos, um misturador, uma válvula de saída para o líquido misturado e um medidor de massa específica que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem
+Em \cite{FCMENDONCA} os mapas cognitivos Fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada para diferentes tipos de líquidos, um misturador, uma válvula de saída para o líquido misturado e um medidor de massa específica que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem
 dois líquidos diferentes. Durante a reação, um medidor G de massa específica verifica se a mistura atingiu
 o ponto adequado. A válvula V3 é ativada e o produto da mistura é esvaziado.
 
@@ -158,7 +161,7 @@ o ponto adequado. A válvula V3 é ativada e o produto da mistura é esvaziado.
     \includegraphics{./figs/fcm-exemplo-planta.png}
     \caption[Mapa Cognitivo Fuzzy]{Aplicação do FCM em processo industrial.}
     \fonte{\cite{FCMENDONCA}}
-    \label{fig:fcm}
+    \label{fig:fcm-exemplo-planta}
 \end{figure}
 
 Analisando-se o problema, os seguintes conceitos podem ser definidos:
@@ -171,16 +174,15 @@ Analisando-se o problema, os seguintes conceitos podem ser definidos:
 \item Conceito 5: Valor medido pelo sensor G para massa específica do líquido.
 \end{itemize}
 
-Interligando-se os conceitos com as relações de causa e efeito ponderadas, obtém-se o seguinte FCM para
-o controlador do processo:
+Interligando-se os conceitos com as relações de causa e efeito ponderadas, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} para o controlador do processo.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics{./figs/fcm-exemplo-fcm.png}
     \caption[Mapa Cognitivo Fuzzy]{FCM do controlador.}
     \fonte{\cite{FCMENDONCA}}
-    \label{fig:fcm}
+    \label{fig:fcm-exemplo-fcm}
 \end{figure}
 
 \subsection{Considerações}
-FCM é um modelo linguístico, próxima à linguagem humana, que é baseado na teoria de grafos e que permite interconectar conceitos através de relações de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integração com métodos de treinamento de inteligência artificial. O FCM é indicado para modelagem de sistemas complexos. A navegação robótica é um sistema complexo no qual vários conceitos (sensores e motores) são ativados e interagem entre si para produzir os movimentos adequados ao robô autônomo. A abordagem FCM permite modelar e mapear esses conceitos com a finalidade de implementar um algoritmo de navegação capaz de solucionar o problema.
+FCM é um modelo linguístico, próximo à linguagem humana, que é baseado na teoria de grafos e que permite interconectar conceitos através de relações de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integração com métodos de treinamento de inteligência artificial. O FCM é indicado para modelagem de sistemas complexos. A navegação robótica é um sistema complexo no qual vários conceitos (sensores e motores) são ativados e interagem entre si para produzir os movimentos adequados ao robô autônomo. A abordagem FCM permite modelar e mapear esses conceitos com a finalidade de implementar um algoritmo de navegação capaz de solucionar o problema.

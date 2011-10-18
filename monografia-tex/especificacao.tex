@@ -2,13 +2,13 @@
 \section{Especificações do Robô}
 \label{chap:esprob}
 
-Esta seção visa descrever todas as especificações do hardware do robô Bellator, utilizado na realização desse trabalho.
+Esta seção visa descrever todas as especificações do hardware do robô Bellator após a reconstrução do mesmo.
 
 \subsection{Sensor IR 2Y0A02F98}
 \label{sec:sensores}
 Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, o robô possui cinco sensores analógicos de distância, por infravermelho, modelo 2Y0A02F98 da Sharp, dispostos uniformemente nas laterais da plataforma Bellator. Esses sensores já estavam instalados no robô como resultado do projeto Bellator. A documentação relacionada a esse sensor foi retirada do relatório de tal projeto \cite{BELLATOR}, adaptada à nova situação.
 
-Esse sensor mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva} .
+Esse sensor mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva}.
 
 \begin{figure}[!htb]
   \centering
@@ -85,7 +85,15 @@ O robô Bellator, como mencionado na seção \ref{chap:estpro}, foi reaproveitado d
   \item[-] Duas pontes H L 298.
 \end{itemize}
 
-Uma imagem do robô, parcialmente montado, pode ser visualizada na figura \ref{fig:}
+Uma imagem do robô, parcialmente montado, pode ser visualizada na figura \ref{bellator}.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/bellator.jpg}
+  \caption[Robô Bellator parcialmente montado.]
+  {Robô Bellator parcialmente montado.}
+  \label{bellator}
+\end{figure}
 
 \subsection{Placa de Roteamento}
 \label{sec:espplacaroteamento}
@@ -99,7 +107,7 @@ A placa de roteamento é um componente desenvolvido com base na placa disponível 
     \item Conectores para cabos flat, PWM, Sensores e Encoders.
 \end{itemize}
 
-O diagrama esquemático da placa descrita pode ser observado na figura \ref{fig:roteamentosch}.
+O diagrama esquemático da placa descrita pode ser observado na figura \ref{roteamentosch}.
 
 \begin{figure}[!htb]
   \centering
@@ -110,3 +118,6 @@ O diagrama esquemático da placa descrita pode ser observado na figura \ref{fig:r
 \end{figure}
 
 O projeto da placa, métodos de desenvolvimento, requisitos, entre outros estão descritos de forma detalhada na seção \ref{sec:desroteamento}. 
+
+\subsection{Considerações}
+O robô Bellator é indicado para esse trabalho de conclusão de curso pois apresenta as capacidades de sensoriamento e movimentação adequadas para a plataforma robótica autônoma necessária para o estudo qualitativo dos dois algoritmos de navegação. 
