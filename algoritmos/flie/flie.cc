@@ -16,57 +16,42 @@ int main()
 
 category cat[4];
 
-linguisticvariable Sensor1,Sensor2,Sensor3, AcaoMotor;
+linguisticvariable SensorEsquerda,SensorFrente,SensorDireita, AcaoMotor;
 
 rule infrule[2];
 
 fuzzy_control fc;
 
-float ValorDistancia, ValorMotor;
+float ValorEsquerda,ValorFrente,ValorDireita, ValorMotor;
 
 
-cat[0].setname("Esquerda");
+cat[0].setname("MuitoLonge");
 
-cat[0].setval(-45,-15,15);
+cat[0].setval(140,150,160,170);
 
-cat[1].setname("Direita");
+SensorEsquerda.setname("SensorEsquerda");
 
-cat[1].setval(-15,15,45);
+SensorEsquerda.includecategory(&cat[0]);
 
-cat[2].setname("VireEsquerda");
+SensorEsquerda.setname("SensorDireita");
 
-cat[2].setval(-45,-15,15);
+SensorEsquerda.includecategory(&cat[0]);
 
-cat[3].setname("VireDireita");
+SensorEsquerda.setname("SensorFrente");
 
-cat[3].setval(-15,15,45);
-
-
-SensorDistancia.setname("SensorDistancia");
-
-SensorDistancia.includecategory(&cat[0]);
-
-SensorDistancia.includecategory(&cat[1]);
+SensorEsquerda.includecategory(&cat[0]);
 
 AcaoMotor.setname("AcaoMotor");
 
-AcaoMotor.includecategory(&cat[2]);
-
-AcaoMotor.includecategory(&cat[3]);
-
 fc.set_defuzz(AVERAGEOFMAX);
 
-fc.definevars(SensorDistancia,AcaoMotor);
+fc.definevars(SensorEsquerda,SensorFrente,SensorDireita,AcaoMotor);
 
-fc.insert_rule("Esquerda","VireDireita");
+//fc.insert_rule("Esquerda","VireDireita");
 
-fc.insert_rule("Direita","VireEsquerda");
+//fc.insert_rule("Direita","VireEsquerda");
 
-ValorDistancia = 7;
-
-ValorMotor = fc.make_inference(ValorDistancia);
-
-cout << "\n" << "First Defuzzified Output =" << ValorMotor<<"\n\n\n";
+//ValorMotor = fc.make_inference(ValorDistancia);
 
 return 0;
 }
