@@ -110,7 +110,7 @@ return name;
 
 void trapezoid_category::setval(float l, float ml,float mh, float h)
 {
-lowval=l>0?l:0;
+//lowval=l>0?l:0;
 midvallow=ml;
 midvalhigh=mh;
 highval=h;
