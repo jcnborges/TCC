@@ -1,11 +1,7 @@
 
 BL51 BANKED LINKER/LOCATER V6.20 - SN: Eval Version
 COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
-<<<<<<< HEAD
-"D:\10o Semestre\TCC\C8051F340\main.obj"  TO "D:\10o Semestre\TCC\C8051F340\main" PW(78) PL(68) RS(256) XD(0H) 
-=======
 "C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main.obj"  TO "C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main" PW(78) PL(68) RS(256) XD(0H) 
->>>>>>> efc6a5df8a1708a6a73ae4ddf286ed98cc4cf503
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_PUTCHAR?MAIN
@@ -19,20 +15,11 @@ COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
     CALLER2: ?PR?INTERRUPT_ENCODER_LEFT?MAIN
 
 ******************************************************************************
-<<<<<<< HEAD
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0509H BYTE (62%) *
-=======
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 049EH BYTE (57%) *
->>>>>>> efc6a5df8a1708a6a73ae4ddf286ed98cc4cf503
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 04F7H BYTE (62%) *
 ******************************************************************************
 
 >> 
 >> 
 >> 
-<<<<<<< HEAD
-Program Size: data=10.0 xdata=54 code=1451
+Program Size: data=10.0 xdata=54 code=1433
 LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)
-=======
-Program Size: data=10.0 xdata=46 code=1344
-LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
->>>>>>> efc6a5df8a1708a6a73ae4ddf286ed98cc4cf503

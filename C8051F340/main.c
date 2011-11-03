@@ -407,8 +407,8 @@ void main (void)  {     /* main program */
 	ADC_setup();		// Configura o ADC0
 	EA = 1;				// Habilita todas as interrupcoes
 
-	pwm_left  = 35; 	// hardcode - teste da PWM
-	pwm_right = 35; 	// hardcode - teste da PWM
+//	pwm_left  = 35; 	// hardcode - teste da PWM
+//	pwm_right = 35; 	// hardcode - teste da PWM
 	sentido_roda_esquerda = 0;
 	sentido_roda_direita = 0;
 
