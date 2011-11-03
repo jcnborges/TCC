@@ -12,11 +12,11 @@ int vLeft = 0, vRight = 0;
 int MIN(int a, int b){ return a < b ? a : b; }
 int MAX(int a, int b){ return a > b ? a : b; }
 
-void send_message(char type, char value){
-	putc(type, stdout);
+void send_message(char cmd, char value){
+	putc(cmd, stdout);
 	putc(value, stdout);
 	putc(FIM_COMANDO, stdout);
-	printf("%d %d\n", type, value);
+	putc(10, stdout);
 }
 // {{{ Funcoes de leitura
 void read_distances(){
@@ -44,9 +44,15 @@ void accelerate(int wheel, int dv){
 }
 
 int main(void){
-	while(true){
+	for(int cnt = 0; ; ++cnt){
 		clock_t start = clock();
-		send_message(RODA_LEFT, 2);
+		if(!((cnt / 15) & 1)){
+			accelerate(LEFT, 1);
+			accelerate(RIGHT, 1);
+		} else{
+			accelerate(LEFT, -1);
+			accelerate(RIGHT, -1);
+		}
 		// Ler as informacoes dos sensores de distancia read_distances();
 		read_distances();
 		// Ler as informacoes dos encoders
@@ -56,7 +62,7 @@ int main(void){
 		// Executa as acoes definidas pelo algoritmo
 		execute_action();
 		// Espera completar 100ms para executar a rotina novamente
-		while((clock()- start)/(double)CLOCKS_PER_SEC < 0.1);
+		while((clock()- start)/(double)CLOCKS_PER_SEC < 0.5);
 	}
 	return 0;
 }
