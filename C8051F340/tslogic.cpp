@@ -12,15 +12,16 @@ int vLeft = 0, vRight = 0;
 int MIN(int a, int b){ return a < b ? a : b; }
 int MAX(int a, int b){ return a > b ? a : b; }
 
-// Funcao para enviar uma mensagem para a C8051F340
+// {{{ Comunicacao com o robo
 void send_message(char cmd, char value = 0){
 	putc(cmd, stdout);
 	putc(value, stdout);
-	putc(FIM_COMANDO, stdout);
+	putc(END_CMD, stdout);
 	putc(10, stdout);
 }
+// }}}
 
-// {{{ Funcoes de leitura
+// {{{ Funcoes de leitura dos dados do robo
 void read_distances(){
 
 } 
@@ -37,16 +38,17 @@ void execute_action(){
 void accelerate(int wheel, int dv){
 	if(wheel == LEFT){
 		vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
-		send_message(RODA_LEFT, vLeft);
+		send_message(LEFT_WHEEL, vLeft);
 	}
 	else if(wheel == RIGHT){
 		vRight = MAX(MIN(vRight + dv, MAX_VELOCITY), 0);
-		send_message(RODA_RIGHT, vRight);
+		send_message(RIGHT_WHEEL, vRight);
 	}
 }
 // }}}
-int main(void){
+
 // {{{ Loop de controle
+int main(void){
 	for(int cnt = 0; ; ++cnt){
 		clock_t start = clock();
 		// Envia o pedido de sincronizacao
@@ -69,6 +71,6 @@ int main(void){
 		// Espera completar 100ms para executar a rotina novamente
 		while((clock()- start)/(double)CLOCKS_PER_SEC < 0.5);
 	}
-// }}}
 	return 0;
 }
+// }}}

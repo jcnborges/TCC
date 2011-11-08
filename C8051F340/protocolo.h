@@ -11,16 +11,16 @@
 #define ENCODER				0x20	 	
 
 // Sensores de distancia
-#define SENSOR_OPTICO_0		0x22
-#define SENSOR_OPTICO_1		0x23
-#define SENSOR_OPTICO_2		0x24
-#define SENSOR_OPTICO_3		0x25
-#define SENSOR_OPTICO_4		0x26
-#define SENSOR_OPTICO_5		0x27
+#define OPTICAL_SENSOR_0		0x22
+#define OPTICAL_SENSOR_1		0x23
+#define OPTICAL_SENSOR_2		0x24
+#define OPTICAL_SENSOR_3		0x25
+#define OPTICAL_SENSOR_4		0x26
+#define OPTICAL_SENSOR_5		0x27
 
 // Comandos para controlar PWM
-#define RODA_LEFT			0xA0 // Nivel das PWMS de Movimentacao ou passos
-#define RODA_RIGHT			0xA1 // Nivel das PWMS de Movimentacao ou passos
+#define LEFT_WHEEL			0xA0 // Nivel das PWMS de Movimentacao ou passos
+#define RIGHT_WHEEL			0xA1 // Nivel das PWMS de Movimentacao ou passos
 
 // Comando para sincronizacao
 #define SYNC				0xB0
@@ -31,11 +31,11 @@
 #define RESET				0xF0 // Ordem para RESET GLOBAL
 
 // Byte que sinaliza fim do comando
-#define FIM_COMANDO			0xFE
+#define	END_CMD 			0xFE
 
 // Mascara para obter o valor do pwm e o sentido
 // o bit mais significativo representa o sentido,
 // enquanto os restantes representam o valor de PWM
-#define MASCARA_SENTIDO		0x80  // Mascara que define o bit de sentido da PWM
-#define MASCARA_PWM			0x7F  // Mascara que define o bit de valor   da PWM
+#define PWM_DIR				0x80  // Mascara que define o bit de sentido da PWM
+#define PWM_MASK			0x7F  // Mascara que define o bit de valor   da PWM
 
