@@ -11,29 +11,28 @@
 
 #define TERRA   0x1F
 #define VCC     0x1F
-#define CANAL_0 0x00 		// DIRECIONA A LEITURA DO CANAL 0 PARA o PINO P2.0
-#define CANAL_1 0x01 		// DIRECIONA A LEITURA DO CANAL 1 PARA o PINO P2.1
-#define CANAL_2 0x02 		// DIRECIONA A LEITURA DO CANAL 2 PARA o PINO P2.2
-#define CANAL_3 0x03 		// DIRECIONA A LEITURA DO CANAL 3 PARA o PINO P2.3
-#define CANAL_4 0x04		// DIRECIONA A LEITURA DO CANAL 4 PARA o PINO P2.5 
-#define CANAL_5 0x05		// DIRECIONA A LEITURA DO CANAL 5 PARA o PINO P2.6
+#define CHANNEL_0 0x00 		// DIRECIONA A LEITURA DO CHANNEL 0 PARA o PINO P2.0
+#define CHANNEL_1 0x01 		// DIRECIONA A LEITURA DO CHANNEL 1 PARA o PINO P2.1
+#define CHANNEL_2 0x02 		// DIRECIONA A LEITURA DO CHANNEL 2 PARA o PINO P2.2
+#define CHANNEL_3 0x03 		// DIRECIONA A LEITURA DO CHANNEL 3 PARA o PINO P2.3
+#define CHANNEL_4 0x04		// DIRECIONA A LEITURA DO CHANNEL 4 PARA o PINO P2.5 
+#define CHANNEL_5 0x05		// DIRECIONA A LEITURA DO CHANNEL 5 PARA o PINO P2.6
 
 #define SYSCLK       48000000   // SYSCLK frequency in Hz
 #define BAUDRATE0      115200   // Baud rate of UART0 in bps
 #define BAUDRATE1      115200   // Baud rate of UART1 in bps
 sfr16   SBRL1 = 0xB4;
 
-#define PASSO_DE_VELOCIDADE 5	// DEFINE O PASSO DE VELOCIDADE. PODE SER DIMINUIDO PARA OBTER MAIS NIVEIS
+#define VELOCITY_STEP 5	// DEFINE O PASSO DE VELOCIDADE. PODE SER DIMINUIDO PARA OBTER MAIS NIVEIS
 #define TMAX 75			// PWMS com duty cycle de 75 overflows do timer0
 
 unsigned int pwm_right=0;	// PWM RODA DIREITA
 unsigned int pwm_left=0;	// PWM RODA ESQUERDA
 
 unsigned char sensorCount = 0;	// Marca qual sensor acabou de ter sua leitura convertida.
-unsigned char valores_velhos[6];// armazena as conversoes mais antigas
-unsigned char valores_novos[6];	// Armazena as conversoes mais recentes.
-bit flag_nova_conversao=0;	// Indica que ocorreu uma varredura completa dos sensores.
-bit flag_novo_comando=0;	// Indica que foi recebido um novo comando.
+unsigned char sensor_values[6];	// Armazena as conversoes mais recentes.
+bit new_conversion_flag=0;	// Indica que ocorreu uma varredura completa dos sensores.
+bit new_cmd_flag=0;	// Indica que foi recebido um novo command.
 unsigned int timer3count = 0;	// Contador para gerar delay no Timer 3.
 
 unsigned char Rx_Buff;
@@ -41,11 +40,10 @@ unsigned char Tx_Buff;
 
 bit sentido;					// SENTIDO GERAL DO ROBO... TALVEZ NAO SEJA MAIS NECESSARIA LOGO...
 
-bit flag_pode_enviar = 0;
-bit sentido_roda_esquerda=1;	// DEFINE O SENTIDO DE ROTACAO DA RODA ESQUERA - MUDA NA EXECUCAO DO SOFTWARE
-bit sentido_roda_direita=1;		// DEFINE O SENTIDO DE ROTACAO DA RODA DIREITA - MUDA NA EXECUCAO DO SOFTWARE
-bit flag_nova_configuracao_do_tempo=1;
-char comando[8];				// RECEBE O COMANDO PELA PORTA SERIAL PELO HIPER-TERMINAL...
+bit flag_send = 0;
+bit left_wheel_dir=1;	// DEFINE O SENTIDO DE ROTACAO DA RODA ESQUERA - MUDA NA EXECUCAO DO SOFTWARE
+bit right_wheel_dir=1;		// DEFINE O SENTIDO DE ROTACAO DA RODA DIREITA - MUDA NA EXECUCAO DO SOFTWARE
+char rec_command[8];				// RECEBE O command PELA PORTA SERIAL PELO HIPER-TERMINAL...
 								// PROVAMENTE SERA MODIFICADO PARA UM VETOR DE CHAR QUANDO DE DESEJAR 
 								// OBTER DADOS DO ROBO OU COMANDOS DE MOVIMENTACAO MAIS COMPLEXOS...
 
@@ -54,8 +52,7 @@ unsigned char i;				// INDICE AUXILIAR PARA LOOPS
 
 bit UART = 0;
 
-unsigned int encoder_right_count = 0;
-unsigned int encoder_left_count = 0;
+unsigned int encoder_count[2] = {0, 0};
 
 
 char putchar (char c)  {
@@ -63,12 +60,12 @@ char putchar (char c)  {
    if (UART == 0) {
 
       if (c == '\n')  {                // check for newline character
-         while (!flag_pode_enviar);    // wait until UART0 is ready to transmit
-         flag_pode_enviar = 0;         // clear interrupt flag
+         while (!flag_send);    // wait until UART0 is ready to transmit
+         flag_send = 0;         // clear interrupt flag
          SBUF0 = 0x0d;                 // output carriage return command
       }
-      while (!flag_pode_enviar);                    // wait until UART0 is ready to transmit
-      flag_pode_enviar = 0;                         // clear interrupt flag
+      while (!flag_send);                    // wait until UART0 is ready to transmit
+      flag_send = 0;                         // clear interrupt flag
       return (SBUF0 = c);              // output <c> using UART 0
    }
 
@@ -186,7 +183,7 @@ void encoder_setup(){
 }
 		
 void ativa_direita(void){
-	if (sentido_roda_direita) {		// Avalia sentido da roda direita (em frente == 1)
+	if (right_wheel_dir) {		// Avalia sentido da roda direita (em frente == 1)
 		PWM_RIGHT_REVERSE = OFF;	// Desliga o PWM para tras
 		PWM_RIGHT_FORWARD = ON;		// Liga o PWM para frente
 	}
@@ -202,7 +199,7 @@ void desativa_direita(void){
 }
 
 void ativa_esquerda(void){
-	if (sentido_roda_esquerda) {    // Avalia sentido da roda direita (em frente == 1)
+	if (left_wheel_dir) {    // Avalia sentido da roda direita (em frente == 1)
 		PWM_LEFT_REVERSE = OFF;		// Desliga o PWM para tras
 		PWM_LEFT_FORWARD = ON;		// Liga o PWM para frente
 	}
@@ -263,7 +260,7 @@ void ADC_setup () { 	// USAR TIMER 3
 	ADC0CF = 11<<3; 	// Configura o CLOCK do passo da conversao como 4.8MHZ
 	ADC0CF |= 0x04;		// Configura o ADC0 para ignorar os 2 bits menos
 						// significativos da conversao
-	AMX0P = CANAL_0;	// Seleciona a entrada da conversao como o canal 0 (P2.0)
+	AMX0P = CHANNEL_0;	// Seleciona a entrada da conversao como o canal 0 (P2.0)
     TMR3CN &= ~0x01;
 	CKCON &= 0x3F;
 	TMR3L = 0xFF;		// Configura o valor maximo da contagem como 255
@@ -288,26 +285,26 @@ void interrupt_timer3() interrupt 14 {	// Trata a interrupcao do Timer 3
 void interrupt_ADC() interrupt 10 { // Tratamento da interrupcao do ADC0
 	switch(sensorCount){
 		case 0:
-			AMX0P =  CANAL_1;	// Seleciona a entrada da conversao como o canal 1 (P2.1)
+			AMX0P =  CHANNEL_1;	// Seleciona a entrada da conversao como o canal 1 (P2.1)
 		break;
 		case 1:
-			AMX0P =  CANAL_2;	// Seleciona a entrada da conversao como o canal 2 (P2.2)
+			AMX0P =  CHANNEL_2;	// Seleciona a entrada da conversao como o canal 2 (P2.2)
 		break;
 		case 2:
-			AMX0P =  CANAL_3;	// Seleciona a entrada da conversao como o canal 3 (P2.3)
+			AMX0P =  CHANNEL_3;	// Seleciona a entrada da conversao como o canal 3 (P2.3)
 		break;
 		case 3:
-			AMX0P =  CANAL_4;	// Seleciona a entrada da conversao como o canal 4 (P2.5)
+			AMX0P =  CHANNEL_4;	// Seleciona a entrada da conversao como o canal 4 (P2.5)
 		break;
 		case 4:
-			AMX0P =  CANAL_5;	// Seleciona a entrada da conversao como o canal 5 (P2.6)
+			AMX0P =  CHANNEL_5;	// Seleciona a entrada da conversao como o canal 5 (P2.6)
 		break;
 		case 5:
-			AMX0P =  CANAL_0;	// Seleciona a entrada da conversao como o canal 0 (P2.0)
-			flag_nova_conversao = 1;
+			AMX0P =  CHANNEL_0;	// Seleciona a entrada da conversao como o canal 0 (P2.0)
+			new_conversion_flag = 1;
 		break;
 	}
-	valores_novos[sensorCount] = ADC0H;
+	sensor_values[sensorCount] = ADC0H;
 	if(sensorCount == 5) { 
 		sensorCount = 0xFF; // Sinaliza que nao havera mais conversoes
 	}
@@ -316,72 +313,63 @@ void interrupt_ADC() interrupt 10 { // Tratamento da interrupcao do ADC0
 	AD0INT = 0;
 }
 
-void enviar_distancias() {
+void send_distances_info() {
 
-	unsigned char comando_send[4];
+	unsigned char command[4];
 	unsigned char indice;
 	unsigned char indice2;
 	for(indice = 0; indice < 6; indice++){
-		if ( valores_velhos[indice] != valores_novos[indice] ) {
-			comando_send[0] = SENSOR_OPTICO_0 + indice;
-			comando_send[1] = valores_novos[indice] + (valores_novos[indice] == 0);
-			comando_send[2] = FIM_COMANDO;
-			comando_send[3] = '\n';
+			command[0] = OPTICAL_SENSOR_0 + indice;
+			command[1] = sensor_values[indice] + (sensor_values[indice] == 0);
+			command[2] = END_CMD;
+			command[3] = '\n';
 			for(indice2 = 0; indice2 < 4 ; indice2++) {		
-				while(!flag_pode_enviar);
-				flag_pode_enviar = 0;
-				SBUF0 = comando_send[indice2];
+				while(!flag_send);
+				flag_send = 0;
+				SBUF0 = command[indice2];
 			}
 		}
 	}
 }
 
-void enviar_info_encoders(unsigned char arg) {
+void send_encoders_info() {
 
-	unsigned char comando_send[4];
-	unsigned char indice;
-	comando_send[0] = ENCODER + arg;
-	comando_send[1] = FIM_COMANDO;
-	comando_send[2] = '\n';
-	for(indice = 0; indice < 3 ; indice++) {		
-		while(!flag_pode_enviar);
-		flag_pode_enviar = 0;
-		SBUF0 = comando_send[indice];
+	unsigned char command[5];
+	unsigned char indice, iencoder;
+	for(iencoder = 0; iencoder < 2; ++iencoder){
+		command[0] = ENCODER + iencoder;
+		command[1] = encoder_count[iencoder] >> 8;
+		command[2] = encoder_count[iencoder] & 0xFF;
+		command[3] = END_CMD;
+		command[4] = '\n';
+		for(indice = 0; indice < 3 ; indice++) {		
+			while(!flag_send);
+			flag_send = 0;
+			SBUF0 = command[indice];
+		}
 	}
 }
 
 void interrupt_encoder_right() interrupt 0 {
-	//TODO
 	//PORT0.1
-	encoder_right_count++;
+	++encoder_count[0];
 	IE0 = 0;
-	if (encoder_right_count > 180) 
-	{
-		encoder_right_count = 0;
-		enviar_info_encoders(0);
-	}
 }
 
 void interrupt_encoder_left() interrupt 2 {
-	//TODO
 	//PORT0.3
-	encoder_left_count++;
+	++encoder_count[1];
 	IE1 = 0;
-	if (encoder_left_count > 180)
-	{
-		encoder_left_count = 0;
-		enviar_info_encoders(1);
-	}
 }
 
 void interrupt_serial() interrupt 4 { // Tratamento da interrupcao da UART0
 	static short int indice = 0;
 	if (RI0 == 1){					
-		comando[indice] = SBUF0;
-		if(comando[indice] == '\n' || indice ==5) { // Limitando comando em 6 caracteres
-			comando[indice] = '\0';
+		rec_command[indice] = SBUF0;
+		if(rec_command[indice] == '\n' || indice ==5) { // Limitando rec_command em 6 caracteres
+			rec_command[indice] = '\0';
 			indice = 0;
-			flag_novo_comando = 1;
+			new_cmd_flag = 1;
 		}	
 		else indice++;
 		RI0=0;
@@ -389,7 +377,7 @@ void interrupt_serial() interrupt 4 { // Tratamento da interrupcao da UART0
 
 	if(TI0 == 1) {
 		TI0 = 0;
-		flag_pode_enviar = 1;
+		flag_send = 1;
 	}
 
 }
@@ -409,38 +397,40 @@ void main (void)  {     /* main program */
 
 //	pwm_left  = 35; 	// hardcode - teste da PWM
 //	pwm_right = 35; 	// hardcode - teste da PWM
-	sentido_roda_esquerda = 0;
-	sentido_roda_direita = 0;
+	left_wheel_dir = 0;
+	right_wheel_dir = 0;
 
   while (1)  { // Loop infinito....
-	if(flag_nova_conversao){	// Novos valores de conversao disponiveis
-		//enviar_distancias();
-		flag_nova_conversao = 0;
-		for (i=0; i<6; i++) {
-			valores_velhos[i] = valores_novos[i]; // Armazena valores velhos
-		}
+	  /*
+	if(new_conversion_flag){	// Novos valores de conversao disponiveis
+		//send_distances_info();
+		new_conversion_flag = 0;
+//		for (i=0; i<6; i++) {
+//			old_values[i] = sensor_values[i]; // Armazena valores velhos
+//		}
 	}
+	*/
 
-	if(flag_novo_comando){
+	if(new_cmd_flag){
 
 #ifdef DEBUG
-	    printf("Comando Recebido : %c %c %c %c -",comando[0],comando[1],comando[2],comando[3]);
+	    printf("Received command: %c %c %c %c -",rec_command[0],rec_command[1],rec_command[2],rec_command[3]);
 #endif
-		flag_novo_comando = 0;
-		switch (comando[0]) {
-			case RODA_LEFT:
+		new_cmd_flag = 0;
+		switch (rec_command[0]) {
+			case LEFT_WHEEL:
 				#ifdef DEBUG
-					printf("RODA_LEFT\n");
+					printf("LEFT_WHEEL\n");
 				#endif
-				sentido_roda_esquerda = (comando[1] & MASCARA_SENTIDO);
-				pwm_left = (comando[1] & MASCARA_PWM) * PASSO_DE_VELOCIDADE;
+				left_wheel_dir = (rec_command[1] & PWM_DIR);
+				pwm_left = (rec_command[1] & PWM_MASK) * VELOCITY_STEP;
 				break;
-			case RODA_RIGHT:
+			case RIGHT_WHEEL:
 				#ifdef DEBUG
-					printf("RODA_RIGHT\n");
+					printf("RIGHT_WHEEL\n");
 				#endif
-				sentido_roda_direita=(comando[1] & MASCARA_SENTIDO);
-				pwm_right = (comando[1] & MASCARA_PWM) * PASSO_DE_VELOCIDADE;
+				right_wheel_dir=(rec_command[1] & PWM_DIR);
+				pwm_right = (rec_command[1] & PWM_MASK) * VELOCITY_STEP;
 				break;
 		
 			case STOP: 
@@ -449,10 +439,14 @@ void main (void)  {     /* main program */
 					printf("STOP ! \n");
 				#endif
 				break;
+			case SYNC:
+				send_distances_info();
+				send_encoders_info();
+				break;
 		
 			default:
 				#ifdef DEBUG
-					printf("Comando Invalido !");
+					puts("Invalid command!");
 				#endif
 			break;
 		} 
