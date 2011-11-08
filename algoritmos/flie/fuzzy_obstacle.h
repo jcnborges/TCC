@@ -1,6 +1,6 @@
 
 #include "fuzzfier.h"
-#include <iostream.h>
+#include <iostream>
 
 class fuzzy_obstacle
 {
@@ -34,6 +34,6 @@ class fuzzy_obstacle
    	fuzzy_obstacle &operator=(const fuzzy_obstacle &fo);
    	int operator==(const fuzzy_obstacle &fo);
    	int operator!=(const fuzzy_obstacle &fo);
-   	friend ostream& operator<<(ostream& fluxo, fuzzy_obstacle fo);
+//   	friend ostream& operator<<(ostream& fluxo, fuzzy_obstacle fo);
 
 };

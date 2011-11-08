@@ -1,43 +1,43 @@
 
 CC=g++
-FLAGS= -O3
+FLAGS= -O3 -Wno-deprecated
 OBJECTS= fuzzy_obstacle.o fuzzfier.o
-OBJECTSFLIE= fuzzy_obstacle.o fuzzy_control.o rule.o lingvar.o fuzzfier.o flie.o
+OBJECTSFLIE= fuzzy_obstacle.o fuzzy_control.o rule.o lingvar.o fuzzfier.o flie.o motor.o FIE.o
 OBJECTSFMAP= fuzzy_obstacle.o fuzzfier.o fuzzymap.o
-LIBS= -L/local/home/joao/libstdc++-2.8.1/libraries/libstdc++ -lm 
-INCLUDES= -I /usr/include/g++-include -I/export/home/aci/joao/local/libstdc++-2.8.1/libio
+#LIBS= -L/local/home/joao/libstdc++-2.8.1/libraries/libstdc++ -lm 
+#INCLUDES= -I /usr/include/g++-include -I/export/home/aci/joao/local/libstdc++-2.8.1/libio
 
 objects: $(OBJECTS)
 
 flie:  flie.o $(OBJECTSFLIE)
-	$(CC) $(FLAGS) $(OBJECTSFLIE) -o flie $(LIBS) 
+	$(CC) $(FLAGS) $(OBJECTSFLIE) -o flie 
 
-fuzzymap: $(OBJECTSFMAP) fuzzymap.o
-	$(CC) $(FLAGS) $(OBJECTSFMAP) -o fuzzymap $(LIBS)
+motor.o: motor.cc
+	$(CC) $(FLAGS) -c motor.cc
 
-fuzzymap.o: fuzzymap.cc
-	$(CC) $(FLAGS) -c fuzzymap.cc $(INCLUDES)
-
+FIE.o: FIE.cc
+	$(CC) $(FLAGS) -c FIE.cc
+	
 fuzzy_obstacle.o: fuzzy_obstacle.cc
-	$(CC) $(FLAGS) -c fuzzy_obstacle.cc  $(INCLUDES)
+	$(CC) $(FLAGS) -c fuzzy_obstacle.cc
 
 fuzzy_control.o: fuzzy_control.cc
-	$(CC) $(FLAGS) -c fuzzy_control.cc $(INCLUDES)
+	$(CC) $(FLAGS) -c fuzzy_control.cc
 
 fuzzfier.o: fuzzfier.cc
-	$(CC) $(FLAGS) -c fuzzfier.cc  $(INCLUDES)
+	$(CC) $(FLAGS) -c fuzzfier.cc
 
 rule.o: rule.cc
-	$(CC) $(FLAGS) -c rule.cc  $(INCLUDES)
+	$(CC) $(FLAGS) -c rule.cc
 
 lingvar.o: lingvar.cc
-	$(CC) $(FLAGS) -c lingvar.cc  $(INCLUDES)
+	$(CC) $(FLAGS) -c lingvar.cc
 
 flie.o: flie.cc
-	$(CC) $(FLAGS) -c flie.cc $(INCLUDES)
+	$(CC) $(FLAGS) -c flie.cc
 
 clean:
-	rm *.o;rm flie;rm fuzzymap
+	echo BACON
 
  
 

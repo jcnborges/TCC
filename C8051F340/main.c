@@ -319,15 +319,14 @@ void send_distances_info() {
 	unsigned char indice;
 	unsigned char indice2;
 	for(indice = 0; indice < 6; indice++){
-			command[0] = OPTICAL_SENSOR_0 + indice;
-			command[1] = sensor_values[indice] + (sensor_values[indice] == 0);
-			command[2] = END_CMD;
-			command[3] = '\n';
-			for(indice2 = 0; indice2 < 4 ; indice2++) {		
-				while(!flag_send);
-				flag_send = 0;
-				SBUF0 = command[indice2];
-			}
+		command[0] = OPTICAL_SENSOR_0 + indice;
+		command[1] = sensor_values[indice] + (sensor_values[indice] == 0);
+		command[2] = END_CMD;
+		command[3] = '\n';
+		for(indice2 = 0; indice2 < 4 ; indice2++) {		
+			while(!flag_send);
+			flag_send = 0;
+			SBUF0 = command[indice2];
 		}
 	}
 }
@@ -342,7 +341,7 @@ void send_encoders_info() {
 		command[2] = encoder_count[iencoder] & 0xFF;
 		command[3] = END_CMD;
 		command[4] = '\n';
-		for(indice = 0; indice < 3 ; indice++) {		
+		for(indice = 0; indice < 5 ; indice++) {		
 			while(!flag_send);
 			flag_send = 0;
 			SBUF0 = command[indice];
@@ -441,7 +440,7 @@ void main (void)  {     /* main program */
 				break;
 			case SYNC:
 				send_distances_info();
-				send_encoders_info();
+				//send_encoders_info();
 				break;
 		
 			default:
