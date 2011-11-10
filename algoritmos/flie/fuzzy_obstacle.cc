@@ -2,7 +2,6 @@
 #include "fuzzy_obstacle.h"
 #include <math.h>
 
-
 fuzzy_obstacle::fuzzy_obstacle()
 {
  center_x = 0.0;
@@ -117,7 +116,7 @@ int fuzzy_obstacle::operator!=(const fuzzy_obstacle &fo)
          (x_axe != fo.x_axe) || (y_axe != fo.y_axe) );
 // If COnic, different tests! And I've to implement comparison between trapezoid categories!!!
 }
-
+/* MODIFICADO
 ostream& operator<<(ostream& fluxo, fuzzy_obstacle fo)
 {
    cout << "center_x = " << fo.center_x << ", center_y = " << fo.center_y << endl;
@@ -125,4 +124,4 @@ ostream& operator<<(ostream& fluxo, fuzzy_obstacle fo)
    cout << "category_y = " << fo.y_axe << endl;
    return(fluxo);
 }
-
+*/

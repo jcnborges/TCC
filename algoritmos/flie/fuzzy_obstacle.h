@@ -2,16 +2,19 @@
 #include "fuzzfier.h"
 #include <iostream>
 
+
 class fuzzy_obstacle
 {
  private:
-	float center_x;
+
+ public:
+ 	float center_x;
 	float center_y;
    	short int conic;
 	trapezoid_category x_axe;
 	trapezoid_category y_axe;
         float alpha;
- public:
+		
 	fuzzy_obstacle();
 	fuzzy_obstacle(float xmin, float ymin, float xmax, float ymax);
 	~fuzzy_obstacle();
@@ -34,6 +37,6 @@ class fuzzy_obstacle
    	fuzzy_obstacle &operator=(const fuzzy_obstacle &fo);
    	int operator==(const fuzzy_obstacle &fo);
    	int operator!=(const fuzzy_obstacle &fo);
-//   	friend ostream& operator<<(ostream& fluxo, fuzzy_obstacle fo);
+	//ostream& operator<<(ostream& fluxo, fuzzy_obstacle fo);
 
 };

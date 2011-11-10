@@ -24,6 +24,8 @@ class rule : public TRegra
 
 private:
 
+
+public:
 	trapezoid_category *inputcat1, *inputcat2, *inputcat3;
 
 	trapezoid_category *outputcat;
@@ -31,7 +33,6 @@ private:
         int num_inputs;
 
         float at1, at2, at3;
-public:
 
         rule();
 

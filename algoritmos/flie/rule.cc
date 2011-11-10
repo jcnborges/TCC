@@ -1,6 +1,6 @@
 // Project FLIE-Fuzzy Logic Inference Engine - Joƒo Alberto Fabro - out/1996
 // Method Definition File rule.cc - Implementation of class fuzzy_rule
-
+#include "iostream.h"
 #include "flie.h"
 
 rule::rule()

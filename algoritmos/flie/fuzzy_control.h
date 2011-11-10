@@ -115,12 +115,13 @@ public:
 class fuzzy_merged_control:fuzzy_control
 {
 private:
+
+public:
        	linguisticvariable lingvarinput1merge1,lingvarinput2merge1,lingvarinput3merge1;
        	linguisticvariable lingvarinput1merge2,lingvarinput2merge2,lingvarinput3merge2;
         linguisticvariable lingvaroutputmerge1;
         linguisticvariable lingvaroutputmerge2;
 
-public:
         void merge(fuzzy_control fc1, fuzzy_control fc2);
 
         float make_inference(float inputval1, float percent);

@@ -349,6 +349,7 @@ void send_encoders_info() {
 	}
 }
 
+
 void interrupt_encoder_right() interrupt 0 {
 	//PORT0.1
 	++encoder_count[0];
@@ -409,7 +410,6 @@ void main (void)  {     /* main program */
 //		}
 	}
 	*/
-
 	if(new_cmd_flag){
 
 #ifdef DEBUG
@@ -440,13 +440,11 @@ void main (void)  {     /* main program */
 				break;
 			case SYNC:
 				send_distances_info();
-				//send_encoders_info();
+				send_encoders_info();
 				break;
 		
 			default:
-				#ifdef DEBUG
-					puts("Invalid command!");
-				#endif
+				//SBUF0 = ERRO;
 			break;
 		} 
 	}

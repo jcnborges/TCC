@@ -6,15 +6,12 @@ COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_PUTCHAR?MAIN
 
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SEND_ENCODERS_INFO?MAIN
-
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 048BH BYTE (56%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 048EH BYTE (56%) *
 ******************************************************************************
 
 >> 
 >> 
 >> 
-Program Size: data=9.7 xdata=45 code=1325
-LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
+Program Size: data=9.7 xdata=41 code=1328
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

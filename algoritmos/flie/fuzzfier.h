@@ -14,11 +14,13 @@ class category
 
 private:
 
+
+
+public:
 	char name[30];
 	float lowval,highval,midval;
         float output;
 
-public:
 	category(){};
 	void setname(char *);
 	char * getname();	
@@ -41,13 +43,15 @@ class trapezoid_category
 {
 private:
 
+
+
+public:
 	char name[30];
         int number;
 	float lowval,highval,midvallow, midvalhigh;
         float output;
         float rangelow, rangehigh;
 
-public:
 	trapezoid_category();
         trapezoid_category(int);
 	void setname(char *);

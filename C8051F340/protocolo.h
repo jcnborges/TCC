@@ -39,3 +39,5 @@
 #define PWM_DIR				0x80  // Mascara que define o bit de sentido da PWM
 #define PWM_MASK			0x7F  // Mascara que define o bit de valor   da PWM
 
+// Resposta caso a mensagem recebida nao seja identificada
+#define ERRO				0x45

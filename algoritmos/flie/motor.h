@@ -11,12 +11,14 @@ typedef int TVetor[TAM];
 class TTipoPremissa
 {
     private:
-	 char *atributo;
+
+
+    public:
+		 char *atributo;
 	 float valor;
 	 int tamvp;
 	 TVetor vPremissas;
-
-    public:
+	
          TTipoPremissa();
 	 TTipoPremissa(char *newAtributo, float newV);
 	 void setValor(float newValor);
@@ -32,9 +34,11 @@ class TTipoPremissa
 class TCondicao
 {
     private:
-       float valor;
-       float valorRecebido;
+
     public:
+	       float valor;
+       float valorRecebido;
+	
       TCondicao(float newV, float newVR);
       void setValorRecebido(float newVR);
       bool Maior(); //tipo (1)
@@ -47,14 +51,16 @@ class TCondicao
 class TPremissa
 {
     private:
-	 char *atributo;
+
+
+    public:
+		 char *atributo;
 	 TCondicao condicao;
 	 bool status;
 	 Qual tipo;
 	 TVetor vRegras;
 	 int tamvr;
-
-    public:
+	
 	 TPremissa();
 	 TPremissa (Qual newTipo, char *newAtributo, float newV, float newVR, bool newStatus);
 	 void setStatus (float valorRecebido);
@@ -72,10 +78,12 @@ class TPremissa
 class TConclusao
 {
     private:
-	char *mensagem;
+
+    public:
+		char *mensagem;
 	TVetor vRegras;
 	bool status;
-    public:
+	
 	TConclusao(char *newMensagem, bool newStatus);
 	char * getMensagem();
 	TVetor *getVRegras();
@@ -86,12 +94,14 @@ class TConclusao
 class TRegra
 {
     protected:
-	 char *nome;
+
+
+    public:
+		 char *nome;
 	 TVetor vPremissas;
 	 TVetor conclusao;
 	 int tamvp, tamc;
-
-    public:
+	
          TRegra();
 	 TRegra (char * newNome);
 	 char * getNome();

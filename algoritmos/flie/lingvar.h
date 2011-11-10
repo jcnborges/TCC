@@ -13,6 +13,9 @@ class linguisticvariable : public TTipoPremissa
 
 private:
 
+
+
+public:
 	char name[30];
 
 	int numcategories;
@@ -21,7 +24,6 @@ private:
 
                 float defuzzyfiedoutput;
 
-public:
 
 	linguisticvariable();
 

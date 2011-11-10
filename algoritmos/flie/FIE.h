@@ -19,10 +19,12 @@ private:
 class subat : public trapezoid_category
 {
 private:
+
+public:
         int num_rules;
         linguisticvariable *lv;
         rule *rules[MAXRULES];
-public:
+
         subat(){num_rules=0;};
         void define_lingvar(linguisticvariable *l);
         linguisticvariable *getlv();
