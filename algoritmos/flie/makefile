@@ -37,7 +37,7 @@ flie.o: flie.cc
 	$(CC) $(FLAGS) -c flie.cc
 
 clean:
-	echo BACON
+	rm *.o
 
  
 

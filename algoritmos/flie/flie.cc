@@ -44,7 +44,7 @@ rule infrule2[49];
 // the system under control!
 */
 
-subat cat[17];
+subat cat[18];
 
 linguisticvariable SensorEsquerda,SensorFrente,SensorDireita, VelMotor;
 
@@ -485,7 +485,7 @@ fc1.set_defuzz(CENTEROFAREA);
 //Frente
 cat[0].setname("Perto");//Set Range para cada categoria
 cat[0].setrange(0,200);
-cat[0].setval(16,20,25,50);
+cat[0].setval(5,10,15,30);
 cat[1].setname("Medio");
 cat[1].setrange(0,200);
 cat[1].setval(25,50,100,150);
@@ -504,7 +504,7 @@ cat[5].setrange(-200,200);
 cat[5].setval(-100,-150,-175,-200);
 cat[6].setname("Perto Frente");
 cat[6].setrange(-200,200);
-cat[6].setval(16,20,25,50);
+cat[6].setval(5,10,15,30);
 cat[7].setname("Medio Frente");
 cat[7].setrange(-200,200);
 cat[7].setval(25,50,100,150);
@@ -523,7 +523,7 @@ cat[11].setrange(-200,200);
 cat[11].setval(-100,-150,-175,-200);
 cat[12].setname("Perto Frente");
 cat[12].setrange(-200,200);
-cat[12].setval(16,20,25,50);
+cat[12].setval(5,10,15,30);
 cat[13].setname("Medio Frente");
 cat[13].setrange(-200,200);
 cat[13].setval(25,50,100,150);
@@ -534,20 +534,23 @@ cat[14].setval(100,150,175,200);
 cat[15].setname("Rapido");
 cat[15].setrange(0,100);
 cat[15].setval(10,100,100,100);
-cat[16].setname("Lento");
+cat[16].setname("Medio");
 cat[16].setrange(0,100);
-cat[16].setval(0,0,5,10);
+cat[16].setval(10,20,50,60);
+cat[17].setname("Lento");
+cat[17].setrange(0,100);
+cat[17].setval(0,0,10,20);
 //Motor Angulo
 
 
 SensorFrente.setname("SensorFrente");
 
 SensorFrente.includecategory(&cat[0]);
-cat[0].define_lingvar(&SensorEsquerda);
+cat[0].define_lingvar(&SensorFrente);
 SensorFrente.includecategory(&cat[1]);
-cat[1].define_lingvar(&SensorEsquerda);
+cat[1].define_lingvar(&SensorFrente);
 SensorFrente.includecategory(&cat[2]);
-cat[2].define_lingvar(&SensorEsquerda);
+cat[2].define_lingvar(&SensorFrente);
 
 SensorEsquerda.setname("SensorEsquerda");
 
@@ -569,24 +572,26 @@ SensorDireita.setname("SensorDireita");
 SensorDireita.includecategory(&cat[9]);
 cat[9].define_lingvar(&SensorDireita);
 SensorDireita.includecategory(&cat[10]);
-cat[10].define_lingvar(&SensorEsquerda);
+cat[10].define_lingvar(&SensorDireita);
 SensorDireita.includecategory(&cat[11]);
-cat[11].define_lingvar(&SensorEsquerda);
+cat[11].define_lingvar(&SensorDireita);
 SensorDireita.includecategory(&cat[12]);
-cat[12].define_lingvar(&SensorEsquerda);
+cat[12].define_lingvar(&SensorDireita);
 SensorDireita.includecategory(&cat[13]);
-cat[13].define_lingvar(&SensorEsquerda);
+cat[13].define_lingvar(&SensorDireita);
 SensorDireita.includecategory(&cat[14]);
-cat[14].define_lingvar(&SensorEsquerda);
+cat[14].define_lingvar(&SensorDireita);
 
 VelMotor.setname("Velocidade Motor");
 
 VelMotor.includecategory(&cat[15]);
-cat[15].define_lingvar(&SensorEsquerda);
+cat[15].define_lingvar(&VelMotor);
 VelMotor.includecategory(&cat[16]);
-cat[16].define_lingvar(&SensorEsquerda);
+cat[16].define_lingvar(&VelMotor);
+VelMotor.includecategory(&cat[17]);
+cat[17].define_lingvar(&VelMotor);
 
-fc.set_defuzz(AVERAGEOFMAX);
+fc.set_defuzz(CENTEROFAREA);
 fc.definevars(SensorEsquerda,SensorFrente,SensorDireita,VelMotor);
 
 
@@ -602,14 +607,27 @@ infrule[1].inserePremissa(SensorFrente.getcatptr("Longe"));
 infrule[1].inserePremissa(SensorDireita.getcatptr("Longe Frente"));
 infrule[1].insereConclusao(VelMotor.getcatptr("Rapido"));
 
-ValorEsquerda = 16;
-ValorFrente = 16;
-ValorDireita = 16;
+ValorEsquerda = 21;
+ValorFrente = 21;
+ValorDireita = 21;
 
-PercPwm = fc.make_inference(ValorEsquerda, ValorDireita, ValorFrente);
-
-printf("%f",PercPwm);
-
+//PercPwm = fc.make_inference(ValorEsquerda, ValorDireita, ValorFrente);
+PercPwm = fc.make_inference(16,16,16);
+printf("%f\n",PercPwm);
+PercPwm = fc.make_inference(17,17,17);
+printf("%f\n",PercPwm);
+PercPwm = fc.make_inference(18,18,18);
+printf("%f\n",PercPwm);
+PercPwm = fc.make_inference(20,20,20);
+printf("%f\n",PercPwm);
+PercPwm = fc.make_inference(25,25,25);
+printf("%f\n",PercPwm);
+PercPwm = fc.make_inference(40,40,40);
+printf("%f\n",PercPwm);
+PercPwm = fc.make_inference(45,45,45);
+printf("%f\n",PercPwm);
+PercPwm = fc.make_inference(50,50,50);
+printf("%f\n",PercPwm);
 return 0;
 }
 
