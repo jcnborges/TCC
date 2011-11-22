@@ -1,0 +1,1 @@
+kill `ps -C serialtest | grep serialtest | awk '{ print $1 }'`
