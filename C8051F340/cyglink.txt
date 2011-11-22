@@ -1,1 +1,1 @@
-"D:\10o Semestre\TCC\C8051F340\main.obj"  TO "D:\10o Semestre\TCC\C8051F340\Firmware"  RS(256) PL(68) PW(78)    
+"C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main.obj"  TO "C:\Coisas de Yuri\10Periodo\TCC\C8051F340\Firmware" RS(256) PL(68) PW(78) 
