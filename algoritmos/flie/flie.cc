@@ -46,7 +46,7 @@ rule infrule2[49];
 
 subat cat[21];
 
-linguisticvariable SensorEsquerda,SensorFrente,SensorDireita, VelMotor;
+linguisticvariable SensorEsquerda,SensorFrente,SensorDireita, VelMotor. AngMotor;
 
 rule infrule[49];
 rule infrule2[49];
@@ -55,7 +55,7 @@ fuzzy_control fc,fc2;
 
 float ValorEsquerda,ValorFrente,ValorDireita, PercPwm;
 
-void insertRule(int, char *, char *, char *, char*);
+void insertRule(int, char *, char *, char *, char*, char*);
 
 int main()//_FIE()
 {
@@ -496,41 +496,41 @@ cat[2].setrange(0,200);
 cat[2].setval(100,150,175,200);
 //Lateral Esquerda (2 sensores)
 cat[3].setname("Perto Tras");
-cat[3].setrange(-200,200);
-cat[3].setval(-16,-16,-20,-50);
+cat[3].setrange(0,400);
+cat[3].setval(216,216,220,250);
 cat[4].setname("Medio Tras");
-cat[4].setrange(-200,200);
-cat[4].setval(-20,-50,-100,-150);
+cat[4].setrange(0,400);
+cat[4].setval(220,250,300,350);
 cat[5].setname("Longe Tras");
-cat[5].setrange(-200,200);
-cat[5].setval(-100,-150,-175,-200);
+cat[5].setrange(0,400);
+cat[5].setval(300,350,375,400);
 cat[6].setname("Perto Frente");
-cat[6].setrange(-200,200);
+cat[6].setrange(0,400);
 cat[6].setval(16,16,20,50);
 cat[7].setname("Medio Frente");
-cat[7].setrange(-200,200);
+cat[7].setrange(0,400);
 cat[7].setval(20,50,100,150);
 cat[8].setname("Longe Frente");
-cat[8].setrange(-200,200);
+cat[8].setrange(0,400);
 cat[8].setval(100,150,175,200);
 //Lateral Direita (2 sensores)
 cat[9].setname("Perto Tras");
-cat[9].setrange(-200,200);
-cat[9].setval(-16,-16,-20,-50);
+cat[9].setrange(0,400);
+cat[9].setval(216,216,220,250);
 cat[10].setname("Medio Tras");
-cat[10].setrange(-200,200);
-cat[10].setval(-20,-50,-100,-150);
+cat[10].setrange(0,400);
+cat[10].setval(220,250,300,350);
 cat[11].setname("Longe Tras");
-cat[11].setrange(-200,200);
-cat[11].setval(-100,-150,-175,-200);
+cat[11].setrange(0,400);
+cat[11].setval(300,350,375,400);
 cat[12].setname("Perto Frente");
-cat[12].setrange(-200,200);
+cat[12].setrange(0,400);
 cat[12].setval(16,16,20,50);
 cat[13].setname("Medio Frente");
-cat[13].setrange(-200,200);
+cat[13].setrange(0,400);
 cat[13].setval(20,50,100,150);
 cat[14].setname("Longe Frente");
-cat[14].setrange(-200,200);
+cat[14].setrange(0,400);
 cat[14].setval(100,150,175,200);
 //Motor Velocidade
 cat[15].setname("Rapido");
@@ -544,14 +544,14 @@ cat[17].setrange(0,100);
 cat[17].setval(0,0,10,50);
 //Motor Angulo
 cat[18].setname("Vira Esquerda");
-cat[18].setrange(-90,90);
-cat[18].setval(-90,-90,-90,0);
+cat[18].setrange(0,180);
+cat[18].setval(0,0,0,90);
 cat[19].setname("Frente");
-cat[19].setrange(-90,90);
-cat[19].setval(-90,0,0,90);
+cat[19].setrange(0,180);
+cat[19].setval(0,90,90,180);
 cat[20].setname("Vira Direita");
-cat[20].setrange(-90,90);
-cat[20].setval(0,90,90,90);
+cat[20].setrange(0,180);
+cat[20].setval(90,180,180,180);
 
 SensorFrente.setname("SensorFrente");
 
@@ -601,15 +601,22 @@ cat[16].define_lingvar(&VelMotor);
 VelMotor.includecategory(&cat[17]);
 cat[17].define_lingvar(&VelMotor);
 
+AngMotor.setname("Angulo Motor");
+
+//TODO
+
 fc.set_defuzz(AVERAGEOFMAX);
 fc.definevars(SensorEsquerda,SensorFrente,SensorDireita,VelMotor);
 
-insertRule(0,"Perto Frente","Perto","Perto Frente","Lento");
-insertRule(1,"Medio Frente","Medio","Medio Frente","Medio");
-insertRule(2,"Longe Frente","Longe","Longe Frente","Rapido");
-insertRule(3,"Perto Tras","Perto","Perto Tras","Lento");
-insertRule(4,"Medio Tras","Medio","Medio Tras","Medio");
-insertRule(5,"Longe Tras","Longe","Longe Tras","Rapido");
+fc2.set_defuzz(AVERAGEOFMAX);
+fc2.definevars(SensorEsquerda,SensorFrente,SensorDireita,AngMotor);
+
+insertRule(0,"Perto Frente","Perto","Perto Frente","Lento","Frente");
+insertRule(1,"Medio Frente","Medio","Medio Frente","Medio","Frente");
+insertRule(2,"Longe Frente","Longe","Longe Frente","Rapido","Frente");
+insertRule(3,"Perto Tras","Perto","Perto Tras","Lento","Frente");
+insertRule(4,"Medio Tras","Medio","Medio Tras","Medio","Frente");
+insertRule(5,"Longe Tras","Longe","Longe Tras","Rapido","Frente");
 
 ValorEsquerda = 21;
 ValorFrente = 21;
@@ -619,14 +626,14 @@ float valortestes[11] = {15,20,25,30,40,50,75,100,125,150,160};
 float valortestes2[11] = {15,20,25,30,40,50,75,100,125,150,160};
 float valortestes3[11] = {15,20,25,30,40,50,75,100,125,150,160};
 for(int i = 0;i<11;i++){
-	PercPwm = fc.make_inference(valortestes[i],valortestes2[i],valortestes3[i]);
+	PercPwm = fc.make_inference(valortestes[i]+200,valortestes2[i],valortestes3[i]+200);
 	printf("(%f,%f,%f) : %f\n",valortestes[i],valortestes2[i],valortestes3[i],PercPwm);
 }
 
 return 0;
 }
 
-void insertRule(int n,char *se, char *sf, char *sd, char *vm){
+void insertRule(int n,char *se, char *sf, char *sd, char *vm, char *d){
 	fc.insert_rule(se,sf,sd,vm);
 	infrule[n].inserePremissa(SensorEsquerda.getcatptr(se));
 	infrule[n].inserePremissa(SensorFrente.getcatptr(sf));
