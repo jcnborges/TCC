@@ -16,6 +16,24 @@ const int NSENSORS = 6;
 const int NENCODERS = 2;
 const int SZ_MSG_SENSOR = 4;
 const int SZ_MSG_ENCODER = 5;
+const int distances[256] = {
+  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 167, 161, 156, 151, 147, 142, 138, 134,
+ 130, 127, 123, 120, 117, 114, 111, 108, 106, 103, 101,  99,  96,  94,  92,  90,
+  88,  86,  85,  83,  81,  80,  78,  77,  75,  74,  73,  71,  70,  69,  68,  66,
+  65,  64,  63,  62,  61,  60,  59,  58,  57,  56,  56,  55,  54,  53,  52,  52,
+  51,  50,  50,  49,  48,  48,  47,  46,  46,  45,  45,  44,  43,  43,  42,  42,
+  41,  41,  40,  40,  39,  39,  38,  38,  38,  37,  37,  36,  36,  36,  35,  35,
+  34,  34,  34,  33,  33,  33,  32,  32,  32,  31,  31,  31,  30,  30,  30,  30,
+  29,  29,  29,  28,  28,  28,  28,  27,  27,  27,  27,  26,  26,  26,  26,  26,
+  25,  25,  25,  25,  25,  24,  24,  24,  24,  24,  23,  23,  23,  23,  23,  22,
+  22,  22,  22,  22,  22,  21,  21,  21,  21,  21,  21,  20,  20,  20,  20,  20,
+  20,  20,  19,  19,  19,  19,  19,  19,  19,  19,  18,  18,  18,  18,  18,  18,
+  18,  18,  17,  17,  17,  17,  17,  17,  17,  17,  17,  16,  16,  -1,  -1,  -1,
+  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
+};
 
 // -------------------------------------------------------------
 //
@@ -94,10 +112,20 @@ int read_package()
 			printf("=== Pacote %4d ===\r\n", ++npkg);
 			while((clock() - last_sync) / (double)CLOCKS_PER_SEC < 0.5);
 			for(i = 0; i < 6; ++i)
-				printf("Sensor %d: %d\r\n", rcv[SZ_MSG_SENSOR * i] - 34, rcv[SZ_MSG_SENSOR * i + 1]);
+			{
+				unsigned char high;
+				high = 256 + rcv[SZ_MSG_SENSOR * i + 1];
+				printf("Sensor %d: %d cm\r\n", rcv[SZ_MSG_SENSOR * i] - 34, distances[high]);
+			}
 			for(i = 0; i < 2; ++i)
-				printf("Encoder %d: %d\r\n", rcv[OFFSET + i * 5] - 32, 
-						(rcv[OFFSET + 1 + i * SZ_MSG_ENCODER] << 8) | rcv[OFFSET + i * SZ_MSG_ENCODER + 2]);
+			{
+				unsigned char high, low;
+				high = 256 + rcv[OFFSET + 1 + i * SZ_MSG_ENCODER];
+				low = 256 + rcv[OFFSET + i * SZ_MSG_ENCODER + 2];  
+				printf("Encoder %d: %d (%u %u)\r\n", rcv[OFFSET + i * 5] - 32, 
+						high << 8 | low,
+						high, low);	
+			}
 			last_sync = clock();
 			last_warn = last_sync;
 			return 1;
