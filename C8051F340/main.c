@@ -173,8 +173,8 @@ void serial_setup(){
 
 void encoder_setup(){	
 	IT01CF = 0x31;	// INT0 e INT1 ativo alto, P0.1 = INT0, P0.3 = INT1
-	IT0 = 0;		// Edge sensitive INT0
-	IT1 = 0;		// Edge sensitive INT1
+	IT0 = 1;		// Edge sensitive INT0
+	IT1 = 1;		// Edge sensitive INT1
 	IE0 = 0;		// Apaga flag interrupcao INT0
 	IE1 = 0;		// Apaga flag interrupcao INT1	
 	EX0 = 1;		// Habilita INT0 (interrupcao externa)
