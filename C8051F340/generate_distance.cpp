@@ -3,11 +3,12 @@
 
 const double k = 23959.0516095672;
 const double power = -1.34599651653945;
+double a4 = 3.64036E-07, a3 = -2.44354E-04, a2 = 6.07319E-02, a1 = -6.89618;
+double a0 = 3.39361E02;
 
 int f(int x){
-	if(x < 40 || x > 220) return -1;
-	double r = 4E-7 * pow(x, 4) - 0.0002 * pow(x, 3) +
-			0.0607 * x * x - 6.8962 * x + 339.36;
+	if(x < 40 || x > 210) return -1;
+	double r = a4 * pow(x, 4) + a3 * pow(x, 3) + a2 * x * x + a1 * x + a0;
 	return int(floor(r + .5));
 }
 
