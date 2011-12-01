@@ -43,7 +43,7 @@ bit sentido;					// SENTIDO GERAL DO ROBO... TALVEZ NAO SEJA MAIS NECESSARIA LOG
 bit flag_send = 0;
 bit left_wheel_dir=1;	// DEFINE O SENTIDO DE ROTACAO DA RODA ESQUERA - MUDA NA EXECUCAO DO SOFTWARE
 bit right_wheel_dir=1;		// DEFINE O SENTIDO DE ROTACAO DA RODA DIREITA - MUDA NA EXECUCAO DO SOFTWARE
-char rec_command[8];				// RECEBE O command PELA PORTA SERIAL PELO HIPER-TERMINAL...
+unsigned char rec_command[8];				// RECEBE O command PELA PORTA SERIAL PELO HIPER-TERMINAL...
 								// PROVAMENTE SERA MODIFICADO PARA UM VETOR DE CHAR QUANDO DE DESEJAR 
 								// OBTER DADOS DO ROBO OU COMANDOS DE MOVIMENTACAO MAIS COMPLEXOS...
 
@@ -366,7 +366,7 @@ void interrupt_serial() interrupt 4 { // Tratamento da interrupcao da UART0
 	static short int indice = 0;
 	if (RI0 == 1){					
 		rec_command[indice] = SBUF0;
-		if(rec_command[indice] == '\n' || indice ==5) { // Limitando rec_command em 6 caracteres
+		if(rec_command[indice] == END_CMD || indice ==5) { // Limitando rec_command em 6 caracteres
 			rec_command[indice] = '\0';
 			indice = 0;
 			new_cmd_flag = 1;
