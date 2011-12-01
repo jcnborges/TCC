@@ -34,6 +34,7 @@ const int distances[256] = {
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
 };
+const int MAX_VELOCITY = 15;
 
 // -------------------------------------------------------------
 //
@@ -42,6 +43,17 @@ const int distances[256] = {
 // -------------------------------------------------------------
 struct termios stdio_bak;
 int tty_fd;
+int vLeft = 0, vRight = 0;
+enum {LEFT, RIGHT};
+
+// -------------------------------------------------------------
+//
+// Funcoes Auxiliares
+//
+// -------------------------------------------------------------
+
+int MIN(int a, int b){ return a < b ? a : b; }
+int MAX(int a, int b){ return a > b ? a : b; }
 
 int open_serial_port()
 {
@@ -75,6 +87,11 @@ int open_serial_port()
 	tcsetattr(tty_fd,TCSANOW,&tio);
 }
 
+void send_package(char msg[], int msg_size)
+{	
+	for (int i = 0; i < msg_size; i++) write(tty_fd, &msg[i], 1);
+}
+
 int read_package()
 {
 	int SZ_PKG = NSENSORS * SZ_MSG_SENSOR + NENCODERS * SZ_MSG_ENCODER;
@@ -92,14 +109,14 @@ int read_package()
 	int rb = SZ_PKG;
 	int first = 1;
 	static int npkg = 0;
-	//int primeira_vez = 1;
 	while (1)
 	{
 		if((clock() - last_warn) / (double) CLOCKS_PER_SEC > 1){
 			if (!first)
 				printf("Esperando %d bytes, recebidos %d bytes\r\n", rb, bytes_received);
 			first = 0;
-			for(i = 0; i < msg_size; ++i) write(tty_fd, &msg[i], 1);
+			//for(i = 0; i < msg_size; ++i) write(tty_fd, &msg[i], 1);
+			send_package(msg, 2);
 			rb = SZ_PKG;
 			bytes_received = 0;
 			last_warn = clock();
@@ -135,8 +152,26 @@ int read_package()
 
 }
 
+void accelerate(int wheel, int dv)
+{
+	char msg_pwm[4];
+	if (wheel == LEFT)
+	{
+		msg_pwm[0] = LEFT_WHEEL;
+		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
+	} else if (wheel == RIGHT)
+	{
+		msg_pwm[0] = RIGHT_WHEEL;
+		msg_pwm[1] = vRight = MAX(MIN(vRight + dv, MAX_VELOCITY), 0);
+	}
+	msg_pwm[2] = END_CMD;
+	msg_pwm[3] = 10;
+	send_package(msg_pwm, 3);
+}
+
 int main()
 {
+	int cnt = 0;
 	open_serial_port();
 	while (1)
 	{
@@ -145,6 +180,15 @@ int main()
 			printf("Recebi comando sair\n");
 			break;
 		}
+		if(!((cnt / 15) & 1)){
+			accelerate(LEFT, 1);
+			accelerate(RIGHT, 1);
+		} else{
+			accelerate(LEFT, -1);
+			accelerate(RIGHT, -1);
+		}
+		printf("LEFT: %2d \r\nRIGHT: %2d \r\n", vLeft, vRight);
+		cnt++;
 	}
 	close(tty_fd);
 }
