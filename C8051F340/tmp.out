@@ -7,11 +7,11 @@ COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
     SEGMENT: ?PR?_PUTCHAR?MAIN
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0393H BYTE (44%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0385H BYTE (43%) *
 ******************************************************************************
 
 >> 
 >> 
 >> 
-Program Size: data=50.7 xdata=0 code=1077
+Program Size: data=50.7 xdata=0 code=1045
 LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
