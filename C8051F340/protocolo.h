@@ -19,8 +19,8 @@
 #define OPTICAL_SENSOR_5		0x27
 
 // Comandos para controlar PWM
-#define LEFT_WHEEL			0xA0 // Nivel das PWMS de Movimentacao ou passos
-#define RIGHT_WHEEL			0xA1 // Nivel das PWMS de Movimentacao ou passos
+#define LEFT_WHEEL			0xA1 // Nivel das PWMS de Movimentacao ou passos
+#define RIGHT_WHEEL			0xA0 // Nivel das PWMS de Movimentacao ou passos
 
 // Comando para sincronizacao
 #define SYNC				0xB0
