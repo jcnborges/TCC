@@ -9,6 +9,7 @@
 *.lsb
 *.lsg
 *.toc
+*.swp
 
 # Ignore .bak files from editors
 

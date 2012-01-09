@@ -46,7 +46,7 @@ const int distances[256] = { // Tabela de conversao de distancias (valor DA para
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
 };
 const int MAX_VELOCITY = 15; // Maximo passo de velocidade do robo
-const double TIME_WINDOW = 0.1; // Duracao minima de uma operacao
+const double TIME_WINDOW = 0.5; // Duracao minima de uma operacao
 
 // -------------------------------------------------------------
 //
@@ -175,7 +175,7 @@ int read_package()
 				unsigned char high, low;
 				high = 256 + rcv[OFFSET + 1 + i * SZ_MSG_ENCODER];
 				low = 256 + rcv[OFFSET + i * SZ_MSG_ENCODER + 2];  
-				printf("Encoder %d: %d (%u %u)\r\n", rcv[OFFSET + i * 5] - 32, 
+				printf("Encoder %d: %6d (%3u %3u)\r\n", rcv[OFFSET + i * 5] - 32, 
 						high << 8 | low, high, low);	
 			}
 #endif
@@ -220,7 +220,7 @@ int main()
 			accelerate(LEFT, -1);
 			accelerate(RIGHT, -1);
 		}
-		printf("LEFT: %2d \r\nRIGHT: %2d \r\n", vLeft, vRight);
+		printf("LEFT : %3d \r\nRIGHT: %3d \r\n", vLeft, vRight);
 		cnt++;
 		/* }}} */
 		printf("Operacao completa, tempo: %.3lfs\n", (clock() - op_begin) / (double) CLOCKS_PER_SEC);
