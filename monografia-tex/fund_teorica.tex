@@ -59,9 +59,9 @@ pertence ao conjunto ou não pertence. Num conjunto fuzzy, no entanto, um element
 de pertinência representado por um valor real no intervalo [0, 1].
 
 Uma aplicaçao básica e clássica da lógica fuzzy é a classificação de uma variável contínua. Por exemplo,
-se fosse necessário classificar um valor de temperatura, poderia ser utilizado um conjunto fuzzy com as variáveis
-FRIO, MORNO e QUENTE. Para saber a classificação de certo valor de temperatura, poderia ser utilizado algo
-como o que está representado na figura \ref{fig:fuzzyclasses}.
+para classificar um valor de temperatura, pode-se utilizadar um conjunto fuzzy com as variáveis
+FRIO, MORNO e QUENTE. Para classificar dado valor de temperatura, pode se utilizar as classes fuzzy apresentadas
+ na figura \ref{fig:fuzzyclasses}.
 
 \begin{figure}[!htb]
     \centering
@@ -75,9 +75,9 @@ A temperatura destacada na figura tem os seguintes graus de pertinência: 0.8 FRI
 É comum também associar outras variáveis linguísticas para caracterizar os valores. No caso do exemplo, uma associação
 possível seria: bastante frio, levemente morno, nada quente.
 
-Com base na saída do classificador, um sistema fuzzy pode tomar decisões. Por exemplo, caso o objetivo fosse controlar
-a temperatura de uma caldeira, para deixá-la bem quente, a observação de que está bastante frio implicaria
-na necessidade da elevação da quantidade de energia disponibilizada para seu aquecimento. Conforme a temperatura subisse, novas observações seriam feitas e classificadas, levando a outras regulações da fonte de calor, até chegar à temperatura esperada. Quanto mais próximo do nível esperado, menores as variações causadas na regulação da fonte de calor.
+Com base na saída do classificador, um sistema fuzzy pode realizar inferências. Por exemplo, caso o objetivo fosse controlar
+a temperatura de uma caldeira, visando deixá-la bem quente, a observação de que está bastante frio implicaria
+na necessidade da elevação da quantidade de energia disponibilizada para seu aquecimento. Conforme a temperatura aumenta, novas temperaturas seriam observadas e classificadas em graus menores de frio e maiores de morno ou quente. Estas novas classificações levam a inferências diferentes e a outras alterações na fonte de calor, até alcançar a temperatura esperada. Quanto mais próximo do nível esperado, menos calor deverá ser suprido pela fonte de calor para o sistema, neste exemplo.
 
 As decisões tomadas pelo sistema são definidas por um conjunto de regras fuzzy, cujo formato básico é:
 
@@ -86,18 +86,16 @@ SE X ENTÃO Y
 onde X é uma expressão contendo uma ou mais variáveis linguísticas e Y a ação a ser tomada. Retomando o exemplo da caldeira,
 uma regra possível seria: SE bastante frio ENTÃO aumentar bastante o fornecimento de calor.
 
-É evidente que os conceitos FRIO, MORNO e QUENTE são totalmente subjetivos (cada aplicação tem parâmetros específicos).
-O mesmo é válido para outras grandezas físicas, tais como: velocidade, distância, pressão, força, aceleração etc.
-Os valores e funções utilizadas para avaliar tais grandezas (algo como o modelo mostrado na figura \ref{fig:fuzzyclasses})
-são determinados por quem está desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequação à aplicação em
-questão. Da mesma forma, as decisões a serem tomadas com base nos dados classificados são definidas pelo usuário. Isso é
+É evidente que os conceitos FRIO, MORNO e QUENTE são totalmente subjetivos e cada aplicação tem parâmetros e conceitos específicos, em variáveis linguísticas diferentes, tais como velocidade, distância, pressão, entre outros.
+Os valores e funções utilizadas para classificar tais grandezas são determinados por quem está desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequação à aplicação em questão. 
+Da mesma forma, as decisões a serem tomadas com base nos dados classificados são definidas pelo desenvolvedor. A grande vantagem e, até mesmo, objetivo de um sistema fuzzy é proporcionar um raciocínio simples na implementação das regras de um sistema. Isso é
 interessante quando se considera a adição de novos sensores e, consequentemente, novos dados. Uma simples alteração ou adição
-de novas regras é o suficiente para adaptar o sistema às novas entradas.
+de novas regras é o suficiente para adaptar o sistema às novas entradas. %Não é verdade, necessariamente? Novos dados/entradas -> Muitas novas regras.
 
-Pelo fato de permitir a classificação de dados de uma forma mais flexível (em comparação com a teoria clássica de conjuntos),
+Pelo fato de permitir a classificação de dados de uma forma mais flexível, em comparação com a teoria clássica de conjuntos,
 os dados de entrada para um sistema fuzzy não precisam ser tão precisos, sem ruídos, já que a presença de ruídos
-causaria apenas pequenas variações na classificação (enquanto numa classificação binária um nível baixo de ruído pode
-mudar uma classificação totalmente, ao passar um limite pré-definido).
+causa apenas pequenas variações na classificação, enquanto numa classificação binária, pouco ruído pode
+ocasionar a passagem de um nível baixo para um nível alto subitamente, ao passar um limite pré-definido.
 
 Para projetar um sistema fuzzy, o seguinte conjunto de passos pode ser seguido~\cite{FUZZYLOGICTUTORIAL}:
 
