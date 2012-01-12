@@ -132,7 +132,7 @@ A estrutura de um mapa cognitivo fuzzy é um grafo direcionado, figura \ref{fig:f
     \label{fig:fcm}
 \end{figure}
 
-O FCM descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma variável, ou uma característica do sistema. Os conceitos do mapa cognitivo (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das interconexões (relações causais wi,j) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos.
+O FCM descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma variável ou uma característica do sistema. Os conceitos do mapa cognitivo (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das interconexões (relações causais wi,j) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos.
 
 \begin{equation}\label{fcm-matrix}
     wi,j=\left(
@@ -146,9 +146,17 @@ O FCM descreve um sistema em termos de conceitos, onde cada conceito representa 
      \right)
 \end{equation}
 
-O FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos, e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações.
+A equação \ref{fcm-update} descreve a evolução do FCM, na qual j é o contador das iterações, n é o número de nós do grafo, Wij é o peso do arco que conecta o conceito Cj ao conceito Ci, Ai e Ai_anterior são o valor do conceito Ci na iteração atual e anterior, respectivamente, e a função f \ref{sigmoide} é uma função do tipo sigmóide.
 
-Uma vantagem do FCM é a interatividade entre os conceitos, a qual permite que um problema seja dividido em várias partes e cada parte seja representada por um mapa cognitivo modular, que é interconectado aos demais mapas do problema. Outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento, a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
+\begin{equation}\label{fcm-update}
+Ai=f(sum{AjxWji})+Ai
+\end
+
+\begin{equation}\label{sigmoide}
+f(x)={1}/{1+e^-lx}
+\end
+
+O FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos, e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a interatividade entre os conceitos, a qual permite que um problema seja dividido em várias partes e cada parte seja representada por um mapa cognitivo modular, que é interconectado aos demais mapas do problema. Outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento, a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
 Em \cite{FCMENDONCA} os mapas cognitivos Fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada para diferentes tipos de líquidos, um misturador, uma válvula de saída para o líquido misturado e um medidor de massa específica que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem
 dois líquidos diferentes. Durante a reação, um medidor G de massa específica verifica se a mistura atingiu
