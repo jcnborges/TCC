@@ -1,3 +1,5 @@
+//Arquivo Main - Setup Flie e chamar inferências a partir da disponibilidade de dados
+
 #include "flie.h"
 
 flie flie;

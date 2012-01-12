@@ -1,5 +1,5 @@
-// Project FLIE-Fuzzy Logic Inference Engine - João Alberto Fabro - out/1996
-// Header file flie.h
+// Projeto FLIE-Fuzzy Logic Inference Engine - João Alberto Fabro
+
 #ifndef flieheader
 #define flieheader
 #include <iostream>

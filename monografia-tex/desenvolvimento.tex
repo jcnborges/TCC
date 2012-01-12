@@ -113,8 +113,33 @@ Esta seção dedica-se à descrição da implementação dos algoritmos de navegação co
 
 \subsection{Algoritmo de Navegação Fuzzy}
 \label{sec:algfuzzy}
-%Descrição e referencia básica da biblioteca do fabro, adaptação e utilização. Descrição das regras.
-O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro. A FLIE, ou Fuzzy Logic Inference Engine, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos.
+%Descrição e referencia básica da biblioteca do fabro, adaptação e utilização. Descrição das regras. INCOMPLETO
+O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro. A FLIE, ou Fuzzy Logic Inference Engine, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência.
+
+A biblioteca FLIE possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas para a construção de um conjunto de variáveis fuzzy, bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis fuzzy. 
+A engine permite a definição de variáveis linguísticas na classe \"\emph{linguisticvariable}\", que pode ser classificada através de valores fuzzy, com a classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com um nível de pertinência a cada categoria pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/lingvar.png}
+  \caption[Estrutura de uma Variável Linguística no FLIE.]
+  {Estrutura de uma Variável Linguística no FLIE.}
+  \label{lingvar}
+\end{figure}
+
+Após definidas as variáveis linguísticas, regras de inferência podem ser elaboradas através da classe \"\emph{infrule}\". Esta classe é composta de, no máximo, três variáveis linguísticas de entrada e uma variável linguística de saída, todas definidas pela classe \"\emph{linguisticvariable}\", seguindo a estrutura na figura \ref{infrule}.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/infrule.png}
+  \caption[Estrutura de uma regra de inferência no FLIE.]
+  {Estrutura de uma regra de inferência no FLIE.}
+  \label{infrule}
+\end{figure}
+
+Após definidas as variáveis linguísticas de entrada e saída pode-se criar regras de inferência. Cada regra é composta por uma sequência de valores fuzzy, sendo o último valor da sequência a saída fuzzy desejada para uma entrada correspondente aos um, dois ou três valores antecedentes, conforme definido pelo desenvolvedor.
+
+Finalmente, as regras definidas podem ser utilizadas para realizar inferências. A bilioteca FLIE recebe os dados de entrada não fuzzificados, os fuzzifica, atribuindo valores de pertinência para cada categoria definida pelo desenvolvedor, determina o nível de ativação de cada regra de inferência definida e defuzzifica o resultado final de forma transparente.
 
 \subsection{Algoritmo de Navegação Baseado em ED-FCM}
 \label{sec:algedfcm}
