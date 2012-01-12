@@ -45,7 +45,7 @@ const int distances[256] = { // Tabela de conversao de distancias (valor DA para
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
 };
-const int MAX_VELOCITY = 15; // Maximo passo de velocidade do robo
+const int MAX_VELOCITY = 8; // Maximo passo de velocidade do robo
 const double TIME_WINDOW = 0.5; // Duracao minima de uma operacao
 
 // -------------------------------------------------------------
@@ -55,6 +55,8 @@ const double TIME_WINDOW = 0.5; // Duracao minima de uma operacao
 // -------------------------------------------------------------
 int tty_fd; // File descriptor do terminal (COM2) TS-7260
 int vLeft = 0, vRight = 0; // Velocidade das rodas
+int last_dist[NSENSORS];
+int last_enc[NENCODERS];
 enum {LEFT, RIGHT};
 
 // -------------------------------------------------------------
@@ -169,6 +171,7 @@ int read_package()
 				unsigned char high;
 				high = 256 + rcv[SZ_MSG_SENSOR * i + 1];
 				printf("Sensor %d: %3d cm (%d)\r\n", rcv[SZ_MSG_SENSOR * i] - 34, distances[high], high);
+				last_dist[i] = distances[high];
 			}
 			for(i = 0; i < 2; ++i)
 			{
@@ -177,6 +180,7 @@ int read_package()
 				low = 256 + rcv[OFFSET + i * SZ_MSG_ENCODER + 2];  
 				printf("Encoder %d: %6d (%3u %3u)\r\n", rcv[OFFSET + i * 5] - 32, 
 						high << 8 | low, high, low);	
+				last_enc[i] = high << 8 | low;
 			}
 #endif
 			last_sync = clock();
@@ -192,7 +196,8 @@ void accelerate(int wheel, int dv)
 	if (wheel == LEFT)
 	{
 		msg_pwm[0] = LEFT_WHEEL;
-		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
+//		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
+		msg_pwm[1] = vLeft = MIN(vRight + 1, MAX_VELOCITY);
 	} else if (wheel == RIGHT)
 	{
 		msg_pwm[0] = RIGHT_WHEEL;
@@ -205,20 +210,31 @@ void accelerate(int wheel, int dv)
 
 int main()
 {
-	int cnt = 0;
+	int i, cnt = 0;
+	int min_dist;
 	clock_t op_begin; 
 	open_serial_port();
 	while (1)
 	{
 		op_begin = clock();
 		read_package();
+		min_dist = 1024;
 		/* {{{ Codigo de teste dos motores */
-		if(!((cnt / 15) & 1)){
-			accelerate(LEFT, 1);
-			accelerate(RIGHT, 1);
-		} else{
-			accelerate(LEFT, -1);
-			accelerate(RIGHT, -1);
+		for(i = 0; i < 6; ++i)
+			if(last_dist[i] != -1 && last_dist[i] < min_dist)
+				min_dist = last_dist[i];
+		if(min_dist < 50){
+			accelerate(LEFT, -MAX_VELOCITY);
+			accelerate(RIGHT, -MAX_VELOCITY);
+			cnt = 0;
+		} else {
+			if(!((cnt / MAX_VELOCITY) & 1)){
+				accelerate(RIGHT, 1);
+				accelerate(LEFT, 1);
+			} else{
+				accelerate(RIGHT, -1);
+				accelerate(LEFT, -1);
+			}
 		}
 		printf("LEFT : %3d \r\nRIGHT: %3d \r\n", vLeft, vRight);
 		cnt++;
