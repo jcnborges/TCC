@@ -1,16 +1,16 @@
-\chapter{FundamentaÁ„o TeÛrica}
+\chapter{Fundamenta√ß√£o Te√≥rica}
 
-Este capÌtulo apresentar· a fundamentaÁ„o teÛrica desse trabalho de conclus„o de curso. Ser· descrito o estado inicial em que se encontrava o projeto do robÙ Bellator, com uma vis„o geral deste ao ser entregue ‡ equipe, a especificaÁ„o do robÙ apÛs a reconstruÁ„o, a apresentaÁ„o da LÛgica Fuzzy e da metodologia de Mapas Cognitivos Fuzzy (FCM).
+Este cap√≠tulo apresentar√° a fundamenta√ß√£o te√≥rica desse trabalho de conclus√£o de curso. Ser√° descrito o estado inicial em que se encontrava o projeto do rob√¥ Bellator, com uma vis√£o geral deste ao ser entregue √† equipe, a especifica√ß√£o do rob√¥ ap√≥s a reconstru√ß√£o, a apresenta√ß√£o da L√≥gica Fuzzy e da metodologia de Mapas Cognitivos Fuzzy (FCM).
 
 %---------- Estado inicial do Projeto ----------
 \section{Estado Inicial do Projeto}
 \label{chap:estpro}
 
-Esta seÁ„o visa descrever com quais recursos a equipe iniciou a execuÁ„o do trabalho, tanto fÌsicos como lÛgicos, ou seja, a situaÁ„o do robÙ e seus componentes de hardware, o principal recurso material disponÌvel, os componentes de software e a documentaÁ„o de ambos, da forma como foi entregue ‡ equipe.
+Esta se√ß√£o visa descrever com quais recursos a equipe iniciou a execu√ß√£o do trabalho, tanto f√≠sicos como l√≥gicos, ou seja, a situa√ß√£o do rob√¥ e seus componentes de hardware, o principal recurso material dispon√≠vel, os componentes de software e a documenta√ß√£o de ambos, da forma como foi entregue √† equipe.
 
-\subsection{Vis„o Geral}
+\subsection{Vis√£o Geral}
 
-O robÙ disponibilizado ‡ equipe para a realizaÁ„o desse trabalho, o Bellator, È resultado de um projeto n„o concluÌdo, visando a implementaÁ„o de uma plataforma robÛtica controlada remotamente por joystick. Para tal, o robÙ foi dividido em trÍs camadas: baixo nÌvel, alto nÌvel e supervisÛrio. A camada de baixo nÌvel seria respons·vel por controlar os motores do robÙ, bem como receber leituras dos sensores do mesmo. A camada de alto nÌvel comunicar-se-ia com a camada de baixo nÌvel via conex„o serial, faria obtenÁ„o de vÌdeo atravÈs de uma webcam e comunicar-se-ia com a camada supervisÛria atravÈs de uma conex„o sem fio. Esta ˙ltima seria a interface com o usu·rio para realizar o controle remoto do robÙ. O diagrama esquem·tico da figura \ref{fig:diagsis} demonstra essa situaÁ„o.
+O rob√¥ disponibilizado √† equipe para a realiza√ß√£o desse trabalho, o Bellator, √© resultado de um projeto n√£o conclu√≠do, visando a implementa√ß√£o de uma plataforma rob√≥tica controlada remotamente por joystick. Para tal, o rob√¥ foi dividido em tr√™s camadas: baixo n√≠vel, alto n√≠vel e supervis√≥rio. A camada de baixo n√≠vel seria respons√°vel por controlar os motores do rob√¥, bem como receber leituras dos sensores do mesmo. A camada de alto n√≠vel comunicar-se-ia com a camada de baixo n√≠vel via conex√£o serial, faria obten√ß√£o de v√≠deo atrav√©s de uma webcam e comunicar-se-ia com a camada supervis√≥ria atrav√©s de uma conex√£o sem fio. Esta √∫ltima seria a interface com o usu√°rio para realizar o controle remoto do rob√¥. O diagrama esquem√°tico da figura \ref{fig:diagsis} demonstra essa situa√ß√£o.
 
 \begin{figure}[!htb]
 	\centering
@@ -20,109 +20,117 @@ O robÙ disponibilizado ‡ equipe para a realizaÁ„o desse trabalho, o Bellator, È 
 	\label{fig:diagsis}
 \end{figure}
 
-A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo nÌvel È composta pelo robÙ Bellator, equipado com dois motores elÈtricos Bosch FPG 12V, seis sensores de dist‚ncia "2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7,2 AmpÈre hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tens„o analÛgicas dos sensores do robÙ bem como produzir sinais de controle para os motores do robÙ. Esta placa est· conectada ‡ camada de alto nÌvel, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, atravÈs de uma conex„o serial. Utilizando-se de um protocolo de comunicaÁ„o, esse PC embarcado envia comandos de movimentaÁ„o para a camada de baixo nÌvel e recebe as leituras dos sensores obtidas pela camada de baixo nÌvel. O PC embarcado tambÈm comunica-se com a camada de alto nÌvel para receber comandos de movimentaÁ„o do usu·rio e enviar as leituras dos sensores para o mesmo. AlÈm disso, o PC embarcado envia, tambÈm via comunicaÁ„o sem fio, um stream de vÌdeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com m·quina virtual Java, fornece as informaÁıes recebidas da camada de alto nÌvel para o usu·rio, permitindo-o tomar decisıes sobre a locomoÁ„o do robÙ. O software tambÈm recebe comandos de movimentaÁ„o do usu·rio, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nÌvel pela mesma conex„o.
+A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo n√≠vel √© composta pelo rob√¥ Bellator, equipado com dois motores el√©tricos Bosch FPG 12V, seis sensores de dist√¢ncia "2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7,2 Amp√©re hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tens√£o anal√≥gicas dos sensores do rob√¥ bem como produzir sinais de controle para os motores do rob√¥. Esta placa est√° conectada √† camada de alto n√≠vel, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, atrav√©s de uma conex√£o serial. Utilizando-se de um protocolo de comunica√ß√£o, esse PC embarcado envia comandos de movimenta√ß√£o para a camada de baixo n√≠vel e recebe as leituras dos sensores obtidas pela camada de baixo n√≠vel. O PC embarcado tamb√©m comunica-se com a camada de alto n√≠vel para receber comandos de movimenta√ß√£o do usu√°rio e enviar as leituras dos sensores para o mesmo. Al√©m disso, o PC embarcado envia, tamb√©m via comunica√ß√£o sem fio, um stream de v√≠deo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com m√°quina virtual Java, fornece as informa√ß√µes recebidas da camada de alto n√≠vel para o usu√°rio, permitindo-o tomar decis√µes sobre a locomo√ß√£o do rob√¥. O software tamb√©m recebe comandos de movimenta√ß√£o do usu√°rio, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto n√≠vel pela mesma conex√£o.
 
-O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto "Algoritmos de NavegaÁ„o Fuzzy: Uma An·lise Qualitativa". Assim, n„o ser· feita uma descriÁ„o detalhada de todos os componentes do projeto Bellator. A seguir, ser· descrito como o robÙ foi recebido pela equipe e quais componentes foram reaproveitados.
+O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto "Algoritmos de Navega√ß√£o Fuzzy: Uma An√°lise Qualitativa". Assim, n√£o ser√° feita uma descri√ß√£o detalhada de todos os componentes do projeto Bellator. A seguir, ser√° descrito como o rob√¥ foi recebido pela equipe e quais componentes foram reaproveitados.
 
-\subsection{Recebimento do RobÙ}
+\subsection{Recebimento do Rob√¥}
 \label{sec:recrobo}
 
-O robÙ Bellator foi entregue ‡ equipe em Abril de 2011, em uma caixa, desmontado, juntamente com toda a documentaÁ„o disponÌvel por mÌdia digital. A caixa continha os seguintes itens:
+O rob√¥ Bellator foi entregue √† equipe em Abril de 2011, em uma caixa, desmontado, juntamente com toda a documenta√ß√£o dispon√≠vel por m√≠dia digital. A caixa continha os seguintes itens:
 
 \begin{itemize}
-\item Chassi do robÙ Bellator com dois motores Bosch FPG12V e pontes H acoplados;
-\item Cinco sensores de dist‚ncia "2Y0A02F98" da Sharp;
-\item Duas baterias Unybatt 12V-7,2 AmpÈre hora;
+\item Chassi do rob√¥ Bellator com dois motores Bosch FPG12V e pontes H acoplados;
+\item Cinco sensores de dist√¢ncia "2Y0A02F98" da Sharp;
+\item Duas baterias Unybatt 12V-7,2 Amp√©re hora;
 \item Uma placa micro-controlada C8051F340;
 \item Uma placa de roteamento, produzida pelo projeto Bellator;
 \item Um PC Embarcado VIA EPIA ME60000 Mini-ITX.
 \end{itemize}
 
-O chassi do robÙ e seus componentes acoplados s„o a base da plataforma robÛtica a ser utilizada pela equipe e s„o crÌticas para a execuÁ„o desse trabalho. Os sensores de dist‚ncia, um a menos que os disponÌveis no projeto Bellator, s„o essenciais para a localizaÁ„o do robÙ e de obst·culos. A placa microcontrolada tambÈm È um recurso crÌtico, pois È o componente respons·vel por todo o controle de baixo nÌvel do robÙ cujo software e a documentaÁ„o ser„o reaproveitados do projeto Bellator. As baterias s„o um recurso necess·rio e de f·cil aquisiÁ„o, ao contr·rio dos outros componentes citados.
+O chassi do rob√¥ e seus componentes acoplados s√£o a base da plataforma rob√≥tica a ser utilizada pela equipe e s√£o cr√≠ticas para a execu√ß√£o desse trabalho. Os sensores de dist√¢ncia, um a menos que os dispon√≠veis no projeto Bellator, s√£o essenciais para a localiza√ß√£o do rob√¥ e de obst√°culos. A placa microcontrolada tamb√©m √© um recurso cr√≠tico, pois √© o componente respons√°vel por todo o controle de baixo n√≠vel do rob√¥ cujo software e a documenta√ß√£o ser√£o reaproveitados do projeto Bellator. As baterias s√£o um recurso necess√°rio e de f√°cil aquisi√ß√£o, ao contr√°rio dos outros componentes citados.
 
-Alguns itens mencionados na seÁ„o anterior, referentes ao projeto Bellator, n„o foram recebidos ou n„o ser„o utilizados nesse trabalho. A webcam e joystick n„o foram entregues pois n„o ser„o necess·rios, visto que um sistema de navegaÁ„o autÙnomo n„o necessita de joystick e esse trabalho n„o abordar· navegaÁ„o atravÈs de imagem de vÌdeo. A placa de roteamento entregue ser· utilizada nos testes dos componentes, visto que È essencial para o funcionamento do robÙ. Esta placa ser· reprojetada e reconstruÌda. O PC embarcado foi entregue destituÌdo de qualquer documentaÁ„o. AlÈm disso, como o novo objetivo do robÙ n„o necessita de comunicaÁ„o semfio e n„o utilizar· stream de vÌdeo, motivo principal para a utilizaÁ„o deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que ser· descrita em detalhes na seÁ„o \ref{chap:esprob}.
+Alguns itens mencionados na se√ß√£o anterior, referentes ao projeto Bellator, n√£o foram recebidos ou n√£o ser√£o utilizados nesse trabalho. A webcam e joystick n√£o foram entregues pois n√£o ser√£o necess√°rios, visto que um sistema de navega√ß√£o aut√¥nomo n√£o necessita de joystick e esse trabalho n√£o abordar√° navega√ß√£o atrav√©s de imagem de v√≠deo. A placa de roteamento entregue ser√° utilizada nos testes dos componentes, visto que √© essencial para o funcionamento do rob√¥. Esta placa ser√° reprojetada e reconstru√≠da. O PC embarcado foi entregue destitu√≠do de qualquer documenta√ß√£o. Al√©m disso, como o novo objetivo do rob√¥ n√£o necessita de comunica√ß√£o semfio e n√£o utilizar√° stream de v√≠deo, motivo principal para a utiliza√ß√£o deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que ser√° descrita em detalhes na se√ß√£o \ref{chap:esprob}.
 
-A documentaÁ„o disponÌvel ‡ equipe, produzida durante o projeto Bellator, descreve em detalhes os componentes de hardware dessa plataforma robÛtica, o software de controle supervisÛrio e a camada de baixo nÌvel, ou seja, o software da placa C8051F340\cite{BELLATOR}. Essa documentaÁ„o ser· utilizada como referÍncia para o reaproveitamento do projeto Bellator nesse trabalho, com exceÁ„o da documentaÁ„o referente ao software de controle supervisÛrio, que n„o ser· utilizado.
+A documenta√ß√£o dispon√≠vel √† equipe, produzida durante o projeto Bellator, descreve em detalhes os componentes de hardware dessa plataforma rob√≥tica, o software de controle supervis√≥rio e a camada de baixo n√≠vel, ou seja, o software da placa C8051F340\cite{BELLATOR}. Essa documenta√ß√£o ser√° utilizada como refer√™ncia para o reaproveitamento do projeto Bellator nesse trabalho, com exce√ß√£o da documenta√ß√£o referente ao software de controle supervis√≥rio, que n√£o ser√° utilizado.
 
-\subsection{ConsideraÁıes}
-A possibilidade de reaproveitamento parcial do projeto Bellator e o recebimento desse material consistiram uma importante epata nesse trabalho. A plataforma Bellator È uma opÁ„o de recurso ao apoio do estudo qualitativo proposto nesse TCC.
+\subsection{Considera√ß√µes}
+A possibilidade de reaproveitamento parcial do projeto Bellator e o recebimento desse material consistiram uma importante epata nesse trabalho. A plataforma Bellator √© uma op√ß√£o de recurso ao apoio do estudo qualitativo proposto nesse TCC.
 
 \input{especificacao}
 
-\section{LÛgica Fuzzy}
-Essa seÁ„o tem como funÁ„o descrever o que È a lÛgica fuzzy, como surgiu, como funciona e como projetar um sistema fuzzy.
+\section{L√≥gica Fuzzy}
+Essa se√ß√£o tem como fun√ß√£o descrever o que √© a l√≥gica fuzzy, como surgiu, como funciona e como projetar um sistema fuzzy.
 
-A lÛgica fuzzy È baseada no trabalho de Lofti Zadeh, que propÙs a teoria de conjuntos
-fuzzy em 1965~\cite{FUZZYLOGIC}. Na teoria cl·ssica de conjuntos, um elemento tem seu
-grau de pertinÍncia ao conjunto representado por uma vari·vel booleana, ou seja, ou o elemento
-pertence ao conjunto ou n„o pertence. Num conjunto fuzzy, no entanto, um elemento tem seu grau
-de pertinÍncia representado por um valor real no intervalo [0, 1].
+A l√≥gica fuzzy √© baseada no trabalho de Lofti Zadeh, que prop√¥s a teoria de conjuntos
+fuzzy em 1965~\cite{FUZZYLOGIC}. Na teoria cl√°ssica de conjuntos, um elemento tem seu
+grau de pertin√™ncia ao conjunto representado por uma vari√°vel booleana, ou seja, ou o elemento
+pertence ao conjunto ou n√£o pertence. Num conjunto fuzzy, no entanto, um elemento tem seu grau
+de pertin√™ncia representado por um valor real no intervalo [0, 1].
 
-Uma aplicaÁao b·sica e cl·ssica da lÛgica fuzzy È a classificaÁ„o de uma vari·vel contÌnua. Por exemplo,
-para classificar um valor de temperatura, pode-se utilizadar um conjunto fuzzy com as vari·veis
+Uma aplica√ßao b√°sica e cl√°ssica da l√≥gica fuzzy √© a classifica√ß√£o de uma vari√°vel cont√≠nua. Por exemplo,
+para classificar um valor de temperatura, pode-se utilizadar um conjunto fuzzy com as vari√°veis
 FRIO, MORNO e QUENTE. Para classificar dado valor de temperatura, pode se utilizar as classes fuzzy apresentadas
  na figura \ref{fig:fuzzyclasses}.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics{./figs/fuzzyclasses.png}
-    \caption[ClassificaÁ„o Fuzzy]{ClassificaÁ„o de valores de temperatura utilizando lÛgica fuzzy.}
+    \caption[Classifica√ß√£o Fuzzy]{Classifica√ß√£o de valores de temperatura utilizando l√≥gica fuzzy.}
     \fonte{\cite{FUZZYLOGIC}}
     \label{fig:fuzzyclasses}
 \end{figure}
 
-A temperatura destacada na figura tem os seguintes graus de pertinÍncia: 0.8 FRIO, 0.2 MORNO e 0 QUENTE.
-… comum tambÈm associar outras vari·veis linguÌsticas para caracterizar os valores. No caso do exemplo, uma associaÁ„o
-possÌvel seria: bastante frio, levemente morno, nada quente.
+A temperatura destacada na figura tem os seguintes graus de pertin√™ncia: 0.8 FRIO, 0.2 MORNO e 0 QUENTE.
+√â comum tamb√©m associar outras vari√°veis lingu√≠sticas para caracterizar os valores. No caso do exemplo, uma associa√ß√£o
+poss√≠vel seria: bastante frio, levemente morno, nada quente.
 
-Com base na saÌda do classificador, um sistema fuzzy pode realizar inferÍncias. Por exemplo, caso o objetivo fosse controlar
-a temperatura de uma caldeira, visando deix·-la bem quente, a observaÁ„o de que est· bastante frio implicaria
-na necessidade da elevaÁ„o da quantidade de energia disponibilizada para seu aquecimento. Conforme a temperatura aumenta, novas temperaturas seriam observadas e classificadas em graus menores de frio e maiores de morno ou quente. Estas novas classificaÁıes levam a inferÍncias diferentes e a outras alteraÁıes na fonte de calor, atÈ alcanÁar a temperatura esperada. Quanto mais prÛximo do nÌvel esperado, menos calor dever· ser suprido pela fonte de calor para o sistema, neste exemplo.
+Com base na sa√≠da do classificador, um sistema fuzzy pode realizar infer√™ncias. Por exemplo, caso o objetivo fosse controlar
+a temperatura de uma caldeira, visando deix√°-la bem quente, a observa√ß√£o de que est√° bastante frio implicaria
+na necessidade da eleva√ß√£o da quantidade de energia disponibilizada para seu aquecimento. Conforme a temperatura aumenta, novas temperaturas seriam observadas e classificadas em graus menores de frio e maiores de morno ou quente. Estas novas classifica√ß√µes levam a infer√™ncias diferentes e a outras altera√ß√µes na fonte de calor, at√© alcan√ßar a temperatura esperada. Quanto mais pr√≥ximo do n√≠vel esperado, menos calor dever√° ser suprido pela fonte de calor para o sistema, neste exemplo.
 
-As decisıes tomadas pelo sistema s„o definidas por um conjunto de regras fuzzy, cujo formato b·sico È:
+As decis√µes tomadas pelo sistema s√£o definidas por um conjunto de regras fuzzy, cujo formato b√°sico √©:
 
-SE X ENT√O Y
+SE X ENT√ÉO Y
 
-onde X È uma express„o contendo uma ou mais vari·veis linguÌsticas e Y a aÁ„o a ser tomada. Retomando o exemplo da caldeira,
-uma regra possÌvel seria: SE bastante frio ENT√O aumentar bastante o fornecimento de calor.
+onde X √© uma express√£o contendo uma ou mais vari√°veis lingu√≠sticas e Y a a√ß√£o a ser tomada. Retomando o exemplo da caldeira,
+uma regra poss√≠vel seria: SE bastante frio ENT√ÉO aumentar bastante o fornecimento de calor.
 
+<<<<<<< HEAD
 … evidente que os conceitos FRIO, MORNO e QUENTE s„o totalmente subjetivos e cada aplicaÁ„o tem par‚metros e conceitos especÌficos, em vari·veis linguÌsticas diferentes, tais como velocidade, dist‚ncia, press„o, entre outros.
 Os valores e funÁıes utilizadas para classificar tais grandezas s„o determinados por quem est· desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequaÁ„o ‡ aplicaÁ„o em quest„o.
 Da mesma forma, as decisıes a serem tomadas com base nos dados classificados s„o definidas pelo desenvolvedor. A grande vantagem e, atÈ mesmo, objetivo de um sistema fuzzy È proporcionar um raciocÌnio simples na implementaÁ„o das regras de um sistema. Isso È
 interessante quando se considera a adiÁ„o de novos sensores e, consequentemente, novos dados. Uma simples alteraÁ„o ou adiÁ„o
 de novas regras È o suficiente para adaptar o sistema ‡s novas entradas. %N„o È verdade, necessariamente? Novos dados/entradas -> Muitas novas regras.
+=======
+√â evidente que os conceitos FRIO, MORNO e QUENTE s√£o totalmente subjetivos e cada aplica√ß√£o tem par√¢metros e conceitos espec√≠ficos, em vari√°veis lingu√≠sticas diferentes, tais como velocidade, dist√¢ncia, press√£o, entre outros.
+Os valores e fun√ß√µes utilizadas para classificar tais grandezas s√£o determinados por quem est√° desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequa√ß√£o √† aplica√ß√£o em quest√£o. 
+Da mesma forma, as decis√µes a serem tomadas com base nos dados classificados s√£o definidas pelo desenvolvedor. A grande vantagem e, at√© mesmo, objetivo de um sistema fuzzy √© proporcionar um racioc√≠nio simples na implementa√ß√£o das regras de um sistema. Isso √©
+interessante quando se considera a adi√ß√£o de novos sensores e, consequentemente, novos dados. Uma simples altera√ß√£o ou adi√ß√£o
+de novas regras √© o suficiente para adaptar o sistema √†s novas entradas. %N√£o √© verdade, necessariamente? Novos dados/entradas -> Muitas novas regras.
+>>>>>>> 8ca079ea1b11690f8fd395ade29fb75065a81dd8
 
-Pelo fato de permitir a classificaÁ„o de dados de uma forma mais flexÌvel, em comparaÁ„o com a teoria cl·ssica de conjuntos,
-os dados de entrada para um sistema fuzzy n„o precisam ser t„o precisos, sem ruÌdos, j· que a presenÁa de ruÌdos
-causa apenas pequenas variaÁıes na classificaÁ„o, enquanto numa classificaÁ„o bin·ria, pouco ruÌdo pode
-ocasionar a passagem de um nÌvel baixo para um nÌvel alto subitamente, ao passar um limite prÈ-definido.
+Pelo fato de permitir a classifica√ß√£o de dados de uma forma mais flex√≠vel, em compara√ß√£o com a teoria cl√°ssica de conjuntos,
+os dados de entrada para um sistema fuzzy n√£o precisam ser t√£o precisos, sem ru√≠dos, j√° que a presen√ßa de ru√≠dos
+causa apenas pequenas varia√ß√µes na classifica√ß√£o, enquanto numa classifica√ß√£o bin√°ria, pouco ru√≠do pode
+ocasionar a passagem de um n√≠vel baixo para um n√≠vel alto subitamente, ao passar um limite pr√©-definido.
 
-Para projetar um sistema fuzzy, o seguinte conjunto de passos pode ser seguido~\cite{FUZZYLOGICTUTORIAL}:
+Para projetar um sistema fuzzy, o seguinte conjunto de passos pode ser seguido \cite{FUZZYLOGICTUTORIAL}:
 
 \begin{enumerate}
-    \item DefiniÁ„o do que vai ser controlado, com quais critÈrios, qual o tipo de saÌda desejado;
-    \item DeterminaÁ„o da relaÁ„o entre a entrada e a saÌda, escolha do n˙mero de vari·veis de entrada para o sistema;
-    \item Utilizando a estrutura de regras da lÛgica fuzzy, dividir o problema principal em v·rias tarefas menores. Estas
-    regras devem descrever o comportamento desejado conforme definido no item 1. O n˙mero e complexidade das regras depende do n˙mero de par‚metros de entrada a serem processados e do n˙mero de vari·veis fuzzy associadas aos mesmos;
-    \item CriaÁ„o das funÁıes de classificaÁ„o, que definem os significados (comumente atravÈs de vari·veis linguÌsticas);
-    dos valores de entrada e saÌda. As saÌdas das funÁıes de classificaÁ„o ser„o utilizadas nas regras
-    \item CriaÁ„o das funÁıes para prÈ e pÛs-processamento necess·rias (para tratamento dos dados de entrada e saÌda);
-    \item Testar o sistema, avaliar os resultados, ajustar as regras e funÁıes de classificaÁ„o. Repetir este passo;
-    atÈ obter um comportamento satisfatÛrio.
+    \item Defini√ß√£o do que vai ser controlado, com quais crit√©rios, qual o tipo de sa√≠da desejado;
+    \item Determina√ß√£o da rela√ß√£o entre a entrada e a sa√≠da, escolha do n√∫mero de vari√°veis de entrada para o sistema;
+    \item Utilizando a estrutura de regras da l√≥gica fuzzy, dividir o problema principal em v√°rias tarefas menores. Estas
+    regras devem descrever o comportamento desejado conforme definido no item 1. O n√∫mero e complexidade das regras depende do n√∫mero de par√¢metros de entrada a serem processados e do n√∫mero de vari√°veis fuzzy associadas aos mesmos;
+    \item Cria√ß√£o das fun√ß√µes de classifica√ß√£o, que definem os significados (comumente atrav√©s de vari√°veis lingu√≠sticas);
+    dos valores de entrada e sa√≠da. As sa√≠das das fun√ß√µes de classifica√ß√£o ser√£o utilizadas nas regras
+    \item Cria√ß√£o das fun√ß√µes para pr√© e p√≥s-processamento necess√°rias (para tratamento dos dados de entrada e sa√≠da);
+    \item Testar o sistema, avaliar os resultados, ajustar as regras e fun√ß√µes de classifica√ß√£o. Repetir este passo;
+    at√© obter um comportamento satisfat√≥rio.
 \end{enumerate}
 
-\subsection{ConsideraÁıes}
+\subsection{Considera√ß√µes}
 
-O conceito de incerteza introduzido pela LÛgica Fuzzy permite a modelagem de sistemas problemas de decis„o cujas vari·veis s„o din‚micas e admitem v·rios nÌveis de classificaÁ„o. O problema de navegaÁ„o robÛtica
-È um sistema din‚mico, pois as decisıes s„o tomadas sob a influÍncia de v·rios sensores ao mesmo tempo, e a abordagem Fuzzy È uma opÁ„o para solucion·-lo.
+O conceito de incerteza introduzido pela L√≥gica Fuzzy permite a modelagem de sistemas problemas de decis√£o cujas vari√°veis s√£o din√¢micas e admitem v√°rios n√≠veis de classifica√ß√£o. O problema de navega√ß√£o rob√≥tica
+√© um sistema din√¢mico, pois as decis√µes s√£o tomadas sob a influ√™ncia de v√°rios sensores ao mesmo tempo, e a abordagem Fuzzy √© uma op√ß√£o para solucion√°-lo.
 
 \section{Mapas Cognitivos Fuzzy}
 
-Esta seÁ„o tem como objetivo explicar o que s„o mapas cognitivos fuzzy, tambÈm conhecidos como FCM (Fuzzy Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo e apresentar um exemplo, que descreve o uso em uma situaÁ„o real.
+Esta se√ß√£o tem como objetivo explicar o que s√£o mapas cognitivos fuzzy, tamb√©m conhecidos como FCM (Fuzzy Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo, apresentar uma metodologia de contru√ß√£o do FCM e apresentar exemplos, que descrevem o uso em situa√ß√µes reais.
 
-O modelo FCM È abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos s„o diagramas que representam ligaÁıes entre palavras, idÈias, tarefas ou outros itens ligados a um conceito central, em volta do qual os elementos s„o dispostos radialmente e de forma intuitiva, de acordo com a import‚ncia dos conceitos. Um mapa cognitivo pode ser tratato matematicamente por meio de operaÁıes com matrizes e baseado na teoria de grafos. Desse modo, crenÁas ou afirmaÁıes a respeito de um domÌnio de conhecimento limitado s„o expressas por palavras ou expressıes linguÌsticas, interligadas por relaÁıes de causa e efeito. Esse modelo propıe uma organizaÁ„o de idÈias onde È possÌvel predizer as consequÍncias que essa organizaÁ„o implica ao universo representado, sendo considerado um modelo matem·tico da "estrutura de crenÁas". O mapa cognitivo fuzzy È gerado quando se incluem a essa estrutura incertezas atravÈs da lÛgica Fuzzy.
+O modelo FCM √© abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos s√£o diagramas que representam liga√ß√µes entre palavras, id√©ias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a import√¢ncia de cada conceito. Cren√ßas ou afirma√ß√µes a respeito de um dom√≠nio de conhecimento limitado s√£o expressas por palavras ou express√µes lingu√≠sticas interligadas por rela√ß√µes de causa e efeito, que possibilitam predizer as consequ√™ncias que essa organiza√ß√£o implica ao universo representado. O mapa cognitivo fuzzy √© gerado quando se incluem a essa estrutura incertezas atrav√©s da l√≥gica Fuzzy.
 
-A estrutura de um mapa cognitivo fuzzy È um grafo direcionado, figura \ref{fig:fcm}, em que os valores numÈricos s„o vari·veis ou conjuntos fuzzy, os "nÛs" s„o conceitos linguÌsticos, representados por conjuntos fuzzy e cada "nÛ" È associado a outros atravÈs de conexıes, a cada qual est· associado um peso numÈrico, o qual representa uma vari·vel fuzzy relacionado ao nÌvel de causalidade entre os conceitos.
+A estrutura de um FCM √© um grafo direcionado, figura \ref{fig:fcm}, em que os valores num√©ricos s√£o vari√°veis ou conjuntos fuzzy, os "n√≥s" s√£o conceitos lingu√≠sticos, representados por conjuntos fuzzy e cada "n√≥" √© associado a outros n√≥s atrav√©s de conex√µes, a cada qual est√° associado um peso num√©rico, que representa a vari√°vel fuzzy relacionada ao n√≠vel de causalidade entre os conceitos. Um mapa cognitivo fuzzy descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma vari√°vel ou uma caracter√≠stica do sistema. Os conceitos (C1 a C5) podem ser atualizados atrav√©s da intera√ß√£o com outros conceitos por meio das rela√ß√µes causais (wi,j) e com seu pr√≥prio valor. A matriz \ref{fcm-matrix} representa o peso das rela√ß√µes causais entre os conceitos e podem ser atualizados atrav√©s da equa√ß√£o \ref{fcm-update}. Esta descreve a evolu√ß√£o do FCM, na qual j √© o contador das itera√ß√µes, n √© o n√∫mero de n√≥s do grafo, Wij √© o peso do arco que conecta o conceito Cj ao conceito Ci, Ai e Ai_anterior s√£o o valor do conceito Ci na itera√ß√£o atual e anterior, respectivamente, e a fun√ß√£o f \ref{sigmoide} √© uma fun√ß√£o do tipo sigm√≥ide.
 
 \begin{figure}[!htb]
     \centering
@@ -131,8 +139,6 @@ A estrutura de um mapa cognitivo fuzzy È um grafo direcionado, figura \ref{fig:f
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm}
 \end{figure}
-
-O FCM descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma vari·vel ou uma caracterÌstica do sistema. Os conceitos do mapa cognitivo (C1 a C5) podem ser atualizados atravÈs da interaÁ„o com outros conceitos por meio das interconexıes (relaÁıes causais wi,j) e com seu prÛprio valor. A matriz \ref{fcm-matrix} representa o peso das relaÁıes causais entre os conceitos.
 
 \begin{equation}\label{fcm-matrix}
     wi,j=\left(
@@ -146,8 +152,6 @@ O FCM descreve um sistema em termos de conceitos, onde cada conceito representa 
      \right)
 \end{equation}
 
-A equaÁ„o \ref{fcm-update} descreve a evoluÁ„o do FCM, na qual j È o contador das iteraÁıes, n È o n˙mero de nÛs do grafo, Wij È o peso do arco que conecta o conceito Cj ao conceito Ci, Ai e Ai_anterior s„o o valor do conceito Ci na iteraÁ„o atual e anterior, respectivamente, e a funÁ„o f \ref{sigmoide} È uma funÁ„o do tipo sigmÛide.
-
 \begin{equation}\label{fcm-update}
 Ai=f(sum{AjxWji})+Ai
 \end
@@ -156,16 +160,33 @@ Ai=f(sum{AjxWji})+Ai
 f(x)={1}/{1+e^-lx}
 \end
 
-O FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organizaÁ„o, È a capacidade de reforÁar ou enfraquecer o peso das relaÁıes causais entre os conceitos, e a estabilidade È a capacidade de evoluir, estabilizando-se em um ponto fixo ou apÛs um n˙mero m·ximo de iteraÁıes. Uma vantagem do FCM È a interatividade entre os conceitos, a qual permite que um problema seja dividido em v·rias partes e cada parte seja representada por um mapa cognitivo modular, que È interconectado aos demais mapas do problema. Outra vantagem È que os pesos das relaÁıes causais e dos conceitos podem ser obtidos via treinamento, a partir dos dados histÛricos do sistema ou atravÈs de um algoritmo adaptativo, que atualiza os pesos constantemente.
+Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organiza√ß√£o, √© a capacidade de refor√ßar ou enfraquecer o peso das rela√ß√µes causais entre os conceitos e a estabilidade √© a capacidade de evoluir, estabilizando-se em um ponto fixo ou ap√≥s um n√∫mero m√°ximo de itera√ß√µes. Uma vantagem do FCM √© a modularidade, a qual permite que um problema complexo seja representado por v√°rios mapas modulares e outra vantagem √© a que os pesos das rela√ß√µes causais e dos conceitos podem ser obtidos via treinamento a partir dos dados hist√≥ricos do sistema ou atrav√©s de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
-Em \cite{FCMENDONCA} os mapas cognitivos Fuzzy s„o aplicados no controle de processos industriais. Um exemplo de aplicaÁ„o È mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual È ilustrado um tanque com duas v·lvulas de entrada para diferentes tipos de lÌquidos, um misturador, uma v·lvula de saÌda para o lÌquido misturado e um medidor de massa especÌfica que mede a quantidade de lÌquido produzida. As v·lvulas V1 e V2 introduzem
-dois lÌquidos diferentes. Durante a reaÁ„o, um medidor G de massa especÌfica verifica se a mistura atingiu
-o ponto adequado. A v·lvula V3 È ativada e o produto da mistura È esvaziado.
+Na tese de \cite{FCMENDONCA}, s√£o apresentados os seguintes passos para constru√ß√£o de um FCM:
+
+\begin{list}{*}{}
+\item Passo 1 ‚Äì Identifica√ß√£o dos conceitos e das suas interconex√µes ou rela√ß√µes
+determinando a natureza (positiva, negativa, neutra) das rela√ß√µes causais entre
+conceitos.
+\item Passo 2 ‚Äì Aquisi√ß√£o de dados iniciais, atrav√©s de pondera√ß√£o de opini√£o de
+especialistas e ou an√°lise do sistema de equa√ß√µes, quando se conhece o modelo
+matem√°tico.
+\item Passo 3 ‚Äì Apresenta√ß√£o dos dados referentes √† opini√£o dos diversos especialistas a
+um sistema l√≥gico fuzzy que tem como sa√≠da os valores dos pesos do FCM.
+\item Passo 4 ‚Äì Tratamento da informa√ß√£o, adapta√ß√£o e ou otimiza√ß√£o do FCM
+inicialmente proposto, ajustando suas respostas √†s sa√≠das desejadas.
+\item Passo 5 ‚Äì Valida√ß√£o do FCM ajustado nas condi√ß√µes de opera√ß√£o do sistema ou
+processo modelado.
+\end{list}
+
+Em \cite{FCMENDONCA} os mapas cognitivos Fuzzy s√£o aplicados no controle de processos industriais. Um exemplo de aplica√ß√£o √© mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual √© ilustrado um tanque com duas v√°lvulas de entrada para diferentes tipos de l√≠quidos, um misturador, uma v√°lvula de sa√≠da para o l√≠quido misturado e um medidor de massa espec√≠fica que mede a quantidade de l√≠quido produzida. As v√°lvulas V1 e V2 introduzem
+dois l√≠quidos diferentes. Durante a rea√ß√£o, um medidor G de massa espec√≠fica verifica se a mistura atingiu
+o ponto adequado. A v√°lvula V3 √© ativada e o produto da mistura √© esvaziado.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics{./figs/fcm-exemplo-planta.png}
-    \caption[Mapa Cognitivo Fuzzy]{AplicaÁ„o do FCM em processo industrial.}
+    \caption[Mapa Cognitivo Fuzzy]{Aplica√ß√£o do FCM em processo industrial.}
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm-exemplo-planta}
 \end{figure}
@@ -173,14 +194,14 @@ o ponto adequado. A v·lvula V3 È ativada e o produto da mistura È esvaziado.
 Analisando-se o problema, os seguintes conceitos podem ser definidos:
 
 \begin{itemize}
-\item Conceito 1: Volume de lÌquido no tanque;
-\item Conceito 2: Estado da v·lvula 1 (fechada, aberta ou parcialmente aberta);
-\item Conceito 3: Estado da v·lvula 2 (fechada, aberta ou parcialmente aberta);
-\item Conceito 4: Estado da v·lvula 3 (fechada, aberta ou parcialmente aberta);
-\item Conceito 5: Valor medido pelo sensor G para massa especÌfica do lÌquido.
+\item Conceito 1: Volume de l√≠quido no tanque;
+\item Conceito 2: Estado da v√°lvula 1 (fechada, aberta ou parcialmente aberta);
+\item Conceito 3: Estado da v√°lvula 2 (fechada, aberta ou parcialmente aberta);
+\item Conceito 4: Estado da v√°lvula 3 (fechada, aberta ou parcialmente aberta);
+\item Conceito 5: Valor medido pelo sensor G para massa espec√≠fica do l√≠quido.
 \end{itemize}
 
-Interligando-se os conceitos com as relaÁıes de causa e efeito ponderadas, obtÈm-se o FCM da figura \ref{fig:fcm-exemplo-fcm} para o controlador do processo.
+Interligando-se os conceitos com as rela√ß√µes de causa e efeito ponderadas, obt√©m-se o FCM da figura \ref{fig:fcm-exemplo-fcm} para o controlador do processo.
 
 \begin{figure}[!htb]
     \centering
@@ -190,5 +211,15 @@ Interligando-se os conceitos com as relaÁıes de causa e efeito ponderadas, obtÈm
     \label{fig:fcm-exemplo-fcm}
 \end{figure}
 
-\subsection{ConsideraÁıes}
-FCM È um modelo linguÌstico, prÛximo ‡ linguagem humana, que È baseado na teoria de grafos e que permite interconectar conceitos atravÈs de relaÁıes de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integraÁ„o com mÈtodos de treinamento de inteligÍncia artificial. O FCM È indicado para modelagem de sistemas complexos. A navegaÁ„o robÛtica È um sistema complexo no qual v·rios conceitos (sensores e motores) s„o ativados e interagem entre si para produzir os movimentos adequados ao robÙ autÙnomo. A abordagem FCM permite modelar e mapear esses conceitos com a finalidade de implementar um algoritmo de navegaÁ„o capaz de solucionar o problema.
+Outra aplica√ß√£o √© descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM √© empregada em navega√ß√£o rob√≥tica. Nesse artigo, um modelo de FCM novo √© implementado para suportar as condi√ß√µes din√¢micas dos sistemas de navega√ß√£o, nas quais os valores das rela√ß√µes causais s√£o modificados dinamicamente atrav√©s da ocorr√™ncia de eventos especiais. Os autores do artigo chamaram esse modelo de ED-FCM (Event-Driven Fuzzy Cognitive Map). O ajuste dos pesos das rela√ß√µes causais √© efetuado por um algoritmo de aprendizado por refor√ßo, conforme ilustra a figura \ref{fig:reinforcement-alg}, e permite que o rob√¥ (agente) aprenda diretamente atrav√©s de sua intera√ß√£o com o ambiente. A cada instante de tempo t, o agente estabelece, por meio de seus sensores, um estado st e, de acordo com suas regras, determina uma a√ß√£o at a ser efetuada pelos atuadores. Essa a√ß√£o causa uma transi√ß√£o para o estado st+1 e o ambiente retorna uma medida de refor√ßo rt+1, que pode ser uma recompensa (caso a a√ß√£o seja boa) ou uma puni√ß√£o (caso a a√ß√£o seja ruim).
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics{./figs/reinforcement.png}
+    \caption[Mapa Cognitivo Fuzzy]{Algoritmo de aprendizado por refor√ßo.}
+    \fonte{\cite{MENDONCA}}
+    \label{fig:reinforcement-alg}
+\end{figure}
+
+\subsection{Considera√ß√µes}
+FCM √© um modelo lingu√≠stico, pr√≥ximo √† linguagem humana, que √© baseado na teoria de grafos e que permite interconectar conceitos atrav√©s de rela√ß√µes de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integra√ß√£o com m√©todos de treinamento de intelig√™ncia artificial. O FCM √© indicado para modelagem de sistemas complexos. A navega√ß√£o rob√≥tica √© um sistema complexo no qual v√°rios conceitos (sensores e motores) s√£o ativados e interagem entre si para produzir os movimentos adequados ao rob√¥ aut√¥nomo. A abordagem FCM permite modelar e mapear esses conceitos com a finalidade de implementar um algoritmo de navega√ß√£o capaz de solucionar o problema.
