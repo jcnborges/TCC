@@ -86,19 +86,11 @@ SE X ENTÃO Y
 onde X é uma expressão contendo uma ou mais variáveis linguísticas e Y a ação a ser tomada. Retomando o exemplo da caldeira,
 uma regra possível seria: SE bastante frio ENTÃO aumentar bastante o fornecimento de calor.
 
-<<<<<<< HEAD
-� evidente que os conceitos FRIO, MORNO e QUENTE s�o totalmente subjetivos e cada aplica��o tem par�metros e conceitos espec�ficos, em vari�veis lingu�sticas diferentes, tais como velocidade, dist�ncia, press�o, entre outros.
-Os valores e fun��es utilizadas para classificar tais grandezas s�o determinados por quem est� desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequa��o � aplica��o em quest�o.
-Da mesma forma, as decis�es a serem tomadas com base nos dados classificados s�o definidas pelo desenvolvedor. A grande vantagem e, at� mesmo, objetivo de um sistema fuzzy � proporcionar um racioc�nio simples na implementa��o das regras de um sistema. Isso �
-interessante quando se considera a adi��o de novos sensores e, consequentemente, novos dados. Uma simples altera��o ou adi��o
-de novas regras � o suficiente para adaptar o sistema �s novas entradas. %N�o � verdade, necessariamente? Novos dados/entradas -> Muitas novas regras.
-=======
 É evidente que os conceitos FRIO, MORNO e QUENTE são totalmente subjetivos e cada aplicação tem parâmetros e conceitos específicos, em variáveis linguísticas diferentes, tais como velocidade, distância, pressão, entre outros.
 Os valores e funções utilizadas para classificar tais grandezas são determinados por quem está desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequação à aplicação em questão. 
 Da mesma forma, as decisões a serem tomadas com base nos dados classificados são definidas pelo desenvolvedor. A grande vantagem e, até mesmo, objetivo de um sistema fuzzy é proporcionar um raciocínio simples na implementação das regras de um sistema. Isso é
 interessante quando se considera a adição de novos sensores e, consequentemente, novos dados. Uma simples alteração ou adição
 de novas regras é o suficiente para adaptar o sistema às novas entradas. %Não é verdade, necessariamente? Novos dados/entradas -> Muitas novas regras.
->>>>>>> 8ca079ea1b11690f8fd395ade29fb75065a81dd8
 
 Pelo fato de permitir a classificação de dados de uma forma mais flexível, em comparação com a teoria clássica de conjuntos,
 os dados de entrada para um sistema fuzzy não precisam ser tão precisos, sem ruídos, já que a presença de ruídos
@@ -154,11 +146,11 @@ A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os v
 
 \begin{equation}\label{fcm-update}
 Ai=f(sum{AjxWji})+Ai
-\end
+\end{equation}
 
 \begin{equation}\label{sigmoide}
 f(x)={1}/{1+e^-lx}
-\end
+\end{equation}
 
 Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é a que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
@@ -223,3 +215,4 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM
 
 \subsection{Considerações}
 FCM é um modelo linguístico, próximo à linguagem humana, que é baseado na teoria de grafos e que permite interconectar conceitos através de relações de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integração com métodos de treinamento de inteligência artificial. O FCM é indicado para modelagem de sistemas complexos. A navegação robótica é um sistema complexo no qual vários conceitos (sensores e motores) são ativados e interagem entre si para produzir os movimentos adequados ao robô autônomo. A abordagem FCM permite modelar e mapear esses conceitos com a finalidade de implementar um algoritmo de navegação capaz de solucionar o problema.
+
