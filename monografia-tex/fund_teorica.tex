@@ -118,7 +118,7 @@ O conceito de incerteza introduzido pela Lógica Fuzzy permite a modelagem de si
 
 \section{Mapas Cognitivos Fuzzy}
 
-Esta seção tem como objetivo explicar o que são mapas cognitivos fuzzy, também conhecidos como FCM (Fuzzy Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo, apresentar uma metodologia de contrução do FCM e apresentar exemplos, que descrevem o uso em situações reais.
+Esta seção tem como objetivo explicar o que são mapas cognitivos fuzzy, também conhecidos como FCM (Fuzzy Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo, apresentar os passos para contrução de um FCM e apresentar exemplos, que descrevem o uso em situações reais.
 
 O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo fuzzy é gerado quando se incluem a essa estrutura incertezas através da lógica Fuzzy.
 
@@ -156,7 +156,7 @@ Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, 
 
 Na tese de \cite{FCMENDONCA}, são apresentados os seguintes passos para construção de um FCM:
 
-\begin{list}{*}{}
+\begin{itemize}{*}{}
 \item Passo 1 – Identificação dos conceitos e das suas interconexões ou relações
 determinando a natureza (positiva, negativa, neutra) das relações causais entre
 conceitos.
@@ -169,11 +169,9 @@ um sistema lógico fuzzy que tem como saída os valores dos pesos do FCM.
 inicialmente proposto, ajustando suas respostas às saídas desejadas.
 \item Passo 5 – Validação do FCM ajustado nas condições de operação do sistema ou
 processo modelado.
-\end{list}
+\end{itemize}
 
-Em \cite{FCMENDONCA} os mapas cognitivos Fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada para diferentes tipos de líquidos, um misturador, uma válvula de saída para o líquido misturado e um medidor de massa específica que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem
-dois líquidos diferentes. Durante a reação, um medidor G de massa específica verifica se a mistura atingiu
-o ponto adequado. A válvula V3 é ativada e o produto da mistura é esvaziado.
+Em \cite{FCMENDONCA} os mapas cognitivos fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada (V1 e V2) para diferentes tipos de líquidos, um misturador, uma válvula de saída (V3) para o líquido misturado e um medidor de massa específica (G) que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem dois líquidos diferentes. Durante a mistura, o medidor de massa específica verifica quando o produto atingiu o ponto adequado e, desse modo, a válvula V3 é ativada e o produto da mistura é esvaziado. Com isso, o controle do processo é manter as variáveis V e G, sendo V o volume e G a massa especifica do produto no tanque, dentro das faixas de operação [Vmin, Vmax] (equação \ref{lim-V}) e [Gmin, Gmax] (equação \ref{lim-G}), respectivamente. Analisando-se o problema, os seguintes conceitos podem ser definidos.
 
 \begin{figure}[!htb]
     \centering
@@ -183,17 +181,48 @@ o ponto adequado. A válvula V3 é ativada e o produto da mistura é esvaziado.
     \label{fig:fcm-exemplo-planta}
 \end{figure}
 
-Analisando-se o problema, os seguintes conceitos podem ser definidos:
+\begin{equation}\label{lim-V}
+Vmin<V<Vmax
+\end{equation}
+
+\begin{equation}\label{lim-G}
+Gmin<G<Gmax
+\end{equation}
 
 \begin{itemize}
-\item Conceito 1: Volume de líquido no tanque;
+\item Conceito 1: Volume de líquido no tanque, o qual depende do estado das válvulas V1, V2 e V3;
 \item Conceito 2: Estado da válvula 1 (fechada, aberta ou parcialmente aberta);
 \item Conceito 3: Estado da válvula 2 (fechada, aberta ou parcialmente aberta);
 \item Conceito 4: Estado da válvula 3 (fechada, aberta ou parcialmente aberta);
-\item Conceito 5: Valor medido pelo sensor G para massa específica do líquido.
+\item Conceito 5: Valor de massa específica do líquido medido pelo sensor G.
 \end{itemize}
 
-Interligando-se os conceitos com as relações de causa e efeito ponderadas, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} para o controlador do processo.
+Interligando-se os conceitos com as relações de causa e efeito, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} para o controlador do processo. Além dos conceitos, os especilistas no processo determinaram um domínio para as variáveis que resultou em uma faixa de valores para as relações causais, equações \ref{peso-1} a \ref{peso-8}. Após a estabilização do mapa, obteve-se os pesos da matrix \ref{W-matrix} e os valores dos conceitos da matrix \ref{A-matrix} e, desse modo, os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente.
+
+\begin{equation}\label{peso-1}
+-0,50<W12<0,30
+\end{equation}
+\begin{equation}\label{peso-2}
+-0,40<W13<0,20
+\end{equation}
+\begin{equation}\label{peso-3}
+0,20<W15<0,40
+\end{equation}
+\begin{equation}\label{peso-4}
+0,30<W21<0,40
+\end{equation}
+\begin{equation}\label{peso-5}
+0,40>W31<0,50
+\end{equation}
+\begin{equation}\label{peso-6}
+-1,0<W41<0,80
+\end{equation}
+\begin{equation}\label{peso-7}
+0,50<W52<0,70
+\end{equation}
+\begin{equation}\label{peso-8}
+0,30<W54<0,40
+\end{equation}
 
 \begin{figure}[!htb]
     \centering
@@ -203,6 +232,34 @@ Interligando-se os conceitos com as relações de causa e efeito ponderadas, obt
     \label{fig:fcm-exemplo-fcm}
 \end{figure}
 
+\begin{equation}\label{W-matrix}
+    Winicial=\left(
+       \begin{array}{ccccc}
+         0,00 & -0,40 & -0,25 & 0,00 & 0,30 \\
+         0,36 & 0,00 & 0,00 & 0,00 & w0,00 \\
+         0,45 & 0,00 & 0,00 & 0,00 & 0,00 \\
+         -0,90 & 0,00 & 0,00 & 0,00 & 0,00 \\
+         0,00 & 0,60 & 0,00 & 0,30 & 0,00 \\
+       \end{array}
+     \right)
+\end{equation}
+
+\begin{equation}\label{A-matrix}
+    Winicial=\left(
+       \begin{array}{ccccc}
+         0,10 & 0,45 & 0,39 & 0,04 & 0,01 \\
+       \end{array}
+     \right)
+\end{equation}
+
+\begin{equation}\label{lim-V-adj}
+0,68<V<0,70
+\end{equation}
+
+\begin{equation}\label{lim-G-adj}
+0,78<G<0,85
+\end{equation}
+
 Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é empregada em navegação robótica. Nesse artigo, um modelo de FCM novo é implementado para suportar as condições dinâmicas dos sistemas de navegação, nas quais os valores das relações causais são modificados dinamicamente através da ocorrência de eventos especiais. Os autores do artigo chamaram esse modelo de ED-FCM (Event-Driven Fuzzy Cognitive Map). O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendizado por reforço, conforme ilustra a figura \ref{fig:reinforcement-alg}, e permite que o robô (agente) aprenda diretamente através de sua interação com o ambiente. A cada instante de tempo t, o agente estabelece, por meio de seus sensores, um estado st e, de acordo com suas regras, determina uma ação at a ser efetuada pelos atuadores. Essa ação causa uma transição para o estado st+1 e o ambiente retorna uma medida de reforço rt+1, que pode ser uma recompensa (caso a ação seja boa) ou uma punição (caso a ação seja ruim).
 
 \begin{figure}[!htb]
@@ -211,6 +268,29 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM
     \caption[Mapa Cognitivo Fuzzy]{Algoritmo de aprendizado por reforço.}
     \fonte{\cite{MENDONCA}}
     \label{fig:reinforcement-alg}
+\end{figure}
+
+Primeiramente, foi construído um FCM que descreve o comportamente reativo do robô, no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento do robô. Os seguintes conceitos foram definidos e o FCM da figura \ref{fcm-robot} foi projetado.
+
+\begin{itemize}
+\item Conceito R.S.: Leitura do sensor da direita;
+\item Conceito F.S.: Leitura do sensor frontal;
+\item Conceito L.S.: Leitura do sensor esquerdo;
+\item Conceito L.O.: Representa decisões sobre virar a esquerda;
+\item Conceito R.O.: Representa decisões sobre virar a direita;
+\item Conceito L.O.(-1): Decisão anterior sobre virar a esquerda;
+\item Conceito R.O.(-1): Decisão anterior sobre virar a direita;
+\item Conceito Out Left: O robô vira à esquerda;
+\item Conceito Out Front: O robô acelera;
+\item Conceito Out Right: O robô vira à direita.
+\end{itemize}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics{./figs/fcm-robot.png}
+    \caption[Mapa Cognitivo Fuzzy]{FCM do comportamento reativo do robô.}
+    \fonte{\cite{MENDONCA}}
+    \label{fig:fcm-robot}
 \end{figure}
 
 \subsection{Considerações}
