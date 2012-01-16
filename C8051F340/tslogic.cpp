@@ -2,11 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <fcntl.h>
+#include <fcntl.h> 
 #include <termios.h>
 #include <time.h>
 #include "protocolo.h"
-
 
 // -------------------------------------------------------------
 //
@@ -45,7 +44,7 @@ const int distances[256] = { // Tabela de conversao de distancias (valor DA para
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
 };
-const int MAX_VELOCITY = 8; // Maximo passo de velocidade do robo
+const int MAX_VELOCITY = 15; // Maximo passo de velocidade do robo
 const double TIME_WINDOW = 0.5; // Duracao minima de uma operacao
 
 // -------------------------------------------------------------
@@ -57,6 +56,7 @@ int tty_fd; // File descriptor do terminal (COM2) TS-7260
 int vLeft = 0, vRight = 0; // Velocidade das rodas
 int last_dist[NSENSORS];
 int last_enc[NENCODERS];
+int last_step[NENCODERS];
 enum {LEFT, RIGHT};
 
 // -------------------------------------------------------------
@@ -178,9 +178,12 @@ int read_package()
 				unsigned char high, low;
 				high = 256 + rcv[OFFSET + 1 + i * SZ_MSG_ENCODER];
 				low = 256 + rcv[OFFSET + i * SZ_MSG_ENCODER + 2];  
+				if(last_enc[i] == -1) last_enc[i] = (high << 8) | low;
+				last_step[i] = ((high << 8) | low) - last_enc[i];
+				if(last_step[i] < 0) last_step[i] += 65536;
+				last_enc[i] = (high << 8) | low;
 				printf("Encoder %d: %6d (%3u %3u)\r\n", rcv[OFFSET + i * 5] - 32, 
-						high << 8 | low, high, low);	
-				last_enc[i] = high << 8 | low;
+						last_step[i], high, low);	
 			}
 #endif
 			last_sync = clock();
@@ -196,8 +199,7 @@ void accelerate(int wheel, int dv)
 	if (wheel == LEFT)
 	{
 		msg_pwm[0] = LEFT_WHEEL;
-//		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
-		msg_pwm[1] = vLeft = MIN(vRight + 1, MAX_VELOCITY);
+		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
 	} else if (wheel == RIGHT)
 	{
 		msg_pwm[0] = RIGHT_WHEEL;
@@ -214,6 +216,10 @@ int main()
 	int min_dist;
 	clock_t op_begin; 
 	open_serial_port();
+	
+	last_enc[LEFT] = last_enc[RIGHT] = -1;
+	accelerate(LEFT, 15);
+	accelerate(RIGHT, 15);
 	while (1)
 	{
 		op_begin = clock();
@@ -223,6 +229,8 @@ int main()
 		for(i = 0; i < 6; ++i)
 			if(last_dist[i] != -1 && last_dist[i] < min_dist)
 				min_dist = last_dist[i];
+
+		/*
 		if(min_dist < 50){
 			accelerate(LEFT, -MAX_VELOCITY);
 			accelerate(RIGHT, -MAX_VELOCITY);
@@ -236,6 +244,7 @@ int main()
 				accelerate(LEFT, -1);
 			}
 		}
+		*/
 		printf("LEFT : %3d \r\nRIGHT: %3d \r\n", vLeft, vRight);
 		cnt++;
 		/* }}} */
