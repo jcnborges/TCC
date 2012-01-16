@@ -122,34 +122,34 @@ Esta seção tem como objetivo explicar o que são mapas cognitivos fuzzy, também c
 
 O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo fuzzy é gerado quando se incluem a essa estrutura incertezas através da lógica Fuzzy.
 
-A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os "nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada "nó" é associado a outros nós através de conexões, a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. Um mapa cognitivo fuzzy descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma variável ou uma característica do sistema. Os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais (wi,j) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual j é o contador das iterações, n é o número de nós do grafo, Wij é o peso do arco que conecta o conceito Cj ao conceito Ci, Ai e Ai anterior são o valor do conceito Ci na iteração atual e anterior, respectivamente, e a função f \ref{sigmoide} é uma função do tipo sigmóide.
+A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os "nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada "nó" é associado a outros nós através de conexões, a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. Um mapa cognitivo fuzzy descreve um sistema em termos de conceitos, onde cada conceito representa uma entidade, um estado, uma variável ou uma característica do sistema. Os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual j é o contador das iterações, n é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f \ref{sigmoide} é uma função do tipo sigmóide.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics{./figs/fcm.png}
-    \caption[Mapa Cognitivo Fuzzy]{Exemplo de um FCM (grafo).}
+    \caption[Exemplo de um FCM]{Exemplo de um FCM (grafo).}
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm}
 \end{figure}
 
 \begin{equation}\label{fcm-matrix}
-    wi,j=\left(
+    w_{i,j}=\left(
        \begin{array}{ccccc}
-         0 & w12 & 0 & 0 & w15 \\
-         0 & 0 & w23 & 0 & w25 \\
-         0 & w32 & 0 & w34 & 0 \\
-         w41 & 0 & w43 & 0 & w45 \\
-         w51 & 0 & 0 & w54 & 0 \\
+         0 & w_{12} & 0 & 0 & w_{15} \\
+         0 & 0 & w_{23} & 0 & w_{25} \\
+         0 & w_{32} & 0 & w_{34} & 0 \\
+         w_{41} & 0 & w_{43} & 0 & w_{45} \\
+         w_{51} & 0 & 0 & w_{54} & 0 \\
        \end{array}
      \right)
 \end{equation}
 
 \begin{equation}\label{fcm-update}
-Ai=f(sum{AjxWji})+Ai
+A_i=f(\sum_{\substack{j=1 \\ j\neq i}}^{n} A_j \times W_{ji})+A_i^{anterior}
 \end{equation}
 
 \begin{equation}\label{sigmoide}
-f(x)={1}/{1+e^-lx}
+f(x)=\frac{1} {1+e^{-\lambda x}}
 \end{equation}
 
 Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é a que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
@@ -171,22 +171,22 @@ inicialmente proposto, ajustando suas respostas às saídas desejadas.
 processo modelado.
 \end{itemize}
 
-Em \cite{FCMENDONCA} os mapas cognitivos fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada (V1 e V2) para diferentes tipos de líquidos, um misturador, uma válvula de saída (V3) para o líquido misturado e um medidor de massa específica (G) que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem dois líquidos diferentes. Durante a mistura, o medidor de massa específica verifica quando o produto atingiu o ponto adequado e, desse modo, a válvula V3 é ativada e o produto da mistura é esvaziado. Com isso, o controle do processo é manter as variáveis V e G, sendo V o volume e G a massa especifica do produto no tanque, dentro das faixas de operação [Vmin, Vmax] (equação \ref{lim-V}) e [Gmin, Gmax] (equação \ref{lim-G}), respectivamente. Analisando-se o problema, os seguintes conceitos podem ser definidos.
+Em \cite{FCMENDONCA} os mapas cognitivos fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada (V1 e V2) para diferentes tipos de líquidos, um misturador, uma válvula de saída (V3) para o líquido misturado e um medidor de massa específica (G) que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem dois líquidos diferentes. Durante a mistura, o medidor de massa específica verifica quando o produto atingiu o ponto adequado e, desse modo, a válvula V3 é ativada e o produto da mistura é esvaziado. Com isso, o controle do processo é manter as variáveis V e G, sendo V o volume e G a massa especifica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ (equação \ref{lim-V}) e $[G_{min}, G_{max}]$ (equação \ref{lim-G}), respectivamente. Analisando-se o problema, os seguintes conceitos podem ser definidos.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics{./figs/fcm-exemplo-planta.png}
-    \caption[Mapa Cognitivo Fuzzy]{Aplicação do FCM em processo industrial.}
+    \caption[Aplicação do FCM em processo industrial]{Aplicação do FCM em processo industrial.}
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm-exemplo-planta}
 \end{figure}
 
 \begin{equation}\label{lim-V}
-Vmin<V<Vmax
+V_{min}<V<V_{max}
 \end{equation}
 
 \begin{equation}\label{lim-G}
-Gmin<G<Gmax
+G_{min}<G<G_{max}
 \end{equation}
 
 \begin{itemize}
@@ -200,28 +200,28 @@ Gmin<G<Gmax
 Interligando-se os conceitos com as relações de causa e efeito, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} para o controlador do processo. Além dos conceitos, os especilistas no processo determinaram um domínio para as variáveis que resultou em uma faixa de valores para as relações causais, equações \ref{peso-1} a \ref{peso-8}. Após a estabilização do mapa, obteve-se os pesos da matrix \ref{W-matrix} e os valores dos conceitos da matrix \ref{A-matrix} e, desse modo, os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente.
 
 \begin{equation}\label{peso-1}
--0,50<W12<0,30
+-0,50<w_{12}<0,30
 \end{equation}
 \begin{equation}\label{peso-2}
--0,40<W13<0,20
+-0,40<w_{13}<0,20
 \end{equation}
 \begin{equation}\label{peso-3}
-0,20<W15<0,40
+0,20<w_{15}<0,40
 \end{equation}
 \begin{equation}\label{peso-4}
-0,30<W21<0,40
+0,30<w_{21}<0,40
 \end{equation}
 \begin{equation}\label{peso-5}
-0,40>W31<0,50
+0,40>w_{31}<0,50
 \end{equation}
 \begin{equation}\label{peso-6}
--1,0<W41<0,80
+-1,0<w_{41}<0,80
 \end{equation}
 \begin{equation}\label{peso-7}
-0,50<W52<0,70
+0,50<w_{52}<0,70
 \end{equation}
 \begin{equation}\label{peso-8}
-0,30<W54<0,40
+0,30<w_{54}<0,40
 \end{equation}
 
 \begin{figure}[!htb]
@@ -233,7 +233,7 @@ Interligando-se os conceitos com as relações de causa e efeito, obtém-se o FCM d
 \end{figure}
 
 \begin{equation}\label{W-matrix}
-    Winicial=\left(
+    W_{inicial}=\left(
        \begin{array}{ccccc}
          0,00 & -0,40 & -0,25 & 0,00 & 0,30 \\
          0,36 & 0,00 & 0,00 & 0,00 & w0,00 \\
@@ -245,7 +245,7 @@ Interligando-se os conceitos com as relações de causa e efeito, obtém-se o FCM d
 \end{equation}
 
 \begin{equation}\label{A-matrix}
-    Winicial=\left(
+    W_{inicial}=\left(
        \begin{array}{ccccc}
          0,10 & 0,45 & 0,39 & 0,04 & 0,01 \\
        \end{array}
@@ -265,7 +265,7 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é 
 \begin{figure}[!htb]
     \centering
     \includegraphics{./figs/reinforcement.png}
-    \caption[Mapa Cognitivo Fuzzy]{Algoritmo de aprendizado por reforço.}
+    \caption[Algoritmo de aprendizado por reforço]{Algoritmo de aprendizado por reforço.}
     \fonte{\cite{MENDONCA}}
     \label{fig:reinforcement-alg}
 \end{figure}
@@ -288,7 +288,7 @@ Primeiramente, foi construído um FCM que descreve o comportamente reativo do rob
 \begin{figure}[!htb]
     \centering
     \includegraphics{./figs/fcm-robot.png}
-    \caption[Mapa Cognitivo Fuzzy]{FCM do comportamento reativo do robô.}
+    \caption[FCM do comportamento reativo do robô]{FCM do comportamento reativo do robô.}
     \fonte{\cite{MENDONCA}}
     \label{fig:fcm-robot}
 \end{figure}
