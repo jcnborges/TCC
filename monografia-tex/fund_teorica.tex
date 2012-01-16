@@ -270,16 +270,37 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é 
     \label{fig:reinforcement-alg}
 \end{figure}
 
-Primeiramente, foi construído um FCM que descreve o comportamente reativo do robô, no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento do robô. Os seguintes conceitos foram definidos e o FCM da figura \ref{fcm-robot} foi projetado.
+Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente. De acordo com esse mapa, decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations}.
+
+\begin{table}
+	\centering
+	\caption[Relações causais do controlador do robô]{Relações causais do controlador do robô.}		
+	\begin{tabular}[!htb]{ l l l l }
+	  \hline
+	  Relação causal & Descrição & Efeito & Intensidade \\  
+	  \hline
+	  $w_1$ & Sensor direito (RS) incluencia saída esquerda (LO) & Positivo & Forte \\
+	  $w_2$ & Sensor frontal (FS) incluencia saída esquerda (LO) & Positivo & Médio \\
+	  $w_3$ & Sensor frontal (FS) incluencia saída frontal (FO) & Positivo & Forte \\
+	  $w_4$ & Sensor frontal (FS) incluencia saída direita (RO) & Positivo & Médio \\
+	  $w_5$ & Sensor esquerdo (LS) incluencia saída direita (RO) & Positivo & Forte \\
+	  $w_6$ & Sensor esquerdo (LS) incluencia saída direita (RO) & Negativo & Fraco \\
+	  $w_7$ & Sensor direito (RS) incluencia saída esquerda (LO) & Negativo & Fraco \\
+	  $w_8$ & Sensor direito (RS) incluencia saída direita (RO) & Negativo & Fraco \\
+	  $w_9$ & Sensor esquerdo (LS) incluencia saída esquerda (LO) & Negativo & Fraco \\  
+	  \hline  	  
+	\end{tabular}
+	\label{tab:causal-relations}
+\end{table}
 
 \begin{itemize}
-\item Conceito R.S.: Leitura do sensor da direita;
-\item Conceito F.S.: Leitura do sensor frontal;
-\item Conceito L.S.: Leitura do sensor esquerdo;
-\item Conceito L.O.: Representa decisões sobre virar a esquerda;
-\item Conceito R.O.: Representa decisões sobre virar a direita;
-\item Conceito L.O.(-1): Decisão anterior sobre virar a esquerda;
-\item Conceito R.O.(-1): Decisão anterior sobre virar a direita;
+\item Conceito RS: Leitura do sensor da direita;
+\item Conceito FS: Leitura do sensor frontal;
+\item Conceito LS: Leitura do sensor esquerdo;
+\item Conceito LO: Representa decisões sobre virar a esquerda;
+\item Conceito RO: Representa decisões sobre virar a direita;
+\item Conceito LO(-1): Decisão anterior sobre virar a esquerda;
+\item Conceito RO(-1): Decisão anterior sobre virar a direita;
 \item Conceito Out Left: O robô vira à esquerda;
 \item Conceito Out Front: O robô acelera;
 \item Conceito Out Right: O robô vira à direita.
