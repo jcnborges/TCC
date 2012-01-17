@@ -8,24 +8,20 @@
 #include "protocolo.h"
 
 // -------------------------------------------------------------
-//
 // Flags Debug
-//
 // -------------------------------------------------------------
 
 //#define DBG_SETUP
 //#define DBG_COM2
-#define DBG_PKG
-
+//#define DBG_PKG
 // -------------------------------------------------------------
-//
 // Constantes
-//
 // -------------------------------------------------------------
-const int NSENSORS = 6; // Numero de sensores
-const int NENCODERS = 2; // Numero de encoders
-const int SZ_MSG_SENSOR = 4; // Tamanho do pacote de dados de um sensor (bytes)
+enum {LEFT, RIGHT, NENCODERS};
+enum {L30, MID, NOT, R30, R60, E60, NSENSORS};
+const int NADJUSTMENTS = 10; // Numero de ajustes entre as execucoes do algoritmo
 const int SZ_MSG_ENCODER = 5; // Tamanho do pacote de dados de um encoder (bytes)
+const int SZ_MSG_SENSOR = 4; // Tamanho do pacote de dados de um sensor (bytes)
 const int distances[256] = { // Tabela de conversao de distancias (valor DA para cm)
  150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150,
  150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150,
@@ -44,25 +40,23 @@ const int distances[256] = { // Tabela de conversao de distancias (valor DA para
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
 };
-const int MAX_VELOCITY = 15; // Maximo passo de velocidade do robo
-const double TIME_WINDOW = 0.5; // Duracao minima de uma operacao
+const int MAX_VELOCITY = 75; // Maximo passo de velocidade do robo
+const double TIME_WINDOW = 0.075; // Duracao minima de uma operacao
+const char* SNAME[] = { "L30", "MID", "___", "R30", "R60", "E60"};
+const char* ENAME[] = { "LEFT", "RIGHT" };
 
 // -------------------------------------------------------------
-//
 // Variaveis Globais
-//
 // -------------------------------------------------------------
 int tty_fd; // File descriptor do terminal (COM2) TS-7260
-int vLeft = 0, vRight = 0; // Velocidade das rodas
+int vLeft = 0, vRight = 0; // Velocidade ATUAL das rodas
+int SP[NENCODERS];
 int last_dist[NSENSORS];
 int last_enc[NENCODERS];
 int last_step[NENCODERS];
-enum {LEFT, RIGHT};
 
 // -------------------------------------------------------------
-//
 // Funcoes Auxiliares
-//
 // -------------------------------------------------------------
 
 int MIN(int a, int b){ return a < b ? a : b; }
@@ -106,9 +100,43 @@ int open_serial_port()
 #endif
 }
 
+void show_info(){
+	int i;
+	for(i = 0; i < NSENSORS; ++i) if(i != NOT)
+		printf("Sensor [%4s] %3dcm\n", SNAME[i], last_dist[i]);
+	for(i = 0; i < NENCODERS; ++i)
+		printf("Encoder %6s: %6d\n", ENAME[i], last_step[i]);
+}
+
 void send_package(char msg[], int msg_size)
 {	
 	for (int i = 0; i < msg_size; i++) write(tty_fd, &msg[i], 1);
+}
+
+void accelerate(int wheel, int dv)
+{
+	char msg_pwm[4];
+	printf("Accelerate %5s %3d --> ", ENAME[wheel], dv);
+	if (wheel == LEFT)
+	{
+		msg_pwm[0] = LEFT_WHEEL;
+		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
+		printf("%3d\n", vLeft);
+	} else if (wheel == RIGHT) {
+		msg_pwm[0] = RIGHT_WHEEL;
+		msg_pwm[1] = vRight = MAX(MIN(vRight + dv, MAX_VELOCITY), 0);
+		printf("%3d\n", vRight);
+	}
+	msg_pwm[2] = END_CMD;
+	msg_pwm[3] = 10;
+	send_package(msg_pwm, 3);
+}
+
+void adjust_velocity(){
+	for(int i = 0; i < NENCODERS; ++i){
+		int diff = (SP[i] - last_step[i]);
+		accelerate(i, diff);
+	}
 }
 
 int read_package()
@@ -165,15 +193,18 @@ int read_package()
 		if(bytes_received == SZ_PKG){
 #ifdef DBG_PKG
 			printf("=== Pacote %4d ===\r\n", ++npkg);
+#endif
 			//while((clock() - last_sync) / (double)CLOCKS_PER_SEC < 0.5);
-			for(i = 0; i < 6; ++i)
+			for(i = 0; i < NSENSORS; ++i)
 			{
 				unsigned char high;
 				high = 256 + rcv[SZ_MSG_SENSOR * i + 1];
-				printf("Sensor %d: %3d cm (%d)\r\n", rcv[SZ_MSG_SENSOR * i] - 34, distances[high], high);
+#ifdef DBG_PKG
+				//printf("Sensor %d: %3d cm (%d)\r\n", rcv[SZ_MSG_SENSOR * i] - 34, distances[high], high);
+#endif
 				last_dist[i] = distances[high];
 			}
-			for(i = 0; i < 2; ++i)
+			for(i = 0; i < NENCODERS; ++i)
 			{
 				unsigned char high, low;
 				high = 256 + rcv[OFFSET + 1 + i * SZ_MSG_ENCODER];
@@ -182,32 +213,16 @@ int read_package()
 				last_step[i] = ((high << 8) | low) - last_enc[i];
 				if(last_step[i] < 0) last_step[i] += 65536;
 				last_enc[i] = (high << 8) | low;
-				printf("Encoder %d: %6d (%3u %3u)\r\n", rcv[OFFSET + i * 5] - 32, 
-						last_step[i], high, low);	
-			}
+#ifdef DBG_PKG
+				//printf("Encoder %d: %6d (%3u %3u)\r\n", rcv[OFFSET + i * 5] - 32, 
+				//		last_step[i], high, low);	
 #endif
+			}
 			last_sync = clock();
 			return 1;
 		}
 	}
 
-}
-
-void accelerate(int wheel, int dv)
-{
-	char msg_pwm[4];
-	if (wheel == LEFT)
-	{
-		msg_pwm[0] = LEFT_WHEEL;
-		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
-	} else if (wheel == RIGHT)
-	{
-		msg_pwm[0] = RIGHT_WHEEL;
-		msg_pwm[1] = vRight = MAX(MIN(vRight + dv, MAX_VELOCITY), 0);
-	}
-	msg_pwm[2] = END_CMD;
-	msg_pwm[3] = 10;
-	send_package(msg_pwm, 3);
 }
 
 int main()
@@ -216,19 +231,25 @@ int main()
 	int min_dist;
 	clock_t op_begin; 
 	open_serial_port();
-	
+
+	SP[LEFT] = SP[RIGHT] = 20;
 	last_enc[LEFT] = last_enc[RIGHT] = -1;
-	accelerate(LEFT, 15);
-	accelerate(RIGHT, 15);
-	while (1)
-	{
+	last_step[LEFT] = last_step[RIGHT] = 0;
+
+	//accelerate(LEFT, MAX_VELOCITY);
+	//accelerate(RIGHT, MAX_VELOCITY);
+
+	for(cnt = 0; ; ++cnt){
 		op_begin = clock();
+		adjust_velocity();
 		read_package();
-		min_dist = 1024;
+#ifdef DBG_VELOCITY_TEST
 		/* {{{ Codigo de teste dos motores */
+		min_dist = 1024;
 		for(i = 0; i < 6; ++i)
 			if(last_dist[i] != -1 && last_dist[i] < min_dist)
 				min_dist = last_dist[i];
+		min_dist = 55;
 
 		/*
 		if(min_dist < 50){
@@ -245,10 +266,15 @@ int main()
 			}
 		}
 		*/
-		printf("LEFT : %3d \r\nRIGHT: %3d \r\n", vLeft, vRight);
-		cnt++;
+#endif
 		/* }}} */
-		printf("Operacao completa, tempo: %.3lfs\n", (clock() - op_begin) / (double) CLOCKS_PER_SEC);
+
+		if(cnt == NADJUSTMENTS){
+			printf("SP[%5s] = %3d\nSP[%5s] = %3d\n", ENAME[0], SP[0], ENAME[1], SP[1]);
+			show_info();
+			cnt = 0;
+		}
+		//printf("Operacao completa, tempo: %.3lfs\n", (clock() - op_begin) / (double) CLOCKS_PER_SEC);
 		while((clock() - op_begin) / (double) CLOCKS_PER_SEC < TIME_WINDOW);
 	}
 	close(tty_fd);
