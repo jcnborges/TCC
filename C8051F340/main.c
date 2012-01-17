@@ -23,7 +23,7 @@
 #define BAUDRATE1      115200   // Baud rate of UART1 in bps
 sfr16   SBRL1 = 0xB4;
 
-#define VELOCITY_STEP 5	// DEFINE O PASSO DE VELOCIDADE. PODE SER DIMINUIDO PARA OBTER MAIS NIVEIS
+#define VELOCITY_STEP 1	// DEFINE O PASSO DE VELOCIDADE. PODE SER DIMINUIDO PARA OBTER MAIS NIVEIS
 #define TMAX 75			// PWMS com duty cycle de 75 overflows do timer0
 
 unsigned int pwm_right=0;	// PWM RODA DIREITA
@@ -54,7 +54,7 @@ bit UART = 0;
 
 unsigned int encoder_count[2] = {0, 0};
 
-
+/* Nao esta sendo usado!
 char putchar (char c)  {
 
    if (UART == 0) {
@@ -80,7 +80,7 @@ char putchar (char c)  {
       return (SBUF1 = c);              // output <c> using UART 1
    }
 }
-
+*/
 void pwm_setup(){
     // 0000 0011
 	TMOD = (TMOD | 0x03);	// Programa o Timer0 para para Operacao em modo 3, como 2 timers de 8
