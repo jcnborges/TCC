@@ -5,8 +5,7 @@
 #include <fcntl.h> 
 #include <termios.h>
 #include <time.h>
-#include "protocolo.h"
-
+#include "protocolo.h" 
 // -------------------------------------------------------------
 // Flags Debug
 // -------------------------------------------------------------
@@ -14,6 +13,10 @@
 //#define DBG_SETUP
 //#define DBG_COM2
 //#define DBG_PKG
+//#define DBG_ACC
+#define vLeft v[LEFT]
+#define vRight v[RIGHT]
+
 // -------------------------------------------------------------
 // Constantes
 // -------------------------------------------------------------
@@ -49,11 +52,10 @@ const char* ENAME[] = { "LEFT", "RIGHT" };
 // Variaveis Globais
 // -------------------------------------------------------------
 int tty_fd; // File descriptor do terminal (COM2) TS-7260
-int vLeft = 0, vRight = 0; // Velocidade ATUAL das rodas
-int SP[NENCODERS];
-int last_dist[NSENSORS];
-int last_enc[NENCODERS];
-int last_step[NENCODERS];
+unsigned int v[2] = {0, 0}; // Velocidade atual das rodas
+unsigned int SP[NENCODERS];
+unsigned int last_dist[NSENSORS];
+unsigned int last_step[NENCODERS];
 
 // -------------------------------------------------------------
 // Funcoes Auxiliares
@@ -105,7 +107,7 @@ void show_info(){
 	for(i = 0; i < NSENSORS; ++i) if(i != NOT)
 		printf("Sensor [%4s] %3dcm\n", SNAME[i], last_dist[i]);
 	for(i = 0; i < NENCODERS; ++i)
-		printf("Encoder %6s: %6d\n", ENAME[i], last_step[i]);
+		printf("Encoder %6s: %6d [%3d]\n", ENAME[i], last_step[i], v[i]);
 }
 
 void send_package(char msg[], int msg_size)
@@ -115,17 +117,24 @@ void send_package(char msg[], int msg_size)
 
 void accelerate(int wheel, int dv)
 {
+	if(!dv) return;
 	char msg_pwm[4];
+#ifdef DBG_ACC
 	printf("Accelerate %5s %3d --> ", ENAME[wheel], dv);
+#endif
 	if (wheel == LEFT)
 	{
 		msg_pwm[0] = LEFT_WHEEL;
 		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
-		printf("%3d\n", vLeft);
+#ifdef DBG_ACC
+		printf("LEFT_WHEEL  %3d\n", vLeft);
+#endif
 	} else if (wheel == RIGHT) {
 		msg_pwm[0] = RIGHT_WHEEL;
 		msg_pwm[1] = vRight = MAX(MIN(vRight + dv, MAX_VELOCITY), 0);
-		printf("%3d\n", vRight);
+#ifdef DBG_ACC
+		printf("RIGHT_WHEEL %3d\n", vRight);
+#endif
 	}
 	msg_pwm[2] = END_CMD;
 	msg_pwm[3] = 10;
@@ -133,9 +142,13 @@ void accelerate(int wheel, int dv)
 }
 
 void adjust_velocity(){
+	int diff, step;
 	for(int i = 0; i < NENCODERS; ++i){
-		int diff = (SP[i] - last_step[i]);
-		accelerate(i, diff);
+		diff = SP[i] - last_step[i];
+		if(abs(diff) > 10) step = 8;
+		else step = 1;
+		if(diff < 0) step = -step;
+		accelerate(i, step);
 	}
 }
 
@@ -200,7 +213,7 @@ int read_package()
 				unsigned char high;
 				high = 256 + rcv[SZ_MSG_SENSOR * i + 1];
 #ifdef DBG_PKG
-				//printf("Sensor %d: %3d cm (%d)\r\n", rcv[SZ_MSG_SENSOR * i] - 34, distances[high], high);
+				printf("Sensor %d: %3d cm (%d)\r\n", rcv[SZ_MSG_SENSOR * i] - 34, distances[high], high);
 #endif
 				last_dist[i] = distances[high];
 			}
@@ -209,13 +222,10 @@ int read_package()
 				unsigned char high, low;
 				high = 256 + rcv[OFFSET + 1 + i * SZ_MSG_ENCODER];
 				low = 256 + rcv[OFFSET + i * SZ_MSG_ENCODER + 2];  
-				if(last_enc[i] == -1) last_enc[i] = (high << 8) | low;
-				last_step[i] = ((high << 8) | low) - last_enc[i];
-				if(last_step[i] < 0) last_step[i] += 65536;
-				last_enc[i] = (high << 8) | low;
+				last_step[i] = ((high << 8) | low);
 #ifdef DBG_PKG
-				//printf("Encoder %d: %6d (%3u %3u)\r\n", rcv[OFFSET + i * 5] - 32, 
-				//		last_step[i], high, low);	
+				printf("Encoder %d: %6d (%3u %3u)\r\n", rcv[OFFSET + i * 5] - 32, 
+						last_step[i], high, low);	
 #endif
 			}
 			last_sync = clock();
@@ -225,38 +235,57 @@ int read_package()
 
 }
 
+
+void set_setpoint(int wheel, int value){
+#ifdef DBG_SP
+	printf("Changing SP[%5s] = %d\n", ENAME[wheel], value);
+#endif
+	SP[wheel] = value;
+}
+
+void set_setpoint(int value){
+	set_setpoint(LEFT, value);
+	set_setpoint(RIGHT, value);
+}
+
+#define VAI 30
 int main()
 {
-	int i, cnt = 0;
+	int i, cnt = 0, cnt_t = 0;
 	int min_dist;
 	clock_t op_begin; 
+	char command[8];
 	open_serial_port();
 
-	SP[LEFT] = SP[RIGHT] = 20;
-	last_enc[LEFT] = last_enc[RIGHT] = -1;
+	set_setpoint(20);
 	last_step[LEFT] = last_step[RIGHT] = 0;
+	accelerate(LEFT, -MAX_VELOCITY);
+	accelerate(RIGHT, -MAX_VELOCITY);
+	do {
+		scanf("%s", command);
+	} while(strcmp(command, "bacon"));
 
-	//accelerate(LEFT, MAX_VELOCITY);
-	//accelerate(RIGHT, MAX_VELOCITY);
-
-	for(cnt = 0; ; ++cnt){
+	for(cnt = 0; ; ){
 		op_begin = clock();
-		adjust_velocity();
 		read_package();
-#ifdef DBG_VELOCITY_TEST
+
 		/* {{{ Codigo de teste dos motores */
 		min_dist = 1024;
 		for(i = 0; i < 6; ++i)
 			if(last_dist[i] != -1 && last_dist[i] < min_dist)
 				min_dist = last_dist[i];
-		min_dist = 55;
 
-		/*
 		if(min_dist < 50){
 			accelerate(LEFT, -MAX_VELOCITY);
 			accelerate(RIGHT, -MAX_VELOCITY);
-			cnt = 0;
+			show_info();
 		} else {
+			adjust_velocity();
+			++cnt;
+		}
+#ifdef DBG_VELOCITY_TEST
+		/*
+		else {
 			if(!((cnt / MAX_VELOCITY) & 1)){
 				accelerate(RIGHT, 1);
 				accelerate(LEFT, 1);
@@ -271,7 +300,9 @@ int main()
 
 		if(cnt == NADJUSTMENTS){
 			printf("SP[%5s] = %3d\nSP[%5s] = %3d\n", ENAME[0], SP[0], ENAME[1], SP[1]);
+#ifndef DBG_PKG
 			show_info();
+#endif
 			cnt = 0;
 		}
 		//printf("Operacao completa, tempo: %.3lfs\n", (clock() - op_begin) / (double) CLOCKS_PER_SEC);
