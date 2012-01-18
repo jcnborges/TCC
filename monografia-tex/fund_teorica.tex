@@ -125,12 +125,12 @@ O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cogniti
 A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os "nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada "nó" é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
 
 \begin{itemize}
-    \item Conceito de nível: esse conceito pode pode ser representado por um valor absoluto;
-    \item Conceito de variação: esse tipo de conceito representa a variação de um valor no tempo;
-    \item Conceitos de entradas: esses conceitos recebem um valor de entrada e podem interagir com outros conceitos;
-    \item Conceito de saída ou de decisão: esses conceitos representam o resultado das inferências do FCM e não interagem com outros conceitos;
-    \item Relações causais: essas conexões representam as relações de causa e efeito entre os conceitos e são calculadas através da matriz de pesos (matriz W);
-    \item Declarações condicionais: esses elementos são as relações causais expressas na forma de regras \emph{se-então} e são atualizadas temporalmente. 
+    \item Conceito de nível: Esse conceito pode pode ser representado por um valor absoluto;
+    \item Conceito de variação: Esse tipo de conceito representa a variação de um valor no tempo;
+    \item Conceitos de entradas: Esses conceitos recebem um valor de entrada e podem interagir com outros conceitos;
+    \item Conceitos de saída ou de decisão: Esses conceitos representam o resultado das inferências do FCM e não interagem com outros conceitos;
+    \item Relações causais: Essas conexões representam as relações de causa e efeito entre os conceitos e são calculadas através da matriz de pesos (matriz W);
+    \item Declarações condicionais: Esses elementos são as relações causais expressas na forma de regras \emph{se-então} e são atualizadas temporalmente. 
 \end{itemize}
 
 Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual j é o contador das iterações, n é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f \ref{sigmoide} é uma função do tipo sigmóide.
@@ -244,7 +244,7 @@ Interligando-se os conceitos com as relações de causa e efeito, obtém-se o FCM d
 \end{figure}
 
 \begin{equation}\label{W-matrix}
-    W_{inicial}=\left(
+    W^{inicial}=\left(
        \begin{array}{ccccc}
          0,00 & -0,40 & -0,25 & 0,00 & 0,30 \\
          0,36 & 0,00 & 0,00 & 0,00 & w0,00 \\
@@ -256,7 +256,7 @@ Interligando-se os conceitos com as relações de causa e efeito, obtém-se o FCM d
 \end{equation}
 
 \begin{equation}\label{A-matrix}
-    W_{inicial}=\left(
+    A^{inicial}=\left(
        \begin{array}{ccccc}
          0,10 & 0,45 & 0,39 & 0,04 & 0,01 \\
        \end{array}
@@ -281,7 +281,7 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é 
     \label{fig:reinforcement-alg}
 \end{figure}
 
-Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente. De acordo com esse mapa, decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations}.
+Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations}.
 
 \begin{table}
 	\centering
@@ -290,32 +290,20 @@ Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\  
 	  \hline
-	  $w_1$ & Sensor direito (RS) incluencia saída esquerda (LO) & Positivo & Forte \\
-	  $w_2$ & Sensor frontal (FS) incluencia saída esquerda (LO) & Positivo & Médio \\
-	  $w_3$ & Sensor frontal (FS) incluencia saída frontal (FO) & Positivo & Forte \\
-	  $w_4$ & Sensor frontal (FS) incluencia saída direita (RO) & Positivo & Médio \\
-	  $w_5$ & Sensor esquerdo (LS) incluencia saída direita (RO) & Positivo & Forte \\
-	  $w_6$ & Sensor esquerdo (LS) incluencia saída direita (RO) & Negativo & Fraco \\
-	  $w_7$ & Sensor direito (RS) incluencia saída esquerda (LO) & Negativo & Fraco \\
-	  $w_8$ & Sensor direito (RS) incluencia saída direita (RO) & Negativo & Fraco \\
-	  $w_9$ & Sensor esquerdo (LS) incluencia saída esquerda (LO) & Negativo & Fraco \\  
+	  $w_1$ & Sensor direito (RS) incluencia a saída esquerda (LO) & Positivo & Forte \\
+	  $w_2$ & Sensor frontal (FS) incluencia a saída esquerda (LO) & Positivo & Médio \\
+	  $w_3$ & Sensor frontal (FS) incluencia a saída frontal (FO) & Positivo & Forte \\
+	  $w_4$ & Sensor frontal (FS) incluencia a saída direita (RO) & Positivo & Médio \\
+	  $w_5$ & Sensor esquerdo (LS) incluencia a saída direita (RO) & Positivo & Forte \\
+	  $w_6$ & Sensor esquerdo (LS) incluencia a saída direita (RO) & Negativo & Fraco \\
+	  $w_7$ & Sensor direito (RS) incluencia a saída esquerda (LO) & Negativo & Fraco \\
+	  $w_8$ & Sensor direito (RS) incluencia a saída direita (RO) & Negativo & Fraco \\
+	  $w_9$ & Sensor esquerdo (LS) incluencia a saída esquerda (LO) & Negativo & Fraco \\  
 	  \hline  	  
 	\end{tabular}
+	\fonte{\cite{MENDONCA}}
 	\label{tab:causal-relations}
 \end{table}
-
-\begin{itemize}
-\item Conceito RS: Leitura do sensor da direita;
-\item Conceito FS: Leitura do sensor frontal;
-\item Conceito LS: Leitura do sensor esquerdo;
-\item Conceito LO: Representa decisões sobre virar a esquerda;
-\item Conceito RO: Representa decisões sobre virar a direita;
-\item Conceito LO(-1): Decisão anterior sobre virar a esquerda;
-\item Conceito RO(-1): Decisão anterior sobre virar a direita;
-\item Conceito Out Left: O robô vira à esquerda;
-\item Conceito Out Front: O robô acelera;
-\item Conceito Out Right: O robô vira à direita.
-\end{itemize}
 
 \begin{figure}[!htb]
     \centering
