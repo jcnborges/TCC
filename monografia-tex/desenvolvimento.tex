@@ -106,6 +106,34 @@ A placa de roteamento foi confeccionada manualmente em uma placa de circuito imp
 
 \section{Placa TS-7260}
 %Descrição do motivo da escolha da placa, implementação de códigos auxiliares aos algoritmos (comunicação, etc)...
+Esta seção explicará como foi estruturado o software desenvolvido para a placa
+TS-7260, com o objetivo de guiar o robô em sua navegação, através da execução
+dos algoritmos de navegação.
+
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=8em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+    
+\begin{tikzpicture}[node distance = 2cm, auto]
+	% Nós do flowchart
+	\node [block] (opentty) {Configura serial};
+	\node [block, below of=opentty] (sync) {Envia SYNC};
+	\node [block, below of=sync] (read) {Leitura dos dados};
+	\node [block, below of=read] (alg) {Executa algoritmo de navegação};
+	\node [block, below of=alg] (adj) {Envia as ações};
+	\node [block, below of=adj] (end) {Loop};
+	% Ligações
+	\path [line] (opentty)  -- (sync);
+	\path [line] (sync) -- (read);
+	\path [line] (read) -- (alg);
+	\path [line] (alg) -- (adj);
+	\path [line] (adj) -- (end);
+	\path [line] (end) -- +(-2.5,0) |- (sync);
+\end{tikzpicture}
 
 \section{Algoritmos de Navegação}
 \label{sec:algs}
