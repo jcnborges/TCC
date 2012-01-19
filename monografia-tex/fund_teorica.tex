@@ -20,9 +20,9 @@ O robô disponibilizado à equipe para a realização desse trabalho, o Bellator, é 
 	\label{fig:diagsis}
 \end{figure}
 
-A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo nível é composta pelo robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, seis sensores de distância "2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7,2 Ampére hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa está conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada de alto nível para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo. Além disso, o PC embarcado envia, também via comunicação sem fio, um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão.
+A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo nível é composta pelo robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, cinco sensores de distância ``2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7,2 Ampére hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa está conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada de alto nível para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo. Além disso, o PC embarcado envia, também via comunicação sem fio, um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão.
 
-O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto "Algoritmos de Navegação Fuzzy: Uma Análise Qualitativa". Assim, não será feita uma descrição detalhada de todos os componentes do projeto Bellator. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram reaproveitados.
+O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto ``Algoritmos de Navegação Fuzzy: Uma Análise Qualitativa". Assim, não será feita uma descrição detalhada de todos os componentes do projeto Bellator. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram reaproveitados.
 
 \subsection{Recebimento do Robô}
 \label{sec:recrobo}
@@ -31,7 +31,7 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 
 \begin{itemize}
 \item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acoplados;
-\item Cinco sensores de distância "2Y0A02F98" da Sharp;
+\item Cinco sensores de distância ``2Y0A02F98" da Sharp;
 \item Duas baterias Unybatt 12V-7,2 Ampére hora;
 \item Uma placa micro-controlada C8051F340;
 \item Uma placa de roteamento, produzida pelo projeto Bellator;
@@ -40,7 +40,7 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 
 O chassi do robô e seus componentes acoplados são a base da plataforma robótica a ser utilizada pela equipe e são críticas para a execução desse trabalho. Os sensores de distância, um a menos que os disponíveis no projeto Bellator, são essenciais para a localização do robô e de obstáculos. A placa microcontrolada também é um recurso crítico, pois é o componente responsável por todo o controle de baixo nível do robô cujo software e a documentação serão reaproveitados do projeto Bellator. As baterias são um recurso necessário e de fácil aquisição, ao contrário dos outros componentes citados.
 
-Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não foram recebidos ou não serão utilizados nesse trabalho. A webcam e joystick não foram entregues pois não serão necessários, visto que um sistema de navegação autônomo não necessita de joystick e esse trabalho não abordará navegação através de imagem de vídeo. A placa de roteamento entregue será utilizada nos testes dos componentes, visto que é essencial para o funcionamento do robô. Esta placa será reprojetada e reconstruída. O PC embarcado foi entregue destituído de qualquer documentação. Além disso, como o novo objetivo do robô não necessita de comunicação semfio e não utilizará stream de vídeo, motivo principal para a utilização deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que será descrita em detalhes na seção \ref{chap:esprob}.
+Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não foram recebidos ou não serão utilizados nesse trabalho. A webcam e joystick não foram entregues pois não serão necessários, visto que um sistema de navegação autônomo não necessita de joystick e esse trabalho não abordará navegação através de imagem de vídeo. A placa de roteamento entregue será utilizada nos testes dos componentes, visto que é essencial para o funcionamento do robô. Esta placa será reprojetada e reconstruída. O PC embarcado foi entregue destituído de qualquer documentação. Além disso, como o novo objetivo do robô não necessita de comunicação sem fio e não utilizará stream de vídeo, motivo principal para a utilização deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que será descrita em detalhes na seção \ref{chap:esprob}.
 
 A documentação disponível à equipe, produzida durante o projeto Bellator, descreve em detalhes os componentes de hardware dessa plataforma robótica, o software de controle supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340\cite{BELLATOR}. Essa documentação será utilizada como referência para o reaproveitamento do projeto Bellator nesse trabalho, com exceção da documentação referente ao software de controle supervisório, que não será utilizado.
 
@@ -63,12 +63,12 @@ Um conjunto fuzzy pode ser definido por um conjunto de pares ordenados com o ele
 F=\{(x,f(x)),x\in X\}, f(x) = [0,1]
 \end{equation}
 
-Assim sendo, considere um conjunto "A" simples que contenha tudo o que tem sabor doce. Neste conjunto uma barra de chocolate é doce da mesma forma que cana de açucar, visto que ambos pertencem ao conjunto, ou seja:
+Assim sendo, considere um conjunto ``A" simples que contenha tudo o que tem sabor doce. Neste conjunto uma barra de chocolate é doce da mesma forma que cana de açucar, visto que ambos pertencem ao conjunto, ou seja:
 (barra de chocolate) $\in$ A e (cana de açucar) $\in$ A
 Em um conjunto fuzzy B que contemple tudo o que tem sabor doce, torna-se possível atribuir um nível de afiliação ao conjunto através de uma função de pertinência f  permitindo dizer que, por exemplo, a cana de açucar é doce com nível de pertinencia 1, enquanto que a barra de chocolate é doce com nível de pertinência 0.8, ou seja:
 ((cana de açucar),f(cana de açucar)) $\in$ B, f(cana de açucar) = 1
 ((barra de chocolate),f(barra de chocolate)) $\in$ B, f(barra de chocolate) = 0.8
-Isto aproxima-se mais da forma como a cognição e intuição humana funcionam, que frequentemente usa-se de palavras como "mais", "muito", "pouco", entre outras, para definir graus de pertinência a conjuntos de uma forma subjetiva.
+Isto aproxima-se mais da forma como a cognição e intuição humana funcionam, que frequentemente usa-se de palavras como ``mais", ``muito", ``pouco", entre outras, para definir graus de pertinência a conjuntos de uma forma subjetiva.
 
 \subsection{Variável Linguística}
 
@@ -81,15 +81,17 @@ T = \{frio, morno, quente\}
 \end{equation}
 Considere também os seguintes conjuntos fuzzy:
 \begin{equation}
-F = \{(t,f(t)),t \in \mathbb{R}\}
-M = \{(t,m(t)),t \in \mathbb{R}\}
-Q = \{(t,q(t)),t \in \mathbb{R}\}
+	\begin{array}{lcl}
+		F & = & \{(t,f(t)),t \in \mathbb{R}\} \\
+		M & = & \{(t,m(t)),t \in \mathbb{R}\} \\
+		Q & = & \{(t,q(t)),t \in \mathbb{R}\} \\
+	\end{array}
 \end{equation}
-sendo f, m e q funções de pertinência, respectivamente, aos conjuntos fuzzy F, M e Q, com valores de pertinência pertencentes ao intervalo [0,1] e t uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy F, M e Q aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável t pode ser traduzido em um valor equivalente para a variável linguística T, dependendo apenas da definição das funções de pertinência f, m e q.
+sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, aos conjuntos fuzzy \emph{\mbox{F, M e Q}}, com valores de pertinência pertencentes ao intervalo [0,1] e \emph{t} uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy \emph{\mbox{F, M e Q}} aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável \emph{t} pode ser traduzido em um valor equivalente para a variável linguística \emph{T}, dependendo apenas da definição das funções de pertinência \emph{\mbox{f(t), m(t) e q(t)}}.
 
 %Figura definição f m q
 
-Se considerarmos, por exemplo, a definição gráfica para as funções f, m e q dada na figura acima, e três valores de temperatura, t1 = 30, t2 = 50 e t3 = 90, temos que os valores correspondentes de temperatura para a variável linguística T são T1 = (0.5 frio, 0.5 morno, 0.0 quente), T2 = (0.0 frio, 1.0 morno, 0.0 quente) e T3 = (0.0 frio, 0.0 morno, 1.0 quente), respectivamente. Ou seja, informalmente, a temperatura t1 é "meio fria" e "meio morno", a temperatura t2 é "morno" e a temperatura t3 é "quente". Este processo de conversão para uma variável linguística é comumente chamado de "fuzzificação".
+Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f(t), m(t) e q(t)}} dada na figura acima, e três valores de temperatura, \emph{\mbox{t1 = 30, t2 = 50 e t3 = 90}}, temos que os valores correspondentes de temperatura para a variável linguística T são \mbox{T1 = (0.5 frio, 0.5 morno, 0.0 quente)}, \mbox{T2 = (0.0 frio, 1.0 morno, 0.0 quente)} e \mbox{T3 = (0.0 frio, 0.0 morno, 1.0 quente)}, respectivamente. Ou seja, informalmente, a temperatura t1 é representa que o material está ``meio frio" e ``meio morno", a temperatura t2 indica que está ``morno" e a temperatura t3, por sua vez, ``quente". Este processo de conversão para uma variável linguística é comumente chamado de ``fuzzificação".
 
 %descrever o processo inverso.
 
@@ -162,7 +164,7 @@ Esta seção tem como objetivo explicar o que são mapas cognitivos fuzzy, também c
 
 O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo fuzzy é gerado quando se incluem a essa estrutura incertezas através da lógica Fuzzy.
 
-A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os "nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada "nó" é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
+A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os ``nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada ``nó" é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
 
 \begin{itemize}
     \item Conceito de nível: Esse conceito pode pode ser representado por um valor absoluto;
@@ -203,7 +205,7 @@ A_i=f(\sum_{\substack{j=1 \\ j\neq i}}^{n} A_j \times W_{ji})+A_i^{anterior}
 f(x)=\frac{1} {1+e^{-\lambda x}}
 \end{equation}
 
-Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é a que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
+Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
 Na tese de \cite{FCMENDONCA}, são apresentados os seguintes passos para construção de um FCM:
 
