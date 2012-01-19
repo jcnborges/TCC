@@ -248,7 +248,7 @@ G_{min}<G<G_{max}
 \item Conceito 5: Valor de massa específica do líquido medido pelo sensor G.
 \end{itemize}
 
-Interligando-se os conceitos com as relações de causa e efeito, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} para o controlador do processo. Além dos conceitos, os especilistas no processo determinaram um domínio para as variáveis que resultou em uma faixa de valores para as relações causais, equações \ref{peso-1} a \ref{peso-8}. Após a estabilização do mapa, obteve-se os pesos da matrix \ref{W-matrix} e os valores dos conceitos da matrix \ref{A-matrix} e, desse modo, os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente.
+Interligando-se os conceitos através de relações de causa e efeito, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} cujos pesos das relações são dados pelas inequações \ref{peso-1} a \ref{peso-8}. O controlador do processo é executado e, após a estabilização, obtiveram-se os pesos da matriz \ref{W-matrix} e os valores dos conceitos da matriz \ref{A-matrix}. Os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente, e o processo industrial é controlado adequadamente.
 
 \begin{equation}\label{peso-1}
 -0,50<w_{12}<0,30
@@ -321,7 +321,16 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é 
     \label{fig:reinforcement-alg}
 \end{figure}
 
-Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations}.
+O FCM descreve o comportamento reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations} e as regras de a seguir determinam o comportamento do mapa.
+
+\begin{enumerate}
+\item SE a intensidade do sensor frontal (FS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_3$ é o valor máximo de $WF_max$;
+\item SE a intensidade do sensor frontal (FS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_3$ é o valor mínimo de $WF_min$;
+\item SE a intensidade do sensor direito (RS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_1$ é o valor máximo de $WR_max$;
+\item SE a intensidade do sensor direito (RS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_1$ é o valor mínimo de $WR_min$;
+\item SE a intensidade do sensor esquerdo (LS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_5$ é o valor máximo de $WL_max$;
+\item SE a intensidade do sensor direito (LS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_5$ é o valor mínimo de $WL_min$.
+\end{enumerate}
 
 \begin{table}
 	\centering
@@ -352,6 +361,8 @@ Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô
     \fonte{\cite{MENDONCA}}
     \label{fig:fcm-robot}
 \end{figure}
+
+Essas regras determinam a política de mudança de estados do mapa e os pesos dos relacionamentos são responsáveis pelas decisões de o robô virar à esquerda, acelerar ou virar à direita. Nesse contexto, o valor atual desses pesos depende da diferença entre os valores anteriores e o valor máximo admissível ponderado por um fator $\gamma$ . O incremento dos pesos também leva em conta o valor da recompensa ou punicão (r) e de um fator de aprendizagem $\alpha$ , os quais estão associados ao algoritmo de aprendizado por reforço escolhido.
 
 \subsection{Considerações}
 FCM é um modelo linguístico, próximo à linguagem humana, que é baseado na teoria de grafos e que permite interconectar conceitos através de relações de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integração com métodos de treinamento de inteligência artificial. O FCM é indicado para modelagem de sistemas complexos. A navegação robótica é um sistema complexo no qual vários conceitos (sensores e motores) são ativados e interagem entre si para produzir os movimentos adequados ao robô autônomo. A abordagem FCM permite modelar e mapear esses conceitos com a finalidade de implementar um algoritmo de navegação capaz de solucionar o problema.
