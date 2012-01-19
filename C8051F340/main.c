@@ -341,6 +341,7 @@ void send_encoders_info() {
 		command[2] = encoder_count[iencoder] & 0xFF;
 		command[3] = END_CMD;
 		command[4] = '\n';
+		encoder_count[iencoder] = 0;
 		for(indice = 0; indice < 5 ; indice++) {		
 			while(!flag_send);
 			flag_send = 0;

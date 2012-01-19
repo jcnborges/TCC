@@ -4,11 +4,11 @@ COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
 "C:\Coisas de Yuri\10Periodo\TCC\C8051F340\main.obj"  TO "C:\Coisas de Yuri\10Periodo\TCC\C8051F340\Firmware" RS(256) PL(68) PW(78) 
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 034BH BYTE (41%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0354H BYTE (41%) *
 ******************************************************************************
 
 >> 
 >> 
 >> 
-Program Size: data=50.7 xdata=0 code=987
+Program Size: data=50.7 xdata=0 code=996
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

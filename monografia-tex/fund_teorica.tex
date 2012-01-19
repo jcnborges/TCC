@@ -50,14 +50,54 @@ A possibilidade de reaproveitamento parcial do projeto Bellator e o recebimento 
 \input{especificacao}
 
 \section{Lógica Fuzzy}
-Essa seção tem como função descrever o que é a lógica fuzzy, como surgiu, como funciona e como projetar um sistema fuzzy.
 
-A lógica fuzzy é baseada no trabalho de Lofti Zadeh, que propôs a teoria de conjuntos
-fuzzy em 1965~\cite{FUZZYLOGIC}. Na teoria clássica de conjuntos, um elemento tem seu
-grau de pertinência ao conjunto representado por uma variável booleana, ou seja, ou o elemento
-pertence ao conjunto ou não pertence. Num conjunto fuzzy, no entanto, um elemento tem seu grau
-de pertinência representado por um valor real no intervalo [0, 1].
+Esta seção descreve os conceitos fundamentais utilizados pela equipe para o entendimento e implementação do algoritmo de navegação fuzzy, descrito em detalhes na seção \ref{sec:algfuzzy}.
 
+\subsection{Conjuntos Fuzzy}
+
+A teoria de conjuntos fuzzy foi elaborada inicialmente por Lofti Zadeh \cite{ZADEH}, %comofas ref. a artigo no reflatex?
+visando explorar a possibilidade de criar um novo critério de afiliação à conjuntos. Na teoria clássica de conjuntos, um elemento pode apenas pertencer ou não a um conjunto, sendo impossível um nível de pertinência parcial. Já em um conjunto fuzzy, isto torna-se possível.
+Um conjunto fuzzy pode ser definido por um conjunto de pares ordenados com o elemento e sua pertinência ao conjunto fuzzy. Seja F um conjunto fuzzy e X um conjunto de objetos arbitrários, tem-se:
+
+\begin{equation}
+F=\{(x,f(x)),x\in X\}, f(x) = [0,1]
+\end{equation}
+
+Assim sendo, considere um conjunto "A" simples que contenha tudo o que tem sabor doce. Neste conjunto uma barra de chocolate é doce da mesma forma que cana de açucar, visto que ambos pertencem ao conjunto, ou seja:
+(barra de chocolate) $\in$ A e (cana de açucar) $\in$ A
+Em um conjunto fuzzy B que contemple tudo o que tem sabor doce, torna-se possível atribuir um nível de afiliação ao conjunto através de uma função de pertinência f  permitindo dizer que, por exemplo, a cana de açucar é doce com nível de pertinencia 1, enquanto que a barra de chocolate é doce com nível de pertinência 0.8, ou seja:
+((cana de açucar),f(cana de açucar)) $\in$ B, f(cana de açucar) = 1
+((barra de chocolate),f(barra de chocolate)) $\in$ B, f(barra de chocolate) = 0.8
+Isto aproxima-se mais da forma como a cognição e intuição humana funcionam, que frequentemente usa-se de palavras como "mais", "muito", "pouco", entre outras, para definir graus de pertinência a conjuntos de uma forma subjetiva.
+
+\subsection{Variável Linguística}
+
+Uma aplicação direta de conjuntos fuzzy é a definição de variáveis linguísticas. %pedrycz e gomide fuzzy systems toward human centric computing pg40
+Considerando que variável x pode assumir um valor qualquer dentro de um dado conjunto A, pode-se definir como uma variável linguística como uma variável cujo conjunto A de valores possíveis para a mesma é um conjunto de termos linguísticos, tais como, por exemplo, alto, baixo, curto, longo, entre outros. Pode-se estender este conceito associando cada termo linguístico possível de uma variável linguística a um conjunto fuzzy.
+
+Para entender esta definição, considere a variável linguística Temperatura (T) composta pelos termos linguísticos frio, morno e quente:
+\begin{equation}
+T = \{frio, morno, quente\}
+\end{equation}
+Considere também os seguintes conjuntos fuzzy:
+\begin{equation}
+F = \{(t,f(t)),t \in \mathbb{R}\}
+M = \{(t,m(t)),t \in \mathbb{R}\}
+Q = \{(t,q(t)),t \in \mathbb{R}\}
+\end{equation}
+sendo f, m e q funções de pertinência, respectivamente, aos conjuntos fuzzy F, M e Q, com valores de pertinência pertencentes ao intervalo [0,1] e t uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy F, M e Q aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável t pode ser traduzido em um valor equivalente para a variável linguística T, dependendo apenas da definição das funções de pertinência f, m e q.
+
+%Figura definição f m q
+
+Se considerarmos, por exemplo, a definição gráfica para as funções f, m e q dada na figura acima, e três valores de temperatura, t1 = 30, t2 = 50 e t3 = 90, temos que os valores correspondentes de temperatura para a variável linguística T são T1 = (0.5 frio, 0.5 morno, 0.0 quente), T2 = (0.0 frio, 1.0 morno, 0.0 quente) e T3 = (0.0 frio, 0.0 morno, 1.0 quente), respectivamente. Ou seja, informalmente, a temperatura t1 é "meio fria" e "meio morno", a temperatura t2 é "morno" e a temperatura t3 é "quente". Este processo de conversão para uma variável linguística é comumente chamado de "fuzzificação".
+
+%descrever o processo inverso.
+
+\subsection{Controle Fuzzy}
+
+%descrever inferencias
+
+%TEXTO ANTERIOR
 Uma aplicaçao básica e clássica da lógica fuzzy é a classificação de uma variável contínua. Por exemplo,
 para classificar um valor de temperatura, pode-se utilizadar um conjunto fuzzy com as variáveis
 FRIO, MORNO e QUENTE. Para classificar dado valor de temperatura, pode se utilizar as classes fuzzy apresentadas
@@ -87,7 +127,7 @@ onde X é uma expressão contendo uma ou mais variáveis linguísticas e Y a ação a 
 uma regra possível seria: SE bastante frio ENTÃO aumentar bastante o fornecimento de calor.
 
 É evidente que os conceitos FRIO, MORNO e QUENTE são totalmente subjetivos e cada aplicação tem parâmetros e conceitos específicos, em variáveis linguísticas diferentes, tais como velocidade, distância, pressão, entre outros.
-Os valores e funções utilizadas para classificar tais grandezas são determinados por quem está desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequação à aplicação em questão. 
+Os valores e funções utilizadas para classificar tais grandezas são determinados por quem está desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequação à aplicação em questão.
 Da mesma forma, as decisões a serem tomadas com base nos dados classificados são definidas pelo desenvolvedor. A grande vantagem e, até mesmo, objetivo de um sistema fuzzy é proporcionar um raciocínio simples na implementação das regras de um sistema. Isso é
 interessante quando se considera a adição de novos sensores e, consequentemente, novos dados. Uma simples alteração ou adição
 de novas regras é o suficiente para adaptar o sistema às novas entradas. %Não é verdade, necessariamente? Novos dados/entradas -> Muitas novas regras.
@@ -130,7 +170,7 @@ A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os va
     \item Conceitos de entradas: Esses conceitos recebem um valor de entrada e podem interagir com outros conceitos;
     \item Conceitos de saída ou de decisão: Esses conceitos representam o resultado das inferências do FCM e não interagem com outros conceitos;
     \item Relações causais: Essas conexões representam as relações de causa e efeito entre os conceitos e são calculadas através da matriz de pesos (matriz W);
-    \item Declarações condicionais: Esses elementos são as relações causais expressas na forma de regras \emph{se-então} e são atualizadas temporalmente. 
+    \item Declarações condicionais: Esses elementos são as relações causais expressas na forma de regras \emph{se-então} e são atualizadas temporalmente.
 \end{itemize}
 
 Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual j é o contador das iterações, n é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f \ref{sigmoide} é uma função do tipo sigmóide.
@@ -288,7 +328,7 @@ Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô
 	\caption[Relações causais do controlador do robô]{Relações causais do controlador do robô.}		
 	\begin{tabular}[!htb]{ l l l l }
 	  \hline
-	  Relação causal & Descrição & Efeito & Intensidade \\  
+	  Relação causal & Descrição & Efeito & Intensidade \\
 	  \hline
 	  $w_1$ & Sensor direito (RS) incluencia a saída esquerda (LO) & Positivo & Forte \\
 	  $w_2$ & Sensor frontal (FS) incluencia a saída esquerda (LO) & Positivo & Médio \\
@@ -298,8 +338,8 @@ Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô
 	  $w_6$ & Sensor esquerdo (LS) incluencia a saída direita (RO) & Negativo & Fraco \\
 	  $w_7$ & Sensor direito (RS) incluencia a saída esquerda (LO) & Negativo & Fraco \\
 	  $w_8$ & Sensor direito (RS) incluencia a saída direita (RO) & Negativo & Fraco \\
-	  $w_9$ & Sensor esquerdo (LS) incluencia a saída esquerda (LO) & Negativo & Fraco \\  
-	  \hline  	  
+	  $w_9$ & Sensor esquerdo (LS) incluencia a saída esquerda (LO) & Negativo & Fraco \\
+	  \hline  	
 	\end{tabular}
 	\fonte{\cite{MENDONCA}}
 	\label{tab:causal-relations}
