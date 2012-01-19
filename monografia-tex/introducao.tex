@@ -12,10 +12,11 @@ tempo em que permite reações rápidas às mudanças de ambiente para
 evitar colisões.
 
 O presente trabalho é um estudo comparativo entre dois algoritmos de navegação,
-que serão implementados em um robô. Um dos algoritmos estudados é o algoritmo ED-FCM
-proposto por Mendonça no ano de 2010\cite{MENDONCA}. A sigla ED-FCM significa Event-
-Driven Fuzzy Cognitive Maps e quer dizer Mapas Cognitivos Difusos
-Dirigidos A Eventos. %TODO: Falta citar o algoritmo Fuzzy.%
+que serão implementados em um robô. Um dos algoritmos é uma implementação simples
+utilizando lógica fuzzy, com tomada de decisão baseada diretamente em regras fuzzy,
+enquanto o outro é o algoritmo ED-FCM proposto por Mendonça no ano de 2010\cite{MENDONCA}.
+A sigla ED-FCM significa Event-Driven Fuzzy Cognitive Maps e quer dizer Mapas Cognitivos Difusos
+Dirigidos A Eventos.
 
 
 \section{Motivação}
@@ -46,16 +47,13 @@ Os objetivos do presente trabalho são a reconstrução do robô Bellator, o desenvo
 da documentação de hardware e software do mesmo e a execução do experimento no qual
 serão comparados dois algoritmos de navegação.
 
-A plataforma deve ser capaz de detectar
-obstáculos próximos a mesma através de sensores de distância e deverá se
+A plataforma deve ser capaz de detectar obstáculos próximos a mesma através de sensores de distância e deverá se
 deslocar por meio de um par de motores de corrente contínua acoplados a rodas.
-As rodas devem ser equipadas com encoders para auxílio à odometria. A plataforma deve
-executar comandos de movimentação, os quais são: translação para frente e para trás, e
-rotação, no sentido horário e antihorário. Um sistema microcontrolador deve processar
-os sinais dos sensores de distância e dos encoders das rodas, e implementar rotinas
-de baixo nível para disponibilizar esses dados. Esse sistema também deve
-implementar rotinas de baixo nível para controlar a potência dos motores com base
-na informação dos encoders. O microcontrolador deve implementar rotinas de
+As rodas devem ser equipadas com encoders para auxílio à odometria. 
+Com base nas informações obtidas dos encoders, a plataforma deve ser capaz de ajustar
+a velocidade de cada roda, de maneira independente.
+Um sistema microcontrolado deve processar os sinais dos sensores de distância e dos encoders das rodas, e implementar rotinas
+de baixo nível para disponibilizar esses dados. O microcontrolador deve implementar rotinas de
 baixo nível para comunicação de dados. O hardware e o software desenvolvidos devem ser documentados.
 
 Os dois algoritmos de navegação devem ser implementados em um hardware acoplado à
@@ -63,11 +61,10 @@ plataforma robótica, visando reduzir atrasos de comunicação. Este hardware dever
 ser capaz de ler os dados dos sensores do robô, como fonte de dados para os algoritmos,
 e enviar comandos de movimentação ao mesmo.
 
-Os testes dos algoritmos devem ser realizados inicialmente em um
-ambiente aberto e livre de obstáculos, onde o robô deve deslocar-se de
-um ponto inicial a um ponto final. Posteriormente, o ambiente será limitado,
-acrescentando-se obstáculos entre os dois pontos. Em cada caso, os dois algoritmos
-serão experimentados sob as mesmas condições.
+Os testes dos algoritmos devem ser realizados em um ambiente igual para ambos os algoritmos.
+O objetivo do algoritmo de navegação é guiar o robô no seu deslocamento, tendo como entrada
+os valores de leitura dos sensores e encoders do robô, e como saída instruções para o robô,
+como, por exemplo, velocidade desejada para cada roda.
 
 \section{Metodologia}
 A metodologia deste trabalho foi dividida em duas etapas: reconstrução do robô Bellator e
