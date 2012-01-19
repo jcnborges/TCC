@@ -58,28 +58,28 @@ A placa de roteamento é um componente fundamental do projeto, responsável por re
     \item[-] Melhor organização do robô
 \end{itemize}
 
-Como descrito nas especificações do robô (\ref{chap:esprob}, o robô Bellator possui, dentre outros componentes, cinco sensores, dois encoders e duas pontes H. Os cinco sensores e dois encoders necessitam de alimentação de aproximadamente 5 Volts para operação. Os encoders produzem um sinal que precisa ser amplificado antes da utilização, e as duas pontes H necessitam de um sinal de PWM de baixa impedância. Além disso, o consumo de corrente total destes componentes ultrapassa a capacidade de fornecimento de corrente da C8051F340. %TODO - Explicar consumo de corrente e alimentação.
+Como descrito nas especificações do robô (\ref{chap:esprob}), o robô Bellator possui, dentre outros componentes, cinco sensores, dois encoders e duas pontes H. Os cinco sensores e dois encoders necessitam de alimentação de aproximadamente 5 Volts para operação. Os encoders produzem um sinal que precisa ser amplificado antes da utilização, e as duas pontes H necessitam de um sinal de PWM de baixa impedância. Além disso, o consumo de corrente total destes componentes ultrapassa a capacidade de fornecimento de corrente da C8051F340. Medições durante os testes com os componentes foram realizadas, e foi constatado que cada sensor de distância utiliza cerca de 30mA de corrente, enquanto os encoders utilizam 20mA cada, totalizando quase 200mA para estes componentes.
 
 Por fim, a dificuldade de conectar, de forma prática, todos os componentes do robô com a C8051F340 bem como a quantidade excessiva de fios resultante fez com que a equipe concluísse que a placa de roteamento é indispensável.
 
 De acordo com os fatores descritos, a equipe construiu uma lista de requisitos para a placa de roteamento:
 
 \begin{itemize}
-    \item[-] Fornecer alimentação de aproximadamente 5 Volts
+    \item[-] Fornecer alimentação de aproximadamente 5 Volts DC
     \item[-] Capacidade de corrente suficiente %Atualizar com valores!
     \item[-] Conectores práticos para interface com a C8051F340 e o resto do robô
     \item[-] Fornecer um buffer para o sinal de PWM
     \item[-] Fornecer amplificação para o sinal do encoder
 \end{itemize}
 
-Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou necessária a implementação de um regulador de tensão. O buffer para o sinal de PWM foi feito através do CI 74LS244N e a amplificação dos sinais dos Encoders utilizando-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos flat, para a interação com a C8051F340, bem como pinos para conectores do hardware do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio do software Eagle e o resultado pode ser visualizado a seguir.
+Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou essencial a utilização de um regulador de tensão, o LM317, que era o mesmo utilizado na versão antiga da placa, e suporta corrente de até 1.5A, valor suficiente para alimentar os componentes da placa. O buffer para o sinal de PWM foi feito através do CI 74LS244N e a amplificação dos sinais dos Encoders utilizando-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos flat, para a interação com a C8051F340, bem como pinos para conectores do hardware do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio do software Eagle e o resultado pode ser visualizado a seguir.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{./figs/roteamento_sch.png}
   \caption[Diagrama esquemático da placa de roteamento.]
   {Diagrama esquemático da placa de roteamento.}
-  \label{roteamentosch}
+  \label{fig:roteamento_sch}
 \end{figure}
 
 De posse do diagrama esquemático apresentado na figura \ref{roteamentosch} a equipe realizou o roteamento de uma placa de circuito impresso que atenda ao mesmo diagrama esquemático, também utilizando o software Eagle.
@@ -89,17 +89,17 @@ De posse do diagrama esquemático apresentado na figura \ref{roteamentosch} a equ
   \includegraphics[width=\textwidth]{./figs/roteamento_brd.png}
   \caption[Roteamento final produzido pela equipe.]
   {Roteamento final produzido pela equipe.}
-  \label{roteamentosch}
+  \label{fig:roteamento_brd}
 \end{figure}
 
-A placa de roteamento foi confeccionada manualmente em uma placa de circuito impresso. O desenho da placa foi impresso em uma folha de transparência A4 e utilzando-se uma impressora à laser. Esse desenho foi passado da trasparência para a placa com o auxílio de um ferro de passar roupa e a placa foi corroída usando-se o percloreto de ferro. A placa foi perfurada com broca e perfurador de placa e os componentes eletrônicos foram soldados com ferro de solda, estanho e pasta de solda. A figura ilustra o processo de confeccção da placa.
+A placa de roteamento foi confeccionada manualmente em uma placa de circuito impresso. O desenho da placa foi impresso em uma folha de transparência A4 e utilzando-se uma impressora à laser. Esse desenho foi passado da trasparência para a placa com o auxílio de um ferro de passar roupa e a placa foi corroída usando-se o percloreto de ferro. A placa foi perfurada com broca e perfurador de placa e os componentes eletrônicos foram soldados com ferro de solda, estanho e pasta de solda. A figura \ref{fig:confeccao} ilustra o processo de confeccção da placa.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{./figs/placa-confeccao.jpg}
   \caption[Processo de confecção da placa de roteamento.]
   {Processo de confecção da placa de roteamento.}
-  \label{roteamentosch}
+  \label{fig:confeccao}
 \end{figure}
 
 %Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. Por que usar o Eagle.
@@ -114,7 +114,7 @@ Esta seção dedica-se à descrição da implementação dos algoritmos de navegação co
 \subsection{Algoritmo de Navegação Fuzzy}
 \label{sec:algfuzzy}
 %Descrição e referencia básica da biblioteca do fabro, adaptação e utilização. Descrição das regras. INCOMPLETO
-O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro. A FLIE, ou Fuzzy Logic Inference Engine, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência.
+O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro. A FLIE, ou \emph{Fuzzy Logic Inference Engine}, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência.
 
 \subsubsection{Variáveis Linguísticas}
 
