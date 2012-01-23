@@ -20,9 +20,9 @@ O robô disponibilizado à equipe para a realização desse trabalho, o Bellator, é 
 	\label{fig:diagsis}
 \end{figure}
 
-A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo nível é composta pelo robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, seis sensores de distância "2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7,2 Ampére hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa está conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada de alto nível para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo. Além disso, o PC embarcado envia, também via comunicação sem fio, um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão.
+A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo nível é composta pelo robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, cinco sensores de distância ``2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7,2 Ampére hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa está conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada de alto nível para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo. Além disso, o PC embarcado envia, também via comunicação sem fio, um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão.
 
-O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto "Algoritmos de Navegação Fuzzy: Uma Análise Qualitativa". Assim, não será feita uma descrição detalhada de todos os componentes do projeto Bellator. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram reaproveitados.
+O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto ``Algoritmos de Navegação Fuzzy: Uma Análise Qualitativa". Assim, não será feita uma descrição detalhada de todos os componentes do projeto Bellator. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram reaproveitados.
 
 \subsection{Recebimento do Robô}
 \label{sec:recrobo}
@@ -31,7 +31,7 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 
 \begin{itemize}
 \item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acoplados;
-\item Cinco sensores de distância "2Y0A02F98" da Sharp;
+\item Cinco sensores de distância ``2Y0A02F98" da Sharp;
 \item Duas baterias Unybatt 12V-7,2 Ampére hora;
 \item Uma placa micro-controlada C8051F340;
 \item Uma placa de roteamento, produzida pelo projeto Bellator;
@@ -40,7 +40,7 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 
 O chassi do robô e seus componentes acoplados são a base da plataforma robótica a ser utilizada pela equipe e são críticas para a execução desse trabalho. Os sensores de distância, um a menos que os disponíveis no projeto Bellator, são essenciais para a localização do robô e de obstáculos. A placa microcontrolada também é um recurso crítico, pois é o componente responsável por todo o controle de baixo nível do robô cujo software e a documentação serão reaproveitados do projeto Bellator. As baterias são um recurso necessário e de fácil aquisição, ao contrário dos outros componentes citados.
 
-Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não foram recebidos ou não serão utilizados nesse trabalho. A webcam e joystick não foram entregues pois não serão necessários, visto que um sistema de navegação autônomo não necessita de joystick e esse trabalho não abordará navegação através de imagem de vídeo. A placa de roteamento entregue será utilizada nos testes dos componentes, visto que é essencial para o funcionamento do robô. Esta placa será reprojetada e reconstruída. O PC embarcado foi entregue destituído de qualquer documentação. Além disso, como o novo objetivo do robô não necessita de comunicação semfio e não utilizará stream de vídeo, motivo principal para a utilização deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que será descrita em detalhes na seção \ref{chap:esprob}.
+Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não foram recebidos ou não serão utilizados nesse trabalho. A webcam e joystick não foram entregues pois não serão necessários, visto que um sistema de navegação autônomo não necessita de joystick e esse trabalho não abordará navegação através de imagem de vídeo. A placa de roteamento entregue será utilizada nos testes dos componentes, visto que é essencial para o funcionamento do robô. Esta placa será reprojetada e reconstruída. O PC embarcado foi entregue destituído de qualquer documentação. Além disso, como o novo objetivo do robô não necessita de comunicação sem fio e não utilizará stream de vídeo, motivo principal para a utilização deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que será descrita em detalhes na seção \ref{chap:esprob}.
 
 A documentação disponível à equipe, produzida durante o projeto Bellator, descreve em detalhes os componentes de hardware dessa plataforma robótica, o software de controle supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340\cite{BELLATOR}. Essa documentação será utilizada como referência para o reaproveitamento do projeto Bellator nesse trabalho, com exceção da documentação referente ao software de controle supervisório, que não será utilizado.
 
@@ -50,14 +50,56 @@ A possibilidade de reaproveitamento parcial do projeto Bellator e o recebimento 
 \input{especificacao}
 
 \section{Lógica Fuzzy}
-Essa seção tem como função descrever o que é a lógica fuzzy, como surgiu, como funciona e como projetar um sistema fuzzy.
 
-A lógica fuzzy é baseada no trabalho de Lofti Zadeh, que propôs a teoria de conjuntos
-fuzzy em 1965~\cite{FUZZYLOGIC}. Na teoria clássica de conjuntos, um elemento tem seu
-grau de pertinência ao conjunto representado por uma variável booleana, ou seja, ou o elemento
-pertence ao conjunto ou não pertence. Num conjunto fuzzy, no entanto, um elemento tem seu grau
-de pertinência representado por um valor real no intervalo [0, 1].
+Esta seção descreve os conceitos fundamentais utilizados pela equipe para o entendimento e implementação do algoritmo de navegação fuzzy, descrito em detalhes na seção \ref{sec:algfuzzy}.
 
+\subsection{Conjuntos Fuzzy}
+
+A teoria de conjuntos fuzzy foi elaborada inicialmente por Lofti Zadeh \cite{ZADEH}, %comofas ref. a artigo no reflatex?
+visando explorar a possibilidade de criar um novo critério de afiliação à conjuntos. Na teoria clássica de conjuntos, um elemento pode apenas pertencer ou não a um conjunto, sendo impossível um nível de pertinência parcial. Já em um conjunto fuzzy, isto torna-se possível.
+Um conjunto fuzzy pode ser definido por um conjunto de pares ordenados com o elemento e sua pertinência ao conjunto fuzzy. Seja F um conjunto fuzzy e X um conjunto de objetos arbitrários, tem-se:
+
+\begin{equation}
+F=\{(x,f(x)),x\in X\}, f(x) = [0,1]
+\end{equation}
+
+Assim sendo, considere um conjunto ``A" simples que contenha tudo o que tem sabor doce. Neste conjunto uma barra de chocolate é doce da mesma forma que cana de açucar, visto que ambos pertencem ao conjunto, ou seja:
+(barra de chocolate) $\in$ A e (cana de açucar) $\in$ A
+Em um conjunto fuzzy B que contemple tudo o que tem sabor doce, torna-se possível atribuir um nível de afiliação ao conjunto através de uma função de pertinência f  permitindo dizer que, por exemplo, a cana de açucar é doce com nível de pertinencia 1, enquanto que a barra de chocolate é doce com nível de pertinência 0.8, ou seja:
+((cana de açucar),f(cana de açucar)) $\in$ B, f(cana de açucar) = 1
+((barra de chocolate),f(barra de chocolate)) $\in$ B, f(barra de chocolate) = 0.8
+Isto aproxima-se mais da forma como a cognição e intuição humana funcionam, que frequentemente usa-se de palavras como ``mais", ``muito", ``pouco", entre outras, para definir graus de pertinência a conjuntos de uma forma subjetiva.
+
+\subsection{Variável Linguística}
+
+Uma aplicação direta de conjuntos fuzzy é a definição de variáveis linguísticas. %pedrycz e gomide fuzzy systems toward human centric computing pg40
+Considerando que variável x pode assumir um valor qualquer dentro de um dado conjunto A, pode-se definir como uma variável linguística como uma variável cujo conjunto A de valores possíveis para a mesma é um conjunto de termos linguísticos, tais como, por exemplo, alto, baixo, curto, longo, entre outros. Pode-se estender este conceito associando cada termo linguístico possível de uma variável linguística a um conjunto fuzzy.
+
+Para entender esta definição, considere a variável linguística Temperatura (T) composta pelos termos linguísticos frio, morno e quente:
+\begin{equation}
+T = \{frio, morno, quente\}
+\end{equation}
+Considere também os seguintes conjuntos fuzzy:
+\begin{equation}
+	\begin{array}{lcl}
+		F & = & \{(t,f(t)),t \in \mathbb{R}\} \\
+		M & = & \{(t,m(t)),t \in \mathbb{R}\} \\
+		Q & = & \{(t,q(t)),t \in \mathbb{R}\} \\
+	\end{array}
+\end{equation}
+sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, aos conjuntos fuzzy \emph{\mbox{F, M e Q}}, com valores de pertinência pertencentes ao intervalo [0,1] e \emph{t} uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy \emph{\mbox{F, M e Q}} aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável \emph{t} pode ser traduzido em um valor equivalente para a variável linguística \emph{T}, dependendo apenas da definição das funções de pertinência \emph{\mbox{f(t), m(t) e q(t)}}.
+
+%Figura definição f m q
+
+Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f(t), m(t) e q(t)}} dada na figura acima, e três valores de temperatura, \emph{\mbox{t1 = 30, t2 = 50 e t3 = 90}}, temos que os valores correspondentes de temperatura para a variável linguística T são \mbox{T1 = (0.5 frio, 0.5 morno, 0.0 quente)}, \mbox{T2 = (0.0 frio, 1.0 morno, 0.0 quente)} e \mbox{T3 = (0.0 frio, 0.0 morno, 1.0 quente)}, respectivamente. Ou seja, informalmente, a temperatura t1 é representa que o material está ``meio frio" e ``meio morno", a temperatura t2 indica que está ``morno" e a temperatura t3, por sua vez, ``quente". Este processo de conversão para uma variável linguística é comumente chamado de ``fuzzificação".
+
+%descrever o processo inverso.
+
+\subsection{Controle Fuzzy}
+
+%descrever inferencias
+
+%TEXTO ANTERIOR
 Uma aplicaçao básica e clássica da lógica fuzzy é a classificação de uma variável contínua. Por exemplo,
 para classificar um valor de temperatura, pode-se utilizadar um conjunto fuzzy com as variáveis
 FRIO, MORNO e QUENTE. Para classificar dado valor de temperatura, pode se utilizar as classes fuzzy apresentadas
@@ -87,7 +129,7 @@ onde X é uma expressão contendo uma ou mais variáveis linguísticas e Y a ação a 
 uma regra possível seria: SE bastante frio ENTÃO aumentar bastante o fornecimento de calor.
 
 É evidente que os conceitos FRIO, MORNO e QUENTE são totalmente subjetivos e cada aplicação tem parâmetros e conceitos específicos, em variáveis linguísticas diferentes, tais como velocidade, distância, pressão, entre outros.
-Os valores e funções utilizadas para classificar tais grandezas são determinados por quem está desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequação à aplicação em questão. 
+Os valores e funções utilizadas para classificar tais grandezas são determinados por quem está desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequação à aplicação em questão.
 Da mesma forma, as decisões a serem tomadas com base nos dados classificados são definidas pelo desenvolvedor. A grande vantagem e, até mesmo, objetivo de um sistema fuzzy é proporcionar um raciocínio simples na implementação das regras de um sistema. Isso é
 interessante quando se considera a adição de novos sensores e, consequentemente, novos dados. Uma simples alteração ou adição
 de novas regras é o suficiente para adaptar o sistema às novas entradas. %Não é verdade, necessariamente? Novos dados/entradas -> Muitas novas regras.
@@ -122,7 +164,7 @@ Esta seção tem como objetivo explicar o que são mapas cognitivos fuzzy, também c
 
 O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo fuzzy é gerado quando se incluem a essa estrutura incertezas através da lógica Fuzzy.
 
-A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os "nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada "nó" é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
+A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os ``nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada ``nó" é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
 
 \begin{itemize}
     \item Conceito de nível: Esse conceito pode pode ser representado por um valor absoluto;
@@ -130,7 +172,7 @@ A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os va
     \item Conceitos de entradas: Esses conceitos recebem um valor de entrada e podem interagir com outros conceitos;
     \item Conceitos de saída ou de decisão: Esses conceitos representam o resultado das inferências do FCM e não interagem com outros conceitos;
     \item Relações causais: Essas conexões representam as relações de causa e efeito entre os conceitos e são calculadas através da matriz de pesos (matriz W);
-    \item Declarações condicionais: Esses elementos são as relações causais expressas na forma de regras \emph{se-então} e são atualizadas temporalmente. 
+    \item Declarações condicionais: Esses elementos são as relações causais expressas na forma de regras \emph{se-então} e são atualizadas temporalmente.
 \end{itemize}
 
 Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual j é o contador das iterações, n é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f \ref{sigmoide} é uma função do tipo sigmóide.
@@ -163,7 +205,7 @@ A_i=f(\sum_{\substack{j=1 \\ j\neq i}}^{n} A_j \times W_{ji})+A_i^{anterior}
 f(x)=\frac{1} {1+e^{-\lambda x}}
 \end{equation}
 
-Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é a que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
+Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
 Na tese de \cite{FCMENDONCA}, são apresentados os seguintes passos para construção de um FCM:
 
@@ -208,7 +250,7 @@ G_{min}<G<G_{max}
 \item Conceito 5: Valor de massa específica do líquido medido pelo sensor G.
 \end{itemize}
 
-Interligando-se os conceitos com as relações de causa e efeito, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} para o controlador do processo. Além dos conceitos, os especilistas no processo determinaram um domínio para as variáveis que resultou em uma faixa de valores para as relações causais, equações \ref{peso-1} a \ref{peso-8}. Após a estabilização do mapa, obteve-se os pesos da matrix \ref{W-matrix} e os valores dos conceitos da matrix \ref{A-matrix} e, desse modo, os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente.
+Interligando-se os conceitos através de relações de causa e efeito, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} cujos pesos das relações são dados pelas inequações \ref{peso-1} a \ref{peso-8}. O controlador do processo é executado e, após a estabilização, obtiveram-se os pesos da matriz \ref{W-matrix} e os valores dos conceitos da matriz \ref{A-matrix}. Os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente, e o processo industrial é controlado adequadamente.
 
 \begin{equation}\label{peso-1}
 -0,50<w_{12}<0,30
@@ -281,14 +323,23 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é 
     \label{fig:reinforcement-alg}
 \end{figure}
 
-Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations}.
+O FCM descreve o comportamento reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations} e as regras de a seguir determinam o comportamento do mapa.
+
+\begin{enumerate}
+\item SE a intensidade do sensor frontal (FS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_3$ é o valor máximo de $WF_max$;
+\item SE a intensidade do sensor frontal (FS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_3$ é o valor mínimo de $WF_min$;
+\item SE a intensidade do sensor direito (RS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_1$ é o valor máximo de $WR_max$;
+\item SE a intensidade do sensor direito (RS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_1$ é o valor mínimo de $WR_min$;
+\item SE a intensidade do sensor esquerdo (LS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_5$ é o valor máximo de $WL_max$;
+\item SE a intensidade do sensor direito (LS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_5$ é o valor mínimo de $WL_min$.
+\end{enumerate}
 
 \begin{table}
 	\centering
 	\caption[Relações causais do controlador do robô]{Relações causais do controlador do robô.}		
 	\begin{tabular}[!htb]{ l l l l }
 	  \hline
-	  Relação causal & Descrição & Efeito & Intensidade \\  
+	  Relação causal & Descrição & Efeito & Intensidade \\
 	  \hline
 	  $w_1$ & Sensor direito (RS) incluencia a saída esquerda (LO) & Positivo & Forte \\
 	  $w_2$ & Sensor frontal (FS) incluencia a saída esquerda (LO) & Positivo & Médio \\
@@ -298,8 +349,8 @@ Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô
 	  $w_6$ & Sensor esquerdo (LS) incluencia a saída direita (RO) & Negativo & Fraco \\
 	  $w_7$ & Sensor direito (RS) incluencia a saída esquerda (LO) & Negativo & Fraco \\
 	  $w_8$ & Sensor direito (RS) incluencia a saída direita (RO) & Negativo & Fraco \\
-	  $w_9$ & Sensor esquerdo (LS) incluencia a saída esquerda (LO) & Negativo & Fraco \\  
-	  \hline  	  
+	  $w_9$ & Sensor esquerdo (LS) incluencia a saída esquerda (LO) & Negativo & Fraco \\
+	  \hline  	
 	\end{tabular}
 	\fonte{\cite{MENDONCA}}
 	\label{tab:causal-relations}
@@ -312,6 +363,8 @@ Primeiramente, foi projetado um FCM que descreve o comportamente reativo do robô
     \fonte{\cite{MENDONCA}}
     \label{fig:fcm-robot}
 \end{figure}
+
+Essas regras determinam a política de mudança de estados do mapa e os pesos dos relacionamentos são responsáveis pelas decisões de o robô virar à esquerda, acelerar ou virar à direita. Nesse contexto, o valor atual desses pesos depende da diferença entre os valores anteriores e o valor máximo admissível ponderado por um fator $\gamma$ . O incremento dos pesos também leva em conta o valor da recompensa ou punicão (r) e de um fator de aprendizagem $\alpha$ , os quais estão associados ao algoritmo de aprendizado por reforço escolhido.
 
 \subsection{Considerações}
 FCM é um modelo linguístico, próximo à linguagem humana, que é baseado na teoria de grafos e que permite interconectar conceitos através de relações de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integração com métodos de treinamento de inteligência artificial. O FCM é indicado para modelagem de sistemas complexos. A navegação robótica é um sistema complexo no qual vários conceitos (sensores e motores) são ativados e interagem entre si para produzir os movimentos adequados ao robô autônomo. A abordagem FCM permite modelar e mapear esses conceitos com a finalidade de implementar um algoritmo de navegação capaz de solucionar o problema.
