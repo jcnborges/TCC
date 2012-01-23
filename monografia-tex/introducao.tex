@@ -9,15 +9,13 @@ real. Um sistema de navegação deve garantir que o robô móvel atinja
 satisfatoriamente o destino de sua trajetória, enviando ao robô os comandos
 necessários para a sua locomoção, de maneira precisa e suave, ao mesmo
 tempo em que permite reações rápidas às mudanças de ambiente para
-evitar colisões.
+evitar colisões. 
 
 O presente trabalho é um estudo comparativo entre dois algoritmos de navegação,
-que serão implementados em um robô. Um dos algoritmos é uma implementação simples
-utilizando lógica fuzzy, com tomada de decisão baseada diretamente em regras fuzzy,
-enquanto o outro é o algoritmo ED-FCM proposto por Mendonça no ano de 2010\cite{MENDONCA}.
+que serão implementados em um robô móvel autônomo o qual deverá desviar obstáculos. Um dos algoritmos é uma implementação utilizando lógica fuzzy, com tomada de decisão baseada diretamente em regras fuzzy,
+enquanto que o outro é o algoritmo ED-FCM proposto por Mendonça no ano de 2011\cite{MENDONCA}.
 A sigla ED-FCM significa Event-Driven Fuzzy Cognitive Maps e quer dizer Mapas Cognitivos Difusos
-Dirigidos A Eventos.
-
+Dirigidos a Eventos.
 
 \section{Motivação}
 
@@ -30,10 +28,10 @@ desenvolver este projeto.
 
 Para realizar a comparação prática destes algoritmos, provou-se necessária uma
 plataforma robótica, que foi obtida através da reconstrução do robô Bellator.
-O Bellator é um robô móvel que estava em construção em outro projeto mas foi abandonado.
-Este robô, sua reconstruçãoe adaptação às necessidades da equipe, são partes do projeto
-e foram documentadas neste relatório. Esta adaptação levou em conta a possibilidade de
-utilização do Bellator para projetos futuros.
+O Bellator é um robô móvel que estava em construção em outro projeto porém foi abandonado.
+O robô, a reconstrução e adaptação deste às necessidades da equipe são partes do projeto
+e foram documentadas neste relatório. Essa adaptação levou em conta a possibilidade de
+utiliza do Bellator em projetos futuros.
 
 As principais motivações deste trabalho foram o desenvolvimento de uma
 plataforma robótica adequada para pesquisas acadêmicas, tendo em
@@ -43,20 +41,21 @@ de elevado valor acadêmico.
 
 \section{Objetivos}
 
-Os objetivos do presente trabalho são a reconstrução do robô Bellator, o desenvolvimento
-da documentação de hardware e software do mesmo e a execução do experimento no qual
-serão comparados dois algoritmos de navegação.
+Os objetivos do presente trabalho são a reconstrução do robô Bellator, a descrição do hardware e software do mesmo após essa resconstrução e a execução do experimento no qual serão comparados os dois algoritmos de navegação. As funções e características que o robô reconstruído deverá apresentar são listadas abaixo:
 
-A plataforma deve ser capaz de detectar obstáculos próximos a mesma através de sensores de distância e deverá se
-deslocar por meio de um par de motores de corrente contínua acoplados a rodas.
-As rodas devem ser equipadas com encoders para auxílio à odometria. 
-Com base nas informações obtidas dos encoders, a plataforma deve ser capaz de ajustar
+\begin{itemize}
+\item A plataforma deve ser equipada com sensores de distância.
+\item A plataforma deve ser equipada com encoders para auxílio à odometria.
+\item A plataforma deve ser alimentada através de baterias.
+\item A plataforma deve ser capaz de detectar obstáculos próximos a mesma através de sensores de distância e deverá se
+deslocar por meio de um par de motores de corrente contínua acoplados a rodas, as quais deverão estar equipadas com encoders para auxílio à odometria. 
+\item Com base nas informações obtidas pelos encoders, a plataforma deve ser capaz de ajustar
 a velocidade de cada roda, de maneira independente.
-Um sistema microcontrolado deve processar os sinais dos sensores de distância e dos encoders das rodas, e implementar rotinas
-de baixo nível para disponibilizar esses dados. O microcontrolador deve implementar rotinas de
-baixo nível para comunicação de dados. O hardware e o software desenvolvidos devem ser documentados.
+\item Um sistema microcontrolado deve processar os sinais dos sensores de distância e dos encoders das rodas e implementar rotinas para disponibilizar esses dados.
+\item Um sistema microcontrolado deve receber comandos de controle 
+\end{itemize}
 
-Os dois algoritmos de navegação devem ser implementados em um hardware acoplado à
+Os algoritmos de navegação devem ser implementados em um hardware acoplado à
 plataforma robótica, visando reduzir atrasos de comunicação. Este hardware deverá
 ser capaz de ler os dados dos sensores do robô, como fonte de dados para os algoritmos,
 e enviar comandos de movimentação ao mesmo.
