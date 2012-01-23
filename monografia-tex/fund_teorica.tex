@@ -164,7 +164,15 @@ Esta seção tem como objetivo explicar o que são mapas cognitivos fuzzy, também c
 
 O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo fuzzy é gerado quando se incluem a essa estrutura incertezas através da lógica Fuzzy.
 
-A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os ``nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada ``nó" é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.75]{./figs/fcm.png}
+    \caption[Exemplo de um FCM]{Exemplo de um FCM (grafo).}
+    \fonte{\cite{FCMENDONCA}}
+    \label{fig:fcm}
+\end{figure}
+
+A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os "nós" são conceitos linguísticos, representados por conjuntos fuzzy e cada "nó" é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
 
 \begin{itemize}
     \item Conceito de nível: Esse conceito pode pode ser representado por um valor absoluto;
@@ -176,14 +184,6 @@ A estrutura de um FCM é um grafo direcionado, figura \ref{fig:fcm}, em que os va
 \end{itemize}
 
 Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual j é o contador das iterações, n é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f \ref{sigmoide} é uma função do tipo sigmóide.
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics{./figs/fcm.png}
-    \caption[Exemplo de um FCM]{Exemplo de um FCM (grafo).}
-    \fonte{\cite{FCMENDONCA}}
-    \label{fig:fcm}
-\end{figure}
 
 \begin{equation}\label{fcm-matrix}
     w_{i,j}=\left(
@@ -205,42 +205,34 @@ A_i=f(\sum_{\substack{j=1 \\ j\neq i}}^{n} A_j \times W_{ji})+A_i^{anterior}
 f(x)=\frac{1} {1+e^{-\lambda x}}
 \end{equation}
 
-Um FCM apresenta as propriedade de elasticidade e estabilidade. A elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais entre os conceitos e a estabilidade é a capacidade de evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
-
-Na tese de \cite{FCMENDONCA}, são apresentados os seguintes passos para construção de um FCM:
+Na tese de \cite{FCMENDONCA}, são apresentados os seguintes passos para construção de um FCM clássico:
 
 \begin{itemize}
 \item Passo 1 - Identificação dos conceitos e das suas interconexões ou relações
-determinando a natureza (positiva, negativa, neutra) das relações causais entre
-conceitos.
+determinando a natureza (positiva, negativa ou neutra) das relações causais entre
+conceitos;
 \item Passo 2 - Aquisição de dados iniciais, através de ponderação de opinião de
 especialistas e ou análise do sistema de equações, quando se conhece o modelo
-matemático.
+matemático;
 \item Passo 3 - Apresentação dos dados referentes à opinião dos diversos especialistas a
-um sistema lógico fuzzy que tem como saída os valores dos pesos do FCM.
+um sistema lógico fuzzy que tem como saída os valores dos pesos do FCM;
 \item Passo 4 - Tratamento da informação, adaptação e ou otimização do FCM
-inicialmente proposto, ajustando suas respostas às saídas desejadas.
+inicialmente proposto, ajustando suas respostas às saídas desejadas;
 \item Passo 5 - Validação do FCM ajustado nas condições de operação do sistema ou
 processo modelado.
 \end{itemize}
 
-Em \cite{FCMENDONCA} os mapas cognitivos fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada (V1 e V2) para diferentes tipos de líquidos, um misturador, uma válvula de saída (V3) para o líquido misturado e um medidor de massa específica (G) que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem dois líquidos diferentes. Durante a mistura, o medidor de massa específica verifica quando o produto atingiu o ponto adequado e, desse modo, a válvula V3 é ativada e o produto da mistura é esvaziado. Com isso, o controle do processo é manter as variáveis V e G, sendo V o volume e G a massa especifica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ (equação \ref{lim-V}) e $[G_{min}, G_{max}]$ (equação \ref{lim-G}), respectivamente. Analisando-se o problema, os seguintes conceitos podem ser definidos.
+Um FCM apresenta as propriedade de elasticidade e estabilidade, sendo que a elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais e a estabilidade é a capacidade de o mapa evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics{./figs/fcm-exemplo-planta.png}
+    \includegraphics[scale=0.85]{./figs/fcm-exemplo-planta.png}
     \caption[Aplicação do FCM em processo industrial]{Aplicação do FCM em processo industrial.}
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm-exemplo-planta}
 \end{figure}
 
-\begin{equation}\label{lim-V}
-V_{min}<V<V_{max}
-\end{equation}
-
-\begin{equation}\label{lim-G}
-G_{min}<G<G_{max}
-\end{equation}
+Em \cite{FCMENDONCA} os mapas cognitivos fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada (V1 e V2) para diferentes tipos de líquidos, um misturador, uma válvula de saída (V3) para o líquido misturado e um medidor de massa específica (G) que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem dois líquidos diferentes. Durante a mistura, o medidor de massa específica verifica quando o produto atingiu o ponto adequado e, desse modo, a válvula V3 é ativada e o produto da mistura é esvaziado. Analisando-se o problema, os seguintes conceitos podem ser definidos:
 
 \begin{itemize}
 \item Conceito 1: Volume de líquido no tanque, o qual depende do estado das válvulas V1, V2 e V3;
@@ -250,7 +242,27 @@ G_{min}<G<G_{max}
 \item Conceito 5: Valor de massa específica do líquido medido pelo sensor G.
 \end{itemize}
 
-Interligando-se os conceitos através de relações de causa e efeito, obtém-se o FCM da figura \ref{fig:fcm-exemplo-fcm} cujos pesos das relações são dados pelas inequações \ref{peso-1} a \ref{peso-8}. O controlador do processo é executado e, após a estabilização, obtiveram-se os pesos da matriz \ref{W-matrix} e os valores dos conceitos da matriz \ref{A-matrix}. Os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente, e o processo industrial é controlado adequadamente.
+O controlador do processo deve manter as variáveis V e G, sendo V o volume e G a massa especifica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ (equação \ref{lim-V}) e $[G_{min}, G_{max}]$ (equação \ref{lim-G}), respectivamente.
+
+\begin{equation}\label{lim-V}
+V_{min}<V<V_{max}
+\end{equation}
+
+\begin{equation}\label{lim-G}
+G_{min}<G<G_{max}
+\end{equation}
+
+Interligando-se os conceitos através de relações de causa e efeito, o FCM da figura \ref{fig:fcm-exemplo-fcm} foi construído.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.75]{./figs/fcm-exemplo-fcm.png}
+    \caption[Mapa Cognitivo Fuzzy]{FCM do controlador.}
+    \fonte{\cite{FCMENDONCA}}
+    \label{fig:fcm-exemplo-fcm}
+\end{figure}
+
+ Analisando-se o conhecimento dos especialistas, os pesos das relações são dados pelas inequações \ref{peso-1} a \ref{peso-8}.
 
 \begin{equation}\label{peso-1}
 -0,50<w_{12}<0,30
@@ -277,13 +289,7 @@ Interligando-se os conceitos através de relações de causa e efeito, obtém-se o F
 0,30<w_{54}<0,40
 \end{equation}
 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics{./figs/fcm-exemplo-fcm.png}
-    \caption[Mapa Cognitivo Fuzzy]{FCM do controlador.}
-    \fonte{\cite{FCMENDONCA}}
-    \label{fig:fcm-exemplo-fcm}
-\end{figure}
+O controlador do processo foi executado e, após a estabilização, obtiveram-se os pesos da matriz \ref{W-matrix} e os valores dos conceitos da matriz \ref{A-matrix}. Os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente, correspondendo ao ponto de operação desejado. 
 
 \begin{equation}\label{W-matrix}
     W^{inicial}=\left(
@@ -313,28 +319,40 @@ Interligando-se os conceitos através de relações de causa e efeito, obtém-se o F
 0,78<G<0,85
 \end{equation}
 
-Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é empregada em navegação robótica. Nesse artigo, um modelo de FCM novo é implementado para suportar as condições dinâmicas dos sistemas de navegação, nas quais os valores das relações causais são modificados dinamicamente através da ocorrência de eventos especiais. Os autores do artigo chamaram esse modelo de ED-FCM (Event-Driven Fuzzy Cognitive Map). O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendizado por reforço, conforme ilustra a figura \ref{fig:reinforcement-alg}, e permite que o robô (agente) aprenda diretamente através de sua interação com o ambiente. A cada instante de tempo t, o agente estabelece, por meio de seus sensores, um estado st e, de acordo com suas regras, determina uma ação at a ser efetuada pelos atuadores. Essa ação causa uma transição para o estado st+1 e o ambiente retorna uma medida de reforço rt+1, que pode ser uma recompensa (caso a ação seja boa) ou uma punição (caso a ação seja ruim).
+Nesse exemplo, a estabilização (ou sintonia) foi realizada através de três métodos: RNA (Rede Neural Artificial), AG (Algoritmo Genético) e PSO (Particle Swarm Optimization ou Otimização por Enxame de Partículas).
+
+Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é empregada em navegação robótica. Nesse artigo, um modelo de FCM novo é implementado para suportar as condições dinâmicas dos sistemas de navegação, nas quais os valores das relações causais são modificados dinamicamente através da ocorrência de eventos especiais. Os autores do artigo chamaram esse modelo de ED-FCM (Event-Driven Fuzzy Cognitive Map). 
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics{./figs/reinforcement.png}
+    \includegraphics[scale=0.75]{./figs/reinforcement.png}
     \caption[Algoritmo de aprendizado por reforço]{Algoritmo de aprendizado por reforço.}
     \fonte{\cite{MENDONCA}}
     \label{fig:reinforcement-alg}
 \end{figure}
 
-O FCM descreve o comportamento reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations} e as regras de a seguir determinam o comportamento do mapa.
+O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendizado por reforço, conforme ilustra a figura \ref{fig:reinforcement-alg}, e permite que o robô (agente) aprenda diretamente através de sua interação com o ambiente. A cada instante de tempo t, o agente estabelece, por meio de seus sensores, um estado st e, de acordo com suas regras, determina uma ação at a ser efetuada pelos atuadores. Essa ação causa uma transição para o estado $s_{t+1}$ e o ambiente retorna uma medida de reforço $r_{t+1}$, que pode ser uma recompensa (caso a ação seja boa) ou uma punição (caso a ação seja ruim).
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.75]{./figs/fcm-robot.png}
+    \caption[FCM do comportamento reativo do robô]{FCM do comportamento reativo do robô.}
+    \fonte{\cite{MENDONCA}}
+    \label{fig:fcm-robot}
+\end{figure}
+
+O FCM descreve o comportamento reativo do robô (figura \ref{fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations} e as regras de a seguir determinam o comportamento do mapa:
 
 \begin{enumerate}
-\item SE a intensidade do sensor frontal (FS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_3$ é o valor máximo de $WF_max$;
-\item SE a intensidade do sensor frontal (FS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_3$ é o valor mínimo de $WF_min$;
-\item SE a intensidade do sensor direito (RS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_1$ é o valor máximo de $WR_max$;
-\item SE a intensidade do sensor direito (RS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_1$ é o valor mínimo de $WR_min$;
-\item SE a intensidade do sensor esquerdo (LS) for maior que um limiar médio ENTÃO $W_lim$ aplicado para computar o relacionamento $w_5$ é o valor máximo de $WL_max$;
-\item SE a intensidade do sensor direito (LS) for menor que um limiar mínimo ENTÃO $W_lim$ aplicado para computar o relacionamento $w_5$ é o valor mínimo de $WL_min$.
+\item SE a intensidade do sensor frontal (FS) for maior que um limiar médio ENTÃO $W_{lim}$ aplicado para computar o relacionamento $w_3$ é o valor máximo de $WF_{max}$;
+\item SE a intensidade do sensor frontal (FS) for menor que um limiar mínimo ENTÃO $W_{lim}$ aplicado para computar o relacionamento $w_3$ é o valor mínimo de $WF_{min}$;
+\item SE a intensidade do sensor direito (RS) for maior que um limiar médio ENTÃO $W_{lim}$ aplicado para computar o relacionamento $w_1$ é o valor máximo de $WR_{max}$;
+\item SE a intensidade do sensor direito (RS) for menor que um limiar mínimo ENTÃO $W_{lim}$ aplicado para computar o relacionamento $w_1$ é o valor mínimo de $WR_{min}$;
+\item SE a intensidade do sensor esquerdo (LS) for maior que um limiar médio ENTÃO $W_{lim}$ aplicado para computar o relacionamento $w_5$ é o valor máximo de $WL_{max}$;
+\item SE a intensidade do sensor direito (LS) for menor que um limiar mínimo ENTÃO $W_{lim}$ aplicado para computar o relacionamento $w_5$ é o valor mínimo de $WL_{min}$.
 \end{enumerate}
 
-\begin{table}
+\begin{table}[htb!]
 	\centering
 	\caption[Relações causais do controlador do robô]{Relações causais do controlador do robô.}		
 	\begin{tabular}[!htb]{ l l l l }
@@ -356,16 +374,12 @@ O FCM descreve o comportamento reativo do robô (figura \ref{fcm-robot}), no qual
 	\label{tab:causal-relations}
 \end{table}
 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics{./figs/fcm-robot.png}
-    \caption[FCM do comportamento reativo do robô]{FCM do comportamento reativo do robô.}
-    \fonte{\cite{MENDONCA}}
-    \label{fig:fcm-robot}
-\end{figure}
+Essas regras determinam a política de mudança de estados do mapa e os pesos dos relacionamentos são responsáveis pelas decisões de o robô virar à esquerda, acelerar ou virar à direita. Nesse contexto, o valor atual desses pesos depende da diferença entre os valores anteriores e o valor máximo admissível ponderado por um fator $\gamma$ . O incremento dos pesos também leva em conta o valor da recompensa ou punicão (r) e de um fator de aprendizagem $\alpha$ , os quais estão associados ao algoritmo de aprendizado por reforço escolhido, equação \ref{q-learning}.
 
-Essas regras determinam a política de mudança de estados do mapa e os pesos dos relacionamentos são responsáveis pelas decisões de o robô virar à esquerda, acelerar ou virar à direita. Nesse contexto, o valor atual desses pesos depende da diferença entre os valores anteriores e o valor máximo admissível ponderado por um fator $\gamma$ . O incremento dos pesos também leva em conta o valor da recompensa ou punicão (r) e de um fator de aprendizagem $\alpha$ , os quais estão associados ao algoritmo de aprendizado por reforço escolhido.
+\begin{equation}\label{q-learning}
+w_i(k)=w_i(k-1)+\alpha \times [r+\gamma \times W_{lim}-w_i(k-1)]
+\end{equation}
 
 \subsection{Considerações}
-FCM é um modelo linguístico, próximo à linguagem humana, que é baseado na teoria de grafos e que permite interconectar conceitos através de relações de causa e efeito ponderadas. Essa abordagem apresenta a vantagem da modularidade, que possibilita dividir um problema complexo em diversos submodelos. Um FCM introduz a incerteza Fuzzy e tem a capacidade de integração com métodos de treinamento de inteligência artificial. O FCM é indicado para modelagem de sistemas complexos. A navegação robótica é um sistema complexo no qual vários conceitos (sensores e motores) são ativados e interagem entre si para produzir os movimentos adequados ao robô autônomo. A abordagem FCM permite modelar e mapear esses conceitos com a finalidade de implementar um algoritmo de navegação capaz de solucionar o problema.
+O FCM representa um problema em termos de conceitos e relações causais, podendo ser empregado em controladores de processos industriais ou no controle de robôs autônomos. O problema do desvio de obstáculos em navegação robótica pôde ser modelado, conforme o exemplo apresentado (figura \ref{fig:fcm-robot}), através de três conceitos de entrada (RS, FS e LS), dois conceitos de decisão (RO e LO), três conceitos de saída (Right Out, Front Out e Left Out), relações causais, regras \emph{SE-ENTÃO} e um algoritmo de aprendizado. O controlador proposto permite que o robô desvie obstáculos, reagindo à leitura de sensores que medem a distância de objetos posicionados à esquerda e à direita do mesmo. A vantagem da modelagem FCM, nesse contexto, é que os pesos das relações causais são atualizados constantemente através da equação \ref{q-learning}, permitindo que o robô apresente uma resposta dinâmica necessária ao controle de navegação.
 
