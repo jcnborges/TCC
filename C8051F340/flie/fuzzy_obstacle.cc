@@ -125,3 +125,4 @@ ostream& operator<<(ostream& fluxo, fuzzy_obstacle fo)
    return(fluxo);
 }
 */
+

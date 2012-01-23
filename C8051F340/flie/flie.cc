@@ -2,6 +2,7 @@
 // Adaptação/Utilização para o Trabalho de Conclusão de Curso Bellator
 
 //#define DOS
+//#define DBG
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream.h>
@@ -75,13 +76,13 @@ void flie::flie_setup()
 	//Motor Velocidade
 	cat[15].setname("Rapido");
 	cat[15].setrange(0,100);
-	cat[15].setval(50,100,100,100);
+	cat[15].setval(30,100,100,100);
 	cat[16].setname("Medio");
 	cat[16].setrange(0,100);
-	cat[16].setval(10,50,50,100);
+	cat[16].setval(10,30,30,100);
 	cat[17].setname("Lento");
 	cat[17].setrange(0,100);
-	cat[17].setval(0,0,10,50);
+	cat[17].setval(0,0,10,30);
 	//Motor Angulo
 	cat[18].setname("ViraEsquerda");
 	cat[18].setrange(0,180);
@@ -147,22 +148,26 @@ void flie::flie_setup()
 	AngMotor.includecategory(&cat[20]);
 	cat[20].define_lingvar(&AngMotor);
 
+
 	fc.set_defuzz(AVERAGEOFMAX);
 	fc.definevars(SensorEsquerda,SensorFrente,SensorDireita,VelMotor);
 
 	fc2.set_defuzz(AVERAGEOFMAX);
 	fc2.definevars(SensorEsquerda,SensorFrente,SensorDireita,AngMotor);
 
-	char lingesquerda[10];
-	char lingfrente[10];
-	char lingdireita[10];
-	char lingvel[10];
-	char lingdirecao[10];
+	char lingesquerda[16];
+	char lingfrente[16];
+	char lingdireita[16];
+	char lingvel[16];
+	char lingdirecao[16];
 	FILE *regras = freopen("regras.txt","r",stdin);
 
-	for(int i = 0;i<54;i++){
-		scanf("%s%s%s%s%s",lingesquerda,lingfrente,lingdireita,lingvel,lingdirecao);
+	for(int i = 0; scanf("%s%s%s%s%s", lingesquerda, lingfrente, lingdireita, lingvel, lingdirecao) == 5; ++i){
 		insertRule(i,lingesquerda,lingfrente,lingdireita,lingvel,lingdirecao);
+#ifdef DBG
+		printf("Regra %d [%s, %s, %s, %s, %s] inserida\n", i, lingesquerda, lingfrente, lingdireita,
+				lingvel, lingdirecao);
+#endif
 	}
 
 }

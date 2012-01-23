@@ -1,13 +1,11 @@
 
-CC=g++
+CC=arm-linux-g++
 FLAGS= -O3 -Wno-deprecated
 OBJECTS= fuzzy_obstacle.o fuzzfier.o
 OBJECTSFLIE= main.o fuzzy_obstacle.o fuzzy_control.o rule.o lingvar.o fuzzfier.o flie.o motor.o FIE.o
 OBJECTSFMAP= fuzzy_obstacle.o fuzzfier.o fuzzymap.o
 #LIBS= -L/local/home/joao/libstdc++-2.8.1/libraries/libstdc++ -lm 
 #INCLUDES= -I /usr/include/g++-include -I/export/home/aci/joao/local/libstdc++-2.8.1/libio
-
-objects: $(OBJECTS)
 
 main: $(OBJECTSFLIE)
 	$(CC) $(FLAGS) $(OBJECTSFLIE) -o main

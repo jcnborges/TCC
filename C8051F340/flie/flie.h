@@ -12,8 +12,8 @@
 #include "string.h"
 #include "FIE.h"
 
-#define tnorm(x,y) x<y?x:y //min : macros that define the T-norm
-#define snorm(x,y) x<y?y:x //max : and the S-norm used in the fuzzy inference
+#define tnorm(x,y) ((x)<(y)?(x):(y)) //min : macros that define the T-norm
+#define snorm(x,y) ((x)<(y)?(y):(x)) //max : and the S-norm used in the fuzzy inference
 
 class flie
 {
