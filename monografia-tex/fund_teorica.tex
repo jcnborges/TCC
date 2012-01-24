@@ -89,9 +89,14 @@ Considere também os seguintes conjuntos fuzzy:
 \end{equation}
 sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, aos conjuntos fuzzy \emph{\mbox{F, M e Q}}, com valores de pertinência pertencentes ao intervalo [0,1] e \emph{t} uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy \emph{\mbox{F, M e Q}} aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável \emph{t} pode ser traduzido em um valor equivalente para a variável linguística \emph{T}, dependendo apenas da definição das funções de pertinência \emph{\mbox{f(t), m(t) e q(t)}}.
 
-%Figura definição f m q
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{./figs/fuzzygraph.png}
+	\caption[Exemplo de Pertinências Fuzzy]{Funções de Pertinência f(t), m(t), q(t).}
+	\label{fig:fuzzygraph}
+\end{figure}
 
-Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f(t), m(t) e q(t)}} dada na figura acima, e três valores de temperatura, \emph{\mbox{t1 = 30, t2 = 50 e t3 = 90}}, temos que os valores correspondentes de temperatura para a variável linguística T são \mbox{T1 = (0.5 frio, 0.5 morno, 0.0 quente)}, \mbox{T2 = (0.0 frio, 1.0 morno, 0.0 quente)} e \mbox{T3 = (0.0 frio, 0.0 morno, 1.0 quente)}, respectivamente. Ou seja, informalmente, a temperatura t1 é representa que o material está ``meio frio" e ``meio morno", a temperatura t2 indica que está ``morno" e a temperatura t3, por sua vez, ``quente". Este processo de conversão para uma variável linguística é comumente chamado de ``fuzzificação".
+Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f(t), m(t) e q(t)}} dada na figura \ref{fig:fuzzygraph}, e três valores de temperatura, \emph{\mbox{t1 = 30, t2 = 50 e t3 = 90}}, temos que os valores correspondentes de temperatura para a variável linguística T são \mbox{T1 = (0.5 frio, 0.5 morno, 0.0 quente)}, \mbox{T2 = (0.0 frio, 1.0 morno, 0.0 quente)} e \mbox{T3 = (0.0 frio, 0.0 morno, 1.0 quente)}, respectivamente. Ou seja, informalmente, a temperatura t1 é representa que o material está ``meio frio" e ``meio morno", a temperatura t2 indica que está ``morno" e a temperatura t3, por sua vez, ``quente". Este processo de conversão para uma variável linguística é comumente chamado de ``fuzzificação".
 
 %descrever o processo inverso.
 
@@ -289,7 +294,7 @@ Interligando-se os conceitos através de relações de causa e efeito, o FCM da fig
 0,30<w_{54}<0,40
 \end{equation}
 
-O controlador do processo foi executado e, após a estabilização, obtiveram-se os pesos da matriz \ref{W-matrix} e os valores dos conceitos da matriz \ref{A-matrix}. Os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente, correspondendo ao ponto de operação desejado. 
+O controlador do processo foi executado e, após a estabilização, obtiveram-se os pesos da matriz \ref{W-matrix} e os valores dos conceitos da matriz \ref{A-matrix}. Os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente, correspondendo ao ponto de operação desejado.
 
 \begin{equation}\label{W-matrix}
     W^{inicial}=\left(
@@ -321,7 +326,7 @@ O controlador do processo foi executado e, após a estabilização, obtiveram-se os
 
 Nesse exemplo, a estabilização (ou sintonia) foi realizada através de três métodos: RNA (Rede Neural Artificial), AG (Algoritmo Genético) e PSO (Particle Swarm Optimization ou Otimização por Enxame de Partículas).
 
-Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é empregada em navegação robótica. Nesse artigo, um modelo de FCM novo é implementado para suportar as condições dinâmicas dos sistemas de navegação, nas quais os valores das relações causais são modificados dinamicamente através da ocorrência de eventos especiais. Os autores do artigo chamaram esse modelo de ED-FCM (Event-Driven Fuzzy Cognitive Map). 
+Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é empregada em navegação robótica. Nesse artigo, um modelo de FCM novo é implementado para suportar as condições dinâmicas dos sistemas de navegação, nas quais os valores das relações causais são modificados dinamicamente através da ocorrência de eventos especiais. Os autores do artigo chamaram esse modelo de ED-FCM (Event-Driven Fuzzy Cognitive Map).
 
 \begin{figure}[!htb]
     \centering
