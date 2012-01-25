@@ -1,7 +1,7 @@
 
 CC=arm-linux-g++
 FLAGS= -O3 -Wno-deprecated
-OBJECTSFLIE= tslogic.o fuzzy_obstacle.o fuzzy_control.o rule.o lingvar.o fuzzfier.o flie.o motor.o FIE.o
+OBJECTSFLIE= tslogic.o fuzzy_obstacle.o fuzzy_control.o rule.o lingvar.o fuzzfier.o flie.o motor.o FIE.o fcm.o
 
 all: $(OBJECTSFLIE)
 	$(CC) $(FLAGS) $(OBJECTSFLIE) -o tslogic
@@ -11,6 +11,9 @@ tslogic.o: tslogic.cpp
 
 motor.o: flie/motor.cc
 	$(CC) $(FLAGS) -c flie/motor.cc
+
+fcm.o: fcm.cpp
+	$(CC) $(FLAGS) -c fcm.cpp
 
 FIE.o: flie/FIE.cc
 	$(CC) $(FLAGS) -c flie/FIE.cc

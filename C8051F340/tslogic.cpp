@@ -7,6 +7,7 @@
 #include <time.h>
 #include "protocolo.h" 
 #include "flie/flie.h"
+#include "fcm.h"
 // -------------------------------------------------------------
 // Flags Debug
 // -------------------------------------------------------------
@@ -278,6 +279,26 @@ void run_fuzzy(){
 	set_setpoint(RIGHT, setRight);
 	return;
 }
+
+void run_fcm()
+{
+	static bool first = true;
+	float setRight, setLeft;
+	float left = float(MIN(last_dist[L30], last_dist[L60]));
+	float right = float(MIN(last_dist[R30], last_dist[R60]));
+	float mid = float(last_dist[MID]);
+	if (first)
+	{
+		init_W();
+		first = false;
+	}
+	inference(left, mid, right, setRight, setLeft);
+	setRight = floor(setRight * 0.75 + 0.5);
+	setLeft = floor(setLeft * 0.75 + 0.5);
+	set_setpoint(LEFT, (int) setLeft);
+	set_setpoint(RIGHT, (int) setRight);
+}
+
 #define VAI 30
 int main()
 {
