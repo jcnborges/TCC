@@ -146,11 +146,12 @@ de navegação é executado.
 	minimum height=1cm, text width=8em, text centered]
 \tikzstyle{navb} = [rectangle, draw=black!100, fill=yellow!30, rounded corners,
 	text width=8em, minimum height=1cm, text centered]
+\tikzstyle{background} = [rectangle, fill=gray!50, inner sep=4mm, rounded corners=5mm];
     
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}[node distance = 1.5cm, auto]
-		% Nós do flowchart
+		% Nós e conexões do diagrama
 		\node [tsb] (opentty) {Configura serial};
 		\node [tsb, below of=opentty] (sync) {Envia SYNC} edge [pre] (opentty);
 		\node [tsb, below of=sync] (read) {Leitura do pacote} edge [pre] (sync);
@@ -167,8 +168,13 @@ de navegação é executado.
 			edge [pre] (rcv)
 			edge [post, dashed] (read);
 		\node [8051b, right=2cm of act] (pwm) {Ajuste dos PWMs} edge [pre, dashed] (act);
-		% Ligações
 		\path [line] (end) -- +(-2.5,0) |- (sync);
+		% Background
+		\begin{pgfonlayer}{background}
+			\node [background, fit=(opentty) (end), label=above:tslogic] {};
+			\node [background, fit=(nrcv) (nret), label=above:Fuzzy/FCM] {};
+			\node [background, fit=(rcv) (pwm), label=above:C8051F340] {};
+		\end{pgfonlayer}
 	\end{tikzpicture}
 	\caption[Diagrama em blocos software TS-7260]
 	{Diagrama em blocos demonstrando o funcionamento do software da placa TS-7260.}
