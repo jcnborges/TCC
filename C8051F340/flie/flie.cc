@@ -22,8 +22,8 @@ void flie::flie_setup()
 {
 	float rlow = 0;
 	float rhigh = 200;
-	float range_perto[4] = {16,16,20,50};
-	float range_medio[4] = {20,50,100,150};
+	float range_perto[4] = {16,16,30,50};
+	float range_medio[4] = {30,50,100,150};
 	float range_longe[4] = {100,150,175,200};
 	//Frente
 	cat[0].setname("Perto");
@@ -76,13 +76,13 @@ void flie::flie_setup()
 	//Motor Velocidade
 	cat[15].setname("Rapido");
 	cat[15].setrange(0,100);
-	cat[15].setval(30,100,100,100);
+	cat[15].setval(50,100,100,100);
 	cat[16].setname("Medio");
 	cat[16].setrange(0,100);
-	cat[16].setval(10,30,30,100);
+	cat[16].setval(25,50,50,100);
 	cat[17].setname("Lento");
 	cat[17].setrange(0,100);
-	cat[17].setval(0,0,10,30);
+	cat[17].setval(0,0,25,50);
 	//Motor Angulo
 	cat[18].setname("ViraEsquerda");
 	cat[18].setrange(0,180);
