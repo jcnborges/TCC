@@ -1,5 +1,5 @@
 #!/bin/bash
 
 make
-make clean
 mv tslogic /files/tslogic
+cp flie/regras.txt /files/regras.txt
