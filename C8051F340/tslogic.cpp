@@ -26,7 +26,7 @@
 // -------------------------------------------------------------
 enum {LEFT, RIGHT, NENCODERS};
 enum {L30, MID, NOT, R30, R60, L60, NSENSORS};
-const int NADJUSTMENTS = 5; // Numero de ajustes entre as execucoes do algoritmo
+const int NADJUSTMENTS = 2; // Numero de ajustes entre as execucoes do algoritmo
 const int SZ_MSG_ENCODER = 5; // Tamanho do pacote de dados de um encoder (bytes)
 const int SZ_MSG_SENSOR = 4; // Tamanho do pacote de dados de um sensor (bytes)
 const int distances[256] = { // Tabela de conversao de distancias (valor DA para cm)
