@@ -272,9 +272,9 @@ void ADC_setup () { 	// USAR TIMER 3
 
 void interrupt_timer3() interrupt 14 {	// Trata a interrupcao do Timer 3
 
-	// 784 - 50 ms
-	// 3136 - 200 ms
-	if(timer3count == 3136 * 5) { // Contar para gerar um delay de 200ms
+	// 937 - 50 ms
+	// 3748 - 200 ms
+	if(timer3count == 937) { 	// Contar para gerar um delay de 50ms
 		AD0BUSY =1;				  // Iniciar as conversoes no ADC0.
 		timer3count = 0;
 	}

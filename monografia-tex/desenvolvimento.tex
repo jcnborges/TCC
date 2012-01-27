@@ -107,33 +107,78 @@ A placa de roteamento foi confeccionada manualmente em uma placa de circuito imp
 \section{Placa TS-7260}
 %Descrição do motivo da escolha da placa, implementação de códigos auxiliares aos algoritmos (comunicação, etc)...
 Esta seção explicará como foi estruturado o software desenvolvido para a placa
-TS-7260, com o objetivo de guiar o robô em sua navegação, através da execução
-dos algoritmos de navegação.
+TS-7260, cuja função é realizar a interface entre o software do microcontrolador
+C8051F340 e o algoritmo de navegação (Fuzzy ou FCM). 
 
-\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
-    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
-    text width=8em, text centered, rounded corners, minimum height=3em]
+O código que roda na TS-7260 é o que efetivamente controla o robô. A parte principal do código consiste
+de um loop infinito, que executa os seguintes passos:
+
+\begin{itemize}
+	\item Envio de um SYNC para o microcontrolador: isto faz com que o microcontrolador responda
+		um pacote com as leituras mais recentes dos sensores de distância, juntamente com as leituras
+		dos encoders (esta comunicação é realizada via porta serial);
+	\item Leitura do pacote enviado pelo microcontrolador: recebe os dados do microcontrolador e 
+		os armazena;
+	\item Execução do algoritmo de navegação: utiliza os dados armazenados para executar o algoritmo
+		de navegação, passando os valores de leitura dos sensores de distância. O algoritmo utiliza
+		os dados para realizar a inferência, retornando valores que indicam qual ação o robô deve tomar;
+	\item Ajuste dos setpoints: nesta etapa, os dados retornados pelo algoritmo de navegação são
+		utilizados para o cálculo do setpoint de cada roda (velocidade desejada), o setpoint é então
+		alterado de acordo;
+	\item Ajuste de velocidade: esta etapa consiste do ajuste dos níveis de PWM de cada roda, e utiliza
+		para tal os valores de leitura dos encoders e o setpoint do passo anterior. 
+		O objetivo do ajuste de velocidade é fazer com que cada motor fique o mais próximo possível
+		do setpoint estabelecido previamente;
+	\item Envio das ações: os níveis de PWM definidos pelo ajuste de velocidade são enviados para
+		o microcontrolador C8051F340, que efetiva a mudança.
+\end{itemize}
+
+O diagrama em blocos a seguir representa o funcionamento do software, demonstrando
+também em que etapas ocorre a comunicação com o microcontrolador e quando o algoritmo 
+de navegação é executado.
+
+\tikzstyle{tsb} = [rectangle, draw=black!100, fill=blue!15!green!10, 
+    text width=8em, text centered, rounded corners, minimum height=1cm]
+\tikzstyle{transition} = [rectangle, thick, draw=black!75, fill=black!20,
+	minimum size=4mm]
 \tikzstyle{line} = [draw, -latex']
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
-    minimum height=2em]
+\tikzstyle{8051b} = [rectangle, draw=black!100, fill=red!15, rounded corners,
+	minimum height=1cm, text width=8em, text centered]
+\tikzstyle{navb} = [rectangle, draw=black!100, fill=yellow!30, rounded corners,
+	text width=8em, minimum height=1cm, text centered]
+\tikzstyle{background} = [rectangle, fill=gray!50, inner sep=4mm, rounded corners=5mm];
     
-\begin{tikzpicture}[node distance = 2cm, auto]
-	% Nós do flowchart
-	\node [block] (opentty) {Configura serial};
-	\node [block, below of=opentty] (sync) {Envia SYNC};
-	\node [block, below of=sync] (read) {Leitura dos dados};
-	\node [block, below of=read] (alg) {Executa algoritmo de navegação};
-	\node [block, below of=alg] (adj) {Envia as ações};
-	\node [block, below of=adj] (end) {Loop};
-	% Ligações
-	\path [line] (opentty)  -- (sync);
-	\path [line] (sync) -- (read);
-	\path [line] (read) -- (alg);
-	\path [line] (alg) -- (adj);
-	\path [line] (adj) -- (end);
-	\path [line] (end) -- +(-2.5,0) |- (sync);
-\end{tikzpicture}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[node distance = 1.5cm, auto]
+		% Nós e conexões do diagrama
+		\node [tsb] (opentty) {Configura serial};
+		\node [tsb, below of=opentty] (sync) {Envia SYNC} edge [pre] (opentty);
+		\node [tsb, below of=sync] (read) {Leitura do pacote} edge [pre] (sync);
+		\node [tsb, below of=read] (alg) {Executa algoritmo de navegação} edge [pre] (read);
+		\node [navb, left=2cm of alg] (nrcv) {Recebe dados} edge [pre, dashed] (alg);
+		\node [navb, below of=nrcv] (ninf) {Realiza a inferência} edge [pre] (nrcv);
+		\node [navb, below of=ninf] (nret) {Retorna as ações} edge [pre] (ninf);
+		\node [tsb, right=2cm of nret] (sadj) {Ajuste dos setpoints} edge [pre, dashed] (nret);
+		\node [tsb, below of=sadj] (vadj) {Ajuste da velocidade} edge [pre] (sadj);
+		\node [tsb, below of=vadj] (act) {Envia as ações} edge [pre] (vadj);
+		\node [tsb, below of=act] (end) {Loop} edge [pre] (act);
+		\node [8051b, right=2cm of sync] (rcv) {Recebe SYNC} edge [pre, dashed] (sync);
+		\node [8051b, below of=rcv] (spkg) {Envia pacote} 
+			edge [pre] (rcv)
+			edge [post, dashed] (read);
+		\node [8051b, right=2cm of act] (pwm) {Ajuste dos PWMs} edge [pre, dashed] (act);
+		\path [line] (end) -- +(-2.5,0) |- (sync);
+		% Background
+		\begin{pgfonlayer}{background}
+			\node [background, fit=(opentty) (end), label=above:tslogic] {};
+			\node [background, fit=(nrcv) (nret), label=above:Fuzzy/FCM] {};
+			\node [background, fit=(rcv) (pwm), label=above:C8051F340] {};
+		\end{pgfonlayer}
+	\end{tikzpicture}
+	\caption[Diagrama em blocos software TS-7260]
+	{Diagrama em blocos demonstrando o funcionamento do software da placa TS-7260.}
+\end{figure}
 
 \section{Algoritmos de Navegação}
 \label{sec:algs}

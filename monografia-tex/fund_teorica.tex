@@ -71,8 +71,9 @@ Em um conjunto fuzzy B que contemple tudo o que tem sabor doce, torna-se possíve
 Isto aproxima-se mais da forma como a cognição e intuição humana funcionam, que frequentemente usa-se de palavras como ``mais", ``muito", ``pouco", entre outras, para definir graus de pertinência a conjuntos de uma forma subjetiva.
 
 \subsection{Variável Linguística}
+\label{varling}
 
-Uma aplicação direta de conjuntos fuzzy é a definição de variáveis linguísticas. %pedrycz e gomide fuzzy systems toward human centric computing pg40
+Uma aplicação direta de conjuntos fuzzy é a definição de variáveis linguísticas. \cite{PEDRYCZ}
 Considerando que variável x pode assumir um valor qualquer dentro de um dado conjunto A, pode-se definir como uma variável linguística como uma variável cujo conjunto A de valores possíveis para a mesma é um conjunto de termos linguísticos, tais como, por exemplo, alto, baixo, curto, longo, entre outros. Pode-se estender este conceito associando cada termo linguístico possível de uma variável linguística a um conjunto fuzzy.
 
 Para entender esta definição, considere a variável linguística Temperatura (T) composta pelos termos linguísticos frio, morno e quente:
@@ -98,13 +99,26 @@ sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, a
 
 Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f(t), m(t) e q(t)}} dada na figura \ref{fig:fuzzygraph}, e três valores de temperatura, \emph{\mbox{t1 = 30, t2 = 50 e t3 = 90}}, temos que os valores correspondentes de temperatura para a variável linguística T são \mbox{T1 = (0.5 frio, 0.5 morno, 0.0 quente)}, \mbox{T2 = (0.0 frio, 1.0 morno, 0.0 quente)} e \mbox{T3 = (0.0 frio, 0.0 morno, 1.0 quente)}, respectivamente. Ou seja, informalmente, a temperatura t1 é representa que o material está ``meio frio" e ``meio morno", a temperatura t2 indica que está ``morno" e a temperatura t3, por sua vez, ``quente". Este processo de conversão para uma variável linguística é comumente chamado de ``fuzzificação".
 
-%descrever o processo inverso.
 
 \subsection{Controle Fuzzy}
 
-%descrever inferencias
+Após definidas as variáveis linguísticas, conjuntos fuzzy e suas funções de pertinência, descritas na seção \ref{varling}, pode-se construir um controle fuzzy baseado em um conjunto de regras de inferência.
 
-%TEXTO ANTERIOR
+Regras de inferência sobre conjuntos fuzzy podem ser categorizadas como uma generalização do \emph{modus ponens} binário. Em lógica binária, dada regra "se X então Y", onde X e Y são variáveis binárias, a partir do momento que a premissa, representada pela variável X, assume valor lógico verdadeiro, a conclusão, dada por Y, é verdadeira também. Em lógica fuzzy, o mesmo raciocínio é valido, porém X e Y são variáveis linguísticas, e as regras de inferência são definidas a partir dos valores que estas variáveis linguísticas podem assumir, permitindo inclusive ativação parcial de regras de inferência. Extendendo o exemplo das temperaturas, apresentado na seção \ref{varling}, imagine que deseja-se controlar a velocidade de um \emph{cooler} de processador, de acordo com a temperatura que este se encontra, utilizando um controle fuzzy. As regras de inferência para este controle podem ser, por exemplo:
+\begin{center}
+    Se \emph{morno} então \emph{medio}
+    Se \emph{quente} então \emph{forte}
+\end{center}
+Sendo ``medio" e ``forte" valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio" correspondendo a função de pertinência vm e ``quente" correspondendo a vq, apresentados na figura a seguir:
+
+%figura pertinencia velocidade
+
+De acordo com estas regras de inferência, se a temperatura \emph{fuzzificada} for inteiramente fria, nenhuma regra será ativada e a velocidade do \emph{cooler} será nula. Porém, se a temperatura for maior que a mínima necessária para começar a ser classificada como morna, haverá ativação integral ou parcial de uma ou ambas as regras de inferência. Neste caso, é necessário determinar o grau de ativação de cada uma das regras e produzir uma saída que contemple estes graus de ativação, que é o processo inverso à \emph{fuzzificação}, a \emph{defuzzificação}. Um destes métodos é a média do máximo, que consiste da média ponderada dos máximos de cada valor fuzzy de saída, com os pesos correspondendo às ativações das regras de inferência. Considerando novamente o exemplo do controle de velocidade de um \emph{cooler} e considerando que, em um determinado momento, a temperatura está ``meio morno" e ``meio quente", ou seja, 0.5 de pertinência à classe ``morno" e a classe ``quente", ambas as regras serão ativadas igualmente e a velocidade do \emph{cooler} será:
+\begin{equation}
+v = \frac{\left( 0.5*50 + 0.5*100 \right ) } {1} = 75
+\end{equation}
+
+%TEXTO ANTERIOR. Remover? Tutorial fuzzy?
 Uma aplicaçao básica e clássica da lógica fuzzy é a classificação de uma variável contínua. Por exemplo,
 para classificar um valor de temperatura, pode-se utilizadar um conjunto fuzzy com as variáveis
 FRIO, MORNO e QUENTE. Para classificar dado valor de temperatura, pode se utilizar as classes fuzzy apresentadas
@@ -160,8 +174,7 @@ Para projetar um sistema fuzzy, o seguinte conjunto de passos pode ser seguido \
 
 \subsection{Considerações}
 
-O conceito de incerteza introduzido pela Lógica Fuzzy permite a modelagem de sistemas problemas de decisão cujas variáveis são dinâmicas e admitem vários níveis de classificação. O problema de navegação robótica
-é um sistema dinâmico, pois as decisões são tomadas sob a influência de vários sensores ao mesmo tempo, e a abordagem Fuzzy é uma opção para solucioná-lo.
+O conceito de incerteza introduzido pela Lógica Fuzzy permite a modelagem de sistemas com problemas de decisão cujas variáveis são dinâmicas, reduzindo a influencia de ruídos e possibilitando a construção de um sistema de inferências análogo à cognição humana. O problema de navegação robótica altamente dinâmico, pois as decisões são tomadas sob a influência de vários sensores simultaneamente, todos passíveis de ruído, e a abordagem Fuzzy é uma opção plausível para tratá-lo.
 
 \section{Mapas Cognitivos Fuzzy}
 \label{sec:fcm}
