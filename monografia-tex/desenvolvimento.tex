@@ -178,8 +178,96 @@ Finalmente, as regras definidas podem ser utilizadas para realizar inferências. 
 \subsection{Algoritmo de Navegação Baseado em ED-FCM}
 \label{sec:algedfcm}
 %Descrição da adaptação do código matlab, utilização, conceitos.
+Esta seção tem por objetivo descrever o projeto e a implementação do algoritmo de navegação baseado na abordage FCM, apresentada na seção \ref{sec:fcm} da fundamentação teórica. O projeto consistiu na definição dos conceitos de entrada, nível e saída, relações causais e respectivos pesos. A implementação foi desenvolvida em linguagem C++ e compilada para ser executada na placa TS-7260.
 
+Primeiramente, definiu a entrada do sistema de navegação, a qual correspondeu às leituras dos sensores de distância. Desse modo, foram criados três conceitos de entrada:
 
+\begin{enumerate}
+\item SD - Representa a leitura do sensor lateral esquerdo.
+\item SF - Representa a leitura do sensor frontal.
+\item SE - Representa a leitura do sensor lateral direito.
+\end{enumerate}
+
+Esses conceitos guardam o valor da leitura da distância normalizada na faixa de 0 a 1, através da equação \ref{eq:normaliza}, sendo x o valor absoluto da distância (cm), MIN o valor mínimo suportado pelo sensor e MAX o valor máximo.
+
+\begin{equation}
+\label{eq:normaliza}
+y=\frac {x-MIN} {MAX-MIN}
+\end{equation}
+
+Em seguida, foram determinados os conceitos de nível do FCM, os quais estabelecem as inferências resultantes dos valores dos conceitos de entrada. Foram definidos quatro conceitos nível:
+
+\begin{enumerate}
+\item GDF - Representa a intensidade da decisão de girar a roda direita para frente.
+\item GDT - Representa a intensidade da decisão de girar a roda direita para trás.
+\item GEF - Representa a intensidade da decisão de girar a roda esquerda para frente.
+\item GDT - Representa a intensidade da decisão de girar a roda direita para trás.
+\end{enumerate}
+
+Os níveis desses conceitos são ativados através de uma função sigmoidal dependente dos valores dos conceitos de entrada. As equações \ref{eq:sig_frente} e \ref{eq:sig_tras} foram adaptadas da equação \ref{sigmoide}, apresentada na fundamentação teórica, e operam em domínio (0, 1) e imagem (0, 1).
+
+\begin{equation}
+\label{eq:sig_frente}
+f(x)=\frac{1} {10+e^{-(10x+4,5)}}
+\end{equation}
+
+\begin{equation}
+\label{eq:sig_tras}
+f(x)=1-\frac{1} {10+e^{-(10x+4,5)}}
+\end{equation}
+
+Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percentuais de potência de cada roda. Esse nível varia na faixa de -100\% a +100\% e o sinal indica o sentido de giro, sendo o sinal positivo "girar para frente" e o sinal negativo "girar para trás". Desse modo, foram estabelecidos dois conceitos de saída:
+
+\begin{enumerate}
+\item RD Out - Representa o nível percentual de potência da roda direita.
+\item RE Out - Representa o nível percentual de potência da roda esquerda.
+\end{enumerate}
+
+Os conceitos foram interligados através das relações causais apresentadas na tabela \ref{tab:fcm-relacoes} e o valor numérico das intensidades está de acordo com a tabela \ref{tab:pesos}.
+
+\begin{table}[htb!]
+	\centering
+	\caption[Relações causais do controlador FCM proposto]{Relações causais do controlador FCM proposto.}		
+	\begin{tabular}[!htb]{ l l l l }
+	  \hline
+	  Relação causal & Descrição & Efeito & Intensidade \\
+	  \hline
+		$w_1$ & SD influencia GDF & Positivo & Forte \\
+		$w_2$ & SD influencia GEF & Negativo & Fraca \\
+		$w_3$ & SD influencia GET & Positivo & Forte \\
+		
+		$w_4$ & SE influencia GEF & Positivo & Forte \\
+		$w_5$ & SE influencia GDF & Negativo & Fraca \\
+		$w_6$ & SE influencia GDT & Positivo & Forte \\
+		
+		$w_7$ & SF influencia GDF & Negativo & Fraca \\
+		$w_8$ & SF influencia GDT & Positivo & Média \\
+		$w_9$ & SF influencia GEF & Negativo & Fraca \\
+		$w_{10}$ & SF influencia GET & Positivo & Média \\
+		
+		$w_{11}$ & GDF influencia RD Out & Positivo & Forte \\
+		$w_{12}$ & GDT influencia RD Out & Negativo & Forte \\
+		$w_{13}$ & GEF influencia RE Out & Positivo & Forte \\
+		$w_{14}$ & GET influencia RE Out & Negativo & Forte \\
+	  \hline  	
+	\end{tabular}
+	\label{tab:fcm-relacoes}
+\end{table}
+
+\begin{table}[htb!]
+	\centering
+	\caption[Valor numérico dos pesos]{Valor numérico dos pesos.}		
+	\begin{tabular}[!htb]{ l l l l }
+	  \hline
+	  Intensidade & Valor numérico \\
+	  \hline
+		FRACA & 0,125 \\
+		MÉDIA & 0,5 \\
+		FORTE & 1,0 \\
+	  \hline  	
+	\end{tabular}
+	\label{tab:pesos}
+\end{table}
 
 \section{Considerações}
 Nesta seção foram descritos os passos da equipe desde os testes iniciais com o robô até o projeto da nova placa de roteamento. Com a realização destas tarefas, o objetivo de reconstrução da camada de baixo nível do robô Bellator foi alcançado.

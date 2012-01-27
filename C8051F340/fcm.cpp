@@ -39,10 +39,10 @@ void init_W()
 	W[SE][GDF] = MEDIA;
 	W[SE][GDT] = FORTE;
 	
-	W[SF][GDF] = MEDIA;
-	W[SF][GDT] = FRACA;
-	W[SF][GEF] = MEDIA;
-	W[SF][GET] = FRACA;
+	W[SF][GDF] = FRACA;
+	W[SF][GDT] = MEDIA;
+	W[SF][GEF] = FRACA;
+	W[SF][GET] = MEDIA;
 	
 	W[GDF][RD_Out] = FORTE;
 	W[GDT][RD_Out] = FORTE;
@@ -61,27 +61,27 @@ void inference(int se, int sf, int sd, float &rd_out, float &re_out)
 	
 	// calcula o valor do conceito gdf
 	gdf = W[SD][GDF] * 1 / (1 + exp(VAL(sd)));
-	gdf += W[SE][GDF] * 1 / (1 + exp(VAL(se)));
+	gdf -= W[SE][GDF] * 1 / (1 + exp(VAL(se)));
 	gdf -= W[SF][GDF] * 1 / (1 + exp(VAL(sf)));
-	gdf /= W[SD][GDF] + W[SE][GDF] - W[SF][GDF];
+	gdf /= W[SD][GDF];
+	gdf = gdf > 0 ? gdf : 0;
 
 	// calcula o valor do conceito gdt
-	gdt = W[SE][GDT] * 1 / (1 + exp(VAL(se)));
-	gdt += W[SF][GDT] * 1 / (1 + exp(VAL(sf)));
+	gdt = W[SE][GDT] * (1 - 1 / (1 + exp(VAL(se))));
+	gdt += W[SF][GDT] * (1 - 1 / (1 + exp(VAL(sf))));
 	gdt /= W[SE][GDT] + W[SF][GDT];
-	gdt = 1 - gdt;
 
 	// calcula o valor do conceito gef
 	gef = W[SE][GEF] * 1 / (1 + exp(VAL(se)));
-	gef += W[SD][GEF] * 1 / (1 + exp(VAL(sd)));
+	gef -= W[SD][GEF] * 1 / (1 + exp(VAL(sd)));
 	gef -= W[SF][GEF] * 1 / (1 + exp(VAL(sf)));
-	gef /= W[SE][GEF] + W[SD][GEF] - W[SE][GEF];
+	gef /= W[SE][GEF];
+	gef = gef > 0 ? gef : 0;
 
 	// calcula o valor do conceito get
-	get = W[SD][GDT] * 1 / (1 + exp(VAL(sd)));
-	get += W[SF][GDT] * 1 / (1 + exp(VAL(sf)));
+	get = W[SD][GDT] * (1 - 1 / (1 + exp(VAL(sd))));
+	get += W[SF][GDT] * (1 - 1 / (1 + exp(VAL(sf))));
 	get /= W[SD][GDT] + W[SF][GDT];
-	get = 1 - get;
 
 	// calcula o valor do conceito rd_out
 	rd_out = W[GDF][RD_Out] * gdf;
