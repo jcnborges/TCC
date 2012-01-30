@@ -109,68 +109,19 @@ Regras de inferência sobre conjuntos fuzzy podem ser categorizadas como uma gene
     Se \emph{morno} então \emph{medio}
     Se \emph{quente} então \emph{forte}
 \end{center}
-Sendo ``medio" e ``forte" valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio" correspondendo a função de pertinência vm e ``quente" correspondendo a vq, apresentados na figura a seguir:
+Sendo ``medio" e ``forte" valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio" correspondendo a função de pertinência vm e ``forte" correspondendo a vf, apresentados na figura \ref{defuzzygraph}:
 
-%figura pertinencia velocidade
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{./figs/defuzzygraph.png}
+	\caption[Exemplo de Pertinências Fuzzy - Defuzzificação]{Funções de Pertinência vm e vf.}
+	\label{fig:defuzzygraph}
+\end{figure}
 
 De acordo com estas regras de inferência, se a temperatura \emph{fuzzificada} for inteiramente fria, nenhuma regra será ativada e a velocidade do \emph{cooler} será nula. Porém, se a temperatura for maior que a mínima necessária para começar a ser classificada como morna, haverá ativação integral ou parcial de uma ou ambas as regras de inferência. Neste caso, é necessário determinar o grau de ativação de cada uma das regras e produzir uma saída que contemple estes graus de ativação, que é o processo inverso à \emph{fuzzificação}, a \emph{defuzzificação}. Um destes métodos é a média do máximo, que consiste da média ponderada dos máximos de cada valor fuzzy de saída, com os pesos correspondendo às ativações das regras de inferência. Considerando novamente o exemplo do controle de velocidade de um \emph{cooler} e considerando que, em um determinado momento, a temperatura está ``meio morno" e ``meio quente", ou seja, 0.5 de pertinência à classe ``morno" e a classe ``quente", ambas as regras serão ativadas igualmente e a velocidade do \emph{cooler} será:
 \begin{equation}
 v = \frac{\left( 0.5*50 + 0.5*100 \right ) } {1} = 75
 \end{equation}
-
-%TEXTO ANTERIOR. Remover? Tutorial fuzzy?
-Uma aplicaçao básica e clássica da lógica fuzzy é a classificação de uma variável contínua. Por exemplo,
-para classificar um valor de temperatura, pode-se utilizadar um conjunto fuzzy com as variáveis
-FRIO, MORNO e QUENTE. Para classificar dado valor de temperatura, pode se utilizar as classes fuzzy apresentadas
- na figura \ref{fig:fuzzyclasses}.
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics{./figs/fuzzyclasses.png}
-    \caption[Classificação Fuzzy]{Classificação de valores de temperatura utilizando lógica fuzzy.}
-    \fonte{\cite{FUZZYLOGIC}}
-    \label{fig:fuzzyclasses}
-\end{figure}
-
-A temperatura destacada na figura tem os seguintes graus de pertinência: 0.8 FRIO, 0.2 MORNO e 0 QUENTE.
-É comum também associar outras variáveis linguísticas para caracterizar os valores. No caso do exemplo, uma associação
-possível seria: bastante frio, levemente morno, nada quente.
-
-Com base na saída do classificador, um sistema fuzzy pode realizar inferências. Por exemplo, caso o objetivo fosse controlar
-a temperatura de uma caldeira, visando deixá-la bem quente, a observação de que está bastante frio implicaria
-na necessidade da elevação da quantidade de energia disponibilizada para seu aquecimento. Conforme a temperatura aumenta, novas temperaturas seriam observadas e classificadas em graus menores de frio e maiores de morno ou quente. Estas novas classificações levam a inferências diferentes e a outras alterações na fonte de calor, até alcançar a temperatura esperada. Quanto mais próximo do nível esperado, menos calor deverá ser suprido pela fonte de calor para o sistema, neste exemplo.
-
-As decisões tomadas pelo sistema são definidas por um conjunto de regras fuzzy, cujo formato básico é:
-
-SE X ENTÃO Y
-
-onde X é uma expressão contendo uma ou mais variáveis linguísticas e Y a ação a ser tomada. Retomando o exemplo da caldeira,
-uma regra possível seria: SE bastante frio ENTÃO aumentar bastante o fornecimento de calor.
-
-É evidente que os conceitos FRIO, MORNO e QUENTE são totalmente subjetivos e cada aplicação tem parâmetros e conceitos específicos, em variáveis linguísticas diferentes, tais como velocidade, distância, pressão, entre outros.
-Os valores e funções utilizadas para classificar tais grandezas são determinados por quem está desenvolvendo o sistema fuzzy, com os devidos ajustes para melhor adequação à aplicação em questão.
-Da mesma forma, as decisões a serem tomadas com base nos dados classificados são definidas pelo desenvolvedor. A grande vantagem e, até mesmo, objetivo de um sistema fuzzy é proporcionar um raciocínio simples na implementação das regras de um sistema. Isso é
-interessante quando se considera a adição de novos sensores e, consequentemente, novos dados. Uma simples alteração ou adição
-de novas regras é o suficiente para adaptar o sistema às novas entradas. %Não é verdade, necessariamente? Novos dados/entradas -> Muitas novas regras.
-
-Pelo fato de permitir a classificação de dados de uma forma mais flexível, em comparação com a teoria clássica de conjuntos,
-os dados de entrada para um sistema fuzzy não precisam ser tão precisos, sem ruídos, já que a presença de ruídos
-causa apenas pequenas variações na classificação, enquanto numa classificação binária, pouco ruído pode
-ocasionar a passagem de um nível baixo para um nível alto subitamente, ao passar um limite pré-definido.
-
-Para projetar um sistema fuzzy, o seguinte conjunto de passos pode ser seguido \cite{FUZZYLOGICTUTORIAL}:
-
-\begin{enumerate}
-    \item Definição do que vai ser controlado, com quais critérios, qual o tipo de saída desejado;
-    \item Determinação da relação entre a entrada e a saída, escolha do número de variáveis de entrada para o sistema;
-    \item Utilizando a estrutura de regras da lógica fuzzy, dividir o problema principal em várias tarefas menores. Estas
-    regras devem descrever o comportamento desejado conforme definido no item 1. O número e complexidade das regras depende do número de parâmetros de entrada a serem processados e do número de variáveis fuzzy associadas aos mesmos;
-    \item Criação das funções de classificação, que definem os significados (comumente através de variáveis linguísticas);
-    dos valores de entrada e saída. As saídas das funções de classificação serão utilizadas nas regras
-    \item Criação das funções para pré e pós-processamento necessárias (para tratamento dos dados de entrada e saída);
-    \item Testar o sistema, avaliar os resultados, ajustar as regras e funções de classificação. Repetir este passo;
-    até obter um comportamento satisfatório.
-\end{enumerate}
 
 \subsection{Considerações}
 
