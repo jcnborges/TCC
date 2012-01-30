@@ -1,2 +1,2 @@
-void inference(int, int, int, float&, float&);
+void inference(float, float, float, float&, float&);
 void init_W();
