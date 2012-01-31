@@ -108,7 +108,7 @@ A placa de roteamento foi confeccionada manualmente em uma placa de circuito imp
 %Descrição do motivo da escolha da placa, implementação de códigos auxiliares aos algoritmos (comunicação, etc)...
 Esta seção explicará como foi estruturado o software desenvolvido para a placa
 TS-7260, cuja função é realizar a interface entre o software do microcontrolador
-C8051F340 e o algoritmo de navegação (Fuzzy ou FCM). 
+C8051F340 e o algoritmo de navegação (Fuzzy ou FCM).
 
 O código que roda na TS-7260 é o que efetivamente controla o robô. A parte principal do código consiste
 de um loop infinito, que executa os seguintes passos:
@@ -117,7 +117,7 @@ de um loop infinito, que executa os seguintes passos:
 	\item Envio de um SYNC para o microcontrolador: isto faz com que o microcontrolador responda
 		um pacote com as leituras mais recentes dos sensores de distância, juntamente com as leituras
 		dos encoders (esta comunicação é realizada via porta serial);
-	\item Leitura do pacote enviado pelo microcontrolador: recebe os dados do microcontrolador e 
+	\item Leitura do pacote enviado pelo microcontrolador: recebe os dados do microcontrolador e
 		os armazena;
 	\item Execução do algoritmo de navegação: utiliza os dados armazenados para executar o algoritmo
 		de navegação, passando os valores de leitura dos sensores de distância. O algoritmo utiliza
@@ -126,7 +126,7 @@ de um loop infinito, que executa os seguintes passos:
 		utilizados para o cálculo do setpoint de cada roda (velocidade desejada), o setpoint é então
 		alterado de acordo;
 	\item Ajuste de velocidade: esta etapa consiste do ajuste dos níveis de PWM de cada roda, e utiliza
-		para tal os valores de leitura dos encoders e o setpoint do passo anterior. 
+		para tal os valores de leitura dos encoders e o setpoint do passo anterior.
 		O objetivo do ajuste de velocidade é fazer com que cada motor fique o mais próximo possível
 		do setpoint estabelecido previamente;
 	\item Envio das ações: os níveis de PWM definidos pelo ajuste de velocidade são enviados para
@@ -134,10 +134,10 @@ de um loop infinito, que executa os seguintes passos:
 \end{itemize}
 
 O diagrama em blocos a seguir representa o funcionamento do software, demonstrando
-também em que etapas ocorre a comunicação com o microcontrolador e quando o algoritmo 
+também em que etapas ocorre a comunicação com o microcontrolador e quando o algoritmo
 de navegação é executado.
 
-\tikzstyle{tsb} = [rectangle, draw=black!100, fill=blue!15!green!10, 
+\tikzstyle{tsb} = [rectangle, draw=black!100, fill=blue!15!green!10,
     text width=8em, text centered, rounded corners, minimum height=1cm]
 \tikzstyle{transition} = [rectangle, thick, draw=black!75, fill=black!20,
 	minimum size=4mm]
@@ -147,7 +147,7 @@ de navegação é executado.
 \tikzstyle{navb} = [rectangle, draw=black!100, fill=yellow!30, rounded corners,
 	text width=8em, minimum height=1cm, text centered]
 \tikzstyle{background} = [rectangle, fill=gray!50, inner sep=4mm, rounded corners=5mm];
-    
+
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}[node distance = 1.5cm, auto]
@@ -164,7 +164,7 @@ de navegação é executado.
 		\node [tsb, below of=vadj] (act) {Envia as ações} edge [pre] (vadj);
 		\node [tsb, below of=act] (end) {Loop} edge [pre] (act);
 		\node [8051b, right=2cm of sync] (rcv) {Recebe SYNC} edge [pre, dashed] (sync);
-		\node [8051b, below of=rcv] (spkg) {Envia pacote} 
+		\node [8051b, below of=rcv] (spkg) {Envia pacote}
 			edge [pre] (rcv)
 			edge [post, dashed] (read);
 		\node [8051b, right=2cm of act] (pwm) {Ajuste dos PWMs} edge [pre, dashed] (act);
@@ -187,11 +187,11 @@ Esta seção dedica-se à descrição da implementação dos algoritmos de navegação co
 \subsection{Algoritmo de Navegação Fuzzy}
 \label{sec:algfuzzy}
 %Descrição e referencia básica da biblioteca do fabro, adaptação e utilização. Descrição das regras. INCOMPLETO
-O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro. A FLIE, ou \emph{Fuzzy Logic Inference Engine}, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência.
+O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro. A FLIE, ou \emph{Fuzzy Logic Inference Engine}, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência, seguindo a fundamentação teórica sobre o assunto apresentada na seção \ref{sec:logfuzzy}.
 
 \subsubsection{Variáveis Linguísticas}
 
-A biblioteca FLIE possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas para a construção de um conjunto de variáveis fuzzy, bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis fuzzy.
+A biblioteca FLIE possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas para a construção de um conjunto de variáveis fuzzy, bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis linguísticas.
 A engine permite a definição de variáveis linguísticas na classe \emph{linguisticvariable}, que pode ser classificada através de valores fuzzy, com a classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com um nível de pertinência a cada categoria pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
 
 \begin{figure}[!htb]
@@ -202,7 +202,7 @@ A engine permite a definição de variáveis linguísticas na classe \emph{linguisti
   \label{lingvar}
 \end{figure}
 
-Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô... %testes..
+Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, sendo que apenas o menor valor de leitura válida é selecionado nestes pares como entrada para o algoritmo. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy: PertoEsquerda, Perto, PertoDireita com uma função de pertinência p(d)...
 
 \subsubsection{Regras de Inferência}
 
