@@ -16,16 +16,20 @@
 //#define DBG_COM2
 //#define DBG_PKG
 //#define DBG_ACC
+//#define DBG_VELOCITY_TEST
 #define DBG_INF
 #define DBG_SP
 #define vLeft v[LEFT]
 #define vRight v[RIGHT]
+#define FUZZY 1
+#define FCM 2
 
 // -------------------------------------------------------------
 // Constantes
 // -------------------------------------------------------------
 enum {LEFT, RIGHT, NENCODERS};
 enum {L30, MID, NOT, R30, R60, L60, NSENSORS};
+
 const int NADJUSTMENTS = 2; // Numero de ajustes entre as execucoes do algoritmo
 const int SZ_MSG_ENCODER = 5; // Tamanho do pacote de dados de um encoder (bytes)
 const int SZ_MSG_SENSOR = 4; // Tamanho do pacote de dados de um sensor (bytes)
@@ -56,10 +60,10 @@ const char* ENAME[] = { "LEFT", "RIGHT" };
 // Variaveis Globais
 // -------------------------------------------------------------
 int tty_fd; // File descriptor do terminal (COM2) TS-7260
-unsigned int v[2] = {0, 0}; // Velocidade atual das rodas
-unsigned int SP[NENCODERS];
+int v[2] = {0, 0}; // Velocidade atual das rodas
+int SP[NENCODERS];
 unsigned int last_dist[NSENSORS];
-unsigned int last_step[NENCODERS];
+int last_step[NENCODERS];
 
 // -------------------------------------------------------------
 // Funcoes Auxiliares
@@ -111,7 +115,7 @@ void show_info(){
 	printf("Sensor info\nL60  L30  MID  R30  R60  \n");
 	printf("%-4d %-4d %-4d %-4d %-4d\n", last_dist[L60], last_dist[L30], last_dist[MID],
 			last_dist[R30], last_dist[R60]);
-	for(i = 0; i < NENCODERS; ++i) printf("Encoder %6s: %6d [%3d]\n", ENAME[i], last_step[i], v[i]);
+	for(i = 0; i < NENCODERS; ++i) printf("Encoder %6s: %4d%4d [%3d]\n", ENAME[i], last_step[i], SP[i], v[i]);
 }
 
 void send_package(char msg[], int msg_size)
@@ -121,7 +125,6 @@ void send_package(char msg[], int msg_size)
 
 void accelerate(int wheel, int dv)
 {
-	if(!dv) return;
 	char msg_pwm[4];
 #ifdef DBG_ACC
 	printf("Accelerate %5s %3d --> ", ENAME[wheel], dv);
@@ -129,19 +132,22 @@ void accelerate(int wheel, int dv)
 	if (wheel == LEFT)
 	{
 		msg_pwm[0] = LEFT_WHEEL;
-		msg_pwm[1] = vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), 0);
+		vLeft = MAX(MIN(vLeft + dv, MAX_VELOCITY), -MAX_VELOCITY);
+		msg_pwm[1] = abs(vLeft);
+		if(vLeft < 0) msg_pwm[1] |= 0x80;
 #ifdef DBG_ACC
 		printf("LEFT_WHEEL  %3d\n", vLeft);
 #endif
 	} else if (wheel == RIGHT) {
 		msg_pwm[0] = RIGHT_WHEEL;
-		msg_pwm[1] = vRight = MAX(MIN(vRight + dv, MAX_VELOCITY), 0);
+		vRight = MAX(MIN(vRight + dv, MAX_VELOCITY), -MAX_VELOCITY);
+		msg_pwm[1] = abs(vRight);
+		if(vRight < 0) msg_pwm[1] |= 0x80;
 #ifdef DBG_ACC
 		printf("RIGHT_WHEEL %3d\n", vRight);
 #endif
 	}
 	msg_pwm[2] = END_CMD;
-	msg_pwm[3] = 10;
 	send_package(msg_pwm, 3);
 }
 
@@ -149,6 +155,7 @@ void adjust_velocity(){
 	int diff, step;
 	for(int i = 0; i < NENCODERS; ++i){
 		step = 0;
+		if(v[i] < 0) last_step[i] = -last_step[i];
 		diff = SP[i] - last_step[i];
 		if(abs(diff) > 10) step = 8;
 		else if(diff) step = 1;
@@ -273,8 +280,10 @@ void run_fuzzy(){
 #endif
 
 	int setpoint = int(floor(velocity * 0.75 + .5));
-	int setLeft = int(setpoint * (10 + angle) / 100);
-	int setRight = int(setpoint * (190 - angle) / 100);
+	int setLeft, setRight;
+	setLeft = setRight = setpoint;
+	if(angle >= 90.0) setRight = int(setpoint * (1 - (angle - 90) / 45));
+	else setLeft = int(setpoint * (angle / 45 - 1));
 	set_setpoint(LEFT, setLeft);
 	set_setpoint(RIGHT, setRight);
 	return;
@@ -284,9 +293,9 @@ void run_fcm()
 {
 	static bool first = true;
 	float setRight, setLeft;
-	float left = float(MIN(last_dist[L30], last_dist[L60]));
-	float right = float(MIN(last_dist[R30], last_dist[R60]));
-	float mid = float(last_dist[MID]);
+	int left = (MIN(last_dist[L30], last_dist[L60]));
+	int right = (MIN(last_dist[R30], last_dist[R60]));
+	int mid = (last_dist[MID]);
 	if (first)
 	{
 		init_W();
@@ -300,18 +309,30 @@ void run_fcm()
 }
 
 #define VAI 30
-int main()
+int main(int argc, char *argv[])
 {
 	int i, cnt = 0, cnt_t = 0;
 	int min_dist;
+	int ALGORITHM = -1;
 	clock_t op_begin; 
 	char command[8];
 	open_serial_port();
 
 	set_setpoint(0);
 	last_step[LEFT] = last_step[RIGHT] = 0;
-	accelerate(LEFT, -MAX_VELOCITY);
-	accelerate(RIGHT, -MAX_VELOCITY);
+	accelerate(LEFT, 0);
+	accelerate(RIGHT, 0);
+	for(int i = 1; i < argc; ++i){
+		printf("ARGUMENT: %s\n", argv[i]);
+		if(!strcmp(argv[i], "fuzzy") || atoi(argv[i]) == 1){
+			ALGORITHM = FUZZY;
+			puts("Running Fuzzy algorithm");
+		} else if(!strcmp(argv[i], "fcm") || atoi(argv[i]) == 2){
+			ALGORITHM = FCM;
+			puts("Running FCM algorithm");
+		}
+	}
+	if(ALGORITHM == -1) puts("No algorithm specified, robot won't move");
 	do { scanf("%s", command); } while(strcmp(command, "bacon"));
 	for(cnt = 0; ; ){
 		op_begin = clock();
@@ -335,17 +356,13 @@ int main()
 		}
 		adjust_velocity();
 #ifdef DBG_VELOCITY_TEST
-		/*
-		else {
-			if(!((cnt / MAX_VELOCITY) & 1)){
-				accelerate(RIGHT, 1);
-				accelerate(LEFT, 1);
-			} else{
-				accelerate(RIGHT, -1);
-				accelerate(LEFT, -1);
-			}
+		if(!((cnt / (MAX_VELOCITY*2)) & 1)){
+			accelerate(RIGHT, 1);
+			accelerate(LEFT, 1);
+		} else{
+			accelerate(RIGHT, -1);
+			accelerate(LEFT, -1);
 		}
-		*/
 #endif
 		/* }}} */
 
@@ -353,7 +370,13 @@ int main()
 #ifndef DBG_PKG
 			show_info();
 #endif
-			run_fuzzy();
+#ifndef DBG_VELOCITY_TEST
+			if(ALGORITHM == FUZZY){
+				run_fuzzy();
+			} else if(ALGORITHM == FCM){
+				run_fcm();
+			}
+#endif
 			cnt = 0;
 		}
 		//printf("Operacao completa, tempo: %.3lfs\n", (clock() - op_begin) / (double) CLOCKS_PER_SEC);

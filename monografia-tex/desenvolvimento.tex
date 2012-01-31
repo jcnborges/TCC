@@ -246,19 +246,19 @@ Em seguida, foram determinados os conceitos de nível do FCM, os quais estabelece
 \item GDF - Representa a intensidade da decisão de girar a roda direita para frente.
 \item GDT - Representa a intensidade da decisão de girar a roda direita para trás.
 \item GEF - Representa a intensidade da decisão de girar a roda esquerda para frente.
-\item GDT - Representa a intensidade da decisão de girar a roda direita para trás.
+\item GET - Representa a intensidade da decisão de girar a roda esquerda para trás.
 \end{enumerate}
 
 Os níveis desses conceitos são ativados através de uma função sigmoidal dependente dos valores dos conceitos de entrada. As equações \ref{eq:sig_frente} e \ref{eq:sig_tras} foram adaptadas da equação \ref{sigmoide}, apresentada na fundamentação teórica, e operam em domínio (0, 1) e imagem (0, 1).
 
 \begin{equation}
 \label{eq:sig_frente}
-f(x)=\frac{1} {10+e^{-(10x+4,5)}}
+f_1(x)=\frac{1} {1+e^{(-10x+4,5)}}
 \end{equation}
 
 \begin{equation}
 \label{eq:sig_tras}
-f(x)=1-\frac{1} {10+e^{-(10x+4,5)}}
+f_2(x)=1-\frac{1} {10+e^{(-10x+4,5)}}
 \end{equation}
 
 Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percentuais de potência de cada roda. Esse nível varia na faixa de -100\% a +100\% e o sinal indica o sentido de giro, sendo o sinal positivo "girar para frente" e o sinal negativo "girar para trás". Desse modo, foram estabelecidos dois conceitos de saída:
@@ -267,8 +267,6 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 \item RD Out - Representa o nível percentual de potência da roda direita.
 \item RE Out - Representa o nível percentual de potência da roda esquerda.
 \end{enumerate}
-
-Os conceitos foram interligados através das relações causais apresentadas na tabela \ref{tab:fcm-relacoes} e o valor numérico das intensidades está de acordo com a tabela \ref{tab:pesos}.
 
 \begin{table}[htb!]
 	\centering
@@ -313,6 +311,46 @@ Os conceitos foram interligados através das relações causais apresentadas na tab
 	\end{tabular}
 	\label{tab:pesos}
 \end{table}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.70]{./figs/fcm_proposto.png}
+    \caption[FCM proposto]{FCM proposto.}
+    \fonte{\cite{FCMENDONCA}}
+    \label{fig:fcm-proposto}
+\end{figure}
+
+Os conceitos foram interligados através das relações causais apresentadas na tabela \ref{tab:fcm-relacoes}, obtendo-se o mapa da figura \ref{fig:fcm-proposto}, e o valor numérico dos pesos está de acordo com a tabela \ref{tab:pesos}. As equações \ref{eq:gdf} a \ref{eq:get} determinam as intensidades dos conceitos de nível e as equações \ref{eq:rd_out} e \ref{eq:re_out} estabelecem a saída do FCM.
+
+\begin{equation}
+\label{eq:gdf}
+GDF=\frac {w_1f_1(SD)-w_5f_1(SE)-w_7f_1(SF)} {w_1}
+\end{equation}
+
+\begin{equation}
+\label{eq:gdt}
+GDT=\frac {w_6f_2(SE)+w_8f_2(SF)} {w_6+w_8}
+\end{equation}
+
+\begin{equation}
+\label{eq:gef}
+GEF=\frac {w_4f_1(SE)-w_2f_1(SD)-w_9f_1(SF)} {w_4}
+\end{equation}
+
+\begin{equation}
+\label{eq:get}
+GET=\frac {w_3f_2(SE)+w_{10}f_2(SF)} {w_3+w_{10}}
+\end{equation}
+
+\begin{equation}
+\label{eq:rd_out}
+RD_{Out}=100 \times \frac {w_{11}GDF-w_{12}GDT} {FORTE}
+\end{equation}
+
+\begin{equation}
+\label{eq:re_out}
+RD_{Out}=100 \times \frac {w_{13}GEF-w_{14}GET} {FORTE}
+\end{equation}
 
 \section{Considerações}
 Nesta seção foram descritos os passos da equipe desde os testes iniciais com o robô até o projeto da nova placa de roteamento. Com a realização destas tarefas, o objetivo de reconstrução da camada de baixo nível do robô Bellator foi alcançado.
