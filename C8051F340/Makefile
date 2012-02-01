@@ -1,4 +1,4 @@
-CC=g++
+CC=arm-linux-g++
 FLAGS= -O3 -Wno-deprecated
 OBJECTSFLIE= tslogic.o fuzzy_obstacle.o fuzzy_control.o rule.o lingvar.o fuzzfier.o flie.o motor.o FIE.o fcm.o
 

@@ -24,8 +24,8 @@ void flie::flie_setup()
 	float rlow = 0;
 	float rhigh = 200;
 	//Definição dos Trapézios para fuzzificação das leituras dos sensores
-	float range_perto[4] = {16,16,30,50};
-	float range_medio[4] = {30,50,100,150};
+	float range_perto[4] = {16,16,30,75};
+	float range_medio[4] = {30,75,100,150};
 	float range_longe[4] = {100,150,175,200};
 	//Definição das Velocidades para Defuzzificação
 	float range_vellow = 0;
