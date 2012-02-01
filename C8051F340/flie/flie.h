@@ -11,6 +11,7 @@
 #include "stdlib.h"
 #include "string.h"
 #include "FIE.h"
+using namespace std;
 
 #define tnorm(x,y) ((x)<(y)?(x):(y)) //min : macros that define the T-norm
 #define snorm(x,y) ((x)<(y)?(y):(x)) //max : and the S-norm used in the fuzzy inference

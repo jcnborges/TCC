@@ -1,7 +1,6 @@
 // fuzzfier.cc	V. Rao, H. Rao
 // program to fuzzify data
 
-#include <iostream.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
