@@ -5,7 +5,6 @@
 #include <string.h>
 #include <cassert>
 #include "flie.h"
-#include "iostream.h"
 
 // Contructor - Just initialize number of categories(fuzzy sets) of variable.
 linguisticvariable::linguisticvariable()

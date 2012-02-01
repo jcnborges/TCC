@@ -5,7 +5,6 @@
 //#define DBG
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream.h>
 
 #ifdef DOS
 #include <dir.h>

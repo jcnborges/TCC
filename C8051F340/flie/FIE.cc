@@ -1,6 +1,5 @@
 #include "flie.h"
 #include "FIE.h"
-#include "iostream.h"
 
 void subat::define_lingvar(linguisticvariable *l)
 {
