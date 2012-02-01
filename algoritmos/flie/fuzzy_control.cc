@@ -3,7 +3,7 @@
 
 #include "flie.h"
 #include "iostream.h"
-//#define DEBUG
+#define DEBUG
 // definevars  - Three methods to define the linguistic variables of input and
 //		 output that control the behavior of a system
 int fuzzy_control::definevars(linguisticvariable &input1,linguisticvariable &output)

@@ -1,5 +1,5 @@
 // Projeto FLIE-Fuzzy Logic Inference Engine - João Alberto Fabro
-// Adaptação/Utilização para o Trabalho de Conclusão de Curso Bellator
+// Adaptação/Utilização para o Trabalho de Conclusão de Curso - Algoritmos de Navegação Fuzzy: Uma Análise Qualitativa
 
 //#define DOS
 //#define DBG
@@ -20,11 +20,20 @@
 
 void flie::flie_setup()
 {
+	//Configuraçoes das funções de pertinência
+	//Minimo e máximo para as entradas (sensores)
 	float rlow = 0;
 	float rhigh = 200;
-	float range_perto[4] = {16,16,20,50};
-	float range_medio[4] = {20,50,100,150};
+	//Definição dos Trapézios para fuzzificação das leituras dos sensores
+	float range_perto[4] = {16,16,30,50};
+	float range_medio[4] = {30,50,100,150};
 	float range_longe[4] = {100,150,175,200};
+	//Definição das Velocidades para Defuzzificação
+	float range_vellow = 0;
+	float range_velhigh = 100;
+	float lento = 33;
+	float medio = 67;
+	float rapido = 100;
 	//Frente
 	cat[0].setname("Perto");
 	cat[0].setrange(rlow,rhigh);
@@ -36,63 +45,51 @@ void flie::flie_setup()
 	cat[2].setrange(rlow,rhigh);
 	cat[2].setval(range_longe[0],range_longe[1],range_longe[2],range_longe[3]);
 	//Lateral Esquerda (2 sensores)
-	cat[3].setname("PertoTras");
-	cat[3].setrange(rlow,rhigh+200);
-	cat[3].setval(range_perto[0]+200,range_perto[1]+200,range_perto[2]+200,range_perto[3]+200);
-	cat[4].setname("MedioTras");
-	cat[4].setrange(rlow,rhigh+200);
-	cat[4].setval(range_medio[0]+200,range_medio[1]+200,range_medio[2]+200,range_medio[3]+200);
-	cat[5].setname("LongeTras");
-	cat[5].setrange(rlow,rhigh+200);
-	cat[5].setval(range_longe[0]+200,range_longe[1]+200,range_longe[2]+200,range_longe[3]+200);
-	cat[6].setname("PertoFrente");
-	cat[6].setrange(rlow,rhigh+200);
-	cat[6].setval(range_perto[0],range_perto[1],range_perto[2],range_perto[3]);
-	cat[7].setname("MedioFrente");
-	cat[7].setrange(rlow,rhigh+200);
-	cat[7].setval(range_medio[0],range_medio[1],range_medio[2],range_medio[3]);
-	cat[8].setname("LongeFrente");
-	cat[8].setrange(rlow,rhigh+200);
-	cat[8].setval(range_longe[0],range_longe[1],range_longe[2],range_longe[3]);
+	cat[3].setname("PertoEsquerda");
+	cat[3].setrange(rlow,rhigh);
+	cat[3].setval(range_perto[0],range_perto[1],range_perto[2],range_perto[3]);
+	cat[4].setname("MedioEsquerda");
+	cat[4].setrange(rlow,rhigh);
+	cat[4].setval(range_medio[0],range_medio[1],range_medio[2],range_medio[3]);
+	cat[5].setname("LongeEsquerda");
+	cat[5].setrange(rlow,rhigh);
+	cat[5].setval(range_longe[0],range_longe[1],range_longe[2],range_longe[3]);
 	//Lateral Direita (2 sensores)
-	cat[9].setname("PertoTras");
-	cat[9].setrange(rlow,rhigh+200);
-	cat[9].setval(range_perto[0]+200,range_perto[1]+200,range_perto[2]+200,range_perto[3]+200);
-	cat[10].setname("MedioTras");
-	cat[10].setrange(rlow,rhigh+200);
-	cat[10].setval(range_medio[0]+200,range_medio[1]+200,range_medio[2]+200,range_medio[3]+200);
-	cat[11].setname("LongeTras");
-	cat[11].setrange(rlow,rhigh+200);
-	cat[11].setval(range_longe[0]+200,range_longe[1]+200,range_longe[2]+200,range_longe[3]+200);
-	cat[12].setname("PertoFrente");
-	cat[12].setrange(rlow,rhigh+200);
-	cat[12].setval(range_perto[0],range_perto[1],range_perto[2],range_perto[3]);
-	cat[13].setname("MedioFrente");
-	cat[13].setrange(rlow,rhigh+200);
-	cat[13].setval(range_medio[0],range_medio[1],range_medio[2],range_medio[3]);
-	cat[14].setname("LongeFrente");
-	cat[14].setrange(rlow,rhigh+200);
-	cat[14].setval(range_longe[0],range_longe[1],range_longe[2],range_longe[3]);
+	cat[6].setname("PertoDireita");
+	cat[6].setrange(rlow,rhigh);
+	cat[6].setval(range_perto[0],range_perto[1],range_perto[2],range_perto[3]);
+	cat[7].setname("MedioDireita");
+	cat[7].setrange(rlow,rhigh);
+	cat[7].setval(range_medio[0],range_medio[1],range_medio[2],range_medio[3]);
+	cat[8].setname("LongeDireita");
+	cat[8].setrange(rlow,rhigh);
+	cat[8].setval(range_longe[0],range_longe[1],range_longe[2],range_longe[3]);
 	//Motor Velocidade
-	cat[15].setname("Rapido");
-	cat[15].setrange(0,100);
-	cat[15].setval(50,100,100,100);
-	cat[16].setname("Medio");
-	cat[16].setrange(0,100);
-	cat[16].setval(10,50,50,100);
-	cat[17].setname("Lento");
-	cat[17].setrange(0,100);
-	cat[17].setval(0,0,10,50);
+	cat[9].setname("Rapido");
+	cat[9].setrange(0,100);
+	cat[9].setval(medio,rapido,rapido,rapido);
+	cat[10].setname("Medio");
+	cat[10].setrange(0,100);
+	cat[10].setval(lento,medio,medio,rapido);
+	cat[11].setname("Lento");
+	cat[11].setrange(0,100);
+	cat[11].setval(0,0,lento,medio);
 	//Motor Angulo
-	cat[18].setname("ViraEsquerda");
-	cat[18].setrange(0,180);
-	cat[18].setval(0,0,0,90);
-	cat[19].setname("Reto");
-	cat[19].setrange(0,180);
-	cat[19].setval(0,90,90,180);
-	cat[20].setname("ViraDireita");
-	cat[20].setrange(0,180);
-	cat[20].setval(90,180,180,180);
+	cat[12].setname("ViraEsquerda");
+	cat[12].setrange(0,180);
+	cat[12].setval(0,0,0,45);
+	cat[13].setname("ViraPoucoEsquerda");
+	cat[13].setrange(0, 180);
+	cat[13].setval(0, 45, 45, 90);
+	cat[14].setname("Reto");
+	cat[14].setrange(0,180);
+	cat[14].setval(0,90,90,180);
+	cat[15].setname("ViraPoucoDireita");
+	cat[15].setrange(0, 180);
+	cat[15].setval(90, 135, 135, 180);
+	cat[16].setname("ViraDireita");
+	cat[16].setrange(0,180);
+	cat[16].setval(135,180,180,180);
 
 	SensorFrente.setname("SensorFrente");
 
@@ -111,42 +108,34 @@ void flie::flie_setup()
 	cat[4].define_lingvar(&SensorEsquerda);
 	SensorEsquerda.includecategory(&cat[5]);
 	cat[5].define_lingvar(&SensorEsquerda);
-	SensorEsquerda.includecategory(&cat[6]);
-	cat[6].define_lingvar(&SensorEsquerda);
-	SensorEsquerda.includecategory(&cat[7]);
-	cat[7].define_lingvar(&SensorEsquerda);
-	SensorEsquerda.includecategory(&cat[8]);
-	cat[8].define_lingvar(&SensorEsquerda);
 
 	SensorDireita.setname("SensorDireita");
-	SensorDireita.includecategory(&cat[9]);
-	cat[9].define_lingvar(&SensorDireita);
-	SensorDireita.includecategory(&cat[10]);
-	cat[10].define_lingvar(&SensorDireita);
-	SensorDireita.includecategory(&cat[11]);
-	cat[11].define_lingvar(&SensorDireita);
-	SensorDireita.includecategory(&cat[12]);
-	cat[12].define_lingvar(&SensorDireita);
-	SensorDireita.includecategory(&cat[13]);
-	cat[13].define_lingvar(&SensorDireita);
-	SensorDireita.includecategory(&cat[14]);
-	cat[14].define_lingvar(&SensorDireita);
+	SensorDireita.includecategory(&cat[6]);
+	cat[6].define_lingvar(&SensorDireita);
+	SensorDireita.includecategory(&cat[7]);
+	cat[7].define_lingvar(&SensorDireita);
+	SensorDireita.includecategory(&cat[8]);
+	cat[8].define_lingvar(&SensorDireita);
 
 	VelMotor.setname("Velocidade Motor");
-	VelMotor.includecategory(&cat[15]);
-	cat[15].define_lingvar(&VelMotor);
-	VelMotor.includecategory(&cat[16]);
-	cat[16].define_lingvar(&VelMotor);
-	VelMotor.includecategory(&cat[17]);
-	cat[17].define_lingvar(&VelMotor);
+	VelMotor.includecategory(&cat[9]);
+	cat[9].define_lingvar(&VelMotor);
+	VelMotor.includecategory(&cat[10]);
+	cat[10].define_lingvar(&VelMotor);
+	VelMotor.includecategory(&cat[11]);
+	cat[11].define_lingvar(&VelMotor);
 
 	AngMotor.setname("Angulo Motor");
-	AngMotor.includecategory(&cat[18]);
-	cat[18].define_lingvar(&AngMotor);
-	AngMotor.includecategory(&cat[19]);
-	cat[19].define_lingvar(&AngMotor);
-	AngMotor.includecategory(&cat[20]);
-	cat[20].define_lingvar(&AngMotor);
+	AngMotor.includecategory(&cat[12]);
+	cat[12].define_lingvar(&AngMotor);
+	AngMotor.includecategory(&cat[13]);
+	cat[13].define_lingvar(&AngMotor);
+	AngMotor.includecategory(&cat[14]);
+	cat[14].define_lingvar(&AngMotor);
+	AngMotor.includecategory(&cat[15]);
+	cat[15].define_lingvar(&AngMotor);
+	AngMotor.includecategory(&cat[16]);
+	cat[16].define_lingvar(&AngMotor);
 
 
 	fc.set_defuzz(AVERAGEOFMAX);
@@ -155,11 +144,11 @@ void flie::flie_setup()
 	fc2.set_defuzz(AVERAGEOFMAX);
 	fc2.definevars(SensorEsquerda,SensorFrente,SensorDireita,AngMotor);
 
-	char lingesquerda[16];
-	char lingfrente[16];
-	char lingdireita[16];
-	char lingvel[16];
-	char lingdirecao[16];
+	char lingesquerda[64];
+	char lingfrente[64];
+	char lingdireita[64];
+	char lingvel[64];
+	char lingdirecao[64];
 	FILE *regras = freopen("regras.txt","r",stdin);
 
 	for(int i = 0; scanf("%s%s%s%s%s", lingesquerda, lingfrente, lingdireita, lingvel, lingdirecao) == 5; ++i){
