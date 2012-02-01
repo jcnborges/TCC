@@ -1,3 +1,4 @@
+#include <cmath>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -268,6 +269,8 @@ void run_fuzzy(){
 		first = false;
 		flie.flie_setup();
 	}
+	if(last_dist[R60] == -1) last_dist[R60] = 250;
+	if(last_dist[L60] == -1) last_dist[L60] = 250;
 
 	float left = float(MIN(last_dist[L30], last_dist[L60]));
 	float right = float(MIN(last_dist[R30], last_dist[R60]));

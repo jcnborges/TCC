@@ -31,8 +31,8 @@ void flie::flie_setup()
 	//Definição das Velocidades para Defuzzificação
 	float range_vellow = 0;
 	float range_velhigh = 100;
-	float lento = 25;
-	float medio = 50;
+	float lento = 33;
+	float medio = 67;
 	float rapido = 100;
 	//Frente
 	cat[0].setname("Perto");
@@ -77,13 +77,19 @@ void flie::flie_setup()
 	//Motor Angulo
 	cat[12].setname("ViraEsquerda");
 	cat[12].setrange(0,180);
-	cat[12].setval(0,0,0,90);
-	cat[13].setname("Reto");
-	cat[13].setrange(0,180);
-	cat[13].setval(0,90,90,180);
-	cat[14].setname("ViraDireita");
+	cat[12].setval(0,0,0,45);
+	cat[13].setname("ViraPoucoEsquerda");
+	cat[13].setrange(0, 180);
+	cat[13].setval(0, 45, 45, 90);
+	cat[14].setname("Reto");
 	cat[14].setrange(0,180);
-	cat[14].setval(90,180,180,180);
+	cat[14].setval(0,90,90,180);
+	cat[15].setname("ViraPoucoDireita");
+	cat[15].setrange(0, 180);
+	cat[15].setval(90, 135, 135, 180);
+	cat[16].setname("ViraDireita");
+	cat[16].setrange(0,180);
+	cat[16].setval(135,180,180,180);
 
 	SensorFrente.setname("SensorFrente");
 
@@ -126,6 +132,10 @@ void flie::flie_setup()
 	cat[13].define_lingvar(&AngMotor);
 	AngMotor.includecategory(&cat[14]);
 	cat[14].define_lingvar(&AngMotor);
+	AngMotor.includecategory(&cat[15]);
+	cat[15].define_lingvar(&AngMotor);
+	AngMotor.includecategory(&cat[16]);
+	cat[16].define_lingvar(&AngMotor);
 
 
 	fc.set_defuzz(AVERAGEOFMAX);
@@ -134,11 +144,11 @@ void flie::flie_setup()
 	fc2.set_defuzz(AVERAGEOFMAX);
 	fc2.definevars(SensorEsquerda,SensorFrente,SensorDireita,AngMotor);
 
-	char lingesquerda[16];
-	char lingfrente[16];
-	char lingdireita[16];
-	char lingvel[16];
-	char lingdirecao[16];
+	char lingesquerda[64];
+	char lingfrente[64];
+	char lingdireita[64];
+	char lingvel[64];
+	char lingdirecao[64];
 	FILE *regras = freopen("regras.txt","r",stdin);
 
 	for(int i = 0; scanf("%s%s%s%s%s", lingesquerda, lingfrente, lingdireita, lingvel, lingdirecao) == 5; ++i){

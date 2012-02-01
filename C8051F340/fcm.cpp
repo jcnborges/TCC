@@ -34,11 +34,11 @@ void init_W()
 {
 	W[SD][GDF] = FORTE;
 	W[SD][GEF] = FRACA;
-	W[SD][GET] = FRACA;
+	W[SD][GET] = MEDIA;
 	
 	W[SE][GEF] = FORTE;
 	W[SE][GDF] = FRACA;
-	W[SE][GDT] = FRACA;
+	W[SE][GDT] = MEDIA;
 	
 	W[SF][GDF] = FORTE;
 	W[SF][GDT] = FRACA;
