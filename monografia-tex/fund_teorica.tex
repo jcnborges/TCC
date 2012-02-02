@@ -1,12 +1,12 @@
 \chapter{Fundamentação Teórica}
 
-Este capítulo apresentará a fundamentação teórica desse trabalho de conclusão de curso. Será descrito o estado inicial em que se encontrava o projeto do robô Bellator, com uma visão geral deste ao ser entregue à equipe, a especificação do robô após a reconstrução, a apresentação da Lógica Fuzzy e da metodologia de Mapas Cognitivos Fuzzy (FCM).
+Este capítulo apresentará a fundamentação teórica desse trabalho de conclusão de curso. Será descrito o estado inicial do projeto e do robô Bellator, com uma visão geral deste ao ser entregue à equipe, a especificação do robô após a reconstrução, a apresentação da Lógica Fuzzy e da metodologia de Mapas Cognitivos Fuzzy (FCM).
 
 %---------- Estado inicial do Projeto ----------
 \section{Estado Inicial do Projeto}
 \label{chap:estpro}
 
-Esta seção visa descrever com quais recursos a equipe iniciou a execução do trabalho, tanto físicos como lógicos, ou seja, a situação do robô e seus componentes de hardware, o principal recurso material disponível, os componentes de software e a documentação de ambos, da forma como foi entregue à equipe.
+Esta seção visa descrever com quais recursos a equipe iniciou a execução do trabalho, tanto materiais como intelectuais, ou seja, a situação do robô e seus componentes de hardware, o principal e mais importante recurso material desse projeto, os componentes de software e a documentação de ambos, da forma como foi entregue à equipe.
 
 \subsection{Visão Geral}
 
@@ -55,8 +55,7 @@ Esta seção descreve os conceitos fundamentais utilizados pela equipe para o ente
 
 \subsection{Conjuntos Fuzzy}
 
-A teoria de conjuntos fuzzy foi elaborada inicialmente por Lofti Zadeh \cite{ZADEH}, %comofas ref. a artigo no reflatex?
-visando explorar a possibilidade de criar um novo critério de afiliação à conjuntos. Na teoria clássica de conjuntos, um elemento pode apenas pertencer ou não a um conjunto, sendo impossível um nível de pertinência parcial. Já em um conjunto fuzzy, isto torna-se possível.
+A teoria de conjuntos fuzzy foi elaborada inicialmente por Lofti Zadeh \cite{ZADEH}, visando explorar a possibilidade de criar um novo critério de afiliação à conjuntos. Na teoria clássica de conjuntos, um elemento pode apenas pertencer ou não a um conjunto, sendo impossível um nível de pertinência parcial. Já em um conjunto fuzzy, isto torna-se possível.
 Um conjunto fuzzy pode ser definido por um conjunto de pares ordenados com o elemento e sua pertinência ao conjunto fuzzy. Seja F um conjunto fuzzy e X um conjunto de objetos arbitrários, tem-se:
 
 \begin{equation}
@@ -65,9 +64,13 @@ F=\{(x,f(x)),x\in X\}, f(x) = [0,1]
 
 Assim sendo, considere um conjunto ``A" simples que contenha tudo o que tem sabor doce. Neste conjunto uma barra de chocolate é doce da mesma forma que cana de açucar, visto que ambos pertencem ao conjunto, ou seja:
 (barra de chocolate) $\in$ A e (cana de açucar) $\in$ A
-Em um conjunto fuzzy B que contemple tudo o que tem sabor doce, torna-se possível atribuir um nível de afiliação ao conjunto através de uma função de pertinência f  permitindo dizer que, por exemplo, a cana de açucar é doce com nível de pertinencia 1, enquanto que a barra de chocolate é doce com nível de pertinência 0.8, ou seja:
-((cana de açucar),f(cana de açucar)) $\in$ B, f(cana de açucar) = 1
-((barra de chocolate),f(barra de chocolate)) $\in$ B, f(barra de chocolate) = 0.8
+Em um conjunto fuzzy B que contemple tudo o que tem sabor doce, torna-se possível atribuir um nível de afiliação ao conjunto através de uma função de pertinência f  permitindo dizer que, por exemplo, a cana de açucar é doce com nível de pertinencia 1, enquanto que a barra de chocolate é doce com nível de pertinência 0.8, ou seja:\\*
+
+\begin{center}
+((cana de açucar),f(cana de açucar)) $\in$ B, f(cana de açucar) = 1\\*
+((barra de chocolate),f(barra de chocolate)) $\in$ B, f(barra de chocolate) = 0.8\\*
+\end{center}
+
 Isto aproxima-se mais da forma como a cognição e intuição humana funcionam, que frequentemente usa-se de palavras como ``mais", ``muito", ``pouco", entre outras, para definir graus de pertinência a conjuntos de uma forma subjetiva.
 
 \subsection{Variável Linguística}
@@ -90,7 +93,7 @@ Considere também os seguintes conjuntos fuzzy:
 \end{equation}
 sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, aos conjuntos fuzzy \emph{\mbox{F, M e Q}}, com valores de pertinência pertencentes ao intervalo [0,1] e \emph{t} uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy \emph{\mbox{F, M e Q}} aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável \emph{t} pode ser traduzido em um valor equivalente para a variável linguística \emph{T}, dependendo apenas da definição das funções de pertinência \emph{\mbox{f(t), m(t) e q(t)}}.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{./figs/fuzzygraph.png}
 	\caption[Exemplo de Pertinências Fuzzy]{Funções de Pertinência f(t), m(t), q(t).}
@@ -106,12 +109,12 @@ Após definidas as variáveis linguísticas, conjuntos fuzzy e suas funções de pert
 
 Regras de inferência sobre conjuntos fuzzy podem ser categorizadas como uma generalização do \emph{modus ponens} binário. Em lógica binária, dada regra "se X então Y", onde X e Y são variáveis binárias, a partir do momento que a premissa, representada pela variável X, assume valor lógico verdadeiro, a conclusão, dada por Y, é verdadeira também. Em lógica fuzzy, o mesmo raciocínio é valido, porém X e Y são variáveis linguísticas, e as regras de inferência são definidas a partir dos valores que estas variáveis linguísticas podem assumir, permitindo inclusive ativação parcial de regras de inferência. Extendendo o exemplo das temperaturas, apresentado na seção \ref{varling}, imagine que deseja-se controlar a velocidade de um \emph{cooler} de processador, de acordo com a temperatura que este se encontra, utilizando um controle fuzzy. As regras de inferência para este controle podem ser, por exemplo:
 \begin{center}
-    Se \emph{morno} então \emph{medio}
+    Se \emph{morno} então \emph{medio}\\*
     Se \emph{quente} então \emph{forte}
 \end{center}
 Sendo ``medio" e ``forte" valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio" correspondendo a função de pertinência vm e ``forte" correspondendo a vf, apresentados na figura \ref{fig:defuzzygraph}:
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{./figs/defuzzygraph.png}
 	\caption[Exemplo de Pertinências Fuzzy - Defuzzificação]{Funções de Pertinência vm e vf.}

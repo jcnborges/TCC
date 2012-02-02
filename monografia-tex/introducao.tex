@@ -9,7 +9,7 @@ real. Um sistema de navegação deve garantir que o robô móvel atinja
 satisfatoriamente o destino de sua trajetória, enviando ao robô os comandos
 necessários para a sua locomoção, de maneira precisa e suave, ao mesmo
 tempo em que permite reações rápidas às mudanças de ambiente para
-evitar colisões. 
+evitar colisões.
 
 O presente trabalho é um estudo comparativo entre dois algoritmos de navegação,
 que serão implementados em um robô móvel autônomo o qual deverá desviar obstáculos. Um dos algoritmos é uma implementação utilizando lógica fuzzy, com tomada de decisão baseada diretamente em regras fuzzy,
@@ -49,7 +49,7 @@ Os objetivos do presente trabalho são a reconstrução do robô Bellator, a descriç
 \item Com base nas informações obtidas pelos encoders, a plataforma deve ser capaz de ajustar
 a velocidade de cada roda, de maneira independente.
 \item Um sistema microcontrolado deve processar os sinais dos sensores de distância e dos encoders das rodas e implementar rotinas para disponibilizar esses dados.
-\item Um sistema microcontrolado deve receber comandos de controle. 
+\item Um sistema microcontrolado deve receber comandos de controle.
 \end{itemize}
 
 Os algoritmos de navegação devem ser implementados em um hardware acoplado à
@@ -59,8 +59,7 @@ e enviar comandos de movimentação ao mesmo.
 
 Os testes dos algoritmos devem ser realizados em um ambiente igual para ambos os algoritmos.
 O objetivo do algoritmo de navegação é guiar o robô no seu deslocamento, tendo como entrada
-os valores de leitura dos sensores e encoders do robô, e como saída instruções para o robô,
-como, por exemplo, velocidade desejada para cada roda.
+os valores de leitura dos sensores e encoders do robô, e como saída instruções de velocidade e direção para o robô.
 
 \section{Metodologia}
 A metodologia deste trabalho foi dividida em duas etapas: reconstrução do robô Bellator e
@@ -76,4 +75,5 @@ O experimento consistiu no estudo das metologias fuzzy e FCM para elaboração de 
 o projeto e implementação dos dois algoritmos e o teste em campo.
 
 \section{Apresentação do Documento}
-O relatório desse trabalho de conclusão de curso está dividido em cinco capítulos. O primeiro capítulo consiste na introdução, na qual são apresentados a motivações, os objetivos e a metodologia desse trabalho. O segundo capítulo é a fundamentação teórica, na qual são apresentados o estado inicial do projeto Bellator, a especificação do robô Bellator após a reconstrução, a apresentação da Lógica Fuzzy e da metodologia de Mapas Cognitivos Fuzzy (FCM). O terceiro capítulo é o desenvolvimento do trabalho, no qual são descritas as atividades e os resultados obtidos. O quarto capítulo é a conclusão e o quinto apresenta as referêcias bibliografia consultada.
+
+O relatório desse trabalho de conclusão de curso está dividido em cinco capítulos. O primeiro capítulo exibe uma introdução ao documento, na qual é apresentada a motivação, os objetivos e a metodologia desse trabalho. O segundo capítulo é a fundamentação teórica do projeto, na qual são apresentados o estado inicial do projeto, a recepção e especificações do robô Bellator herdado para o projeto, a apresentação da Lógica Fuzzy e da metodologia de Mapas Cognitivos Fuzzy (FCM), essenciais para o desenvolvimento dos algoritmos de navegação. O terceiro capítulo é o desenvolvimento do trabalho, no qual são descritas as atividades realizadas pela equipe, incluindo a reconstrução do robô, elaboração dos algoritmos, testes realizados e os resultados obtidos. O quarto capítulo é a conclusão do projeto e o quinto apresenta as referêcias bibliograficas consultadas.

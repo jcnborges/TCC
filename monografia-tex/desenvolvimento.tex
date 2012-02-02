@@ -192,7 +192,7 @@ O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, fo
 \subsubsection{Variáveis Linguísticas}
 
 A biblioteca FLIE possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas para a construção de um conjunto de variáveis fuzzy, bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis linguísticas.
-A engine permite a definição de variáveis linguísticas na classe \emph{linguisticvariable}, que pode ser classificada através de valores fuzzy, com a classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com um nível de pertinência a cada categoria pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
+A engine permite a definição de variáveis linguísticas na classe \emph{linguisticvariable}, que pode ser composta por diversos conjuntos fuzzy, definidos a partir da classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com seu nível de pertinência a cada categoria (conjunto fuzzy) pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
 
 \begin{figure}[!htb]
   \centering
@@ -202,7 +202,19 @@ A engine permite a definição de variáveis linguísticas na classe \emph{linguisti
   \label{lingvar}
 \end{figure}
 
-Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, sendo que apenas o menor valor de leitura válida é selecionado nestes pares como entrada para o algoritmo. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy: PertoEsquerda, Perto, PertoDireita com uma função de pertinência p(d)...
+Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente" e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda" e ``SensorDireita" sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela abaixo. 
+
+%tabela
+
+As funções de pertinência p(d), m(d), l(d) são definitas pelos trapézios da figura abaixo:
+
+%figura distancias
+
+Embora as função de pertinência sejam a mesma para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca flie, e não é possível utilizar o mesmo conjunto fuzzy para duas variáveis linguísticas diferentes.
+
+De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor" e ``Angulo Motor", representando a velocidade e a direção do deslocamento do robô.
+
+%Detalhar mais. Figuras velocidade e angulo
 
 \subsubsection{Regras de Inferência}
 
