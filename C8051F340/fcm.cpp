@@ -32,23 +32,23 @@ float W[9][9];
 
 void init_W()
 {
-	W[SD][GDF] = FORTE;
-	W[SD][GEF] = FRACA;
-	W[SD][GET] = MEDIA;
+	W[SD][GDF] = FORTE; // w1 (+) FORTE
+	W[SD][GEF] = FRACA; // w2 (-) FRACA
+	W[SD][GET] = MEDIA; // w3 (+) MEDIA
 	
-	W[SE][GEF] = FORTE;
-	W[SE][GDF] = FRACA;
-	W[SE][GDT] = MEDIA;
+	W[SE][GEF] = FORTE; // w4 (+) FORTE
+	W[SE][GDF] = FRACA; // w5 (-) FRACA
+	W[SE][GDT] = MEDIA; // w6 (+) MEDIA
 	
-	W[SF][GDF] = FORTE;
-	W[SF][GDT] = FRACA;
-	W[SF][GEF] = FORTE;
-	W[SF][GET] = FRACA;
+	W[SF][GDF] = FORTE; // w7 (-) FORTE
+	W[SF][GDT] = FRACA; // w8 (+) FRACA 
+	W[SF][GEF] = FORTE; // w9 (-) FORTE
+	W[SF][GET] = FRACA; // w10 (+) FRACA
 	
-	W[GDF][RD_Out] = FORTE;
-	W[GDT][RD_Out] = MEDIA;
-	W[GEF][RE_Out] = FORTE;
-	W[GET][RE_Out] = MEDIA;
+	W[GDF][RD_Out] = FORTE; // w11 (+) FORTE
+	W[GDT][RD_Out] = MEDIA; // w12 (-) MEDIA
+	W[GEF][RE_Out] = FORTE; // w13 (+) FORTE
+	W[GET][RE_Out] = MEDIA; // w14 (-) MEDIA
 }
 
 void inference(float se, float sf, float sd, float &rd_out, float &re_out)
@@ -69,11 +69,6 @@ void inference(float se, float sf, float sd, float &rd_out, float &re_out)
 	gdf = gdf > 0 ? gdf : 0;
 
 	// calcula o valor do conceito gdt
-	/*
-	gdt = W[SE][GDT] * (1 - 1 / (1 + exp(VAL(se))));
-	gdt += W[SF][GDT] * (1 - 1 / (1 + exp(VAL(sf))));
-	gdt /= W[SE][GDT] + W[SF][GDT];
-	*/
 	gdt = W[SE][GDT] * (1 - SIG(se));
 	gdt += W[SF][GDT] * (1 - SIG(sf));
 	gdt /= W[SE][GDT] + W[SF][GDT];
@@ -86,11 +81,6 @@ void inference(float se, float sf, float sd, float &rd_out, float &re_out)
 	gef = gef > 0 ? gef : 0;
 
 	// calcula o valor do conceito get
-	/*
-	get = W[SD][GDT] * (1 - 1 / (1 + exp(VAL(sd))));
-	get += W[SF][GDT] * (1 - 1 / (1 + exp(VAL(sf))));
-	get /= W[SD][GDT] + W[SF][GDT];
-	*/
 	get = W[SD][GET] * (1 - SIG(sd));
 	get += W[SF][GET] * (1 - SIG(sf));
 	get /= W[SD][GET] + W[SF][GET];
