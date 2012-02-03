@@ -105,11 +105,37 @@ A placa de roteamento foi confeccionada manualmente em uma placa de circuito imp
 %Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. Por que usar o Eagle.
 
 \section{Placa TS-7260}
+\label{sec:ts}
 %Descrição do motivo da escolha da placa, implementação de códigos auxiliares aos algoritmos (comunicação, etc)...
 Esta seção explicará como foi estruturado o software desenvolvido para a placa
-TS-7260, cuja função é realizar a interface entre o software do microcontrolador
+TS-7260, cuja função principal é realizar a interface entre o software do microcontrolador
 C8051F340 e o algoritmo de navegação (Fuzzy ou FCM).
 
+\subsection{Configuração da TS-7260}
+O software da TS-7260 foi desenvolvido em C++, assim como os algoritmos de navegação, a serem
+explicados em detalhes na seção~\ref{sec:algs}. A programação foi realizada em um computador comum.
+Para realização de testes na placa, o código foi compilado para a TS-7260 através da utilização de um
+\emph{cross-compiler}. O arquivo binário gerado pela compilação foi então movido para uma pasta compartilhada
+na rede. Esta pasta foi disponibilizada através de um servidor NFS (\emph{Network File System}) instalado no computador
+onde o código foi desenvolvido. A placa TS-7260 contém em um pendrive um linux compilado para a sua
+arquitetura, que disponibiliza o cliente nfs, através do qual foi possível montar a pasta compartilhada e rodar 
+o algoritmo. Posteriormente, para testes totalmente autônomos, o arquivo binário foi copiado da pasta
+compartilhada para o pendrive conectado à TS-7260, o que permite que o robô execute a navegação sem
+necessidade de conexão com o computador.
+
+Todas as configurações da TS-7260 foram realizadas através de um terminal disponibilizado pela porta
+serial. Através de um software como o HyperTerminal (Windows) ou o minicom (Linux) é possível receber/enviar
+dados. A placa TS-7260 possui três portas de comunicação serial, das quais duas foram utilizadas:
+COM1 e COM2. A porta COM1 foi utilizada para conectar a TS-7260 ao microcontrolador C8051F340, para possibilitar
+a troca de mensagens de comando com o microcontrolador (para alterar os níveis de PWM dos motores), assim
+como o recebimento das leituras dos sensores. A porta COM2, por sua vez, foi configurada para ser o terminal
+mencionado anteriormente. Basta conectar um cabo serial da COM2 da TS-7260 ao computador para utilizá-lo.
+As configurações da serial utilizadas foram (tanto COM1 quanto COM2): 115200 8N1, ou seja, \emph{baud-rate}
+de 115200, caracteres de 8 (oito) bits, sem bit de paridade e com 1 (um) bit de parada. Através do terminal
+disponibilizado na COM2, é possível montar e acessar a pasta de rede compartilhada, conforme descrito no parágrafo
+anterior.
+
+\subsection{Software da TS-7260}
 O código que roda na TS-7260 é o que efetivamente controla o robô. A parte principal do código consiste
 de um loop infinito, que executa os seguintes passos:
 
@@ -146,7 +172,7 @@ de navegação é executado.
 	minimum height=1cm, text width=8em, text centered]
 \tikzstyle{navb} = [rectangle, draw=black!100, fill=yellow!30, rounded corners,
 	text width=8em, minimum height=1cm, text centered]
-\tikzstyle{background} = [rectangle, fill=gray!50, inner sep=4mm, rounded corners=5mm];
+\tikzstyle{background} = [rectangle, fill=gray!50, inner sep=4mm, rounded corners=5mm]
 
 \begin{figure}[H]
 	\centering
