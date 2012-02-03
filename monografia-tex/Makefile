@@ -3,6 +3,7 @@ all: pdf
 
 pdf: 
 	pdflatex monografia_bellator.tex
+	bibtex monografia_bellator.aux
 	pdflatex monografia_bellator.tex
 	pdflatex monografia_bellator.tex
 
