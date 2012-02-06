@@ -356,12 +356,36 @@ LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\
 
 Finalmente, as regras definidas podem ser utilizadas para realizar inferências. A bilioteca FLIE recebe os dados de entrada não fuzzificados, os fuzzifica, atribuindo valores de pertinência para cada categoria definida pelo desenvolvedor, determina o nível de ativação de cada regra de inferência definida e defuzzifica o resultado final de forma transparente.
 
-\subsection{Algoritmo de Navegação Baseado em ED-FCM}
+\subsection{Algoritmo de Navegação Baseado em FCM}
 \label{sec:algedfcm}
 %Descrição da adaptação do código matlab, utilização, conceitos.
 Esta seção tem por objetivo descrever o projeto e a implementação do algoritmo de navegação baseado na abordage FCM, apresentada na seção \ref{sec:fcm} da fundamentação teórica. O projeto consistiu na definição dos conceitos de entrada, nível e saída, relações causais e respectivos pesos. A implementação foi desenvolvida em linguagem C++ e compilada para ser executada na placa TS-7260.
 
-Primeiramente, definiu a entrada do sistema de navegação, a qual correspondeu às leituras dos sensores de distância. Desse modo, foram criados três conceitos de entrada:
+A idéia do algoritmo foi controlar a direção do robô ajustando a potência aplicada em cada roda, de forma independente, sendo que esta pode ser aplicada para a roda girar em ambos os sentidos. As seguintes hipóteses foram elaboradas para projetar o algoritmo:
+
+\begin{enumerate}
+\item Quando o robô detectar um objeto à esquerda, aquele deve desviar para a direita. 
+\item Quando o robô detectar um objeto à direita, aquele deve desviar para a esquerda.
+\item Quando o robô não detectar objetos nas laterais, este deve seguir em frente.
+\end{enumerate}
+
+Os movimentos "desviar para a direita", "desviar para a esquerda" e "seguir em frente" podem ser obtidos controlando-se a potência e o sentido aplicado em cada roda. Desse modo, duas hipóteses foram imaginadas: as duas rodas girando para frente e as duas rotas girando em sentidos opostos. Os movimentos produzidos na primeira situação são:
+
+\begin{enumerate}
+\item Quando a roda direita girar mais rápido que a roda esquerda, a mudança de direção é "desviar para a esquerda".
+\item Quando a roda esquerda girar mais rápido que a roda direita, a mudança de direção é "desviar para a direita".
+\item Quando a roda esquerda girar na mesma intensidade que a roda direita, o movimento é "seguir em frente".
+\end{enumerate}
+
+Os movimentos produzidos na segunda situação são:
+\begin{enumerate}
+\item Quando a roda direita girar para frente e a roda esquerda girar para trás, o movimento é "desviar para a esquerda".
+\item Quando a roda esquerda girar para frente e a roda direita girar para trás, o movimento é "desviar para a direita".
+\end{enumerate}
+
+Desse modo, o algoritmo controla a direção do robô calculando a "intensidade de girar" a roda direita para trás ou para frente e a "intensidade de girar" a roda esquerda para trás ou para frente, sendo que esse cálculo recebe como entradas as distância registradas pelos sensores de distância na lateral direita, na frente e na lateral esquerda do robô.
+
+Primeiramente, definiu-se a entrada do sistema de navegação, a qual correspondeu às leituras dos sensores de distância. Desse modo, foram criados três conceitos de entrada:
 
 \begin{enumerate}
 \item SD - Representa a leitura do sensor lateral esquerdo.
@@ -452,7 +476,7 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
     \centering
     \includegraphics[scale=0.70]{./figs/fcm_proposto.png}
     \caption[FCM proposto]{FCM proposto.}
-    \fonte{\cite{FCMENDONCA}}
+    \fonte{Autoria própria.}
     \label{fig:fcm-proposto}
 \end{figure}
 
@@ -487,6 +511,8 @@ RD_{Out}=100 \times \frac {w_{11}GDF-w_{12}GDT} {FORTE}
 \label{eq:re_out}
 RD_{Out}=100 \times \frac {w_{13}GEF-w_{14}GET} {FORTE}
 \end{equation}
+
+O algoritmo FCM projetado conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out. Os conceitos de nível são ativados gradualmente através dos valores normalizados dos conceitos de entrada, sendo que essa ativação herda a característica de suavidade das funções sigmoidais \ref{eq:sig_frente} e \ref{eq:sig_tras}. Os conceitos de saída são uma média ponderada entre os conceitos "girar para frente" e "girar para trás", aplicada a cada roda. O comportamente esperado desse algoritmo é que o robô desvie obstáculos de forma suave e responda instantaneamente à leitura dos sensores de distância.
 
 \section{Considerações}
 Nesta seção foram descritos os passos da equipe desde os testes iniciais com o robô até o projeto da nova placa de roteamento. Com a realização destas tarefas, o objetivo de reconstrução da camada de baixo nível do robô Bellator foi alcançado.
