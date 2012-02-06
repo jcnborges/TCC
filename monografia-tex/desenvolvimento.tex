@@ -118,7 +118,7 @@ Para realização de testes na placa, o código foi compilado para a TS-7260 atravé
 \emph{cross-compiler}. O arquivo binário gerado pela compilação foi então movido para uma pasta compartilhada
 na rede. Esta pasta foi disponibilizada através de um servidor NFS (\emph{Network File System}) instalado no computador
 onde o código foi desenvolvido. A placa TS-7260 contém em um pendrive um linux compilado para a sua
-arquitetura, que disponibiliza o cliente nfs, através do qual foi possível montar a pasta compartilhada e rodar 
+arquitetura, que disponibiliza o cliente nfs, através do qual foi possível montar a pasta compartilhada e rodar
 o algoritmo. Posteriormente, para testes totalmente autônomos, o arquivo binário foi copiado da pasta
 compartilhada para o pendrive conectado à TS-7260, o que permite que o robô execute a navegação sem
 necessidade de conexão com o computador.
@@ -228,17 +228,50 @@ A engine permite a definição de variáveis linguísticas na classe \emph{linguisti
   \label{lingvar}
 \end{figure}
 
-Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente" e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda" e ``SensorDireita" sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela abaixo. 
+Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. Deve-se observar que foram definidas apenas três variáveis linguísticas de entrada por dois motivos: A biblioteca FLIE não aceita mais que três entradas em uma regra de inferência e um número maior de entradas levaria à uma quantidade excessiva de regras de inferência. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente" e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda" e ``SensorDireita" sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela \ref{tab:varsfuzzy}.
 
-%tabela
+\begin{table}
+\centering
+\begin{tabular}{|l|l|l|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  \textbf{Variável Linguística} & \textbf{Conjunto Fuzzy} & \textbf{Função de Pertinência} \\
+  \hline
+  SensorEsquerda & PertoEsquerda & p(d) \\
+  \hline
+  SensorEsquerda & MedioEsquerda & m(d) \\
+  \hline
+  SensorEsquerda & LongeEsquerda & l(d) \\
+  \hline
+  SensorFrente & Perto & p(d) \\
+  \hline
+  SensorFrente & Medio & m(d) \\
+  \hline
+  SensorFrente & Longe & l(d) \\
+  \hline
+  SensorDireita & PertoDireita & p(d) \\
+  \hline
+  SensorDireita & MedioDireita & m(d) \\
+  \hline
+  SensorDireita & LongeDireita & l(d) \\
+  \hline
+\end{tabular}
+\caption[Funções de Pertinência e Conjuntos Fuzzy dos Sensores]{Funções de Pertinência e Conjuntos Fuzzy dos Sensores.}
+\label{tab:varsfuzzy}
+\end{table}
+As funções de pertinência p(d), m(d), l(d), correspondentes a perto, médio e longe, são definitas pelos trapézios da figura \ref{fuzzygraph_des}:
 
-As funções de pertinência p(d), m(d), l(d) são definitas pelos trapézios da figura abaixo:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/fuzzygraph_des.png}
+  \caption[Definição das Funções de Pertinência perto, médio e longe.]
+  {Definição das Funções de Pertinência perto, médio e longe.}
+  \label{fuzzygraph_des}
+\end{figure}
 
-%figura distancias
+Embora as função de pertinência sejam a mesma para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca flie, e não é possível utilizar o mesmo conjunto fuzzy para duas ou mais variáveis linguísticas diferentes.
 
-Embora as função de pertinência sejam a mesma para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca flie, e não é possível utilizar o mesmo conjunto fuzzy para duas variáveis linguísticas diferentes.
-
-De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor" e ``Angulo Motor", representando a velocidade e a direção do deslocamento do robô.
+De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor" e ``Angulo Motor", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de pwm de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy podem ser observadas na figura abaixo.
 
 %Detalhar mais. Figuras velocidade e angulo
 
@@ -255,6 +288,71 @@ Após definidas as variáveis linguísticas, regras de inferência podem ser elabora
 \end{figure}
 
 Com as variáveis linguísticas de entrada e saída pode-se criar regras de inferência. Cada regra é composta por uma sequência de valores fuzzy, sendo o último valor da sequência a saída fuzzy desejada para uma entrada correspondente aos um, dois ou três valores antecedentes. Considerando esta limitação à três variáveis, ... %unificação dos sensores, definição das regras
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{SensorEsquerda} & \textbf{SensorFrente} & \textbf{SensorDireita} & \textbf{VelocidadeMotor} & \textbf{Direção} \\
+\hline
+PertoEsquerda & Perto & PertoDireita & Lento & ViraDireita \\
+\hline
+PertoEsquerda & Perto & MedioDireita & Lento & ViraDireita \\
+\hline
+PertoEsquerda & Perto & LongeDireita & Lento & ViraDireita \\
+\hline
+PertoEsquerda & Medio & PertoDireita & Lento & Reto \\
+\hline
+PertoEsquerda & Medio & MedioDireita & Lento & ViraPoucoDireita \\
+\hline
+PertoEsquerda & Medio & LongeDireita & Lento & ViraPoucoDireita \\
+\hline
+PertoEsquerda & Longe & PertoDireita & Medio & Reto \\
+\hline
+PertoEsquerda & Longe & MedioDireita & Lento & ViraPoucoDireita \\
+\hline
+PertoEsquerda & Longe & LongeDireita & Lento & ViraPoucoDireita \\
+\hline
+MedioEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\
+\hline
+MedioEsquerda & Perto & MedioDireita & Lento & ViraPoucoDireita \\
+\hline
+MedioEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\
+\hline
+MedioEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\
+\hline
+MedioEsquerda & Medio & MedioDireita & Medio & Reto \\
+\hline
+MedioEsquerda & Medio & LongeDireita & Medio & Reto \\
+\hline
+MedioEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\
+\hline
+MedioEsquerda & Longe & MedioDireita & Rapido & Reto \\
+\hline
+MedioEsquerda & Longe & LongeDireita & Medio & Reto \\
+\hline
+LongeEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\
+\hline
+LongeEsquerda & Perto & MedioDireita & Lento & ViraPoucoEsquerda \\
+\hline
+LongeEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\
+\hline
+LongeEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\
+\hline
+LongeEsquerda & Medio & MedioDireita & Medio & Reto \\
+\hline
+LongeEsquerda & Medio & LongeDireita & Medio & Reto \\
+\hline
+LongeEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\
+\hline
+LongeEsquerda & Longe & MedioDireita & Medio & Reto \\
+\hline
+LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\
+\hline
+\end{tabular}
+\caption[Regras de Inferência - Algoritmo Fuzzy]{Regras de Inferência - Algoritmo Fuzzy.}
+\label{tab:regrasinf}
+\end{table}
 
 Finalmente, as regras definidas podem ser utilizadas para realizar inferências. A bilioteca FLIE recebe os dados de entrada não fuzzificados, os fuzzifica, atribuindo valores de pertinência para cada categoria definida pelo desenvolvedor, determina o nível de ativação de cada regra de inferência definida e defuzzifica o resultado final de forma transparente.
 
