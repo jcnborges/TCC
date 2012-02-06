@@ -30,11 +30,10 @@ autônoma através do uso de lógica fuzzy, entretanto,
 são poucos os trabalhos propondo a comparação entre os métodos já existentes.
 Com o intuito de enriquecer essa área de pesquisa, a equipe optou por
 desenvolver este projeto, que representa um ramo de elevado valor acadêmico.
-Para realizar a comparação prática destes algoritmos, o uso de uma
-plataforma robótica real determinou obtenção a obtenção de resultados mais significativos pois
-os algoritmos foram executados em condições reais. 
 
-A plataforma foi obtida através da reconstrução e 
+Para realizar a comparação prática destes algoritmos, o uso de uma
+plataforma robótica real determinou a obtenção de resultados mais significativos pois
+os algoritmos foram executados em condições reais. A plataforma foi obtida através da reconstrução e 
 adaptação do "Bellator", o qual era um robô móvel que esteve em construção em um projeto 
 da disciplina de Oficinas de Integração 3 \cite{BELLATOR}. Teve-se em vista o 
 custo elevado de plataformas robóticas móveis, como por exemplo, a X80, cujo 
@@ -45,14 +44,13 @@ em consideração nesse projeto.
 
 Os algoritmos escolhidos são um algoritmo baseado em logica fuzzy, que
 foi abordada no curso de graduação e pode ser aplicada em navegação robótica e um 
-algoritmo baseado em FCM, o qual era uma metodologia desconhecida pelos membros da equipe mas com a qual
-surgiu a oportunidade de desenvolver esse trabalho.
+algoritmo baseado em FCM, inovador e com o qual surgiu a oportunidade de desenvolver esse trabalho.
 
 \section{Objetivos}
 
 Os objetivos do presente trabalho são a reconstrução e adequação do robô Bellator, a descrição do hardware e software do mesmo após essa tarefa, a implementação dos algoritmos de navegação e a execução do experimento nos quais estes serão comparados. O robô reconstruído e adequado deverá ser equipado com sensores de distância e encoders nas rodas, deve ser alimentado através de baterias que forneçam adequadamente energia ao sistema microcontrolado, sensores e motores, deve ser capaz de ajustar a velocidade de cada roda de maneira independente, deve processar os sinais dos sensores de distância e dos encoders e implementar rotinas para disponibilizar esses dados. 
 
-Os algoritmos de navegação devem ser executados em um hardware acoplado à plataforma, visando reduzir atrasos de comunicação. Esse hardware deverá ser capaz de ler os dados dos sensores do robô, como fonte de dados para os algoritmos, e enviar comandos de movimentação ao mesmo. Os testes dos algoritmos devem ser realizados em um ambiente igual para ambos sendo que  o objetivo de cada algoritmo é guiar o robô no deslocamento, desviando-se de possíveis obstáculos e tendo como entradas, valores de leitura dos sensores e encoders e como saída, velocidade e/ou direção do robô.
+Os algoritmos de navegação devem ser executados em um hardware acoplado à plataforma, visando reduzir atrasos de comunicação. Esse hardware deverá ser capaz de ler os dados dos sensores do robô, como fonte de dados para os algoritmos, e enviar comandos de movimentação ao mesmo. Os testes dos algoritmos devem ser realizados em um ambiente igual para ambos sendo que  o objetivo de cada algoritmo é guiar o robô no deslocamento, desviando-se de possíveis obstáculos e tendo como entradas, valores de leitura dos sensores e encoders e como saída, a velocidade e/ou a direção do robô.
 
 \section{Metodologia}
 A metodologia deste trabalho foi dividida em quatro etapas: reconstrução e adequação do robô Bellator, estudo, implementação e testes dos algoritmos de navegação. A reconstrução e adequação consistiram na avaliação do estado do robô, o projeto e implementação do hardware e software necessários para o funcionamento adequado do mesmo. Durante a avaliação, foram testados os sensores de distância, os encoders das rodas, baterias, motores e as pontes H. A elaboração do hardware consistiu na confecção de uma placa de roteamento para alimentar os sensores e encoders, tratar os sinais dos enconders amplificando-os, rotear os sinais dos sensores de distância, encoders aos respectivos pinos de entrada do microcontrolador e os sinais de PWM gerados por este às respectivas pontes H do robô. O software consistiu na adequação do firmware previamente dispobilizado no projeto Bellator \cite{BELLATOR}, nas quais as rotinas de leitura dos sensores, comunicação de dados, recepção de comandos de controle do robô e protocolo de comunicação foram atualizadas de acordo com as necessidades desse projeto. O hardware acoplado à plataforma foi configurado para comunicar-se com o microcontrolador e executar os algoritmos de navegação. 
