@@ -8,4 +8,13 @@ pdf:
 	pdflatex monografia_bellator.tex
 
 clean:
-	rm *.{aux,log,pdf,toc,out}
+	rm *.aux
+	rm *.bbl
+	rm *.blg
+	rm *.dvi
+	rm *.lof
+	rm *.log
+	rm *.lot
+	rm *.lsb
+	rm *.lsg
+	rm *.toc

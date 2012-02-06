@@ -105,11 +105,37 @@ A placa de roteamento foi confeccionada manualmente em uma placa de circuito imp
 %Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. Por que usar o Eagle.
 
 \section{Placa TS-7260}
+\label{sec:ts}
 %Descrição do motivo da escolha da placa, implementação de códigos auxiliares aos algoritmos (comunicação, etc)...
 Esta seção explicará como foi estruturado o software desenvolvido para a placa
-TS-7260, cuja função é realizar a interface entre o software do microcontrolador
+TS-7260, cuja função principal é realizar a interface entre o software do microcontrolador
 C8051F340 e o algoritmo de navegação (Fuzzy ou FCM).
 
+\subsection{Configuração da TS-7260}
+O software da TS-7260 foi desenvolvido em C++, assim como os algoritmos de navegação, a serem
+explicados em detalhes na seção~\ref{sec:algs}. A programação foi realizada em um computador comum.
+Para realização de testes na placa, o código foi compilado para a TS-7260 através da utilização de um
+\emph{cross-compiler}. O arquivo binário gerado pela compilação foi então movido para uma pasta compartilhada
+na rede. Esta pasta foi disponibilizada através de um servidor NFS (\emph{Network File System}) instalado no computador
+onde o código foi desenvolvido. A placa TS-7260 contém em um pendrive um linux compilado para a sua
+arquitetura, que disponibiliza o cliente nfs, através do qual foi possível montar a pasta compartilhada e rodar
+o algoritmo. Posteriormente, para testes totalmente autônomos, o arquivo binário foi copiado da pasta
+compartilhada para o pendrive conectado à TS-7260, o que permite que o robô execute a navegação sem
+necessidade de conexão com o computador.
+
+Todas as configurações da TS-7260 foram realizadas através de um terminal disponibilizado pela porta
+serial. Através de um software como o HyperTerminal (Windows) ou o minicom (Linux) é possível receber/enviar
+dados. A placa TS-7260 possui três portas de comunicação serial, das quais duas foram utilizadas:
+COM1 e COM2. A porta COM1 foi utilizada para conectar a TS-7260 ao microcontrolador C8051F340, para possibilitar
+a troca de mensagens de comando com o microcontrolador (para alterar os níveis de PWM dos motores), assim
+como o recebimento das leituras dos sensores. A porta COM2, por sua vez, foi configurada para ser o terminal
+mencionado anteriormente. Basta conectar um cabo serial da COM2 da TS-7260 ao computador para utilizá-lo.
+As configurações da serial utilizadas foram (tanto COM1 quanto COM2): 115200 8N1, ou seja, \emph{baud-rate}
+de 115200, caracteres de 8 (oito) bits, sem bit de paridade e com 1 (um) bit de parada. Através do terminal
+disponibilizado na COM2, é possível montar e acessar a pasta de rede compartilhada, conforme descrito no parágrafo
+anterior.
+
+\subsection{Software da TS-7260}
 O código que roda na TS-7260 é o que efetivamente controla o robô. A parte principal do código consiste
 de um loop infinito, que executa os seguintes passos:
 
@@ -146,7 +172,7 @@ de navegação é executado.
 	minimum height=1cm, text width=8em, text centered]
 \tikzstyle{navb} = [rectangle, draw=black!100, fill=yellow!30, rounded corners,
 	text width=8em, minimum height=1cm, text centered]
-\tikzstyle{background} = [rectangle, fill=gray!50, inner sep=4mm, rounded corners=5mm];
+\tikzstyle{background} = [rectangle, fill=gray!50, inner sep=4mm, rounded corners=5mm]
 
 \begin{figure}[H]
 	\centering
@@ -202,17 +228,50 @@ A engine permite a definição de variáveis linguísticas na classe \emph{linguisti
   \label{lingvar}
 \end{figure}
 
-Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente" e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda" e ``SensorDireita" sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela abaixo. 
+Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. Deve-se observar que foram definidas apenas três variáveis linguísticas de entrada por dois motivos: A biblioteca FLIE não aceita mais que três entradas em uma regra de inferência e um número maior de entradas levaria à uma quantidade excessiva de regras de inferência. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente" e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda" e ``SensorDireita" sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela \ref{tab:varsfuzzy}.
 
-%tabela
+\begin{table}
+\centering
+\begin{tabular}{|l|l|l|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  \textbf{Variável Linguística} & \textbf{Conjunto Fuzzy} & \textbf{Função de Pertinência} \\
+  \hline
+  SensorEsquerda & PertoEsquerda & p(d) \\
+  \hline
+  SensorEsquerda & MedioEsquerda & m(d) \\
+  \hline
+  SensorEsquerda & LongeEsquerda & l(d) \\
+  \hline
+  SensorFrente & Perto & p(d) \\
+  \hline
+  SensorFrente & Medio & m(d) \\
+  \hline
+  SensorFrente & Longe & l(d) \\
+  \hline
+  SensorDireita & PertoDireita & p(d) \\
+  \hline
+  SensorDireita & MedioDireita & m(d) \\
+  \hline
+  SensorDireita & LongeDireita & l(d) \\
+  \hline
+\end{tabular}
+\caption[Funções de Pertinência e Conjuntos Fuzzy dos Sensores]{Funções de Pertinência e Conjuntos Fuzzy dos Sensores.}
+\label{tab:varsfuzzy}
+\end{table}
+As funções de pertinência p(d), m(d), l(d), correspondentes a perto, médio e longe, são definitas pelos trapézios da figura \ref{fuzzygraph_des}:
 
-As funções de pertinência p(d), m(d), l(d) são definitas pelos trapézios da figura abaixo:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/fuzzygraph_des.png}
+  \caption[Definição das Funções de Pertinência perto, médio e longe.]
+  {Definição das Funções de Pertinência perto, médio e longe.}
+  \label{fuzzygraph_des}
+\end{figure}
 
-%figura distancias
+Embora as função de pertinência sejam a mesma para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca flie, e não é possível utilizar o mesmo conjunto fuzzy para duas ou mais variáveis linguísticas diferentes.
 
-Embora as função de pertinência sejam a mesma para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca flie, e não é possível utilizar o mesmo conjunto fuzzy para duas variáveis linguísticas diferentes.
-
-De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor" e ``Angulo Motor", representando a velocidade e a direção do deslocamento do robô.
+De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor" e ``Angulo Motor", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de pwm de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy podem ser observadas na figura abaixo.
 
 %Detalhar mais. Figuras velocidade e angulo
 
@@ -230,14 +289,103 @@ Após definidas as variáveis linguísticas, regras de inferência podem ser elabora
 
 Com as variáveis linguísticas de entrada e saída pode-se criar regras de inferência. Cada regra é composta por uma sequência de valores fuzzy, sendo o último valor da sequência a saída fuzzy desejada para uma entrada correspondente aos um, dois ou três valores antecedentes. Considerando esta limitação à três variáveis, ... %unificação dos sensores, definição das regras
 
+\begin{table}
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{SensorEsquerda} & \textbf{SensorFrente} & \textbf{SensorDireita} & \textbf{VelocidadeMotor} & \textbf{Direção} \\
+\hline
+PertoEsquerda & Perto & PertoDireita & Lento & ViraDireita \\
+\hline
+PertoEsquerda & Perto & MedioDireita & Lento & ViraDireita \\
+\hline
+PertoEsquerda & Perto & LongeDireita & Lento & ViraDireita \\
+\hline
+PertoEsquerda & Medio & PertoDireita & Lento & Reto \\
+\hline
+PertoEsquerda & Medio & MedioDireita & Lento & ViraPoucoDireita \\
+\hline
+PertoEsquerda & Medio & LongeDireita & Lento & ViraPoucoDireita \\
+\hline
+PertoEsquerda & Longe & PertoDireita & Medio & Reto \\
+\hline
+PertoEsquerda & Longe & MedioDireita & Lento & ViraPoucoDireita \\
+\hline
+PertoEsquerda & Longe & LongeDireita & Lento & ViraPoucoDireita \\
+\hline
+MedioEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\
+\hline
+MedioEsquerda & Perto & MedioDireita & Lento & ViraPoucoDireita \\
+\hline
+MedioEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\
+\hline
+MedioEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\
+\hline
+MedioEsquerda & Medio & MedioDireita & Medio & Reto \\
+\hline
+MedioEsquerda & Medio & LongeDireita & Medio & Reto \\
+\hline
+MedioEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\
+\hline
+MedioEsquerda & Longe & MedioDireita & Rapido & Reto \\
+\hline
+MedioEsquerda & Longe & LongeDireita & Medio & Reto \\
+\hline
+LongeEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\
+\hline
+LongeEsquerda & Perto & MedioDireita & Lento & ViraPoucoEsquerda \\
+\hline
+LongeEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\
+\hline
+LongeEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\
+\hline
+LongeEsquerda & Medio & MedioDireita & Medio & Reto \\
+\hline
+LongeEsquerda & Medio & LongeDireita & Medio & Reto \\
+\hline
+LongeEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\
+\hline
+LongeEsquerda & Longe & MedioDireita & Medio & Reto \\
+\hline
+LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\
+\hline
+\end{tabular}
+\caption[Regras de Inferência - Algoritmo Fuzzy]{Regras de Inferência - Algoritmo Fuzzy.}
+\label{tab:regrasinf}
+\end{table}
+
 Finalmente, as regras definidas podem ser utilizadas para realizar inferências. A bilioteca FLIE recebe os dados de entrada não fuzzificados, os fuzzifica, atribuindo valores de pertinência para cada categoria definida pelo desenvolvedor, determina o nível de ativação de cada regra de inferência definida e defuzzifica o resultado final de forma transparente.
 
-\subsection{Algoritmo de Navegação Baseado em ED-FCM}
+\subsection{Algoritmo de Navegação Baseado em FCM}
 \label{sec:algedfcm}
 %Descrição da adaptação do código matlab, utilização, conceitos.
 Esta seção tem por objetivo descrever o projeto e a implementação do algoritmo de navegação baseado na abordage FCM, apresentada na seção \ref{sec:fcm} da fundamentação teórica. O projeto consistiu na definição dos conceitos de entrada, nível e saída, relações causais e respectivos pesos. A implementação foi desenvolvida em linguagem C++ e compilada para ser executada na placa TS-7260.
 
-Primeiramente, definiu a entrada do sistema de navegação, a qual correspondeu às leituras dos sensores de distância. Desse modo, foram criados três conceitos de entrada:
+A idéia do algoritmo foi controlar a direção do robô ajustando a potência aplicada em cada roda, de forma independente, sendo que esta pode ser aplicada para a roda girar em ambos os sentidos. As seguintes hipóteses foram elaboradas para projetar o algoritmo:
+
+\begin{enumerate}
+\item Quando o robô detectar um objeto à esquerda, aquele deve desviar para a direita. 
+\item Quando o robô detectar um objeto à direita, aquele deve desviar para a esquerda.
+\item Quando o robô não detectar objetos nas laterais, este deve seguir em frente.
+\end{enumerate}
+
+Os movimentos "desviar para a direita", "desviar para a esquerda" e "seguir em frente" podem ser obtidos controlando-se a potência e o sentido aplicado em cada roda. Desse modo, duas hipóteses foram imaginadas: as duas rodas girando para frente e as duas rotas girando em sentidos opostos. Os movimentos produzidos na primeira situação são:
+
+\begin{enumerate}
+\item Quando a roda direita girar mais rápido que a roda esquerda, a mudança de direção é "desviar para a esquerda".
+\item Quando a roda esquerda girar mais rápido que a roda direita, a mudança de direção é "desviar para a direita".
+\item Quando a roda esquerda girar na mesma intensidade que a roda direita, o movimento é "seguir em frente".
+\end{enumerate}
+
+Os movimentos produzidos na segunda situação são:
+\begin{enumerate}
+\item Quando a roda direita girar para frente e a roda esquerda girar para trás, o movimento é "desviar para a esquerda".
+\item Quando a roda esquerda girar para frente e a roda direita girar para trás, o movimento é "desviar para a direita".
+\end{enumerate}
+
+Desse modo, o algoritmo controla a direção do robô calculando a "intensidade de girar" a roda direita para trás ou para frente e a "intensidade de girar" a roda esquerda para trás ou para frente, sendo que esse cálculo recebe como entradas as distância registradas pelos sensores de distância na lateral direita, na frente e na lateral esquerda do robô.
+
+Primeiramente, definiu-se a entrada do sistema de navegação, a qual correspondeu às leituras dos sensores de distância. Desse modo, foram criados três conceitos de entrada:
 
 \begin{enumerate}
 \item SD - Representa a leitura do sensor lateral esquerdo.
@@ -363,6 +511,8 @@ RD_{Out}=100 \times \frac {w_{11}GDF-w_{12}GDT} {FORTE}
 \label{eq:re_out}
 RD_{Out}=100 \times \frac {w_{13}GEF-w_{14}GET} {FORTE}
 \end{equation}
+
+O algoritmo FCM projetado conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out. Os conceitos de nível são ativados gradualmente através dos valores normalizados dos conceitos de entrada, sendo que essa ativação herda a característica de suavidade das funções sigmoidais \ref{eq:sig_frente} e \ref{eq:sig_tras}. Os conceitos de saída são uma média ponderada entre os conceitos "girar para frente" e "girar para trás", aplicada a cada roda. O comportamente esperado desse algoritmo é que o robô desvie obstáculos de forma suave e responda instantaneamente à leitura dos sensores de distância.
 
 \section{Considerações}
 Nesta seção foram descritos os passos da equipe desde os testes iniciais com o robô até o projeto da nova placa de roteamento. Com a realização destas tarefas, o objetivo de reconstrução da camada de baixo nível do robô Bellator foi alcançado.
