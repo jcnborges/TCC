@@ -216,11 +216,14 @@ Esta seção dedica-se à descrição da implementação dos algoritmos de navegação co
 O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro. A FLIE, ou \emph{Fuzzy Logic Inference Engine}, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência, seguindo a fundamentação teórica sobre o assunto apresentada na seção \ref{sec:logfuzzy}.
 
 \subsubsection{Variáveis Linguísticas}
+\label{sec:devarling}
+A biblioteca FLIE, desenvolvida em C++ por Jõao Alberto Fabro, possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas para bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis linguísticas, sendo apropriada para a elaboração de um algoritmo de navegação fuzzy. A biblioteca funciona de acordo com os princípios teóricos fuzzy apresentados na seção \ref{sec:logfuzzy}.
 
-A biblioteca FLIE possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas para a construção de um conjunto de variáveis fuzzy, bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis linguísticas.
-A engine permite a definição de variáveis linguísticas na classe \emph{linguisticvariable}, que pode ser composta por diversos conjuntos fuzzy, definidos a partir da classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com seu nível de pertinência a cada categoria (conjunto fuzzy) pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
+Para elaborar o controle fuzzy responsável pelo algoritmo de navegação, é necessário, primeiramente, definir as variáveis linguísticas e os conjuntos fuzzy associados às mesmas. Em seguida, deve-se definir as variáveis linguísticas de entrada e saída do sistema e as associar apropriadamente. Em seguida, é necessário definir o método de defuzzificação e, finalmente, as regras de inferência. Cada um destes passos será descrito em detalhes a seguir.
+ 
+A biblioteca FLIE permite a definição de variáveis linguísticas na classe \emph{linguisticvariable}, que pode ser composta por diversos conjuntos fuzzy, definidos a partir da classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com seu nível de pertinência a cada categoria (conjunto fuzzy) pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{./figs/lingvar.png}
   \caption[Estrutura de uma Variável Linguística no FLIE.]
@@ -230,7 +233,7 @@ A engine permite a definição de variáveis linguísticas na classe \emph{linguisti
 
 Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. Deve-se observar que foram definidas apenas três variáveis linguísticas de entrada por dois motivos: A biblioteca FLIE não aceita mais que três entradas em uma regra de inferência e um número maior de entradas levaria à uma quantidade excessiva de regras de inferência. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente" e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda" e ``SensorDireita" sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela \ref{tab:varsfuzzy}.
 
-\begin{table}
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|}
   \hline
@@ -271,15 +274,32 @@ As funções de pertinência p(d), m(d), l(d), correspondentes a perto, médio e lon
 
 Embora as função de pertinência sejam a mesma para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca flie, e não é possível utilizar o mesmo conjunto fuzzy para duas ou mais variáveis linguísticas diferentes.
 
-De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor" e ``Angulo Motor", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de pwm de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy podem ser observadas na figura abaixo.
+De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor" e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de pwm de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy são l(p), m(p), r(p), onde p é a percentagem do pwm. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
 
-%Detalhar mais. Figuras velocidade e angulo
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/defuzzygraph_velmotor.png}
+  \caption[Definição das Funções de Pertinência lento, médio e rápido.]
+  {Definição das Funções de Pertinência lento, médio e rápido.}
+  \label{defuzzygraph_velmotor}
+\end{figure}
+
+Similarmente, foram definidos 5 conjuntos fuzzy para a variável linguística ``Direção": ViraEsquerda, ViraPoucoEsquerda, Reto, ViraPoucoDireita, ViraDireita, distribuindo igualmente entre estas classes todas as possibilidades de direção, desde virar totalmente para a esquerda (0º) até totalmente para direita(180º). As funções de pertinência que definem estes conjuntos fuzzy são ve(a), vpe(a), r(a), vpd(a), vd(a). O gráfico em \ref{defuzzygraph_ang} ilustra estas funções.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{./figs/defuzzygraph_ang.png}
+  \caption[Definição das Funções de Pertinência de Direção]
+  {Definição das Funções de Pertinência de Direção.}
+  \label{defuzzygraph_ang}
+\end{figure}
+
 
 \subsubsection{Regras de Inferência}
 
 Após definidas as variáveis linguísticas, regras de inferência podem ser elaboradas através da classe \emph{infrule}. Esta classe é composta de, no máximo, três variáveis linguísticas de entrada e uma variável linguística de saída, todas definidas pela classe \emph{linguisticvariable}, seguindo a estrutura na figura \ref{infrule}.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{./figs/infrule.png}
   \caption[Estrutura de uma regra de inferência no FLIE.]
@@ -287,9 +307,15 @@ Após definidas as variáveis linguísticas, regras de inferência podem ser elabora
   \label{infrule}
 \end{figure}
 
-Com as variáveis linguísticas de entrada e saída pode-se criar regras de inferência. Cada regra é composta por uma sequência de valores fuzzy, sendo o último valor da sequência a saída fuzzy desejada para uma entrada correspondente aos um, dois ou três valores antecedentes. Considerando esta limitação à três variáveis, ... %unificação dos sensores, definição das regras
+Com as variáveis linguísticas de entrada e saída pode-se criar regras de inferência. Primeiramente, é necessário associar as variáveis linguísticas que compõe as regras de inferência de entrada e saída à um objeto da classe \emph{fuzzy\_control}. Em seguida, cada regra é definida por uma sequência de valores fuzzy pertencentes às variáveis linguísticas de entrada e saída associadas com o objeto da classe \emph{fuzzy\_control}, sendo o último valor da sequência a saída fuzzy desejada para uma entrada correspondente aos um, dois ou três valores antecedentes, que é o limite de entradas da biblioteca FLIE, como mencionado em \ref{sec:devarling}. Como deseja-se obter duas saídas, uma para a velocidade e outra para a direção, foram necessários dois objetos desta classe, ambos com as mesmas entradas. Além disso, é necessário definir o método de defuzzificação a ser utilizado pelo controle fuzzy. A equipe utilizou o método da Média do Máximo, descrito na seção \ref{sec:fuzzycontrol}. Assim, as regras de inferência seguem padrão abaixo, de acordo com as variáveis linguísticas definidas em \ref{sec:devarling}:
+\begin{center}
+SensorEsquerda, SensorFrente, SensorDireita, Velocidade Motor\\
+SensorEsquerda, SensorFrente, SensorDireita, Direção
+\end{center}
 
-\begin{table}
+Em seguida, pode-se definir as regras através dos valores fuzzy válidos para cada variável linguística associada aos objetos \emph{fuzzy\_control}. A definição das regras é bastante intuitiva, empírica e altamente dependente da aplicação. A equipe optou por definir um conjunto de regras arbitrário, realizar testes e, analisando os resultados preliminares, aprimorar o conjunto de regras. A tabela \ref{tab:regrasinf} representa o conjunto definitivo de 27 regras elaboradas pela equipe, que correspondem a todas as combinações possíveis de entradas para o controle fuzzy.
+
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|l|l|}
 \hline
@@ -354,7 +380,7 @@ LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\
 \label{tab:regrasinf}
 \end{table}
 
-Finalmente, as regras definidas podem ser utilizadas para realizar inferências. A bilioteca FLIE recebe os dados de entrada não fuzzificados, os fuzzifica, atribuindo valores de pertinência para cada categoria definida pelo desenvolvedor, determina o nível de ativação de cada regra de inferência definida e defuzzifica o resultado final de forma transparente.
+Finalmente, as regras definidas podem ser utilizadas para realizar as inferências. A bilioteca FLIE recebe os dados de entrada não fuzzificados, os fuzzifica, atribuindo valores de pertinência para cada categoria definida pelo desenvolvedor e determina o nível de ativação de cada regra de inferência definida. Após esta etapa, a FLIE defuzzifica o resultado seguindo o modelo de defuzzificação escolhido e retorna o resultado final, que pode ser utilizado para controlar a navegação do robô.
 
 \subsection{Algoritmo de Navegação Baseado em FCM}
 \label{sec:algedfcm}
@@ -364,7 +390,7 @@ Esta seção tem por objetivo descrever o projeto e a implementação do algoritmo d
 A idéia do algoritmo foi controlar a direção do robô ajustando a potência aplicada em cada roda, de forma independente, sendo que esta pode ser aplicada para a roda girar em ambos os sentidos. As seguintes hipóteses foram elaboradas para projetar o algoritmo:
 
 \begin{enumerate}
-\item Quando o robô detectar um objeto à esquerda, aquele deve desviar para a direita. 
+\item Quando o robô detectar um objeto à esquerda, aquele deve desviar para a direita.
 \item Quando o robô detectar um objeto à direita, aquele deve desviar para a esquerda.
 \item Quando o robô não detectar objetos nas laterais, este deve seguir em frente.
 \end{enumerate}
