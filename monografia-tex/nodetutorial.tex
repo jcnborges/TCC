@@ -1,0 +1,95 @@
+% Author: Till Tantau
+% Source: The PGF/TikZ manual
+\documentclass{article}
+\def\xcolorversion{2.00}
+\def\xkeyvalversion{1.8}
+
+\usepackage[version=0.96]{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,snakes,automata,backgrounds,petri,positioning}
+\usepackage[latin1]{inputenc}
+\usepackage{verbatim}
+
+\begin{document}
+
+\begin{comment}
+:Title: A Petri-net for Hagen
+:Slug: nodetutorial
+:Tags: Manual, Petri net, Graphs
+
+This example is from the tutorial: A Petri-net for Hagen.
+
+| Author: Till Tantau
+| Source: The PGF/TikZ manual
+
+\end{comment}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
+
+		\tikzstyle{place}=[circle,thick,draw=black!75,fill=blue!30,minimum size=6mm]
+		\tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+		\tikzstyle{transition}=[rectangle,thick,draw=black!75,
+			fill=black!20,minimum size=4mm]
+
+		\tikzstyle{every label}=[red]
+		\tikzstyle{weight}=[rectangle,draw=black!75,minimum size=5mm]
+
+		\node [place, fill=red!30] (SE) {SE};
+		\node [place, below=1cm of SE] (SF) {SF};
+		\node [place, fill=green!30, below=1cm of SF] (SD) {SD};
+		\node [place, fill=orange!30, below right=.75cm and 4cm of SD] (GET) {GET};
+		\node [place, fill=orange!30, above=1cm of GET] (GEF) {GEF};
+		\node [place, fill=orange!30, right=2cm of GEF] (REO) {RE Out};
+		\node [place, fill=yellow!30, above right=.75cm and 4cm of SE] (GDT) {GDT};
+		\node [place, fill=yellow!30, below=1cm of GDT] (GDF) {GDF};
+		\node [place, fill=yellow!30, right=2cm of GDF] (RDO) {RD Out};
+		\node [weight, fill=blue!30, left=1cm of GEF] (w9) {w9}
+			edge [thick] (SF)
+			edge [post,thick] (GEF);
+		\node [weight, fill=green!30, below=.2cm of w9] (w2) {w2}
+			edge [thick] (SD)
+			edge [post,thick] (GEF);
+		\node [weight, fill=green!30, left=1cm of GET] (w3) {w3}
+			edge [thick] (SD)
+			edge [post,thick] (GET);
+		\node [weight, fill=red!30, above=.2cm of w9] (w4) {w4}
+			edge [thick] (SE)
+			edge [post,thick] (GEF);
+		\node [weight, fill=red!30, left=1cm of GDT] (w6) {w6}
+			edge [thick] (SE)
+			edge [post,thick] (GDT);
+		\node [weight, fill=blue!30, left=1cm of GDF] (w7) {w7}
+			edge [thick] (SF)
+			edge [post,thick] (GDF);
+		\node [weight, fill=green!30, below=.2cm of w7] (w1) {w1}
+			edge [thick] (SD)
+			edge [post,thick] (GDF);
+		\node [weight, fill=red!30, above=.2cm of w7] (w5) {w5}
+			edge [thick] (SE)
+			edge [post,thick] (GDF);
+		\node [weight, fill=blue!30, below=.2cm of w6] (w8) {w8}
+			edge [thick] (SF)
+			edge [post,thick] (GDT);
+		\node [weight, fill=blue!30, above=.2cm of w3] (w10) {w10}
+			edge [thick] (SF)
+			edge [post,thick] (GET);
+		\node [weight, fill=yellow!30, left=.5cm of RDO] (w11) {w11}
+			edge [thick] (GDF)
+			edge [post,thick] (RDO);
+		\node [weight, fill=yellow!30, above=.5cm of w11] (w12) {w12}
+			edge [thick] (GDT)
+			edge [post,thick] (RDO);
+		\node [weight, fill=orange!30, left=.5cm of REO] (w13) {w13}
+			edge [thick] (GEF)
+			edge [post,thick] (REO);
+		\node [weight, fill=orange!30, below=.5cm of w13] (w14) {w14}
+			edge [thick] (GET)
+			edge [post,thick] (REO);
+	\end{tikzpicture}
+	\caption[FCM proposto]{FCM proposto.}
+	\fonte{Autoria própria.}
+	\label{fig:fcm-proposto}
+\end{figure}
+\end{document}
