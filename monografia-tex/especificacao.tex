@@ -6,13 +6,11 @@ Esta seção visa descrever todas as especificações do hardware do robô Bellator a
 
 \subsection{Sensor IR 2Y0A02F98}
 \label{sec:sensores}
-Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, o robô possui cinco sensores analógicos de distância, por infravermelho, modelo 2Y0A02F98 da Sharp, dispostos uniformemente nas laterais da plataforma Bellator. O código dos sensores para conversão e envio pela serial já estava pronto, como resultado do projeto Bellator. A documentação relacionada a esse sensor foi retirada do relatório de tal projeto \cite{BELLATOR}, adaptada à nova situação.
-
-Esse sensor mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva}.
+Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, o robô possui cinco sensores analógicos de distância, por infravermelho, modelo 2Y0A02F98 da Sharp, dispostos uniformemente nas laterais da plataforma Bellator. O código dos sensores para conversão e envio pela serial já estava pronto, como resultado do projeto Bellator. A documentação relacionada a esse sensor foi retirada do relatório de tal projeto \cite{BELLATOR}, adaptada à nova situação. Esse sensor mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva}.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=\textwidth]{./figs/curvaresp.png}
+  \includegraphics[width=0.5\textwidth]{./figs/curvaresp.png}
   \caption[Curva de resposta do sensor de distância.]
   {Curva de resposta do sensor de distância. Fonte: datasheet.}
   \label{curva}
@@ -27,7 +25,7 @@ O diagrama esquemático do regulador de tensão é mostrado na figura \ref{regulado
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=\textwidth]{./figs/regulador.jpg}
+  \includegraphics[width=0.5\textwidth]{./figs/regulador.jpg}
   \caption[Diagrama esquemático do regulador de tensão dos sensores de distância.]
   {Diagrama esquemático do regulador de tensão dos sensores de distância.}
   \label{regulador}
@@ -37,7 +35,7 @@ As respectivas dimensões do sensor IR, em milímetros, são mostradas na figura \r
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=\textwidth]{./figs/dimsens.png}
+  \includegraphics[width=0.7\textwidth]{./figs/dimsens.png}
   \caption[Dimensões do sensor GP2Y0A02F98YK.]
   {Dimensões do sensor GP2Y0A02F98YK. Fonte: datasheet.}
   \label{dimsens}
@@ -69,7 +67,7 @@ O diagrama em blocos do kit, retirado do datasheet é apresentado na figura \ref{
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=\textwidth]{./figs/dbloc.png}
+  \includegraphics[width=0.7\textwidth]{./figs/dbloc.png}
   \caption[Diagrama em blocos do kit C8051F340DK.]
   {Diagrama em blocos do kit C8051F340DK. Fonte: datasheet da C8051F340DK.}
   \label{dbloc}
@@ -93,7 +91,7 @@ A placa TS-7260 é um sistema embarcado equipado com um processador ARM e sistema
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=\textwidth]{./figs/fotots.png}
+  \includegraphics[width=0.7\textwidth]{./figs/fotots.png}
   \caption[Foto esquemática da placa TS-7260.]
   {Foto esquemática da placa TS-7260. Fonte: datasheet da TS-7260.}
   \label{fotots}
@@ -115,7 +113,7 @@ Uma imagem do robô, parcialmente montado, pode ser visualizada na figura \ref{be
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=\textwidth]{./figs/bellator.jpg}
+  \includegraphics[width=0.7\textwidth]{./figs/bellator.jpg}
   \caption[Robô Bellator parcialmente montado.]
   {Robô Bellator parcialmente montado.}
   \label{bellator}
@@ -137,7 +135,7 @@ O diagrama esquemático da placa descrita pode ser observado na figura \ref{rotea
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=\textwidth]{./figs/roteamento_sch.png}
+  \includegraphics[width=0.7\textwidth]{./figs/roteamento_sch.png}
   \caption[Diagrama esquemático da placa de roteamento.]
   {Diagrama esquemático da placa de roteamento.}
   \label{roteamentosch}

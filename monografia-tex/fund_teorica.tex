@@ -14,7 +14,7 @@ O robô disponibilizado à equipe para a realização desse trabalho, o Bellator, é 
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=\textwidth]{./figs/diagsis.png}
+	\includegraphics[width=0.7\textwidth]{./figs/diagsis.png}
 	\caption[Diagrama original do Bellator]{Diagrama original do projeto Bellator, retirado da monografia do mesmo.}
 	\fonte{\cite{BELLATOR}}
 	\label{fig:diagsis}
@@ -22,7 +22,7 @@ O robô disponibilizado à equipe para a realização desse trabalho, o Bellator, é 
 
 A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo nível é composta pelo robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, cinco sensores de distância ``2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7,2 Ampére hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa está conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada de alto nível para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo. Além disso, o PC embarcado envia, também via comunicação sem fio, um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão.
 
-O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto ``Algoritmos de Navegação Fuzzy: Uma Análise Qualitativa". Assim, não será feita uma descrição detalhada de todos os componentes do projeto Bellator. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram reaproveitados.
+O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto ``Algoritmos de Navegação Fuzzy: Uma Análise Qualitativa". Assim, não será feita uma descrição detalhada de todos os componentes do projeto Bellator, entretanto, pode-se consultar a referência \cite{BELLATOR} para mais informações. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram reaproveitados.
 
 \subsection{Recebimento do Robô}
 \label{sec:recrobo}
@@ -45,7 +45,7 @@ Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não 
 A documentação disponível à equipe, produzida durante o projeto Bellator, descreve em detalhes os componentes de hardware dessa plataforma robótica, o software de controle supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340\cite{BELLATOR}. Essa documentação será utilizada como referência para o reaproveitamento do projeto Bellator nesse trabalho, com exceção da documentação referente ao software de controle supervisório, que não será utilizado.
 
 \subsection{Considerações}
-A possibilidade de reaproveitamento parcial do projeto Bellator e o recebimento desse material consistiram uma importante epata nesse trabalho. A plataforma Bellator é uma opção de recurso ao apoio do estudo qualitativo proposto nesse TCC.
+A possibilidade de reaproveitamento parcial do projeto Bellator e o recebimento desse material consistiram uma importante etapa nesse trabalho. A plataforma Bellator é uma opção de recurso ao apoio do estudo qualitativo proposto nesse TCC.
 
 \input{especificacao}
 
@@ -93,9 +93,9 @@ Considere também os seguintes conjuntos fuzzy:
 \end{equation}
 sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, aos conjuntos fuzzy \emph{\mbox{F, M e Q}}, com valores de pertinência pertencentes ao intervalo [0,1] e \emph{t} uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy \emph{\mbox{F, M e Q}} aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável \emph{t} pode ser traduzido em um valor equivalente para a variável linguística \emph{T}, dependendo apenas da definição das funções de pertinência \emph{\mbox{f(t), m(t) e q(t)}}.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 	\centering
-	\includegraphics[width=\textwidth]{./figs/fuzzygraph.png}
+	\includegraphics[width=0.7\textwidth]{./figs/fuzzygraph.png}
 	\caption[Exemplo de Pertinências Fuzzy]{Funções de Pertinência f(t), m(t), q(t).}
 	\label{fig:fuzzygraph}
 \end{figure}
@@ -104,7 +104,7 @@ Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f
 
 
 \subsection{Controle Fuzzy}
-
+\label{sec:fuzzycontrol}
 Após definidas as variáveis linguísticas, conjuntos fuzzy e suas funções de pertinência, descritas na seção \ref{varling}, pode-se construir um controle fuzzy baseado em um conjunto de regras de inferência.
 
 Regras de inferência sobre conjuntos fuzzy podem ser categorizadas como uma generalização do \emph{modus ponens} binário. Em lógica binária, dada regra "se X então Y", onde X e Y são variáveis binárias, a partir do momento que a premissa, representada pela variável X, assume valor lógico verdadeiro, a conclusão, dada por Y, é verdadeira também. Em lógica fuzzy, o mesmo raciocínio é valido, porém X e Y são variáveis linguísticas, e as regras de inferência são definidas a partir dos valores que estas variáveis linguísticas podem assumir, permitindo inclusive ativação parcial de regras de inferência. Extendendo o exemplo das temperaturas, apresentado na seção \ref{varling}, imagine que deseja-se controlar a velocidade de um \emph{cooler} de processador, de acordo com a temperatura que este se encontra, utilizando um controle fuzzy. As regras de inferência para este controle podem ser, por exemplo:
@@ -114,9 +114,9 @@ Regras de inferência sobre conjuntos fuzzy podem ser categorizadas como uma gene
 \end{center}
 Sendo ``medio" e ``forte" valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio" correspondendo a função de pertinência vm e ``forte" correspondendo a vf, apresentados na figura \ref{fig:defuzzygraph}:
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 	\centering
-	\includegraphics[width=\textwidth]{./figs/defuzzygraph.png}
+	\includegraphics[width=0.7\textwidth]{./figs/defuzzygraph.png}
 	\caption[Exemplo de Pertinências Fuzzy - Defuzzificação]{Funções de Pertinência vm e vf.}
 	\label{fig:defuzzygraph}
 \end{figure}
@@ -138,7 +138,7 @@ O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cogniti
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.75]{./figs/fcm.png}
+    \includegraphics[width=0.5\textwidth]{./figs/fcm.png}
     \caption[Exemplo de um FCM]{Exemplo de um FCM (grafo).}
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm}
@@ -198,7 +198,7 @@ Um FCM apresenta as propriedade de elasticidade e estabilidade, sendo que a elas
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.85]{./figs/fcm-exemplo-planta.png}
+    \includegraphics[width=0.5\textwidth]{./figs/fcm-exemplo-planta.png}
     \caption[Aplicação do FCM em processo industrial]{Aplicação do FCM em processo industrial.}
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm-exemplo-planta}
@@ -228,7 +228,7 @@ Interligando-se os conceitos através de relações de causa e efeito, o FCM da fig
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.75]{./figs/fcm-exemplo-fcm.png}
+    \includegraphics[width=0.5\textwidth]{./figs/fcm-exemplo-fcm.png}
     \caption[Mapa Cognitivo Fuzzy]{FCM do controlador.}
     \fonte{\cite{FCMENDONCA}}
     \label{fig:fcm-exemplo-fcm}
@@ -297,7 +297,7 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é 
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.75]{./figs/reinforcement.png}
+    \includegraphics[width=0.5\textwidth]{./figs/reinforcement.png}
     \caption[Algoritmo de aprendizado por reforço]{Algoritmo de aprendizado por reforço.}
     \fonte{\cite{MENDONCA}}
     \label{fig:reinforcement-alg}
@@ -307,7 +307,7 @@ O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendiza
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[scale=0.75]{./figs/fcm-robot.png}
+    \includegraphics[width=0.5\textwidth]{./figs/fcm-robot.png}
     \caption[FCM do comportamento reativo do robô]{FCM do comportamento reativo do robô.}
     \fonte{\cite{MENDONCA}}
     \label{fig:fcm-robot}
