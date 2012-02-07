@@ -45,6 +45,38 @@ dos sinais dos encoders. Portanto, foi necessário alterar o código do microcontr
 dos encoders e enviar informações de odometria. Para tal, foram utilizadas duas interrupções externas da placa C8051F340 (uma
 para cada encoder). Nestas interrupções, cada pulso do encoder é contado (obviamente cada encoder possui seu contador separadamente). A informação de odometria é então enviada através da comunicação serial. Como o encoder dá 1800 pulsos por volta, a resolução é de 360/1800 = 0.2 graus.  Contudo, tamanha precisão é exagerada, e a equipe optou por enviar através apenas uma mensagem (através da porta serial) a cada 180 pulsos do encoder, ou seja, 36 graus de rotação ou um décimo de volta.
 
+\section{Protocolo de comunicação}
+Esta seção tem como objetivo explicar como funciona o protocolo de comunicação, que foi desenvolvido
+para padronizar a troca de mensagens com o microcontrolador C8051F340.
+
+O protocolo de comunicação nada mais é do que um arquivo que define quais são os bytes para cada tipo
+de mensagem. Todas as mensagens, sejam elas recebidas ou enviadas pelo C8051F340, possuem o byte \emph{END\_CMD}
+para sinalizar o fim de um comando/mensagem. As mensagens reconhecidas pelo microcontrolador C8051F340 são as seguintes:
+
+\begin{itemize}
+	\item \textbf{SYNC END\_CMD}: quando o microcontrolador C8051F340 recebe esta mensagem, responde
+com as leituras mais recentes de cada sensor de distância, em seguida as leituras dos encoders;
+	\item \textbf{LEFT\_WHEEL valor END\_CMD}: ao receber este comando, o microcontrolador utiliza o valor
+para definir o nível de PWM para a roda esquerda do robô. valor é representado por apenas um byte,
+onde o bit mais significativo indica o sentido de rotação da roda e os restantes a intensidade do PWM;
+	\item \textbf{RIGHT\_WHEEL valor END\_CMD}: funcionamento idêntico ao comando LEFT\_WHEEL, mas para a roda direita.
+\end{itemize}
+
+As mensagens enviadas pelo microcontrolador C8051F340 são apenas as respostas do comando SYNC:
+
+\begin{itemize}
+	\item \textbf{OPTICAL\_SENSOR\_[0-5] valor END\_CMD}: representa a leitura de cada sensor, onde
+valor é um byte, cuja faixa de variação é [0, 255].
+	\item \textbf{ENCODER valor\_high valor\_low END\_CMD}: representa a leitura de cada encoder,
+valor\_high e valor\_low juntos formam um inteiro de 16 bits que contém o valor da contagem do encoder.
+\end{itemize}
+
+Esta seção definiu o funcionamento do protocolo de comunicação com o microcontrolador C8051F340,
+para mais detalhes, basta consultar o arquivo do protocolo  (protocolo.h), onde os valores são definidos,
+ou o código do microcontrolador C8051F340, que define como as mensagens são interpretadas. O código
+da placa TS-7260 (tslogic.cpp), que contém as mensagens enviadas para a C8051F340, será explicado
+em detalhes na seção~\ref{sec:ts}.
+
 \section{Placa de Roteamento}
 \label{sec:desroteamento}
 
