@@ -40,11 +40,11 @@ void init_W()
 	W[SE][GDF] = FRACA; // w5 (-) FRACA
 	W[SE][GDT] = MEDIA; // w6 (+) MEDIA
 	
-	W[SF][GDF] = FORTE; // w7 (-) FORTE
-	W[SF][GDT] = FRACA; // w8 (+) FRACA 
+	W[SF][GDF] = MEDIA; // w7 (-) FORTE
+	W[SF][GDT] = MEDIA; // w8 (+) FRACA 
 	W[SF][GEF] = FORTE; // w9 (-) FORTE
-	W[SF][GET] = FRACA; // w10 (+) FRACA
-	
+	W[SF][GET] = FORTE; // w10 (+) FRACA
+
 	W[GDF][RD_Out] = FORTE; // w11 (+) FORTE
 	W[GDT][RD_Out] = MEDIA; // w12 (-) MEDIA
 	W[GEF][RE_Out] = FORTE; // w13 (+) FORTE
