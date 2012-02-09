@@ -2,17 +2,19 @@
 \chapter{Desenvolvimento}
 \label{chap:desenv}
 
-Este capítulo contém em detalhes o trabalho realizado pela equipe, dividido nas seguintes seções:
+Este capítulo contém, em detalhes, o desenvolvimento do trabalho realizado pela equipe, dividido nas seguintes seções:
 \begin{itemize}
-    \item[-] Teste dos Componentes: esta seção contém em detalhes quais e em que ordem foram realizados os
-     testes de componentes do robô.
-    \item[-] Código do microcontrolador C8051F340: contém informações a respeito das mudanças no código do
-    microcontrolador.
-    \item[-] Placa de roteamento: contém as especificações da placa de roteamento, assim como os motivos
-    que levarem a equipe a desenvolver esta placa, o projeto da mesma, e o resultado.
+    \item[-] Reconstrução da Plataforma Robótica Bellator: Todos os passos realizados para reconstruir e adaptar a plataforma robótica para utilização no projeto e em trabalhos futuros.
+    \item[-] Algoritmos de Navegação: Detalha a implementação dos algoritmos de navegação fuzzy e FCM, de acordo com as respectivas revisões bibliográficas apresentadas no capítulo \ref{chap:fundteor}.
+    \item[-] Testes e Análise de Resultados: Apresenta a metodologia e elaboração dos testes dos algoritmos e a análise dos resultados obtidos para ambos os algoritmos de navegação.
+    \item[-] Considerações: Conclusão do capítulo e considerações sobre o desenvolvimento do projeto.
 \end{itemize}
 
-\section{Teste dos Componentes}
+\section{Reconstrução da Plataforma Robótica Bellator}
+
+A reconstrução e adaptação da plataforma robótica Bellator, bem como a documentação da mesma para facilitar utilização em trabalhos futuros, é um objetivo deste trabalho de conclusão de curso e, portanto, esta seção irá descrever de forma detalhada todos os passos realizados pela equipe nesse processo de reconstrução, incluindo os testes dos componentes recebidos no início do projeto, elaboração e instalação de novos componentes de hardware para o robô e documentação de componentes de software necessários para o funcionamento da plataforma robótica e para possibilitar a execução autônoma de algoritmos de navegação na mesma.
+
+\subsection{Teste dos Componentes}
 \label{sec:testecomp}
 
 Após o recebimento do robô, foram realizados testes para garantir a funcionalidade dos componentes recebidos, já que o robô
@@ -38,14 +40,14 @@ Após muitas tentativas falhas e busca por informações sem resultados, a equipe o
 sua documentação era escassa e o tempo perdido na tentativa de utilizá-la já estava acima do planejado. O PC Embarcado foi substituído pela placa TS-7260, que possui uma documentação muito melhor, poder de processamento superior, e funcionou
 nos primeiros testes.
 
-\section{Código do microcontrolador C8051F340}
+\subsection{Código do microcontrolador C8051F340}
 \label{sec:codmicro}
 Uma das necessidades do código do microcontrolador é o tratamento dos sinais dos encoders para obter informações de odometria, informações estas essenciais para a navegação autônoma. O código do projeto Bellator~\cite{BELLATOR} não continha o tratamento
 dos sinais dos encoders. Portanto, foi necessário alterar o código do microcontrolador para tratar os sinais
 dos encoders e enviar informações de odometria. Para tal, foram utilizadas duas interrupções externas da placa C8051F340 (uma
 para cada encoder). Nestas interrupções, cada pulso do encoder é contado (obviamente cada encoder possui seu contador separadamente). A informação de odometria é então enviada através da comunicação serial. Como o encoder dá 1800 pulsos por volta, a resolução é de 360/1800 = 0.2 graus.  Contudo, tamanha precisão é exagerada, e a equipe optou por enviar através apenas uma mensagem (através da porta serial) a cada 180 pulsos do encoder, ou seja, 36 graus de rotação ou um décimo de volta.
 
-\section{Protocolo de comunicação}
+\subsection{Protocolo de comunicação}
 Esta seção tem como objetivo explicar como funciona o protocolo de comunicação, que foi desenvolvido
 para padronizar a troca de mensagens com o microcontrolador C8051F340.
 
@@ -77,7 +79,7 @@ ou o código do microcontrolador C8051F340, que define como as mensagens são inte
 da placa TS-7260 (tslogic.cpp), que contém as mensagens enviadas para a C8051F340, será explicado
 em detalhes na seção~\ref{sec:ts}.
 
-\section{Placa de Roteamento}
+\subsection{Placa de Roteamento}
 \label{sec:desroteamento}
 
 A placa de roteamento é um componente fundamental do projeto, responsável por realizar a interligação entre a placa C8051F340 e os componentes de hardware do robô. A equipe constatou a necessidade deste componente devido aos seguintes fatores:
@@ -106,7 +108,7 @@ De acordo com os fatores descritos, a equipe construiu uma lista de requisitos p
 
 Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou essencial a utilização de um regulador de tensão, o LM317, que era o mesmo utilizado na versão antiga da placa, e suporta corrente de até 1.5A, valor suficiente para alimentar os componentes da placa. O buffer para o sinal de PWM foi feito através do CI 74LS244N e a amplificação dos sinais dos Encoders utilizando-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos flat, para a interação com a C8051F340, bem como pinos para conectores do hardware do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio do software Eagle e o resultado pode ser visualizado a seguir.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{./figs/roteamento_sch.png}
   \caption[Diagrama esquemático da placa de roteamento.]
@@ -114,9 +116,9 @@ Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa d
   \label{fig:roteamento_sch}
 \end{figure}
 
-De posse do diagrama esquemático apresentado na figura \ref{roteamentosch} a equipe realizou o roteamento de uma placa de circuito impresso que atenda ao mesmo diagrama esquemático, também utilizando o software Eagle.
+De posse do diagrama esquemático apresentado na figura \ref{fig:roteamento_sch} a equipe realizou o roteamento de uma placa de circuito impresso que atenda ao mesmo diagrama esquemático, também utilizando o software Eagle.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{./figs/roteamento_brd.png}
   \caption[Roteamento final produzido pela equipe.]
@@ -126,7 +128,7 @@ De posse do diagrama esquemático apresentado na figura \ref{roteamentosch} a equ
 
 A placa de roteamento foi confeccionada manualmente em uma placa de circuito impresso. O desenho da placa foi impresso em uma folha de transparência A4 e utilzando-se uma impressora à laser. Esse desenho foi passado da trasparência para a placa com o auxílio de um ferro de passar roupa e a placa foi corroída usando-se o percloreto de ferro. A placa foi perfurada com broca e perfurador de placa e os componentes eletrônicos foram soldados com ferro de solda, estanho e pasta de solda. A figura \ref{fig:confeccao} ilustra o processo de confeccção da placa.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{./figs/placa-confeccao.jpg}
   \caption[Processo de confecção da placa de roteamento.]
@@ -136,7 +138,7 @@ A placa de roteamento foi confeccionada manualmente em uma placa de circuito imp
 
 %Descrever os fatores. Escrever requisitos. Descrever placa. Explicar a produção da placa. Por que usar o Eagle.
 
-\section{Placa TS-7260}
+\subsection{Placa TS-7260}
 \label{sec:ts}
 %Descrição do motivo da escolha da placa, implementação de códigos auxiliares aos algoritmos (comunicação, etc)...
 Esta seção explicará como foi estruturado o software desenvolvido para a placa
@@ -238,6 +240,10 @@ de navegação é executado.
 	{Diagrama em blocos demonstrando o funcionamento do software da placa TS-7260.}
 \end{figure}
 
+\subsection{Considerações}
+
+Nesta seção foram descritos os passos da equipe para alcançar o primeiro objetivo do projeto, a reconstrução da plataforma robótica Bellator, tornando-a apta para utilização no teste e comparação de algoritmos de navegação. Foram descritos os testes iniciais com o robô, o projeto da nova placa de roteamento e a implementação do software da placa TS-7260.
+
 \section{Algoritmos de Navegação}
 \label{sec:algs}
 Esta seção dedica-se à descrição da implementação dos algoritmos de navegação conforme descrição teórica dos mesmos apresentada na fundamentação teórica. Mais específicamente, serão descritos os códigos responsáveis pela tomada de decisões de ambos os algoritmos de navegação que executam na placa TS-7260, o algoritmo de navegação de lógica Fuzzy simples e o ED-FCM.
@@ -252,7 +258,7 @@ O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, fo
 A biblioteca FLIE, desenvolvida em C++ por Jõao Alberto Fabro, possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas para bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis linguísticas, sendo apropriada para a elaboração de um algoritmo de navegação fuzzy. A biblioteca funciona de acordo com os princípios teóricos fuzzy apresentados na seção \ref{sec:logfuzzy}.
 
 Para elaborar o controle fuzzy responsável pelo algoritmo de navegação, é necessário, primeiramente, definir as variáveis linguísticas e os conjuntos fuzzy associados às mesmas. Em seguida, deve-se definir as variáveis linguísticas de entrada e saída do sistema e as associar apropriadamente. Em seguida, é necessário definir o método de defuzzificação e, finalmente, as regras de inferência. Cada um destes passos será descrito em detalhes a seguir.
- 
+
 A biblioteca FLIE permite a definição de variáveis linguísticas na classe \emph{linguisticvariable}, que pode ser composta por diversos conjuntos fuzzy, definidos a partir da classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com seu nível de pertinência a cada categoria (conjunto fuzzy) pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
 
 \begin{figure}[H]
@@ -633,5 +639,17 @@ RD_{Out}=100 \times \frac {w_{13}GEF-w_{14}GET} {FORTE}
 
 O algoritmo FCM projetado conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out. Os conceitos de nível são ativados gradualmente através dos valores normalizados dos conceitos de entrada, sendo que essa ativação herda a característica de suavidade das funções sigmoidais \ref{eq:sig_frente} e \ref{eq:sig_tras}. Os conceitos de saída são uma média ponderada entre os conceitos "girar para frente" e "girar para trás", aplicada a cada roda. O comportamente esperado desse algoritmo é que o robô desvie obstáculos de forma suave e responda instantaneamente à leitura dos sensores de distância.
 
+\section{Testes e Análise de Resultados}
+
+Esta seção tem por objetivo apresentar a metodologia e elaboração dos testes dos algoritmos de navegação implementados pela equipe, utilizando-se de desenhos esquemáticos e descrição detalhada dos objetivos de cada teste. Nesta seção também é apresentada a análise do comportamento de ambos os algoritmos de navegação, após submetidos às mesmas condições de teste.
+
+\subsection{Elaboração dos Testes}
+
+
+
+\subsection{Análise de Resultados}
+
+
+
 \section{Considerações}
-Nesta seção foram descritos os passos da equipe desde os testes iniciais com o robô até o projeto da nova placa de roteamento. Com a realização destas tarefas, o objetivo de reconstrução da camada de baixo nível do robô Bellator foi alcançado.
+

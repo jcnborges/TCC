@@ -1,4 +1,5 @@
 \chapter{Fundamentação Teórica}
+\label{chap:fundteor}
 
 Este capítulo apresentará a fundamentação teórica desse trabalho de conclusão de curso. Será descrito o estado inicial do projeto e do robô Bellator, com uma visão geral deste ao ser entregue à equipe, a especificação do robô após a reconstrução, a apresentação da Lógica Fuzzy e da metodologia de Mapas Cognitivos Fuzzy (FCM).
 
@@ -42,7 +43,7 @@ O chassi do robô e seus componentes acoplados são a base da plataforma robótica 
 
 Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não foram recebidos ou não serão utilizados nesse trabalho. A webcam e joystick não foram entregues pois não serão necessários, visto que um sistema de navegação autônomo não necessita de joystick e esse trabalho não abordará navegação através de imagem de vídeo. A placa de roteamento entregue será utilizada nos testes dos componentes, visto que é essencial para o funcionamento do robô. Esta placa será reprojetada e reconstruída. O PC embarcado foi entregue destituído de qualquer documentação. Além disso, como o novo objetivo do robô não necessita de comunicação sem fio e não utilizará stream de vídeo, motivo principal para a utilização deste PC no projeto anterior, a equipe optou por descartar este recurso do projeto e utilizar outra placa mais simples e menor, que será descrita em detalhes na seção \ref{chap:esprob}.
 
-A documentação disponível à equipe, produzida durante o projeto Bellator, descreve em detalhes os componentes de hardware dessa plataforma robótica, o software de controle supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340\cite{BELLATOR}. Essa documentação será utilizada como referência para o reaproveitamento do projeto Bellator nesse trabalho, com exceção da documentação referente ao software de controle supervisório, que não será utilizado.
+A documentação disponível à equipe, produzida durante o projeto Bellator, descreve em detalhes os componentes de hardware dessa plataforma robótica, o software de controle supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340\cite{BELLATOR}. Essa documentação será utilizada como referência para o reaproveitamento do projeto Bellator nesse trabalho, com exceção da documentação referente ao software de controle supervisório, que não será utilizado. O processo de reconstrução e adaptação da plataforma robótica é descrito em detalhes no capítulo \ref{chap:desenv}.
 
 \subsection{Considerações}
 A possibilidade de reaproveitamento parcial do projeto Bellator e o recebimento desse material consistiram uma importante etapa nesse trabalho. A plataforma Bellator é uma opção de recurso ao apoio do estudo qualitativo proposto nesse TCC.
@@ -194,7 +195,7 @@ inicialmente proposto, ajustando suas respostas às saídas desejadas;
 processo modelado.
 \end{itemize}
 
-Um FCM apresenta as propriedade de elasticidade e estabilidade, sendo que a elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais e a estabilidade é a capacidade de o mapa evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
+Um FCM apresenta as propriedades de elasticidade e estabilidade, sendo que a elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais e a estabilidade é a capacidade de o mapa evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
 \begin{figure}[!htb]
     \centering
