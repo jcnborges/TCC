@@ -55,9 +55,9 @@ void init_W()
 	W[GET][SE] = FRACA; // w16 (-) FRACA
 }
 
-void init_W(float sd)
+void init_W(float sf)
 {
-	if (sd > LIMIAR)
+	if (sf > LIMIAR)
 	{
 		W[SD][GDF] = FORTE; // w1 (+) FORTE
 		W[SD][GEF] = FORTE; // w2 (+) FRACA
@@ -116,7 +116,7 @@ void inference(float se, float sf, float sd, float &rd_out, float &re_out)
 	se = (se - MIN_DIST) / float(MAX_DIST - MIN_DIST);
 
 	// inicializa os pesos de acordo com a distancia sd
-	init_W(sd);
+	init_W(sf);
 
 	// calcula o valor do conceito gdf
 	gdf = W[SD][GDF] * (1 - SIG(sd));
