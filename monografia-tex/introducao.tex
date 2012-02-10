@@ -11,16 +11,29 @@ necessários para locomoção, de maneira precisa e suave, ao mesmo
 tempo em que permite reações rápidas às mudanças de ambiente para
 evitar colisões \cite{FRACASSO}.
 
-O presente trabalho é um estudo comparativo entre dois algoritmos de navegação,
-que serão implementados em um robô móvel autônomo o qual deverá desviar obstáculos.
-Um dos algoritmos é uma implementação utilizando lógica fuzzy, com tomada de decisão
-baseada diretamente em regras fuzzy, enquanto que o outro é um algoritmo
-baseado em FCM (Fuzzy Cognitive Maps).
+Na robótica móvel, existem dois principais paradigmas que guiam os
+projetos de diversas arquiteturas de sistemas de navegação: o reativo e o
+deliberativo. O paradigma reativo procura reproduzir a reação imediata dos
+animais aos estímulos do ambiente. Geralmente, arquiteturas reativas são
+empregadas como uma camada de nível inferior na navegação de robôs
+móveis, pois apresentam a vantagem de resposta em tempo real uma vez
+que mapeiam a leitura dos sensores, diretamente, em ações. Arquiteturas
+deliberativas, por outro lado, intercalam o processo da tomada de decisão,
+desde a percepção até a ação, com uma etapa de planejamento a qual
+demanda grande tempo computacional, impedindo a atuação do robô em
+tempo real. Atualmente, são definidas arquiteturas híbridas, conjugando
+ambos os paradigmas \cite{FRACASSO}.
 
-Os algoritmos serão executados em uma plataforma robótica real, equipada
-com sensores de distância e encoders para auxílio à odometria. Os dados
-desses sensores serão as entradas dos algoritmos e a saída serão os comandos
-necessários para guiar o robô adequadamente.
+Sensores de distância são comumente utilizados na construção de robôs móveis autônomos. Esses sensores são capazes de medir a distância do robô em relação a um obstáculo e funcionam através de princípios físicos diversos, como ondas de ultra som e raios infravermelho. A medição efetuada por esses sensores é frequentemente utilizada como a entrada dos sistemas de navegação e é comum que esses sensores, em versões de tamanho reduzido, sejam encontrados em robôs móveis de pequeno porte. Basicamente, um robô móvel autônomo é formado por um sistema de locomoção, por exemplo, um chassi com duas rodas trassionadas e uma terceira roda guia, um sistema de potência capaz de fornecer corrente aos motores das rodas de tração, alimentação por bateria, sensores de distância, encoders para auxílio à odometria, um sistema microcontrolado capaz de processar os sinais dos sensores e enconders, controlar a potência dos motores e comunicar-se através de um meio de transmissão para programação do robô. 
+
+Existem metodologias de inteligência artificial que podem ser empregadas em robótica móvel, como a lógica fuzzy, redes neurais ou uma combinação de ambas denominada "neuro-fuzzy". O presente trabalho é um estudo comparativo entre dois algoritmos de navegação, que serão implementados para desempenhar o comportamento reativo de um robô móvel autônomo, o qual deverá desviar obstáculos. Um dos algoritmos é uma implementação utilizando lógica fuzzy, com tomada de decisão baseada diretamente em regras fuzzy, enquanto que o outro é um algoritmo baseado em FCM (Fuzzy Cognitive Maps), que é considerado por alguns autores como um sistema neuro-fuzzy \cite{MENDONCA}. Para realizar a comparação desses algoritmos, será necessária uma plataforma robótica real, obtida pela reconstrução do robô "Bellator", cordialmente cedido à equipe pelo professor doutor Heitor Silvério Lopes, do departamento de Pós-Graduação em Engenharia Elétrica e Informática Industrial da Universidade Tecnológica Federal do Paraná (CPGEI/UTFPR).
+
+O Bellator é um robô móvel que estava em desenvolvimento em um trabalho mas foi abandonado. Este robô terá de ser reconstruído e adaptado às necessidades da equipe, a qual levará em conta a possibilidade de utilizá-lo em projetos futuros. O Bellator será equipado
+com sensores de distância em quantidade suficiente para alimentar a entrada do sistema de navegação, encoders para auxílio à odometria, baterias para fornecimento adequado de energia, hardware e software adequados para o controle do robô. Os algoritmos serão "embarcados" no mesmo, evitando o uso de um PC convencional para controlá-lo ou comunicação sem fio. Desse modo o robô será autônomo, sendo capaz de locomover-se e tomar decisões automaticamente.
+
+A lógica fuzzy é uma aboardagem estudada no sétimo período na disciplina de sistemas inteligentes e foi escolhida pelo conhecimento prévio da equipe sobre o assunto. Esse TCC trata-se da implementação de um controlador fuzzy para resolver o problema do controle de navegalçao de um robô móvel real. A possibilidade de trabalhar com o algoritmo FCM surgiu através do professor doutor Márcio Mendonça, o qual defendeu recentemente a tese de doutorado tratando sobre o assunto \cite{MENDONCA}. A proposta desse algoritmo é inovadora e cujos conceitos podem ser aplicados na robótica móvel e controladores industriais. O presente trabalho também colocará esses conceitos em prática com a implementação de um algoritmo FCM capaz de controlar o comportamento reativo do robô. 
+
+Através desse trabalho, a equipe espera integrar vários assuntos condizentes com a área da Engenharia de Computação. A reconstrução do robô levará em conta conhecimentos de hardware e eletrônica, programação de baixo nível, controle, experimentos e testes em bancada de laboratório. A programação dos algoritmos avaliará a capacidade de os integrantes colocarem em prática conceitos previamente conhecidos, como a lógica fuzzy e assimilarem novos conceitos, como o FCM. O resultado final será obtido ao se juntarem essas partes, integrando o hardware ao software de controle, que representará um grande desafio à equipe e uma experiência enriquecedora à nível de trabalho de graduação .
 
 \section{Motivação}
 
