@@ -500,22 +500,25 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 	  Relação causal & Descrição & Efeito & Intensidade \\
 	  \hline
 		$w_1$ & SD influencia GDF & Positivo & Forte \\
-		$w_2$ & SD influencia GEF & Negativo & Fraca \\
-		$w_3$ & SD influencia GET & Positivo & Média \\
+		$w_2$ & SD influencia GEF & Positivo & Forte \\
+		$w_3$ & SD influencia GET & Positivo & Forte \\
 		
 		$w_4$ & SE influencia GEF & Positivo & Forte \\
-		$w_5$ & SE influencia GDF & Negativo & Fraca \\
-		$w_6$ & SE influencia GDT & Positivo & Média \\
+		$w_5$ & SE influencia GDF & Positivo & Forte \\
+		$w_6$ & SE influencia GDT & Positivo & Forte \\
 		
-		$w_7$ & SF influencia GDF & Negativo & Forte \\
-		$w_8$ & SF influencia GDT & Positivo & Fraca \\
-		$w_9$ & SF influencia GEF & Negativo & Forte \\
-		$w_{10}$ & SF influencia GET & Positivo & Fraca \\
+		$w_7$ & SF influencia GDF & Negativo & Média \\
+		$w_8$ & SF influencia GDT & Positivo & Média \\
+		$w_9$ & SF influencia GEF & Negativo & Média \\
+		$w_{10}$ & SF influencia GET & Positivo & Média \\
 		
 		$w_{11}$ & GDF influencia RD Out & Positivo & Forte \\
-		$w_{12}$ & GDT influencia RD Out & Negativo & Média \\
+		$w_{12}$ & GDT influencia RD Out & Positi & Forte \\
 		$w_{13}$ & GEF influencia RE Out & Positivo & Forte \\
-		$w_{14}$ & GET influencia RE Out & Negativo & Média \\
+		$w_{14}$ & GET influencia RE Out & Negativo & Forte \\
+		
+		$w_{15}$ & SD influencia GDT & NEGATIVO & Fraca \\
+		$w_{16}$ & SE influencia GET & NEGATIVO & Fraca \\
 	  \hline  	
 	\end{tabular}
 	\label{tab:fcm-relacoes}
@@ -609,22 +612,22 @@ Os conceitos foram interligados através das relações causais apresentadas na tab
 
 \begin{equation}
 \label{eq:gdf}
-GDF=\frac {w_1f_2(SD)+w_5f_1(SE)-w_7f_2(SF)} {w_1+w_5}
+GDF=\frac {w_1f_2(SD)+w_5f_1(SE)-w_7f_2(SF)} {w_1+w_5+w_7}
 \end{equation}
 
 \begin{equation}
 \label{eq:gdt}
-GDT=\frac {w_6f_2(SE)+w_8f_2(SF)} {w_6+w_8}
+GDT=\frac {w_6f_2(SE)+w_8f_2(SF)-w_{15}f_2(SD)} {w_6+w_8}
 \end{equation}
 
 \begin{equation}
 \label{eq:gef}
-GEF=\frac {w_4f_2(SE)+w_2f_1(SD)-w_9f_2(SF)} {w_4+w_2}
+GEF=\frac {w_4f_2(SE)+w_2f_1(SD)-w_9f_2(SF)} {w_4+w_2+w_9}
 \end{equation}
 
 \begin{equation}
 \label{eq:get}
-GET=\frac {w_3f_2(SE)+w_{10}f_2(SF)} {w_3+w_{10}}
+GET=\frac {w_3f_2(SD)+w_{10}f_2(SF)-w_{16}f_1(SE)} {w_3+w_{10}}
 \end{equation}
 
 \begin{equation}
