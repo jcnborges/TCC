@@ -1,5 +1,7 @@
 #!/bin/bash
 
 make
+echo "Moving tslogic to network share"
 mv tslogic /files/tslogic
+echo "Copying regras.txt to network share"
 cp flie/regras.txt /files/regras.txt
