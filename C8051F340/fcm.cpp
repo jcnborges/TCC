@@ -12,6 +12,8 @@
 #define MAX_DIST 150
 #define LIMIAR 0.1
 #define SIG(x) (1 / (1 + exp(-10 * x + 4.5)))
+#define f1(x) SIG(x)
+#define f2(x) 1 - SIG(x)
 enum 
 {
 	SE, SF,	SD, 
@@ -134,29 +136,29 @@ void inference(float se, float sf, float sd, float &rd_out, float &re_out)
 	init_W(sf, se, sd);
 
 	// calcula o valor do conceito gdf
-	gdf = W[SD][GDF] * (1 - SIG(sd));
-	gdf += W[SF][GDF] * SIG(sf);
-	gdf += W[SE][GDF] *  SIG(se);
+	gdf = W[SD][GDF] * f2(x);
+	gdf += W[SF][GDF] * f1(x);
+	gdf += W[SE][GDF] *  f1(x);
 	gdf /= W[SD][GDF] + W[SF][GDF] + W[SE][GDF];
 	gdf = gdf > 0 ? gdf : 0;
 
 	// calcula o valor do conceito gdt
-	gdt = W[SE][GDT] * (1 - SIG(se));
-	gdt += W[SF][GDT] * (1 - SIG(sf));
-	gdt += W[SD][GDT] * (1 - SIG(sd));
+	gdt = W[SE][GDT] * f2(x);
+	gdt += W[SF][GDT] * f2(x);
+	gdt += W[SD][GDT] * f2(x);
 	gdt /= W[SE][GDT] + W[SF][GDT] + W[SD][GDT];
 
 	// calcula o valor do conceito gef
-	gef = W[SE][GEF] * (1 - SIG(se));
-	gef += W[SF][GEF] * SIG(sf);
-	gef += W[SD][GEF] * SIG(sd);
+	gef = W[SE][GEF] * f2(x);
+	gef += W[SF][GEF] * f1(x);
+	gef += W[SD][GEF] * f1(x);
 	gef /= W[SE][GEF] + W[SF][GEF] + W[SD][GEF];
 	gef = gef > 0 ? gef : 0;
 
 	// calcula o valor do conceito get
-	get = W[SD][GET] * (1 - SIG(sd));
-	get += W[SF][GET] * (1 - SIG(sf));
-	get += W[SE][GET] * (1 - SIG(se));
+	get = W[SD][GET] * f2(x);
+	get += W[SF][GET] * f2(x);
+	get += W[SE][GET] * f2(x);
 	get /= W[SD][GET] + W[SF][GET] + W[SE][GET];
 
 	printf("gdf = %.5lf\ngef = %.5lf\n", gdf, gef);
