@@ -17,7 +17,6 @@
 //#define DBG_COM2
 //#define DBG_PKG
 //#define DBG_ACC
-//#define DBG_VELOCITY_TEST
 #define DBG_INF
 #define DBG_SP
 #define vLeft v[LEFT]
@@ -163,6 +162,18 @@ void adjust_velocity(){
 		if(diff < 0) step = -step;
 		accelerate(i, step);
 	}
+}
+
+void test_speed(){
+	static int cnt = 0;
+	if(cnt < MAX_VELOCITY || cnt >= 3*MAX_VELOCITY){
+		accelerate(LEFT, 1);
+		accelerate(RIGHT, 1);
+	} else {
+		accelerate(LEFT, -1);
+		accelerate(RIGHT, -1);
+	}
+	if(++cnt == MAX_VELOCITY * 4) cnt = 0;
 }
 
 int read_package()
@@ -311,7 +322,6 @@ void run_fcm()
 	set_setpoint(RIGHT, (int) setRight);
 }
 
-#define VAI 30
 int main(int argc, char *argv[])
 {
 	int i, cnt = 0, cnt_t = 0;
@@ -335,51 +345,24 @@ int main(int argc, char *argv[])
 			puts("Running FCM algorithm");
 		}
 	}
-	if(ALGORITHM == -1) puts("No algorithm specified, robot won't move");
+	if(ALGORITHM == -1) puts("No algorithm specified, running test routine");
 	do { scanf("%s", command); } while(strcmp(command, "bacon"));
-	for(cnt = 0; ; ){
+	for(cnt = 0; ; ++cnt){
 		op_begin = clock();
 		read_package();
 		show_info();
-
-		/* {{{ Codigo de teste dos motores */
-		min_dist = 1024;
-		for(i = 0; i < 6; ++i)
-			if(i != NOT && last_dist[i] > 0 && last_dist[i] < min_dist)
-				min_dist = last_dist[i];
-
-		min_dist = 1024;
-		if(min_dist < 30){
-			set_setpoint(0);
-			accelerate(LEFT, -MAX_VELOCITY);
-			accelerate(RIGHT, -MAX_VELOCITY);
-			//show_info();
-		} else {
-			++cnt;
-		}
-		adjust_velocity();
-#ifdef DBG_VELOCITY_TEST
-		if(!((cnt / (MAX_VELOCITY*2)) & 1)){
-			accelerate(RIGHT, 1);
-			accelerate(LEFT, 1);
-		} else{
-			accelerate(RIGHT, -1);
-			accelerate(LEFT, -1);
-		}
-#endif
-		/* }}} */
 
 		if(cnt == NADJUSTMENTS){
 #ifndef DBG_PKG
 			show_info();
 #endif
-#ifndef DBG_VELOCITY_TEST
-			if(ALGORITHM == FUZZY){
+			if(ALGORITHM == -1){
+				test_speed();
+			} else if(ALGORITHM == FUZZY){
 				run_fuzzy();
 			} else if(ALGORITHM == FCM){
 				run_fcm();
-			}
-#endif
+			} 
 			cnt = 0;
 		}
 		//printf("Operacao completa, tempo: %.3lfs\n", (clock() - op_begin) / (double) CLOCKS_PER_SEC);
