@@ -648,16 +648,49 @@ Esta seção tem por objetivo apresentar a metodologia e elaboração dos testes dos
 
 \subsection{Elaboração dos Testes}
 
-Os testes
+A metodologia de elaboração dos testes da equipe visou possibilitar testes de sistema, verificando a funcionalidade básica dos algoritmos,  testes de comportamento visando eliminar erros de desenvolvimento e comportamentos indesejados para ambos os algoritmos e, finalmente, comparar o comportamento dos algoritmos submetidos às mesmas condições iniciais de teste. Ao longo dos testes, várias alterações foram realizadas tanto aos conjuntos fuzzy e regras de inferência do algoritmo de navegação fuzzy como aos conceitos e funções sigmóides do algoritmo baseado em FCM, antes de atingir a configuração final descrita nas seções \ref{sec:algfuzzy} e \ref{sec:algedfcm}.
 
-Os testes dos algoritmos foram elaborados com três principais etapas:
+Assim sendo, foram desenvolvidas três principais etapas de testes:
 \begin{enumerate}
     \item Testes Iniciais: Teste básico dos algoritmos visando observar a movimentação básica, sincronia das rodas e ajuste de parâmetros.
     \item Testes Avançados: Testes realizados com mais obstáculos para avaliar a capacidade dos algoritmos em evitar colisões com obstáculos.
     \item Testes Comparativos: Testes finais visando a comparação do comportamento entre os algoritmos em diversas situações
 \end{enumerate}
 
-Tanto os testes iniciais quanto os avançados são essenciais para proporcionar uma análise de resultados confiável entre os algoritmos. A comparação entre os algoritmos não deve ser afetada por mal escolha de parâmetros, regras ou conceitos
+Tanto os testes iniciais quanto os avançados são essenciais para proporcionar uma análise de resultados confiável entre os algoritmos. Nas seções seguintes, para cada teste desenvolvido, são apresentados diagramas esquemáticos espaciais, representando a disposição dos obstáculos e a posição inicial do robô, o comportamento apresentado pelo robô, possíveis alterações e ajustes realizados aos algoritmos por conta dos resultados do teste.
+
+\subsection{Testes Iniciais}
+
+%corredor interno e externo dainf
+Foram elaborados dois testes iniciais, o primeiro visando observar o deslocamento simples e detecção de um obstáculo simples próximo a parede em um corredor (Figura \ref{algtest1}), e o segundo teste foi construído em um corredor mais largo que o primeiro, com alguns obstáculos obstruindo a passagem, definindo apenas um caminho possível entre os obstáculos (figura \ref{algtest2}).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figs/algtest1.png}
+  \caption[Configuração do primeiro teste inicial.]
+  {Configuração do primeiro teste inicial.}
+  \label{algtest1}
+\end{figure}
+
+A execução de ambos os algoritmos neste primeiro teste mostrou resultados satisfatórios. Ambos os algoritmos foram capazes de realizar o percurso, porém o algoritmo de navegação fuzzy mostrou-se excessivamente lento próximo aos obstáculos. Concluiu-se que isto ocorreu devido ao valor máximo das funções de pertinência "Lento" e "Médio", serem muito baixos. A função de pertinência "Lento" e  apresentava um valor máximo de apenas 20\% da velocidade máxima e "Médio" correspondia a 50\%. A partir desta observação, as funções de pertinência da velocidade foram alteradas para os novos valores, descritos na seção \ref{sec:algfuzzy} de 33\% para "Lento" e 66\% para "Médio". Após os ajustes, o algoritmo mostrou-se mais rápido no corredor, no mesmo teste.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figs/algtest2.png}
+  \caption[Configuração do primeiro teste inicial.]
+  {Configuração do primeiro teste inicial.}
+  \label{algtest2}
+\end{figure}
+
+O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma barreira imediatamente no caminho do robô.
+
+\subsection{Testes Avançados}
+
+%Corredor largo e estreito C300
+
+\subsection{Testes Comparativos}
+
+%teste corredor "U" e teste FINAL
 
 \subsection{Análise de Resultados}
 
