@@ -672,6 +672,8 @@ Foram elaborados dois testes iniciais, o primeiro visando observar o deslocament
   \label{algtest1}
 \end{figure}
 
+A execução de ambos os algoritmos neste primeiro teste mostrou resultados satisfatórios. Ambos os algoritmos foram capazes de realizar o percurso, porém o algoritmo de navegação fuzzy mostrou-se excessivamente lento próximo aos obstáculos. Concluiu-se que isto ocorreu devido ao valor máximo das funções de pertinência "Lento" e "Médio", serem muito baixos. A função de pertinência "Lento" e  apresentava um valor máximo de apenas 20\% da velocidade máxima e "Médio" correspondia a 50\%. A partir desta observação, as funções de pertinência da velocidade foram alteradas para os novos valores, descritos na seção \ref{sec:algfuzzy} de 33\% para "Lento" e 66\% para "Médio". Após os ajustes, o algoritmo mostrou-se mais rápido no corredor, no mesmo teste.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{./figs/algtest2.png}
@@ -679,6 +681,8 @@ Foram elaborados dois testes iniciais, o primeiro visando observar o deslocament
   {Configuração do primeiro teste inicial.}
   \label{algtest2}
 \end{figure}
+
+O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma barreira imediatamente no caminho do robô.
 
 \subsection{Testes Avançados}
 
