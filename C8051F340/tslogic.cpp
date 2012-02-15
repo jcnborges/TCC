@@ -293,7 +293,7 @@ void run_fuzzy(){
 	printf("V = %.3f A = %.3f\n", velocity, angle);
 #endif
 
-	int setpoint = int(floor(velocity * MAX_VELOCITY / 100.0 + .5));
+	int setpoint = int(floor(velocity * MAX_VELOCITY / 85.0 + .5));
 	int setLeft, setRight;
 	setLeft = setRight = setpoint;
 	if(angle >= 90.0) setRight = int(setpoint * (1 - (angle - 90) / 45));

@@ -11,8 +11,8 @@
 #define MIN_DIST 14
 #define MAX_DIST 150
 #define SIG(x) (1 / (1 + exp(-10 * x + 4.5)))
-#define L0 0.1
-#define L1 0.2
+#define L0 0.15
+#define L1 0.25
 #define FRENTE 1
 #define TRAS 0
 enum 
@@ -50,10 +50,10 @@ void init_W(float sf)
 		W[SE][GDF] = FRACA; // w5 (-)
 		W[SE][GDT] = MEDIA; // w6 (+)
 		
-		W[SF][GDF] = MEDIA; // w7 (-)
-		W[SF][GDT] = MEDIA; // w8 (+) 
-		W[SF][GEF] = FORTE; // w9 (-)
-		W[SF][GET] = FORTE; // w10 (+)
+		W[SF][GDF] = FORTE; // w7 (-)
+		W[SF][GDT] = FORTE; // w8 (+) 
+		W[SF][GEF] = FRACA; // w9 (-)
+		W[SF][GET] = FRACA; // w10 (+)
 		
 		W[GDF][RD_Out] = FORTE; // w11 (+)
 		W[GDT][RD_Out] = MEDIA; // w12 (-)
@@ -70,13 +70,13 @@ void init_W(float sf)
 		
 		W[SF][GDF] = FRACA; // w7 (-)
 		W[SF][GDT] = MEDIA; // w8 (+) 
-		W[SF][GEF] = FRACA; // w9 (-)
-		W[SF][GET] = MEDIA; // w10 (+)
+		W[SF][GEF] = MEDIA; // w9 (-)
+		W[SF][GET] = FRACA; // w10 (+)
 		
-		W[GDF][RD_Out] = MEDIA; // w11 (+)
+		W[GDF][RD_Out] = FRACA; // w11 (+)
 		W[GDT][RD_Out] = FORTE; // w12 (-)
-		W[GEF][RE_Out] = MEDIA; // w13 (+)
-		W[GET][RE_Out] = FORTE; // w14 (-)
+		W[GEF][RE_Out] = FORTE; // w13 (+)
+		W[GET][RE_Out] = FRACA; // w14 (-)
 	}
 }
 
