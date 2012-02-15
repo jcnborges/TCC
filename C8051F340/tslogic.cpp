@@ -51,7 +51,7 @@ const int distances[256] = { // Tabela de conversao de distancias (valor DA para
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
   -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,
 };
-const int MAX_VELOCITY = 75; // Maximo passo de velocidade do robo
+const int MAX_VELOCITY = 51; // Maximo passo de velocidade do robo
 const double TIME_WINDOW = 0.075; // Duracao minima de uma operacao
 const char* SNAME[] = { "L30", "MID", "___", "R30", "R60", "L60"};
 const char* ENAME[] = { "LEFT", "RIGHT" };
@@ -293,7 +293,7 @@ void run_fuzzy(){
 	printf("V = %.3f A = %.3f\n", velocity, angle);
 #endif
 
-	int setpoint = int(floor(velocity * 0.75 + .5));
+	int setpoint = int(floor(velocity * MAX_VELOCITY / 100.0 + .5));
 	int setLeft, setRight;
 	setLeft = setRight = setpoint;
 	if(angle >= 90.0) setRight = int(setpoint * (1 - (angle - 90) / 45));
@@ -305,19 +305,14 @@ void run_fuzzy(){
 
 void run_fcm()
 {
-	static bool first = true;
 	float setRight, setLeft;
+	float maxSP = MAX_VELOCITY / 100.0;
 	int left = (MIN(last_dist[L30], last_dist[L60]));
 	int right = (MIN(last_dist[R30], last_dist[R60]));
 	int mid = (last_dist[MID]);
-	if (first)
-	{
-		init_W();
-		first = false;
-	}
 	inference(left, mid, right, setRight, setLeft);
-	setRight = floor(setRight * 0.75 + 0.5);
-	setLeft = floor(setLeft * 0.75 + 0.5);
+	setRight = floor(setRight * maxSP + 0.5);
+	setLeft = floor(setLeft * maxSP + 0.5);
 	set_setpoint(LEFT, (int) setLeft);
 	set_setpoint(RIGHT, (int) setRight);
 }
@@ -350,7 +345,8 @@ int main(int argc, char *argv[])
 	for(cnt = 0; ; ++cnt){
 		op_begin = clock();
 		read_package();
-		show_info();
+
+		if(ALGORITHM != -1) adjust_velocity();
 
 		if(cnt == NADJUSTMENTS){
 #ifndef DBG_PKG
