@@ -50,9 +50,9 @@ void init_W(float sf)
 		W[SE][GDF] = FRACA; // w5 (-)
 		W[SE][GDT] = MEDIA; // w6 (+)
 		
-		W[SF][GDF] = FORTE; // w7 (-)
+		W[SF][GDF] = MEDIA; // w7 (-)
 		W[SF][GDT] = FORTE; // w8 (+) 
-		W[SF][GEF] = FRACA; // w9 (-)
+		W[SF][GEF] = MEDIA; // w9 (-)
 		W[SF][GET] = FRACA; // w10 (+)
 		
 		W[GDF][RD_Out] = FORTE; // w11 (+)

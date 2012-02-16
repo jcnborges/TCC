@@ -82,7 +82,7 @@ void flie::flie_setup()
 	cat[13].setval(0, 45, 45, 90);
 	cat[14].setname("Reto");
 	cat[14].setrange(0,180);
-	cat[14].setval(0,90,90,180);
+	cat[14].setval(45, 90, 90, 135);
 	cat[15].setname("ViraPoucoDireita");
 	cat[15].setrange(0, 180);
 	cat[15].setval(90, 135, 135, 180);
