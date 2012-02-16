@@ -355,67 +355,39 @@ Em seguida, pode-se definir as regras através dos valores fuzzy válidos para cad
 
 \begin{table}[H]
 \centering
+\label{tab:regrasinf}
+\caption[Regras de Inferência - Algoritmo Fuzzy]{Regras de Inferência - Algoritmo Fuzzy.}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 \textbf{SensorEsquerda} & \textbf{SensorFrente} & \textbf{SensorDireita} & \textbf{VelocidadeMotor} & \textbf{Direção} \\
 \hline
-PertoEsquerda & Perto & PertoDireita & Lento & ViraDireita \\
-\hline
-PertoEsquerda & Perto & MedioDireita & Lento & ViraDireita \\
-\hline
-PertoEsquerda & Perto & LongeDireita & Lento & ViraDireita \\
-\hline
-PertoEsquerda & Medio & PertoDireita & Lento & Reto \\
-\hline
-PertoEsquerda & Medio & MedioDireita & Lento & ViraPoucoDireita \\
-\hline
-PertoEsquerda & Medio & LongeDireita & Lento & ViraPoucoDireita \\
-\hline
-PertoEsquerda & Longe & PertoDireita & Medio & Reto \\
-\hline
-PertoEsquerda & Longe & MedioDireita & Lento & ViraPoucoDireita \\
-\hline
-PertoEsquerda & Longe & LongeDireita & Lento & ViraPoucoDireita \\
-\hline
-MedioEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\
-\hline
-MedioEsquerda & Perto & MedioDireita & Lento & ViraPoucoDireita \\
-\hline
-MedioEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\
-\hline
-MedioEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\
-\hline
-MedioEsquerda & Medio & MedioDireita & Medio & Reto \\
-\hline
-MedioEsquerda & Medio & LongeDireita & Medio & Reto \\
-\hline
-MedioEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\
-\hline
-MedioEsquerda & Longe & MedioDireita & Rapido & Reto \\
-\hline
-MedioEsquerda & Longe & LongeDireita & Medio & Reto \\
-\hline
-LongeEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\
-\hline
-LongeEsquerda & Perto & MedioDireita & Lento & ViraPoucoEsquerda \\
-\hline
-LongeEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\
-\hline
-LongeEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\
-\hline
-LongeEsquerda & Medio & MedioDireita & Medio & Reto \\
-\hline
-LongeEsquerda & Medio & LongeDireita & Medio & Reto \\
-\hline
-LongeEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\
-\hline
-LongeEsquerda & Longe & MedioDireita & Medio & Reto \\
-\hline
-LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\
-\hline
+PertoEsquerda & Perto & PertoDireita & Lento & ViraDireita \\ \hline
+PertoEsquerda & Perto & MedioDireita & Lento & ViraDireita \\ \hline
+PertoEsquerda & Perto & LongeDireita & Lento & ViraDireita \\ \hline
+PertoEsquerda & Medio & PertoDireita & Lento & Reto \\ \hline
+PertoEsquerda & Medio & MedioDireita & Lento & ViraDireita \\ \hline
+PertoEsquerda & Medio & LongeDireita & Lento & ViraPoucoDireita \\ \hline
+PertoEsquerda & Longe & PertoDireita & Medio & Reto \\ \hline
+PertoEsquerda & Longe & MedioDireita & Lento & ViraPoucoDireita \\ \hline
+PertoEsquerda & Longe & LongeDireita & Lento & ViraDireita \\ \hline
+MedioEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\ \hline
+MedioEsquerda & Perto & MedioDireita & Lento & ViraDireita \\ \hline
+MedioEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\ \hline
+MedioEsquerda & Medio & PertoDireita & Lento & ViraEsquerda \\ \hline
+MedioEsquerda & Medio & MedioDireita & Medio & Reto \\ \hline
+MedioEsquerda & Medio & LongeDireita & Medio & Reto \\ \hline
+MedioEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\ \hline
+MedioEsquerda & Longe & MedioDireita & Rapido & Reto \\ \hline
+MedioEsquerda & Longe & LongeDireita & Medio & Reto \\ \hline
+LongeEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\ \hline
+LongeEsquerda & Perto & MedioDireita & Lento & ViraPoucoEsquerda \\ \hline LongeEsquerda & Perto & LongeDireita & Lento & ViraDireita \\ \hline
+LongeEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\ \hline
+LongeEsquerda & Medio & MedioDireita & Medio & Reto \\ \hline
+LongeEsquerda & Medio & LongeDireita & Rapido & ViraDireita \\ \hline
+LongeEsquerda & Longe & PertoDireita & Lento & ViraEsquerda \\ \hline
+LongeEsquerda & Longe & MedioDireita & Medio & Reto \\ \hline
+LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\ \hline
 \end{tabular}
-\caption[Regras de Inferência - Algoritmo Fuzzy]{Regras de Inferência - Algoritmo Fuzzy.}
-\label{tab:regrasinf}
 \end{table}
 
 Finalmente, as regras definidas podem ser utilizadas para realizar as inferências. A bilioteca FLIE recebe os dados de entrada não fuzzificados, os fuzzifica, atribuindo valores de pertinência para cada categoria definida pelo desenvolvedor e determina o nível de ativação de cada regra de inferência definida. Após esta etapa, a FLIE defuzzifica o resultado seguindo o modelo de defuzzificação escolhido e retorna o resultado final, que pode ser utilizado para controlar a navegação do robô.
@@ -516,9 +488,6 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 		$w_{12}$ & GDT influencia RD Out & Positi & Forte \\
 		$w_{13}$ & GEF influencia RE Out & Positivo & Forte \\
 		$w_{14}$ & GET influencia RE Out & Negativo & Forte \\
-		
-		$w_{15}$ & SD influencia GDT & Negativo & Fraca \\
-		$w_{16}$ & SE influencia GET & Negativo & Fraca \\
 	  \hline  	
 	\end{tabular}
 	\label{tab:fcm-relacoes}
