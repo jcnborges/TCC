@@ -466,7 +466,7 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 \item RE Out - Representa o nível percentual de potência da roda esquerda.
 \end{enumerate}
 
-\subsection{Relações Causais e Eventos}
+\subsection{Relações Causais}
 
 Os conceitos foram interligados através das relações causais ilustradas na figura \ref{fig:fcm-proposto}. Esse FCM conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out.
 
@@ -539,11 +539,11 @@ Os conceitos foram interligados através das relações causais ilustradas na figur
 	\label{fig:fcm-proposto}
 \end{figure}
 
-Tendo-se em vista a necessidade de uma resposta dinâmica que permitisse modificar o valor os pesos em tempo real, introduziu-se ao sistema um evento que determina a transição de estado do FCM. Foram definidos dois estados, que são: ``FRENTE"~ e ``TRÁS". Os pesos das relações causais do primeiro estado está de acordo com a tabela \ref{tab:fcm-relacoes-frente}, os pesos do segundo, com a tabela \ref{tab:fcm-relacoes-tras} e o valor numérico das intensidades das relações causais estão de acordo com a tabela \ref{tab:pesos}.
+Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema um conceito de estado que influencia os pesos de todas as relações causais. Os estados que o FCM proposto pode assumir são ``FRENTE"~ e ``TRÁS", sendo que os pesos das relações causais quando o FCM estiver no primeiro estado estão de acordo com a tabela \ref{tab:fcm-relacoes-frente} e os pesos no segundo estado, com a tabela \ref{tab:fcm-relacoes-tras}. O valor numérico das intensidades das relações causais estão de acordo com a tabela \ref{tab:pesos}.
 
 \begin{table}[htb!]
 	\centering
-	\caption[Relações causais do controlador FCM (Estado = Frente) proposto]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		
+	\caption[Relações causais do controlador FCM proposto (Estado = FRENTE)]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		
 	\begin{tabular}[!htb]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
@@ -572,7 +572,7 @@ Tendo-se em vista a necessidade de uma resposta dinâmica que permitisse modifica
 
 \begin{table}[htb!]
 	\centering
-	\caption[Relações causais do controlador FCM (Estado = Trás) proposto]{Relações causais do controlador FCM proposto (Estado = TRÁS).}		
+	\caption[Relações causais do controlador FCM proposto (Estado = TRÁS)]{Relações causais do controlador FCM proposto (Estado = TRÁS).}		
 	\begin{tabular}[!htb]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
@@ -616,9 +616,14 @@ Tendo-se em vista a necessidade de uma resposta dinâmica que permitisse modifica
 
 A transição de estado é feita através de uma regra ``SE-ENTÃO"~, sendo que valor de L0 e L1 estão de acordo com a tabela \ref{tab:limiar-values}.
 
+\begin{itemize}
+\item SE o conceito SF menor que o limiar L0 e estado igual a FRENTE ENTÃO estado muda para TRÁS.
+\item SENÃO SE o conceito SF maior que o limiar L1 e estado igual a TRÁS ENTÃO estado muda para FRENTE.
+\end{itemize}
+
 \begin{table}[htb!]
 	\centering
-	\caption[Valor dos limiares L0 e L1]{Valor dos limiares L0 e L1.}		
+	\caption[Valor numérico dos limiares L0 e L1]{Valor numérico dos limiares L0 e L1.}		
 	\begin{tabular}[!htb]{ l l l l }
 	  \hline
 	  Limiar & Valor numérico \\
@@ -629,11 +634,6 @@ A transição de estado é feita através de uma regra ``SE-ENTÃO"~, sendo que valor
 	\end{tabular}
 	\label{tab:limiar-values}
 \end{table}
-
-\begin{itemize}
-\item SE (SF) menor que o limiar (L0) e Estado igual a FRENTE ENTÃO Estado muda para TRÁS.
-\item SE (SF) maior que o limiar (L1) e Estado igual a TRÁS ENTÃO Estado muda para FRENTE.
-\end{itemize}
 
 \subsection{Ativação dos Conceitos}
 
