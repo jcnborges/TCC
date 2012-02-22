@@ -43,11 +43,11 @@ void init_W(float sf)
 	// Ajuste dos pesos
 	if(ESTADO == FRENTE){
 		W[SD][GDF] = FORTE; // w1 (+)
-		W[SD][GEF] = FRACA; // w2 (-)
+		W[SD][GEF] = FRACA; // w2 (+)
 		W[SD][GET] = MEDIA; // w3 (+)
 		
 		W[SE][GEF] = FORTE; // w4 (+)
-		W[SE][GDF] = FRACA; // w5 (-)
+		W[SE][GDF] = FRACA; // w5 (+)
 		W[SE][GDT] = MEDIA; // w6 (+)
 		
 		W[SF][GDF] = MEDIA; // w7 (-)
@@ -61,11 +61,11 @@ void init_W(float sf)
 		W[GET][RE_Out] = MEDIA; // w14 (-)
 	} else if(ESTADO == TRAS){
 		W[SD][GDF] = FRACA; // w1 (+)
-		W[SD][GEF] = FRACA; // w2 (-)
+		W[SD][GEF] = FRACA; // w2 (+)
 		W[SD][GET] = FORTE; // w3 (+)
 		
 		W[SE][GEF] = FRACA; // w4 (+)
-		W[SE][GDF] = FRACA; // w5 (-)
+		W[SE][GDF] = FRACA; // w5 (+)
 		W[SE][GDT] = FORTE; // w6 (+)
 		
 		W[SF][GDF] = FRACA; // w7 (-)

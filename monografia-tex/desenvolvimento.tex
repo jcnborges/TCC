@@ -421,6 +421,8 @@ Os movimentos produzidos na segunda situação são:
 
 Desse modo, o algoritmo controla a direção do robô calculando a "intensidade de girar" a roda direita para trás ou para frente e a "intensidade de girar" a roda esquerda para trás ou para frente, sendo que esse cálculo recebe como entradas as distâncias registradas pelos sensores de distância na lateral direita, na frente e na lateral esquerda do robô.
 
+\subsection{Conceitos}
+
 Primeiramente, definiu-se a entrada do sistema de navegação, a qual correspondeu às leituras dos sensores de distância. Desse modo, foram criados três conceitos de entrada:
 
 \begin{enumerate}
@@ -464,51 +466,11 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 \item RE Out - Representa o nível percentual de potência da roda esquerda.
 \end{enumerate}
 
-\begin{table}[htb!]
-	\centering
-	\caption[Relações causais do controlador FCM proposto]{Relações causais do controlador FCM proposto.}		
-	\begin{tabular}[!htb]{ l l l l }
-	  \hline
-	  Relação causal & Descrição & Efeito & Intensidade \\
-	  \hline
-		$w_1$ & SD influencia GDF & Positivo & Forte \\
-		$w_2$ & SD influencia GEF & Positivo & Forte \\
-		$w_3$ & SD influencia GET & Positivo & Forte \\
-		
-		$w_4$ & SE influencia GEF & Positivo & Forte \\
-		$w_5$ & SE influencia GDF & Positivo & Forte \\
-		$w_6$ & SE influencia GDT & Positivo & Forte \\
-		
-		$w_7$ & SF influencia GDF & Negativo & Média \\
-		$w_8$ & SF influencia GDT & Positivo & Média \\
-		$w_9$ & SF influencia GEF & Negativo & Média \\
-		$w_{10}$ & SF influencia GET & Positivo & Média \\
-		
-		$w_{11}$ & GDF influencia RD Out & Positivo & Forte \\
-		$w_{12}$ & GDT influencia RD Out & Positi & Forte \\
-		$w_{13}$ & GEF influencia RE Out & Positivo & Forte \\
-		$w_{14}$ & GET influencia RE Out & Negativo & Forte \\
-	  \hline  	
-	\end{tabular}
-	\label{tab:fcm-relacoes}
-\end{table}
+\subsection{Relações Causais e Eventos}
 
-\begin{table}[htb!]
-	\centering
-	\caption[Valor numérico dos pesos]{Valor numérico dos pesos.}		
-	\begin{tabular}[!htb]{ l l l l }
-	  \hline
-	  Intensidade & Valor numérico \\
-	  \hline
-		FRACA & 0,125 \\
-		MÉDIA & 0,5 \\
-		FORTE & 1,0 \\
-	  \hline  	
-	\end{tabular}
-	\label{tab:pesos}
-\end{table}
+Os conceitos foram interligados através das relações causais ilustradas na figura \ref{fig:fcm-proposto}. Esse FCM conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out.
 
-\begin{figure}
+\begin{figure}[!htb]
 	\centering
 	\begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
 
@@ -577,26 +539,124 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 	\label{fig:fcm-proposto}
 \end{figure}
 
-Os conceitos foram interligados através das relações causais apresentadas na tabela \ref{tab:fcm-relacoes}, obtendo-se o mapa da figura \ref{fig:fcm-proposto}, e o valor numérico dos pesos está de acordo com a tabela \ref{tab:pesos}. As equações \ref{eq:gdf} a \ref{eq:get} determinam as intensidades dos conceitos de nível e as equações \ref{eq:rd_out} e \ref{eq:re_out} estabelecem a saída do FCM.
+Tendo-se em vista a necessidade de uma resposta dinâmica que permitisse modificar o valor os pesos em tempo real, introduziu-se ao sistema um evento que determina a transição de estado do FCM. Foram definidos dois estados, que são: ``FRENTE"~ e ``TRÁS". Os pesos das relações causais do primeiro estado está de acordo com a tabela \ref{tab:fcm-relacoes-frente}, os pesos do segundo, com a tabela \ref{tab:fcm-relacoes-tras} e o valor numérico das intensidades das relações causais estão de acordo com a tabela \ref{tab:pesos}.
+
+\begin{table}[htb!]
+	\centering
+	\caption[Relações causais do controlador FCM (Estado = Frente) proposto]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		
+	\begin{tabular}[!htb]{ l l l l }
+	  \hline
+	  Relação causal & Descrição & Efeito & Intensidade \\
+	  \hline
+		$w_1$ & SD influencia GDF & Positivo & Forte \\
+		$w_2$ & SD influencia GEF & Positivo & Fraca \\
+		$w_3$ & SD influencia GET & Positivo & Média \\
+		
+		$w_4$ & SE influencia GEF & Positivo & Forte \\
+		$w_5$ & SE influencia GDF & Positivo & Fraca \\
+		$w_6$ & SE influencia GDT & Positivo & Média \\
+		
+		$w_7$ & SF influencia GDF & Negativo & Média \\
+		$w_8$ & SF influencia GDT & Positivo & Forte \\
+		$w_9$ & SF influencia GEF & Negativo & Média \\
+		$w_{10}$ & SF influencia GET & Positivo & Fraca \\
+		
+		$w_{11}$ & GDF influencia RD Out & Positivo & Forte \\
+		$w_{12}$ & GDT influencia RD Out & Negativo & Média \\
+		$w_{13}$ & GEF influencia RE Out & Positivo & Forte \\
+		$w_{14}$ & GET influencia RE Out & Negativo & Média \\
+	  \hline  	
+	\end{tabular}
+	\label{tab:fcm-relacoes-frente}
+\end{table}
+
+\begin{table}[htb!]
+	\centering
+	\caption[Relações causais do controlador FCM (Estado = Trás) proposto]{Relações causais do controlador FCM proposto (Estado = TRÁS).}		
+	\begin{tabular}[!htb]{ l l l l }
+	  \hline
+	  Relação causal & Descrição & Efeito & Intensidade \\
+	  \hline
+		$w_1$ & SD influencia GDF & Positivo & Fraca \\
+		$w_2$ & SD influencia GEF & Positivo & Fraca \\
+		$w_3$ & SD influencia GET & Positivo & Forte \\
+		
+		$w_4$ & SE influencia GEF & Positivo & Fraca \\
+		$w_5$ & SE influencia GDF & Positivo & Fraca \\
+		$w_6$ & SE influencia GDT & Positivo & Forte \\
+		
+		$w_7$ & SF influencia GDF & Negativo & Fraca \\
+		$w_8$ & SF influencia GDT & Positivo & Média \\
+		$w_9$ & SF influencia GEF & Negativo & Média \\
+		$w_{10}$ & SF influencia GET & Positivo & Fraca \\
+		
+		$w_{11}$ & GDF influencia RD Out & Positivo & Fraca \\
+		$w_{12}$ & GDT influencia RD Out & Negativo & Forte \\
+		$w_{13}$ & GEF influencia RE Out & Positivo & Forte \\
+		$w_{14}$ & GET influencia RE Out & Negativo & Fraca \\
+	  \hline  	
+	\end{tabular}
+	\label{tab:fcm-relacoes-tras}
+\end{table}
+
+\begin{table}[htb!]
+	\centering
+	\caption[Valor numérico dos pesos]{Valor numérico dos pesos.}		
+	\begin{tabular}[!htb]{ l l l l }
+	  \hline
+	  Intensidade & Valor numérico \\
+	  \hline
+		FRACA & 0,125 \\
+		MÉDIA & 0,5 \\
+		FORTE & 1,0 \\
+	  \hline  	
+	\end{tabular}
+	\label{tab:pesos}
+\end{table}
+
+A transição de estado é feita através de uma regra ``SE-ENTÃO"~, sendo que valor de L0 e L1 estão de acordo com a tabela \ref{tab:limiar-values}.
+
+\begin{table}[htb!]
+	\centering
+	\caption[Valor dos limiares L0 e L1]{Valor dos limiares L0 e L1.}		
+	\begin{tabular}[!htb]{ l l l l }
+	  \hline
+	  Limiar & Valor numérico \\
+	  \hline
+		L0 & 0,15 \\
+		L1 & 0,25 \\
+	  \hline  	
+	\end{tabular}
+	\label{tab:limiar-values}
+\end{table}
+
+\begin{itemize}
+\item SE (SF) menor que o limiar (L0) e Estado igual a FRENTE ENTÃO Estado muda para TRÁS.
+\item SE (SF) maior que o limiar (L1) e Estado igual a TRÁS ENTÃO Estado muda para FRENTE.
+\end{itemize}
+
+\subsection{Ativação dos Conceitos}
+
+As equações \ref{eq:gdf} a \ref{eq:get} determinam a ativação dos conceitos de nível GDF, GDT, GEF e GET, respectivamente. Essa ativação é gradual e herda a característica de suavidade das funções sigmoidais \ref{eq:sig_frente} e \ref{eq:sig_tras}. Os conceitos de saída $RD_{Out}$ e $RE_{Out}$ são uma média ponderada entre os conceitos "girar para frente" e "girar para trás", aplicada às rodas direita e esquerda, conforme as equações \ref{eq:rd_out} e \ref{eq:re_out}, respectivamente.
 
 \begin{equation}
 \label{eq:gdf}
-GDF=\frac {w_1f_2(SD)+w_5f_1(SE)-w_7f_2(SF)} {w_1+w_5+w_7}
+GDF=\frac {w_1f_2(SD)+w_5f_1(SE)-w_7f_2(SF)} {w_1+w_5}
 \end{equation}
 
 \begin{equation}
 \label{eq:gdt}
-GDT=\frac {w_6f_2(SE)+w_8f_2(SF)-w_{15}f_2(SD)} {w_6+w_8}
+GDT=\frac {w_6f_2(SE)+w_8f_2(SF)} {w_6+w_8}
 \end{equation}
 
 \begin{equation}
 \label{eq:gef}
-GEF=\frac {w_4f_2(SE)+w_2f_1(SD)-w_9f_2(SF)} {w_4+w_2+w_9}
+GEF=\frac {w_4f_2(SE)+w_2f_1(SD)-w_9f_2(SF)} {w_4+w_2}
 \end{equation}
 
 \begin{equation}
 \label{eq:get}
-GET=\frac {w_3f_2(SD)+w_{10}f_2(SF)-w_{16}f_1(SE)} {w_3+w_{10}}
+GET=\frac {w_3f_2(SD)+w_{10}f_2(SF)} {w_3+w_{10}}
 \end{equation}
 
 \begin{equation}
@@ -609,7 +669,7 @@ RD_{Out}=100 \times \frac {w_{11}GDF-w_{12}GDT} {FORTE}
 RD_{Out}=100 \times \frac {w_{13}GEF-w_{14}GET} {FORTE}
 \end{equation}
 
-O algoritmo FCM projetado conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out. Os conceitos de nível são ativados gradualmente através dos valores normalizados dos conceitos de entrada, sendo que essa ativação herda a característica de suavidade das funções sigmoidais \ref{eq:sig_frente} e \ref{eq:sig_tras}. Os conceitos de saída são uma média ponderada entre os conceitos "girar para frente" e "girar para trás", aplicada a cada roda. O comportamente esperado desse algoritmo é que o robô desvie obstáculos de forma suave e responda instantaneamente à leitura dos sensores de distância.
+O comportamente esperado desse algoritmo é que o robô desvie obstáculos de forma suave e responda instantaneamente à leitura dos sensores de distância. 
 
 \section{Testes e Análise de Resultados}
 
