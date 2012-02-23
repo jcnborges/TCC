@@ -246,7 +246,7 @@ Nesta seção foram descritos os passos da equipe para alcançar o primeiro objetiv
 
 \section{Algoritmos de Navegação}
 \label{sec:algs}
-Esta seção dedica-se à descrição da implementação dos algoritmos de navegação conforme descrição teórica dos mesmos apresentada na fundamentação teórica. Mais específicamente, serão descritos os códigos responsáveis pela tomada de decisões de ambos os algoritmos de navegação que executam na placa TS-7260, o algoritmo de navegação de lógica Fuzzy simples e o ED-FCM.
+Esta seção dedica-se à descrição da implementação dos algoritmos de navegação conforme descrição teórica dos mesmos apresentada na fundamentação teórica. Mais específicamente, serão descritos os códigos responsáveis pela tomada de decisões de ambos os algoritmos de navegação que executam na placa TS-7260, o algoritmo de navegação de lógica Fuzzy clássica, utilizando os mecanismos de inferência propostos por \cite{MAMDAMI} e o ED-FCM, proposto por \cite{MENDONCA}.
 
 \subsection{Algoritmo de Navegação Fuzzy}
 \label{sec:algfuzzy}
@@ -312,7 +312,7 @@ As funções de pertinência p(d), m(d), l(d), correspondentes a perto, médio e lon
 
 Embora as função de pertinência sejam a mesma para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca flie, e não é possível utilizar o mesmo conjunto fuzzy para duas ou mais variáveis linguísticas diferentes.
 
-De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor"~ e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de pwm de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy são l(p), m(p), r(p), onde p é a percentagem do pwm. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
+De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor"~ e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de PWM de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy são l(p), m(p), r(p), onde p é a percentagem do PWM. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
 
 \begin{figure}[H]
   \centering
@@ -322,7 +322,7 @@ De forma análoga, as variáveis linguísticas de saída do sistema são definidas pe
   \label{defuzzygraph_velmotor}
 \end{figure}
 
-Similarmente, foram definidos 5 conjuntos fuzzy para a variável linguística ``Direção": ViraEsquerda, ViraPoucoEsquerda, Reto, ViraPoucoDireita, ViraDireita, distribuindo igualmente entre estas classes todas as possibilidades de direção, desde virar totalmente para a esquerda (0º) até totalmente para direita(180º). As funções de pertinência que definem estes conjuntos fuzzy são ve(a), vpe(a), r(a), vpd(a), vd(a). O gráfico em \ref{defuzzygraph_ang} ilustra estas funções.
+Similarmente, foram definidos 5 conjuntos fuzzy para a variável linguística ``Direção": ViraEsquerda, ViraPoucoEsquerda, Reto, ViraPoucoDireita, ViraDireita, distribuindo igualmente entre estas classes todas as possibilidades de direção, desde virar totalmente para a esquerda (0º) até totalmente para direita(180º), sendo que 90º representa movimento sem alteração de direção. As funções de pertinência que definem estes conjuntos fuzzy são ve(a), vpe(a), r(a), vpd(a), vd(a). O gráfico em \ref{defuzzygraph_ang} ilustra estas funções.
 
 \begin{figure}[H]
   \centering
@@ -543,7 +543,7 @@ Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema 
 
 \begin{table}[htb!]
 	\centering
-	\caption[Relações causais do controlador FCM proposto (Estado = FRENTE)]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		
+	\caption[Relações causais do controlador FCM proposto (Estado = FRENTE)]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		 
 	\begin{tabular}[!htb]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
@@ -704,12 +704,22 @@ A execução de ambos os algoritmos neste primeiro teste mostrou resultados satisf
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{./figs/algtest2.png}
-  \caption[Configuração do primeiro teste inicial.]
-  {Configuração do primeiro teste inicial.}
+  \caption[Configuração do segundo teste inicial.]
+  {Configuração do segundo teste inicial.}
   \label{algtest2}
 \end{figure}
 
-O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma barreira imediatamente no caminho do robô.
+O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma barreira imediatamente no caminho do robô e encontrar a saída do corredor, logo após a barreira, como ilustrado na figura \ref{algtest2}. Ao executar este teste pela primeira vez, o algoritmo Fuzzy não foi capaz de fazer o desvio e encontrar a saída, devido a reação muito tardia e, ao mesmo tempo, muito forte. Já o algoritmo FCM foi capaz de realizar o trajeto sem alterações. A figura \ref{algtest2_caminho} apresenta o trajeto esperado, em verde, que é aproximadamente o mesmo que o realizado pelo algoritmo FCM, e o trajeto percorrido pelo algoritmo Fuzzy clássico, em vermelho.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figs/algtest2_caminho.png}
+  \caption[Caminho percorrido pelo algoritmo Fuzzy (vermelho) e o caminho esperado (Verde).]
+  {Caminhos percorridos no segundo teste inicial.}
+  \label{algtest2_caminho}
+\end{figure}
+
+Para resolver este problema de reação tardia e tornar a navegação do algoritmo mais suave, a equipe aumentou a faixa de valores da função de pertinência da variável linguística perto, que era inicialmente 16 até 25 como distância de pertinência máxima e descida até pertinência nula na distância de 35 centímetros para os valores finais apresentados na figura \ref{fuzzygraph_des.png}, função p(d). Além disso, os conjuntos fuzzy ``ViraPoucoEsquerda" e ``ViraPoucoDireita", inexistentes na primeira versão, foram adicionados e utilizados nas regras de inferência da forma como foi apresentado na tabela \ref{tab:regrasinf}, visando iniciar a reação do robô aos obstáculos mais cedo. Estas alterações fizeram com que o algoritmo Fuzzy clássico realizasse o trajeto esperado, após novo teste no mesmo ambiente.
 
 \subsection{Testes Avançados}
 
