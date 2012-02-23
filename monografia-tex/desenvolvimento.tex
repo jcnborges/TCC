@@ -269,7 +269,7 @@ A biblioteca FLIE permite a definição de variáveis linguísticas na classe \emph{
   \label{lingvar}
 \end{figure}
 
-Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. Deve-se observar que foram definidas apenas três variáveis linguísticas de entrada por dois motivos: A biblioteca FLIE não aceita mais que três entradas em uma regra de inferência e um número maior de entradas levaria à uma quantidade excessiva de regras de inferência. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente" e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda" e ``SensorDireita" sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela \ref{tab:varsfuzzy}.
+Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. Deve-se observar que foram definidas apenas três variáveis linguísticas de entrada por dois motivos: A biblioteca FLIE não aceita mais que três entradas em uma regra de inferência e um número maior de entradas levaria à uma quantidade excessiva de regras de inferência. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente"~ e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda"~ e ``SensorDireita"~ sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela \ref{tab:varsfuzzy}.
 
 \begin{table}[H]
 \centering
@@ -312,7 +312,7 @@ As funções de pertinência p(d), m(d), l(d), correspondentes a perto, médio e lon
 
 Embora as função de pertinência sejam a mesma para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca flie, e não é possível utilizar o mesmo conjunto fuzzy para duas ou mais variáveis linguísticas diferentes.
 
-De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor" e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de pwm de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy são l(p), m(p), r(p), onde p é a percentagem do pwm. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
+De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor"~ e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de pwm de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy são l(p), m(p), r(p), onde p é a percentagem do pwm. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
 
 \begin{figure}[H]
   \centering
@@ -405,7 +405,7 @@ A idéia do algoritmo foi controlar a direção do robô ajustando a potência aplica
 \item Quando o robô não detectar objetos nas laterais, este deve seguir em frente.
 \end{enumerate}
 
-Os movimentos ``desviar para a direita"~, ``desviar para a esquerda"~ e ``seguir em frente"~ podem ser obtidos controlando-se a potência e o sentido aplicado em cada roda. Desse modo, duas hipóteses foram imaginadas: as duas rodas girando para frente e as duas rotas girando em sentidos opostos. Os movimentos produzidos na primeira situação são:
+Os movimentos ``desviar para a direita", ``desviar para a esquerda"~ e ``seguir em frente"~ podem ser obtidos controlando-se a potência e o sentido aplicado em cada roda. Desse modo, duas hipóteses foram imaginadas: as duas rodas girando para frente e as duas rotas girando em sentidos opostos. Os movimentos produzidos na primeira situação são:
 
 \begin{enumerate}
 \item Quando a roda direita girar mais rápido que a roda esquerda, a mudança de direção é ``desviar para a esquerda";
@@ -419,7 +419,7 @@ Os movimentos produzidos na segunda situação são:
 \item Quando a roda esquerda girar para frente e a roda direita girar para trás, o movimento é ``desviar para a direita".
 \end{enumerate}
 
-Desse modo, o algoritmo controla a direção do robô calculando a ``intensidade de girar" a roda direita para trás ou para frente e a ``intensidade de girar" a roda esquerda para trás ou para frente, sendo que esse cálculo recebe como entradas as distâncias registradas pelos sensores de distância na lateral direita, na frente e na lateral esquerda do robô.
+Desse modo, o algoritmo controla a direção do robô calculando a ``intensidade de girar"~ a roda direita para trás ou para frente e a ``intensidade de girar"~ a roda esquerda para trás ou para frente, sendo que esse cálculo recebe como entradas as distâncias registradas pelos sensores de distância na lateral direita, na frente e na lateral esquerda do robô.
 
 \subsection{Conceitos}
 
@@ -637,7 +637,7 @@ A transição de estado é feita através de uma regra ``SE-ENTÃO"~, sendo que valor
 
 \subsection{Ativação dos Conceitos}
 
-As equações \ref{eq:gdf} a \ref{eq:get} determinam a ativação dos conceitos de nível GDF, GDT, GEF e GET, respectivamente. Essa ativação é gradual e herda a característica de suavidade das funções sigmoidais \ref{eq:sig_frente} e \ref{eq:sig_tras}. Os conceitos de saída $RD_{Out}$ e $RE_{Out}$ são uma média ponderada entre os conceitos "girar para frente" e "girar para trás", aplicada às rodas direita e esquerda, conforme as equações \ref{eq:rd_out} e \ref{eq:re_out}, respectivamente.
+As equações \ref{eq:gdf} a \ref{eq:get} determinam a ativação dos conceitos de nível GDF, GDT, GEF e GET, respectivamente. Essa ativação é gradual e herda a característica de suavidade das funções sigmoidais \ref{eq:sig_frente} e \ref{eq:sig_tras}. Os conceitos de saída $RD_{Out}$ e $RE_{Out}$ são uma média ponderada entre os conceitos ``girar para frente"~ e ``girar para trás", aplicada às rodas direita e esquerda, conforme as equações \ref{eq:rd_out} e \ref{eq:re_out}, respectivamente.
 
 \begin{equation}
 \label{eq:gdf}
@@ -699,7 +699,7 @@ Foram elaborados dois testes iniciais, o primeiro visando observar o deslocament
   \label{algtest1}
 \end{figure}
 
-A execução de ambos os algoritmos neste primeiro teste mostrou resultados satisfatórios. Ambos os algoritmos foram capazes de realizar o percurso, porém o algoritmo de navegação fuzzy mostrou-se excessivamente lento próximo aos obstáculos. Concluiu-se que isto ocorreu devido ao valor máximo das funções de pertinência "Lento" e "Médio", serem muito baixos. A função de pertinência "Lento" e  apresentava um valor máximo de apenas 20\% da velocidade máxima e "Médio" correspondia a 50\%. A partir desta observação, as funções de pertinência da velocidade foram alteradas para os novos valores, descritos na seção \ref{sec:algfuzzy} de 33\% para "Lento" e 66\% para "Médio". Após os ajustes, o algoritmo mostrou-se mais rápido no corredor, no mesmo teste.
+A execução de ambos os algoritmos neste primeiro teste mostrou resultados satisfatórios. Ambos os algoritmos foram capazes de realizar o percurso, porém o algoritmo de navegação fuzzy mostrou-se excessivamente lento próximo aos obstáculos. Concluiu-se que isto ocorreu devido ao valor máximo das funções de pertinência ``Lento"~ e ``Médio", serem muito baixos. A função de pertinência ``Lento"~ e  apresentava um valor máximo de apenas 20\% da velocidade máxima e ``Médio"~ correspondia a 50\%. A partir desta observação, as funções de pertinência da velocidade foram alteradas para os novos valores, descritos na seção \ref{sec:algfuzzy} de 33\% para ``Lento"~ e 66\% para ``Médio". Após os ajustes, o algoritmo mostrou-se mais rápido no corredor, no mesmo teste.
 
 \begin{figure}[H]
   \centering
