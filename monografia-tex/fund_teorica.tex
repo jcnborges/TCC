@@ -20,7 +20,7 @@ O robô disponibilizado à equipe para a realização desse trabalho, o Bellator, é 
 	\label{fig:diagsis}
 \end{figure}
 
-A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo nível é composta pelo robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, cinco sensores de distância ``2Y0A02F98" da Sharp, uma bateria Unybatt 12V-7,2 Ampére hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa está conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada de alto nível para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo. Além disso, o PC embarcado envia, também via comunicação sem fio, um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão.
+A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado. A camada de baixo nível é composta pelo robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, cinco sensores de distância ``2Y0A02F98"~ da Sharp, uma bateria Unybatt 12V-7,2 Ampére hora, duas pontes H e a placa microcontrolada C8051F340, capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa está conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada de alto nível para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo. Além disso, o PC embarcado envia, também via comunicação sem fio, um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão.
 
 O leitor pode observar que o projeto Bellator apresenta objetivos muito distintos do projeto ``Algoritmos de Navegação Fuzzy: Uma Análise Qualitativa". Assim, não será feita uma descrição detalhada de todos os componentes do projeto Bellator, entretanto, pode-se consultar a referência \cite{BELLATOR} para mais informações. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram reaproveitados.
 
@@ -31,7 +31,7 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 
 \begin{itemize}
 \item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acoplados;
-\item Cinco sensores de distância ``2Y0A02F98" da Sharp;
+\item Cinco sensores de distância ``2Y0A02F98"~ da Sharp;
 \item Duas baterias Unybatt 12V-7,2 Ampére hora;
 \item Uma placa micro-controlada C8051F340;
 \item Uma placa de roteamento, produzida pelo projeto Bellator;
@@ -112,7 +112,7 @@ Regras de inferência sobre conjuntos fuzzy podem ser categorizadas como uma gene
     Se \emph{morno} então \emph{medio}\\*
     Se \emph{quente} então \emph{forte}
 \end{center}
-Sendo ``medio"~~ e ``forte"~ valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio"~ correspondendo a função de pertinência vm e ``forte"~ correspondendo a vf, apresentados na figura \ref{fig:defuzzygraph}:
+Sendo ``medio"~ e ``forte"~ valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio"~ correspondendo a função de pertinência vm e ``forte"~ correspondendo a vf, apresentados na figura \ref{fig:defuzzygraph}:
 
 \begin{figure}[!htb]
 	\centering
