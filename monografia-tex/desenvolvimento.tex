@@ -400,22 +400,22 @@ Esta seção tem por objetivo descrever o projeto e a implementação do algoritmo d
 A idéia do algoritmo foi controlar a direção do robô ajustando a potência aplicada em cada roda, de forma independente, sendo que esta pode ser aplicada para a roda girar em ambos os sentidos. As seguintes hipóteses foram elaboradas para projetar o algoritmo:
 
 \begin{enumerate}
-\item Quando o robô detectar um objeto à esquerda, aquele deve desviar para a direita.
-\item Quando o robô detectar um objeto à direita, aquele deve desviar para a esquerda.
+\item Quando o robô detectar um objeto à esquerda, aquele deve desviar para a direita;
+\item Quando o robô detectar um objeto à direita, aquele deve desviar para a esquerda;
 \item Quando o robô não detectar objetos nas laterais, este deve seguir em frente.
 \end{enumerate}
 
 Os movimentos ``desviar para a direita"~, ``desviar para a esquerda"~ e ``seguir em frente"~ podem ser obtidos controlando-se a potência e o sentido aplicado em cada roda. Desse modo, duas hipóteses foram imaginadas: as duas rodas girando para frente e as duas rotas girando em sentidos opostos. Os movimentos produzidos na primeira situação são:
 
 \begin{enumerate}
-\item Quando a roda direita girar mais rápido que a roda esquerda, a mudança de direção é ``desviar para a esquerda".
-\item Quando a roda esquerda girar mais rápido que a roda direita, a mudança de direção é ``desviar para a direita".
+\item Quando a roda direita girar mais rápido que a roda esquerda, a mudança de direção é ``desviar para a esquerda";
+\item Quando a roda esquerda girar mais rápido que a roda direita, a mudança de direção é ``desviar para a direita";
 \item Quando a roda esquerda girar na mesma intensidade que a roda direita, o movimento é ``seguir em frente".
 \end{enumerate}
 
 Os movimentos produzidos na segunda situação são:
 \begin{enumerate}
-\item Quando a roda direita girar para frente e a roda esquerda girar para trás, o movimento é ``desviar para a esquerda".
+\item Quando a roda direita girar para frente e a roda esquerda girar para trás, o movimento é ``desviar para a esquerda";
 \item Quando a roda esquerda girar para frente e a roda direita girar para trás, o movimento é ``desviar para a direita".
 \end{enumerate}
 
@@ -426,8 +426,8 @@ Desse modo, o algoritmo controla a direção do robô calculando a ``intensidade de
 Primeiramente, definiu-se a entrada do sistema de navegação, a qual correspondeu às leituras dos sensores de distância. Desse modo, foram criados três conceitos de entrada:
 
 \begin{enumerate}
-\item SE - Representa a leitura do sensor lateral esquerdo.
-\item SF - Representa a leitura do sensor frontal.
+\item SE - Representa a leitura do sensor lateral esquerdo;
+\item SF - Representa a leitura do sensor frontal;
 \item SD - Representa a leitura do sensor lateral direito.
 \end{enumerate}
 
@@ -441,9 +441,9 @@ y=\frac {x-MIN} {MAX-MIN}
 Em seguida, foram determinados os conceitos de nível do FCM, os quais estabelecem as inferências resultantes dos valores dos conceitos de entrada. Foram definidos quatro conceitos de nível:
 
 \begin{enumerate}
-\item GDF - Representa a intensidade da decisão de girar a roda direita para frente.
-\item GDT - Representa a intensidade da decisão de girar a roda direita para trás.
-\item GEF - Representa a intensidade da decisão de girar a roda esquerda para frente.
+\item GDF - Representa a intensidade da decisão de girar a roda direita para frente;
+\item GDT - Representa a intensidade da decisão de girar a roda direita para trás;
+\item GEF - Representa a intensidade da decisão de girar a roda esquerda para frente;
 \item GET - Representa a intensidade da decisão de girar a roda esquerda para trás.
 \end{enumerate}
 
@@ -462,7 +462,7 @@ f_2(x)=1-\frac{1} {1+e^{(-10x+4,5)}}
 Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percentuais de potência de cada roda. Esse nível varia na faixa de -100\% a +100\% e o sinal indica o sentido de giro, sendo o sinal positivo  ``girar para frente"~ e o sinal negativo ``girar para trás"~. Desse modo, foram estabelecidos dois conceitos de saída:
 
 \begin{enumerate}
-\item RD Out - Representa o nível percentual de potência da roda direita.
+\item RD Out - Representa o nível percentual de potência da roda direita;
 \item RE Out - Representa o nível percentual de potência da roda esquerda.
 \end{enumerate}
 
