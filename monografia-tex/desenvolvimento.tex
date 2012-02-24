@@ -543,7 +543,7 @@ Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema 
 
 \begin{table}[htb!]
 	\centering
-	\caption[Relações causais do controlador FCM proposto (Estado = FRENTE)]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		 
+	\caption[Relações causais do controlador FCM proposto (Estado = FRENTE)]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		
 	\begin{tabular}[!htb]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
@@ -687,6 +687,7 @@ Assim sendo, foram desenvolvidas três principais etapas de testes:
 Tanto os testes iniciais quanto os avançados são essenciais para proporcionar uma análise de resultados confiável entre os algoritmos. Nas seções seguintes, para cada teste desenvolvido, são apresentados diagramas esquemáticos espaciais, representando a disposição dos obstáculos e a posição inicial do robô, o comportamento apresentado pelo robô, possíveis alterações e ajustes realizados aos algoritmos por conta dos resultados do teste.
 
 \subsection{Testes Iniciais}
+\label{sec:testesini}
 
 %corredor interno e externo dainf
 Foram elaborados dois testes iniciais, o primeiro visando observar o deslocamento simples e detecção de um obstáculo simples próximo a parede em um corredor (Figura \ref{algtest1}), e o segundo teste foi construído em um corredor mais largo que o primeiro, com alguns obstáculos obstruindo a passagem, definindo apenas um caminho possível entre os obstáculos (figura \ref{algtest2}).
@@ -722,12 +723,30 @@ O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma 
 Para resolver este problema de reação tardia e tornar a navegação do algoritmo mais suave, a equipe aumentou a faixa de valores da função de pertinência da variável linguística perto, que era inicialmente 16 até 25 como distância de pertinência máxima e descida até pertinência nula na distância de 35 centímetros para os valores finais apresentados na figura \ref{fuzzygraph_des.png}, função p(d). Além disso, os conjuntos fuzzy ``ViraPoucoEsquerda" e ``ViraPoucoDireita", inexistentes na primeira versão, foram adicionados e utilizados nas regras de inferência da forma como foi apresentado na tabela \ref{tab:regrasinf}, visando iniciar a reação do robô aos obstáculos mais cedo. Estas alterações fizeram com que o algoritmo Fuzzy clássico realizasse o trajeto esperado, após novo teste no mesmo ambiente.
 
 \subsection{Testes Avançados}
-
+\label{sec:testesavan}
 %Corredor largo e estreito C300
 
-\subsection{Testes Comparativos}
+Os testes avançados desenvolvidos pela equipe visam observar e otimizar o comportamento dos algoritmos, ou seja, além da simples capacidade de desvio de obstáculos, observar as escolhas realizadas pelos algoritmos em ambientes com mais de uma possibilidade de navegação além da velocidade e agilidade do robô nestes ambientes, com atenção especial a situações específicas que podem levar o robô a ``travar" e parar de navegar.
 
+A equipe montou duas situações distintas para cumprir estes objetivos: O primeiro em um corredor similar ao segundo teste inicial, porém mais longo e com mais obstáculos dispersos e o segundo em um corredor largo com obstáculos dispersos, provendo um ambiente aberto e imprevisível ao robô.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figs/algtestavancado_corredor.png}
+  \caption[Ilustração do primeiro teste avançado.]
+  {Ilustração do primeiro teste avançado.}
+  \label{algtestavancado_corredor}
+\end{figure}
+
+O algoritmo fuzzy foi capaz de percorrer o primeiro teste avançado, ilustrado na figura \ref{algtestavancado_corredor}, retornando ao ponto de partida após 5 minutos. Durante o percurso, houve apenas uma pequena colisão com o obstáculo destacado em azul na figura acima. Neste experimento foi possível observar lentidão excessiva do robô próximo a obstáculos, levando a equipe a alterar a base de regras de inferência levemente, de forma a reduzir o numero de regras que contêm o conjunto fuzzy ``Lento" como saída, acelerando a navegação do robô no mesmo teste. O conjunto de regras final, obtido após as alterações feitas a partir deste experimento, pode ser observado na tabela \ref{tab:regrasinf}. O algoritmo FCM, em contrapartida, não foi capaz de percorrer o teste, apresentando indecisão ao aproximar-se do obstáculo destacado em vermelho na figura \ref{algtestavancado_corredor}. Isto ocorreu devido à disponibilidade de espaços iguais para o desvio deste obstáculo em ambas as opções de desvio, o que anulou a intensidade de PWM em ambas as rodas. Este problema foi corrigido através da implementação de um ``evento", específico para auxílio à navegação nesta situação, ... %Descrever melhor a anulação e a correção, referenciar o texto que explica eventos em FCM...
+
+%figura avançado 2
+
+\subsection{Testes Comparativos}
+\label{sec:testescomp}
 %teste corredor "U" e teste FINAL
+
+
 
 \subsection{Análise de Resultados}
 
