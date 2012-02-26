@@ -37,15 +37,47 @@ novamente e funcionou.
 
 Tendo realizado os testes dos componentes mais críticos, o passo seguinte foi tentar utilizar o PC Embarcado VIA EPIA ME6000.
 Após muitas tentativas falhas e busca por informações sem resultados, a equipe optou por não utilizar este componente, já que
-sua documentação era escassa e o tempo perdido na tentativa de utilizá-la já estava acima do planejado. O PC Embarcado foi substituído pela placa TS-7260, que possui uma documentação muito melhor, poder de processamento superior, e funcionou
-nos primeiros testes.
+sua documentação era escassa e o tempo perdido na tentativa de utilizá-la já estava acima do planejado (praticamente um mês
+foi gasto em tentativas frustradas). O PC Embarcado foi substituído pela placa TS-7260, que possui uma documentação muito
+melhor, poder de processamento superior, e funcionou nos primeiros testes. Esta substituição não gerou custos para o projeto,
+pois a placa TS-7260 já havia sido adquirida para um projeto anterior e não estava sendo utilizada,
+e foi então disponibilizada à equipe pelo professor orientador Dr. João Alberto Fabro.
 
 \subsection{Código do microcontrolador C8051F340}
 \label{sec:codmicro}
-Uma das necessidades do código do microcontrolador é o tratamento dos sinais dos encoders para obter informações de odometria, informações estas essenciais para a navegação autônoma. O código do projeto Bellator~\cite{BELLATOR} não continha o tratamento
-dos sinais dos encoders. Portanto, foi necessário alterar o código do microcontrolador para tratar os sinais
-dos encoders e enviar informações de odometria. Para tal, foram utilizadas duas interrupções externas da placa C8051F340 (uma
-para cada encoder). Nestas interrupções, cada pulso do encoder é contado (obviamente cada encoder possui seu contador separadamente). A informação de odometria é então enviada através da comunicação serial. Como o encoder dá 1800 pulsos por volta, a resolução é de 360/1800 = 0.2 graus.  Contudo, tamanha precisão é exagerada, e a equipe optou por enviar através apenas uma mensagem (através da porta serial) a cada 180 pulsos do encoder, ou seja, 36 graus de rotação ou um décimo de volta.
+O código que executa no microcontrolador tem diversas funcionalidades fundamentais do robô, sendo elas:
+leitura dos sensores de distância e conversão analógica/digital dos sinais dos mesmos, geração dos
+PWMs para ambos os motores, contagem dos pulsos dos encoders, recepção e envio de mensagens através
+da conexão serial.
+
+A única parte que foi implementada do zero neste projeto foi o tratamento dos sinais dos encoders (para obter
+informações de odometria), informações estas essenciais para a execução dos algoritmos e consequente
+navegação autônoma. O código do projeto Bellator~\cite{BELLATOR} não continha o tratamento 
+dos sinais dos encoders (os encoders não haviam sido nem utilizados no projeto Bellator). Portanto,
+foi necessário alterar o código do microcontrolador para tratar os sinais
+dos encoders e enviar informações de odometria. Para tal tarefa, foram utilizadas duas interrupções
+externas da placa C8051F340 (uma para cada encoder). Nestas interrupções, cada pulso do encoder é 
+contado (obviamente cada encoder possui seu contador separadamente). A informação de contagem é
+então enviada através da comunicação serial com a placa TS-7260 quando requerida pela mesma. 
+Os encoders estão conectados à placa de roteamento, devido à necessidade de amplificação de seus
+sinais para utilização no microcontrolador. Na placa de roteamento, os sinais dos encoders são
+amplificados em um amplificador operacional LM324~\cite{LM324}, e o sinal amplificado é então conectado
+ao Port 0 do microcontrolador.
+
+A geração dos PWMs foi mantida como estava no projeto Bellator, com 76 níveis possíveis de PWM.
+Os PWMs gerados são disponibilizados no Port 1 do microcontrolador, que é então conectado à placa de
+roteamento, onde os PWMs são utilizados como entrada para um buffer 74LS244~\cite{74LS244}, cujas saídas
+são utilizadas como PWM para as pontes H dos motores.
+
+A leitura dos sensores de distância, que é realizada através de uma varredura (ao fim de cada conversão,
+o próximo sensor é selecionado para conversão), teve seu período (este período inclui a conversão
+de todas as leituras) alterado (de 1s para 50ms). Esta mudança foi necessária para permitir que
+dados mais recentes sejam enviados ao robô, para este poder reagir de forma mais adequada ao ambiente.
+Os sensores estão conectados à placa de roteamento, onde seus sinais de leitura são roteados para o
+Port 2 do microcontrolador, que, por sua vez, realiza as conversões A/D.
+
+A parte de recepção e envio de mensagens do código do microcontrolador foi vastamente alterada,
+para adequação ao protocolo descrito na seção seguinte.
 
 \subsection{Protocolo de comunicação}
 Esta seção tem como objetivo explicar como funciona o protocolo de comunicação, que foi desenvolvido
@@ -75,7 +107,7 @@ valor\_high e valor\_low juntos formam um inteiro de 16 bits que contém o valor 
 
 Esta seção definiu o funcionamento do protocolo de comunicação com o microcontrolador C8051F340,
 para mais detalhes, basta consultar o arquivo do protocolo  (protocolo.h), onde os valores são definidos,
-ou o código do microcontrolador C8051F340, que define como as mensagens são interpretadas. O código
+ou o código do microcontrolador C8051F340, que define como as mensagens são interpretadas. O código 
 da placa TS-7260 (tslogic.cpp), que contém as mensagens enviadas para a C8051F340, será explicado
 em detalhes na seção~\ref{sec:ts}.
 
