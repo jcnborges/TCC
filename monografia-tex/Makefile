@@ -2,10 +2,10 @@
 all: pdf
 
 pdf: 
-	pdflatex monografia_bellator.tex
+	pdflatex monografia_bellator.tex > /dev/null
 	bibtex monografia_bellator.aux
-	pdflatex monografia_bellator.tex
-	pdflatex monografia_bellator.tex
+	pdflatex monografia_bellator.tex > /dev/null
+	pdflatex monografia_bellator.tex | grep Warning
 
 clean:
 	rm *.aux
