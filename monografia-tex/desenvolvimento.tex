@@ -64,7 +64,7 @@ sinais para utilização no microcontrolador. Na placa de roteamento, os sinais do
 amplificados em um amplificador operacional LM324~\cite{LM324}, e o sinal amplificado é então conectado
 ao Port 0 do microcontrolador.
 
-A geração dos PWMs foi mantida como estava no projeto Bellator, com 76 níveis possíveis de PWM.
+A geração dos PWMs foi mantida como estava no projeto Bellator~\cite{BELLATOR}, com 76 níveis possíveis de PWM.
 Os PWMs gerados são disponibilizados no Port 1 do microcontrolador, que é então conectado à placa de
 roteamento, onde os PWMs são utilizados como entrada para um buffer 74LS244~\cite{74LS244}, cujas saídas
 são utilizadas como PWM para as pontes H dos motores.
@@ -181,21 +181,40 @@ C8051F340 e o algoritmo de navegação (Fuzzy ou FCM).
 O software da TS-7260 foi desenvolvido em C++, assim como os algoritmos de navegação, a serem
 explicados em detalhes na seção~\ref{sec:algs}. A programação foi realizada em um computador comum.
 Para realização de testes na placa, o código foi compilado para a TS-7260 através da utilização de um
-\emph{cross-compiler}. O arquivo binário gerado pela compilação foi então movido para uma pasta compartilhada
-na rede. Esta pasta foi disponibilizada através de um servidor NFS (\emph{Network File System}) instalado no computador
+\emph{cross-compiler}, que pode ser baixado em~\cite{CC}. O arquivo binário gerado pela compilação
+foi então movido para uma pasta compartilhada na rede. Esta pasta foi disponibilizada através de um
+servidor NFS (\emph{Network File System}) instalado no computador
 onde o código foi desenvolvido. A placa TS-7260 contém em um pendrive um linux compilado para a sua
 arquitetura, que disponibiliza o cliente nfs, através do qual foi possível montar a pasta compartilhada e rodar
 o algoritmo. Posteriormente, para testes totalmente autônomos, o arquivo binário foi copiado da pasta
 compartilhada para o pendrive conectado à TS-7260, o que permite que o robô execute a navegação sem
-necessidade de conexão com o computador.
+necessidade de conexão com o computador. O comando utilizado no terminal da TS-7260 para montar a pasta
+compartilhada foi:
+
+\begin{verbatim}
+mount 192.168.0.3:/files /mnt
+\end{verbatim}
+
+onde \mbox{192.168.0.3} era o IP local da máquina onde o software foi desenvolvido, \emph{/files}
+o diretório compartilhado por rede e \emph{/mnt} a pasta onde deveria ser montado. Após montar a pasta,
+os seguintes comandos são executados:
+
+\begin{verbatim}
+cd /mnt
+./tslogic fcm
+\end{verbatim}
+ou
+\begin{verbatim}
+./tslogic fuzzy
+\end{verbatim}
 
 Todas as configurações da TS-7260 foram realizadas através de um terminal disponibilizado pela porta
 serial. Através de um software como o HyperTerminal (Windows) ou o minicom (Linux) é possível receber/enviar
 dados. A placa TS-7260 possui três portas de comunicação serial, das quais duas foram utilizadas:
-COM1 e COM2. A porta COM1 foi utilizada para conectar a TS-7260 ao microcontrolador C8051F340, para possibilitar
+COM1 e COM2. A porta COM2 foi utilizada para conectar a TS-7260 ao microcontrolador C8051F340, para possibilitar
 a troca de mensagens de comando com o microcontrolador (para alterar os níveis de PWM dos motores), assim
-como o recebimento das leituras dos sensores. A porta COM2, por sua vez, foi configurada para ser o terminal
-mencionado anteriormente. Basta conectar um cabo serial da COM2 da TS-7260 ao computador para utilizá-lo.
+como o recebimento das leituras dos sensores. A porta COM1, por sua vez, foi configurada para ser o terminal
+mencionado anteriormente. Basta conectar um cabo serial da COM1 da TS-7260 ao computador para utilizá-lo.
 As configurações da serial utilizadas foram (tanto COM1 quanto COM2): 115200 8N1, ou seja, \emph{baud-rate}
 de 115200, caracteres de 8 (oito) bits, sem bit de paridade e com 1 (um) bit de parada. Através do terminal
 disponibilizado na COM2, é possível montar e acessar a pasta de rede compartilhada, conforme descrito no parágrafo
@@ -213,21 +232,27 @@ de um loop infinito, que executa os seguintes passos:
 		os armazena;
 	\item Execução do algoritmo de navegação: utiliza os dados armazenados para executar o algoritmo
 		de navegação, passando os valores de leitura dos sensores de distância. O algoritmo utiliza
-		os dados para realizar a inferência, retornando valores que indicam qual ação o robô deve tomar;
+		os dados para realizar a inferência, retornando valores que indicam qual ação o robô deve tomar.
+		O algoritmo de navegação é executado também na placa TS-7260, mas não faz parte do mesmo software;
 	\item Ajuste dos setpoints: nesta etapa, os dados retornados pelo algoritmo de navegação são
 		utilizados para o cálculo do setpoint de cada roda (velocidade desejada), o setpoint é então
 		alterado de acordo;
 	\item Ajuste de velocidade: esta etapa consiste do ajuste dos níveis de PWM de cada roda, e utiliza
 		para tal os valores de leitura dos encoders e o setpoint do passo anterior.
 		O objetivo do ajuste de velocidade é fazer com que cada motor fique o mais próximo possível
-		do setpoint estabelecido previamente;
+		do setpoint estabelecido previamente. Este ajuste é apenas proporcional, simplesmente aumentando
+		a velocidade caso a contagem do encoder esteja abaixo do setpoint ou diminuindo caso esteja
+		acima;
 	\item Envio das ações: os níveis de PWM definidos pelo ajuste de velocidade são enviados para
 		o microcontrolador C8051F340, que efetiva a mudança.
 \end{itemize}
 
 O diagrama em blocos a seguir representa o funcionamento do software, demonstrando
 também em que etapas ocorre a comunicação com o microcontrolador e quando o algoritmo
-de navegação é executado.
+de navegação é executado. Vale lembrar que o algoritmo de navegação (Fuzzy ou FCM) executa na placa
+TS-7260 também, mas seu código não faz parte do software da TS-7260 (tslogic), por este motivo está
+em um bloco separado no diagrama. As ações descritas no bloco C8051F340 são executadas no
+microcontrolador.
 
 \tikzstyle{tsb} = [rectangle, draw=black!100, fill=blue!15!green!10,
     text width=8em, text centered, rounded corners, minimum height=1cm]
@@ -238,7 +263,8 @@ de navegação é executado.
 	minimum height=1cm, text width=8em, text centered]
 \tikzstyle{navb} = [rectangle, draw=black!100, fill=yellow!30, rounded corners,
 	text width=8em, minimum height=1cm, text centered]
-\tikzstyle{background} = [rectangle, fill=gray!50, inner sep=4mm, rounded corners=5mm]
+\tikzstyle{background} = [rectangle, fill=gray!50, inner sep=8mm, rounded corners=5mm]
+	\tikzstyle{backgroundb} = [rectangle, fill=black!50, inner sep=2mm, rounded corners=5mm]
 
 \begin{figure}[H]
 	\centering
@@ -248,10 +274,10 @@ de navegação é executado.
 		\node [tsb, below of=opentty] (sync) {Envia SYNC} edge [pre] (opentty);
 		\node [tsb, below of=sync] (read) {Leitura do pacote} edge [pre] (sync);
 		\node [tsb, below of=read] (alg) {Executa algoritmo de navegação} edge [pre] (read);
-		\node [navb, left=2cm of alg] (nrcv) {Recebe dados} edge [pre, dashed] (alg);
+		\node [navb, left=2cm of alg] (nrcv) {Recebe dados} edge [pre] (alg);
 		\node [navb, below of=nrcv] (ninf) {Realiza a inferência} edge [pre] (nrcv);
 		\node [navb, below of=ninf] (nret) {Retorna as ações} edge [pre] (ninf);
-		\node [tsb, right=2cm of nret] (sadj) {Ajuste dos setpoints} edge [pre, dashed] (nret);
+		\node [tsb, right=2cm of nret] (sadj) {Ajuste dos setpoints} edge [pre] (nret);
 		\node [tsb, below of=sadj] (vadj) {Ajuste da velocidade} edge [pre] (sadj);
 		\node [tsb, below of=vadj] (act) {Envia as ações} edge [pre] (vadj);
 		\node [tsb, below of=act] (end) {Loop} edge [pre] (act);
@@ -263,8 +289,9 @@ de navegação é executado.
 		\path [line] (end) -- +(-2.5,0) |- (sync);
 		% Background
 		\begin{pgfonlayer}{background}
-			\node [background, fit=(opentty) (end), label=above:tslogic] {};
-			\node [background, fit=(nrcv) (nret), label=above:Fuzzy/FCM] {};
+			\node [background, fit=(nrcv) (end) (opentty), label=above:TS-7260] {};
+			\node [backgroundb, fit=(opentty) (end), label=below:tslogic] {};
+			\node [backgroundb, fit=(nrcv) (nret), label=below:Fuzzy/FCM] {};
 			\node [background, fit=(rcv) (pwm), label=above:C8051F340] {};
 		\end{pgfonlayer}
 	\end{tikzpicture}
@@ -283,7 +310,7 @@ Esta seção dedica-se à descrição da implementação dos algoritmos de navegação co
 \subsection{Algoritmo de Navegação Fuzzy}
 \label{sec:algfuzzy}
 %Descrição e referencia básica da biblioteca do fabro, adaptação e utilização. Descrição das regras. INCOMPLETO
-O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro. A FLIE, ou \emph{Fuzzy Logic Inference Engine}, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência, seguindo a fundamentação teórica sobre o assunto apresentada na seção \ref{sec:logfuzzy}.
+O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro~\cite{FABRO}. A FLIE, ou \emph{Fuzzy Logic Inference Engine}, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência, seguindo a fundamentação teórica sobre o assunto apresentada na seção \ref{sec:logfuzzy}.
 
 \subsubsection{Variáveis Linguísticas}
 \label{sec:devarling}
