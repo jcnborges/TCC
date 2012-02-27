@@ -1,0 +1,82 @@
+\section{Testes e Análise de Resultados}
+
+Esta seção tem por objetivo apresentar a metodologia e elaboração dos testes dos algoritmos de navegação implementados pela equipe, utilizando-se de desenhos esquemáticos e descrição detalhada dos objetivos de cada teste, além das alterações e ajustes aos parâmetros e conceitos dos algoritmos realizados a partir dos resultados dos testes. Nesta seção também é apresentada a análise do comportamento de ambos os algoritmos de navegação, após submetidos às mesmas condições de teste.
+
+\subsection{Elaboração dos Testes}
+
+A metodologia de elaboração dos testes da equipe visou possibilitar testes de sistema, verificando a funcionalidade básica dos algoritmos,  testes de comportamento visando eliminar erros de desenvolvimento e comportamentos indesejados para ambos os algoritmos e, finalmente, comparar o comportamento dos algoritmos submetidos às mesmas condições iniciais de teste. Ao longo dos testes, várias alterações foram realizadas tanto aos conjuntos fuzzy e regras de inferência do algoritmo de navegação fuzzy como aos conceitos e funções sigmóides do algoritmo baseado em FCM, antes de atingir a configuração final descrita nas seções \ref{sec:algfuzzy} e \ref{sec:algedfcm}.
+
+Assim sendo, foram desenvolvidas três principais etapas de testes:
+\begin{enumerate}
+    \item Testes Iniciais: Teste básico dos algoritmos visando observar a movimentação básica, sincronia das rodas e ajuste de parâmetros.
+    \item Testes Avançados: Testes realizados com mais obstáculos para avaliar a capacidade dos algoritmos em evitar colisões com obstáculos.
+    \item Testes Comparativos: Testes finais visando a comparação do comportamento entre os algoritmos em diversas situações
+\end{enumerate}
+
+Tanto os testes iniciais quanto os avançados são essenciais para proporcionar uma análise de resultados confiável entre os algoritmos. Nas seções seguintes, para cada teste desenvolvido, são apresentados diagramas esquemáticos espaciais, representando a disposição dos obstáculos e a posição inicial do robô, o comportamento apresentado pelo robô, possíveis alterações e ajustes realizados aos algoritmos por conta dos resultados do teste.
+
+\subsection{Testes Iniciais}
+\label{sec:testesini}
+
+%corredor interno e externo dainf
+Foram elaborados dois testes iniciais, o primeiro visando observar o deslocamento simples e detecção de um obstáculo simples próximo a parede em um corredor (Figura \ref{algtest1}), e o segundo teste foi construído em um corredor mais largo que o primeiro, com alguns obstáculos obstruindo a passagem, definindo apenas um caminho possível entre os obstáculos (figura \ref{algtest2}).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figs/algtest1.png}
+  \caption[Configuração do primeiro teste inicial.]
+  {Configuração do primeiro teste inicial.}
+  \label{algtest1}
+\end{figure}
+
+A execução de ambos os algoritmos neste primeiro teste mostrou resultados satisfatórios. Ambos os algoritmos foram capazes de realizar o percurso, porém o algoritmo de navegação fuzzy mostrou-se excessivamente lento próximo aos obstáculos. Concluiu-se que isto ocorreu devido ao valor máximo das funções de pertinência ``Lento"~ e ``Médio", serem muito baixos. A função de pertinência ``Lento"~ e  apresentava um valor máximo de apenas 20\% da velocidade máxima e ``Médio"~ correspondia a 50\%. A partir desta observação, as funções de pertinência da velocidade foram alteradas para os novos valores, descritos na seção \ref{sec:algfuzzy} de 33\% para ``Lento"~ e 66\% para ``Médio". Após os ajustes, o algoritmo mostrou-se mais rápido no corredor, no mesmo teste.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figs/algtest2.png}
+  \caption[Configuração do segundo teste inicial.]
+  {Configuração do segundo teste inicial.}
+  \label{algtest2}
+\end{figure}
+
+O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma barreira imediatamente no caminho do robô e encontrar a saída do corredor, logo após a barreira, como ilustrado na figura \ref{algtest2}. Ao executar este teste pela primeira vez, o algoritmo Fuzzy não foi capaz de fazer o desvio e encontrar a saída, devido a reação muito tardia e, ao mesmo tempo, muito forte. Já o algoritmo FCM foi capaz de realizar o trajeto sem alterações. A figura \ref{algtest2_caminho} apresenta o trajeto esperado, em verde, que é aproximadamente o mesmo que o realizado pelo algoritmo FCM, e o trajeto percorrido pelo algoritmo Fuzzy clássico, em vermelho.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figs/algtest2_caminho.png}
+  \caption[Caminho percorrido pelo algoritmo Fuzzy (vermelho) e o caminho esperado (Verde).]
+  {Caminhos percorridos no segundo teste inicial.}
+  \label{algtest2_caminho}
+\end{figure}
+
+Para resolver este problema de reação tardia e tornar a navegação do algoritmo mais suave, a equipe aumentou a faixa de valores da função de pertinência da variável linguística perto, que era inicialmente 16 até 25 como distância de pertinência máxima e descida até pertinência nula na distância de 35 centímetros para os valores finais apresentados na figura \ref{fuzzygraph_des.png}, função p(d). Além disso, os conjuntos fuzzy ``ViraPoucoEsquerda" e ``ViraPoucoDireita", inexistentes na primeira versão, foram adicionados e utilizados nas regras de inferência da forma como foi apresentado na tabela \ref{tab:regrasinf}, visando iniciar a reação do robô aos obstáculos mais cedo. Estas alterações fizeram com que o algoritmo Fuzzy clássico realizasse o trajeto esperado, após novo teste no mesmo ambiente.
+
+\subsection{Testes Avançados}
+\label{sec:testesavan}
+%Corredor largo e estreito C300
+
+Os testes avançados desenvolvidos pela equipe visam observar e otimizar o comportamento dos algoritmos, ou seja, além da simples capacidade de desvio de obstáculos, observar as escolhas realizadas pelos algoritmos em ambientes com mais de uma possibilidade de navegação além da velocidade e agilidade do robô nestes ambientes, com atenção especial a situações específicas que podem levar o robô a ``travar" e parar de navegar.
+
+A equipe montou duas situações distintas para cumprir estes objetivos: O primeiro em um corredor similar ao segundo teste inicial, porém mais longo e com mais obstáculos dispersos e o segundo em um corredor largo com obstáculos dispersos, provendo um ambiente aberto e imprevisível ao robô.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figs/algtestavancado_corredor.png}
+  \caption[Ilustração do primeiro teste avançado.]
+  {Ilustração do primeiro teste avançado.}
+  \label{algtestavancado_corredor}
+\end{figure}
+
+O algoritmo fuzzy foi capaz de percorrer o primeiro teste avançado, ilustrado na figura \ref{algtestavancado_corredor}, retornando ao ponto de partida após 5 minutos. Durante o percurso, houve apenas uma pequena colisão com o obstáculo destacado em azul na figura acima. Neste experimento foi possível observar lentidão excessiva do robô próximo a obstáculos, levando a equipe a alterar a base de regras de inferência levemente, de forma a reduzir o numero de regras que contêm o conjunto fuzzy ``Lento" como saída, acelerando a navegação do robô no mesmo teste. O conjunto de regras final, obtido após as alterações feitas a partir deste experimento, pode ser observado na tabela \ref{tab:regrasinf}. O algoritmo FCM, em contrapartida, não foi capaz de percorrer o teste, apresentando indecisão ao aproximar-se do obstáculo destacado em vermelho na figura \ref{algtestavancado_corredor}. Isto ocorreu devido à disponibilidade de espaços iguais para o desvio deste obstáculo em ambas as opções de desvio, o que anulou a intensidade de PWM em ambas as rodas. O efeito de anulação é devido ao fato de as sigmóides utilizadas na ativação dos conceitos serem simétricas, conforme as equações \ref{eq:sig_frente} e \ref{eq:sig_tras}. Desse modo, existe um ponto no qual a distância registrada pelos sensores laterais esquerdo e direito geram valores nos conceitos de entrada, SE e SD, que fazem com que os conceitos de nível GDF, GDT, GEF, GET (ver a explicação desses conceitos na secção \ref{subsec:conceitos}) se igualem, ou seja, a tendência de girar a roda para frente é igual a tendência de girar a roda para trás, anulando, portanto, o PWM das rodas. Este problema foi corrigido através da implementação de um ``evento", específico para auxílio à navegação nesta situação, que permitiu que o FCM modificasse o peso das relações causais dinamicamente, conforme foi descrito na secção \ref{subsec:rel-causal}. Essa modificação retirou do FCM o comportamento simétrico que resultava na anulação dos PWMs e permitiu que o algoritmo resolvesse o problema do corredor retornando ao ponto de partida após 4 minutos e 30 segundos.
+
+%figura avançado 2
+
+\subsection{Testes Comparativos}
+\label{sec:testescomp}
+%teste corredor "U" e teste FINAL
+
+
+
+\subsection{Análise de Resultados}
+
+
