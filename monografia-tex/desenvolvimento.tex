@@ -43,8 +43,78 @@ melhor, poder de processamento superior, e funcionou nos primeiros testes. Esta 
 pois a placa TS-7260 já havia sido adquirida para um projeto anterior e não estava sendo utilizada,
 e foi então disponibilizada à equipe pelo professor orientador Dr. João Alberto Fabro.
 
+\subsection{Levantamento da curva dos sensores}
+\label{sec:curvasensores}
+Esta seção apresenta como foi levantada a curva dos sensores, ponto fundamental para utilizar os
+dados de conversão, transformando-os para a distância em centímetros, que então pode ser passada
+aos algoritmos de navegação.
+
+Primeiramente, foi montada uma tabela, contendo os valores de conversão para cada distância, de 5
+em 5cm, começando em 15cm até 115cm, totalizando 21 medidas. Os valores obtidos estão na tabela a
+seguir:
+
+\begin{table}[H]
+\centering
+\caption[Valores de conversão dos sensores x distância]{Valores de conversão dos sensores x distância}
+\begin{tabular}{l l}
+\hline
+Valor da conversão & Distância (cm) \\
+\hline
+207 & 15 \\
+191 & 20 \\
+173 & 25 \\
+150 & 30 \\
+134 & 35 \\
+120 & 40 \\
+110 & 45 \\
+100 & 50 \\
+91 & 55 \\
+86 & 60 \\
+81 & 65 \\
+75 & 70 \\
+71 & 75 \\
+68 & 80 \\
+66 & 85 \\
+65 & 90 \\
+62 & 95 \\
+59 & 100 \\
+56 & 105 \\
+54 & 110 \\
+50 & 115 \\
+\hline
+
+\end{tabular}
+\label{tab:curvasensores}
+\end{table}
+
+A partir destes valores, foi realizada uma interpolação polinomial para obtenção da equação aproximada
+da curva. O grau do polinômio interpolador escolhido foi o de grau 4, que aproximou\-se bem da curva
+real (medida), conforme é possível visualizar na figura~\ref{fig:curvasensores}, onde o eixo das abscissas
+contém os valores de conversão, e o eixo das ordenadas a distância correspondente. Segue a equação 
+da interpolação polinomial:
+
+\begin{equation}
+y = 3.6404 \cdot 10^{-7} x^4 - 2.4435 \cdot 10^{-4} x^3 + 6.0732 \cdot 10^{-2} x^2 - 6.8962x + 339.361
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{./figs/curvaresp_poli.png}
+\caption[Curva real dos sensores e interpolação polinomial]{Curva real dos sensores e interpolação polinomial}
+\fonte{Autoria própria}
+\label{fig:curvasensores}
+\end{figure}
+
+Com esta equação, bastou iterar pelos valores \emph{x} possíveis de conversão (0 a 255, pois a conversão
+analógica/digital usa 8 bits) e montar a tabela para acessar com os valores de conversão e obter
+a distância em centímetros. Esta tabela que mapeia os valores da conversão para a distância em centímetros
+foi inserida no código da placa TS-7260, que será explicado em detalhes na seção~\ref{sec:softwarets}.
+
 \subsection{Código do microcontrolador C8051F340}
 \label{sec:codmicro}
+Esta seção apresentará as funções do código do microcontrolador, quais funções foram aproveitadas
+do projeto Bellator, quais foram modificadas e quais foram implementadas por completo.
+
 O código que executa no microcontrolador tem diversas funcionalidades fundamentais do robô, sendo elas:
 leitura dos sensores de distância e conversão analógica/digital dos sinais dos mesmos, geração dos
 PWMs para ambos os motores, contagem dos pulsos dos encoders, recepção e envio de mensagens através
@@ -74,10 +144,16 @@ o próximo sensor é selecionado para conversão), teve seu período (este período i
 de todas as leituras) alterado (de 1s para 50ms). Esta mudança foi necessária para permitir que
 dados mais recentes sejam enviados ao robô, para este poder reagir de forma mais adequada ao ambiente.
 Os sensores estão conectados à placa de roteamento, onde seus sinais de leitura são roteados para o
-Port 2 do microcontrolador, que, por sua vez, realiza as conversões A/D.
+Port 2 do microcontrolador, que, por sua vez, realiza as conversões A/D. Os valores obtidos são
+simplesmente a conversão do sinal de analógico para digital. Estes valores são enviados para a placa TS-7260
+quando requeridos pela mesma, e somente na TS-7260 cada valor é utilizado para consultar a tabela, obtida
+de acordo com o que foi descrito na seção~\ref{sec:curvasensores}, mapeando o valor da conversão
+para a distância em centímetros.
 
 A parte de recepção e envio de mensagens do código do microcontrolador foi vastamente alterada,
 para adequação ao protocolo descrito na seção seguinte.
+
+
 
 \subsection{Protocolo de comunicação}
 Esta seção tem como objetivo explicar como funciona o protocolo de comunicação, que foi desenvolvido
@@ -221,6 +297,7 @@ disponibilizado na COM2, é possível montar e acessar a pasta de rede compartilha
 anterior.
 
 \subsection{Software da TS-7260}
+\label{sec:softwarets}
 O código que roda na TS-7260 é o que efetivamente controla o robô. A parte principal do código consiste
 de um loop infinito, que executa os seguintes passos:
 
@@ -229,7 +306,10 @@ de um loop infinito, que executa os seguintes passos:
 		um pacote com as leituras mais recentes dos sensores de distância, juntamente com as leituras
 		dos encoders (esta comunicação é realizada via porta serial);
 	\item Leitura do pacote enviado pelo microcontrolador: recebe os dados do microcontrolador e
-		os armazena;
+		utiliza os dados de conversão dos sensores para acessar a tabela que mapeia
+		o valor da conversão para a distância em centímetros, tabela esta que foi obtida conforme
+		o procedimento especificado na seção~\ref{sec:curvasensores}. Os valores de distância para
+		cada sensor são então armazenados, assim como as leituras dos encoders;
 	\item Execução do algoritmo de navegação: utiliza os dados armazenados para executar o algoritmo
 		de navegação, passando os valores de leitura dos sensores de distância. O algoritmo utiliza
 		os dados para realizar a inferência, retornando valores que indicam qual ação o robô deve tomar.
@@ -338,21 +418,13 @@ Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para 
   \textbf{Variável Linguística} & \textbf{Conjunto Fuzzy} & \textbf{Função de Pertinência} \\
   \hline
   SensorEsquerda & PertoEsquerda & p(d) \\
-  \hline
   SensorEsquerda & MedioEsquerda & m(d) \\
-  \hline
   SensorEsquerda & LongeEsquerda & l(d) \\
-  \hline
   SensorFrente & Perto & p(d) \\
-  \hline
   SensorFrente & Medio & m(d) \\
-  \hline
   SensorFrente & Longe & l(d) \\
-  \hline
   SensorDireita & PertoDireita & p(d) \\
-  \hline
   SensorDireita & MedioDireita & m(d) \\
-  \hline
   SensorDireita & LongeDireita & l(d) \\
   \hline
 \end{tabular}
@@ -420,32 +492,34 @@ Em seguida, pode-se definir as regras através dos valores fuzzy válidos para cad
 \hline
 \textbf{SensorEsquerda} & \textbf{SensorFrente} & \textbf{SensorDireita} & \textbf{VelocidadeMotor} & \textbf{Direção} \\
 \hline
-PertoEsquerda & Perto & PertoDireita & Lento & ViraDireita \\ \hline
-PertoEsquerda & Perto & MedioDireita & Lento & ViraDireita \\ \hline
-PertoEsquerda & Perto & LongeDireita & Lento & ViraDireita \\ \hline
-PertoEsquerda & Medio & PertoDireita & Lento & Reto \\ \hline
-PertoEsquerda & Medio & MedioDireita & Lento & ViraDireita \\ \hline
-PertoEsquerda & Medio & LongeDireita & Lento & ViraPoucoDireita \\ \hline
-PertoEsquerda & Longe & PertoDireita & Medio & Reto \\ \hline
-PertoEsquerda & Longe & MedioDireita & Lento & ViraPoucoDireita \\ \hline
-PertoEsquerda & Longe & LongeDireita & Lento & ViraDireita \\ \hline
-MedioEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\ \hline
-MedioEsquerda & Perto & MedioDireita & Lento & ViraDireita \\ \hline
-MedioEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\ \hline
-MedioEsquerda & Medio & PertoDireita & Lento & ViraEsquerda \\ \hline
-MedioEsquerda & Medio & MedioDireita & Medio & Reto \\ \hline
-MedioEsquerda & Medio & LongeDireita & Medio & Reto \\ \hline
-MedioEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\ \hline
-MedioEsquerda & Longe & MedioDireita & Rapido & Reto \\ \hline
-MedioEsquerda & Longe & LongeDireita & Medio & Reto \\ \hline
-LongeEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\ \hline
-LongeEsquerda & Perto & MedioDireita & Lento & ViraPoucoEsquerda \\ \hline LongeEsquerda & Perto & LongeDireita & Lento & ViraDireita \\ \hline
-LongeEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\ \hline
-LongeEsquerda & Medio & MedioDireita & Medio & Reto \\ \hline
-LongeEsquerda & Medio & LongeDireita & Rapido & ViraDireita \\ \hline
-LongeEsquerda & Longe & PertoDireita & Lento & ViraEsquerda \\ \hline
-LongeEsquerda & Longe & MedioDireita & Medio & Reto \\ \hline
-LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\ \hline
+PertoEsquerda & Perto & PertoDireita & Lento & ViraDireita \\
+PertoEsquerda & Perto & MedioDireita & Lento & ViraDireita \\
+PertoEsquerda & Perto & LongeDireita & Lento & ViraDireita \\
+PertoEsquerda & Medio & PertoDireita & Lento & Reto \\
+PertoEsquerda & Medio & MedioDireita & Lento & ViraDireita \\
+PertoEsquerda & Medio & LongeDireita & Lento & ViraPoucoDireita \\
+PertoEsquerda & Longe & PertoDireita & Medio & Reto \\
+PertoEsquerda & Longe & MedioDireita & Lento & ViraPoucoDireita \\
+PertoEsquerda & Longe & LongeDireita & Lento & ViraDireita \\
+MedioEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\
+MedioEsquerda & Perto & MedioDireita & Lento & ViraDireita \\
+MedioEsquerda & Perto & LongeDireita & Lento & ViraPoucoDireita \\
+MedioEsquerda & Medio & PertoDireita & Lento & ViraEsquerda \\
+MedioEsquerda & Medio & MedioDireita & Medio & Reto \\
+MedioEsquerda & Medio & LongeDireita & Medio & Reto \\
+MedioEsquerda & Longe & PertoDireita & Lento & ViraPoucoEsquerda \\
+MedioEsquerda & Longe & MedioDireita & Rapido & Reto \\
+MedioEsquerda & Longe & LongeDireita & Medio & Reto \\
+LongeEsquerda & Perto & PertoDireita & Lento & ViraEsquerda \\
+LongeEsquerda & Perto & MedioDireita & Lento & ViraPoucoEsquerda \\
+LongeEsquerda & Perto & LongeDireita & Lento & ViraDireita \\
+LongeEsquerda & Medio & PertoDireita & Lento & ViraPoucoEsquerda \\
+LongeEsquerda & Medio & MedioDireita & Medio & Reto \\
+LongeEsquerda & Medio & LongeDireita & Rapido & ViraDireita \\
+LongeEsquerda & Longe & PertoDireita & Lento & ViraEsquerda \\
+LongeEsquerda & Longe & MedioDireita & Medio & Reto \\
+LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\
+\hline
 \end{tabular}
 \end{table}
 
