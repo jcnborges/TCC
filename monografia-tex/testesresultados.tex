@@ -105,9 +105,9 @@ Neste experimento, ambos os algoritmos de navegação foram capazes de realizar o 
 
 Analisando este resultado, pode-se observar que o algoritmo Fuzzy clássico apresentou facilidade em retornar e sair do corredor. Isto deve-se à tendência de virar para a direita quando a entrada do mecanismo de inferência é ``Perto" para o sensor frontal e igual nos sensores laterais. Esta tendência foi introduzida visando evitar a parada do robô em situações similares a esta, e foi capaz de resolver esse experimento rapidamente, como esperado. As três regras de inferência responsáveis por esta tendência, retiradas da tabela \ref{tab:regrasinf}, são:
 \begin{center}
-PertoEsquerda & Perto & PertoDireita & Lento & ViraDireita \\
-MedioEsquerda & Perto & MedioDireita & Lento & ViraDireita \\
-LongeEsquerda & Perto & LongeDireita & Lento & ViraDireita
+PertoEsquerda, Perto, PertoDireita => Lento, ViraDireita \\
+MedioEsquerda, Perto, MedioDireita => Lento, ViraDireita \\
+LongeEsquerda, Perto, LongeDireita => Lento, ViraDireita
 \end{center}
 Em compensação, o algoritmo baseado em FCM apresentou dificuldades nesta situação. %Explicar
 
