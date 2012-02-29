@@ -1,7 +1,9 @@
 \chapter{Fundamentação Teórica}
 \label{chap:fundteor}
 
-Este capítulo apresentará a fundamentação teórica, na qual serão descritos o estado inicial e final robô Bellator, com uma visão geral deste ao ser entregue à equipe e a especificação do robô após a reconstrução e adequação, a apresentação da Lógica Fuzzy e do FCM.
+Este capítulo apresentará a fundamentação teórica, que consiste na 
+descrição do estado inicial robô Bellator, com uma visão geral do 
+projeto no qual esse robô estivera em uso, a descrição do material entregue à equipe, a especificação do robô após a reconstrução e adequação, a apresentação da Lógica Fuzzy e do FCM.
 
 %---------- Estado inicial do Projeto ----------
 \section{Estado Inicial do Projeto} \label{sec:estpro}
@@ -9,20 +11,28 @@ Este capítulo apresentará a fundamentação teórica, na qual serão descritos o est
 Esta seção visa descrever com quais recursos a equipe iniciou a execução do trabalho, ou seja, a situação do robô e seus componentes de hardware, o principal e mais importante recurso desse projeto, os componentes de software e a documentação de ambos, da forma como foram entregues à equipe.
 
 \subsection{Visão Geral}
+\label{sec:visgeral}
 
 O robô disponibilizado à equipe para a realização desse trabalho, o Bellator, é proveniente de um projeto de Oficinas de Integração 3, que visou a implementação de uma plataforma robótica controlada remotamente por joystick \cite{BELLATOR}. Esse projeto consistiu na implementação de um uma plataforma robótica dividida em três camadas: baixo nível, alto nível e supervisória. A camada de baixo nível é responsável por controlar os motores do robô e receber as leituras dos sensores. A camada de alto nível comunica-se com a camada de baixo nível via conexão serial, faz obtenção de vídeo através de uma webcam e comunica-se com a camada supervisória através de uma conexão sem fio (para transmissão dos dados de vídeo captados pela webcam). Essa última é a interface com o usuário para realizar o controle remoto do robô. O diagrama esquemático da figura \ref{fig:diagsis} ilustra a configuração do projeto de oficinas.
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figs/diagsis.png}
-	\caption[Diagrama original do Bellator]{Diagrama original do projeto Bellator, retirado da monografia do mesmo.}
+	\caption[Diagrama do projeto de oficinas]{Diagrama do projeto de oficinas.}
 	\fonte{\cite{BELLATOR}}
 	\label{fig:diagsis}
 \end{figure}
 
-A partir da figura \ref{fig:diagsis}, o funcionamento do projeto Bellator pode ser explicado: a camada de baixo nível é composta pelo robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, cinco sensores de distância ``2Y0A02F98"~ da Sharp, uma bateria Unybatt 12V-7,2 Ampére hora, duas pontes H e a placa microcontrolada C8051F340, que é capaz de ler e converter leituras de tensão analógicas dos sensores do robô bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunicar-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os níveis de PWM dos motores de acordo com os comandos recebidos.
+A partir da figura \ref{fig:diagsis}, o funcionamento do projeto 
+Bellator pode ser explicado: a camada de baixo nível é composta pelo 
+robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, 
+cinco sensores de distância ``2Y0A02F98"~ da Sharp, uma bateria 
+Unybatt 12V-7,2 Ampére hora, duas pontes H, dois encoders ópticos 
+HEDS-9700 e uma placa microcontrolada C8051F340, que é capaz de ler e 
+converter leituras de tensão analógicas dos sensores bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os níveis de PWM dos motores de acordo com os comandos recebidos.
 
-Os componentes de hardware do robô, o software de controle supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340, utilizados no projeto de oficinas estão documentados em detalhes em \cite{BELLATOR}. Essa documentação foi utilizada como referência para a reconstrução e adequação do robô Bellator, com exceção das seções referentes ao software de controle supervisório, que não foi consultado. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram reaproveitados.
+Os componentes de hardware do robô, o software de controle 
+supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340, utilizados no projeto de oficinas estão documentados em detalhes em \cite{BELLATOR}. Essa documentação foi utilizada como referência para a reconstrução e adequação do robô Bellator, com exceção das seções referentes ao software de controle supervisório, que não foi consultado. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram aproveitados.
 
 \subsection{Recebimento do Robô}
 \label{sec:recrobo}
@@ -31,7 +41,7 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 
 \begin{itemize}
 \item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acoplados;
-\item Um par de encoders ópticos acoplados ao eixo de cada roda;
+\item Um par de encoders ópticos HEDS-9700 acoplados ao eixo de cada roda;
 \item Cinco sensores de distância ``2Y0A02F98"~ da Sharp;
 \item Duas baterias Unybatt 12V-7,2 Ampére hora;
 \item Uma placa microcontrolada C8051F340;
@@ -39,12 +49,36 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 \item Um PC Embarcado VIA EPIA ME60000 Mini-ITX.
 \end{itemize}
 
-O chassi do robô e seus componentes acoplados foram a base da plataforma robótica utilizada pela equipe e foram essenciais para a execução desse trabalho. Os sensores de distância foram utilizados na localização de obstáculos, fornecendo dados de entrada aos algoritmos de navegação para tomada de decisão e determinação de ações de controle. Os encoders foram utilizados para fornecer uma realimentação odométrica para ajustar a velocidade das rodas. A placa microcontrolada foi utilizada para realizar o controle de baixo nível do robô (acionamento dos motores, conversão analógica/digital das leituras dos sensores, contagem dos pulsos dos encoders e comunicação serial com o hardware acoplado). As baterias foram utilizadas para alimentar os sensores, encoders, os motores e a placa microcontrolada.
+O chassi do robô e os componentes acoplados foram a base da plataforma 
+robótica utilizada pela equipe e foram essenciais para a execução 
+desse trabalho. Os sensores de distância foram utilizados na 
+localização de obstáculos, fornecendo dados de entrada aos 
+algoritmos de navegação para tomada de decisão e determinação de 
+ações de controle. Os encoders foram utilizados para fornecer uma 
+realimentação odométrica para ajustar a velocidade das rodas. A 
+placa microcontrolada foi utilizada para realizar o controle de baixo 
+nível do robô, que foram: cionamento dos motores, conversão 
+analógica para digital das leituras dos sensores, contagem dos pulsos dos encoders e comunicação serial com o hardware acoplado. As baterias foram utilizadas para alimentar os sensores, encoders, os motores e a placa microcontrolada.
 
-Alguns itens mencionados na seção anterior, referentes ao projeto Bellator, não foram recebidos ou não foram utilizados nesse trabalho. A webcam e joystick não foram entregues pois não foram necessários. O joystick não foi necessário porque esse trabalho se trata de um sistema de navegação autônomo e a webcam não foi necessária porque esse trabalho não abordou navegação através de imagem de vídeo. A placa de roteamento entregue foi utilizada nos testes dos componentes, visto que foi necessária para testar o funcionamento do robô. Essa placa foi reprojetada e reconstruída. O PC embarcado foi entregue destituído de qualquer documentação. Além disso, como o novo objetivo do robô não implicou a necessidade de comunicação sem fio ou implementação de stream de vídeo, motivo principal para a utilização desse PC no projeto Bellator~\cite{BELLATOR}, a equipe optou por descartar esse recurso e utilizar outra placa, que foi descrita em detalhes na seção \ref{sec:espts7260}. O processo de reconstrução e adaptação da plataforma robótica é descrito em detalhes no capítulo \ref{chap:desenv}.
+Alguns itens mencionados na seção \ref{sec:visgeral}, referentes ao 
+projeto de oficinas, não foram recebidos ou não foram utilizados 
+nesse trabalho. A webcam e joystick, por exemplo, não foram entregues 
+pois não foram necessários. O joystick não foi necessário porque 
+esse trabalho se trata de um sistema de navegação autônomo, que 
+descarta a necessidade de um controle remoto, e a webcam não foi 
+necessária porque esse trabalho não abordou a navegação através de 
+imagem de vídeo. A placa de roteamento entregue foi utilizada nos 
+testes dos componentes, visto que foi necessária para testar o 
+funcionamento do robô. Essa placa foi reprojetada e reconstruída. O 
+PC embarcado foi entregue destituído de qualquer documentação e, além disso, como o novo objetivo do robô não implicou a necessidade de comunicação sem fio ou implementação de stream de vídeo, motivo principal para a utilização desse PC no projeto Bellator~\cite{BELLATOR}, a equipe optou por descartar esse recurso e utilizar outra placa, que foi descrita em detalhes na seção \ref{sec:espts7260}. O processo de reconstrução e adaptação da plataforma robótica é descrito em detalhes no capítulo \ref{chap:desenv}.
 
 \subsection{Considerações}
-A possibilidade de reconstruir e adequar o robô Bellator e o recebimento desse material consistiram uma importante etapa nesse trabalho. A plataforma Bellator foi uma opção de recurso ao apoio do estudo qualitativo proposto.
+A possibilidade de reconstruir e adequar o robô Bellator e o 
+recebimento desse material consistiram uma importante etapa nesse 
+projeto. A plataforma Bellator foi uma opção de recurso ao apoio do 
+estudo qualitativo proposto, mas precisou ser reconstruída e adequada 
+às necessidades do projeto. Essa reconstrução mostrou-se viável porque o material estava disponível. A especificação do robô 
+após a reconstrução foi descrita na seção \ref{esprob}.
 
 \input{especificacao}
 

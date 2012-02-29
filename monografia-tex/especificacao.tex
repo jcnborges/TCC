@@ -2,11 +2,32 @@
 \section{Especificações do Robô}
 \label{chap:esprob}
 
-Esta seção visa descrever as especificações do hardware do robô Bellator após a reconstrução do mesmo.
+Esta seção visa descrever a composição de hardware do robô 
+Bellator após a reconstrução e adequação do mesmo. Essa decrição 
+inclui a apresentação dos sensores infravermelhos, enconders 
+ópticos, placa microcontrolada C8051F340DK, placa de roteamento e 
+placa TS-7260.
 
 \subsection{Sensor IR 2Y0A02F98}
 \label{sec:sensores}
-Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, o robô possui cinco sensores analógicos de distância, por infravermelho, modelo 2Y0A02F98 da Sharp, dispostos uniformemente nas laterais da plataforma Bellator. O código dos sensores para conversão e envio pela serial já estava pronto, como resultado do projeto Bellator. A documentação relacionada a esse sensor foi retirada do relatório de tal projeto \cite{BELLATOR}, adaptada à nova situação. Esse sensor mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva}.
+Com o objetivo de auxiliar a navegação do robô e fazer varreduras do 
+ambiente, foram fixados cinco sensores analógicos de distância, por 
+infravermelho, modelo 2Y0A02F98 da Sharp, dispostos uniformemente nas 
+laterais do chassi, conforme ilustra a figura 
+\ref{fig:dispsensor}. A documentação relacionada a esse sensor foi 
+retirada de \cite{BELLATOR} e adaptada à nova situação. Esse sensor 
+mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva}. O código 
+para conversão do sinal analógico em digital e envio dessa leitura 
+por comunição serial está de acordo com o projeto Bellator 
+\cite{BELLATOR}. 
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./figs/dispsensor.png}
+  \caption[Disposição dos sensores de distância]{Disposição dos sensores de distância.}
+  \fonte{Autoria própria}
+  \label{fig:dispsensor}
+\end{figure}
 
 \begin{figure}[!htb]
   \centering
@@ -16,14 +37,16 @@ Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, o
   \label{curva}
 \end{figure}
 
-Pode-se observar que o modelo é pouco influenciado pelas cores dos objetos refletidos, isto devido ao método de medição baseado em triangulação \cite{datasheetsensor}. O sensor possui uma tensão de alimentação recomendada na faixa de 4,5 a 5,5 V, a qual não é atendida pela plataforma utilizada \cite{datasheetkit}, sendo necessária utilização de alimentação especial. Essa alimentação é realizada através de um circuito regulador de tensão, o qual utiliza alimentação da própria bateria acoplada ao robô. O cálculo dos valores dos resistores foram baseados na equação \ref{eqRegulador}.
+O modelo é pouco influenciado pelas cores dos objetos refletidos, isto 
+devido ao método de medição baseado em triangulação 
+\cite{datasheetsensor}. O sensor possui uma tensão de alimentação 
+recomendada na faixa de 4,5 a 5,5 V, a qual não é atendida pela 
+plataforma utilizada \cite{datasheetkit}, sendo necessária utilização de alimentação especial. Essa alimentação é realizada através de um circuito regulador de tensão, o qual utiliza alimentação da própria bateria acoplada ao robô. O cálculo dos valores dos resistores foram baseados na equação \ref{eqRegulador} e o diagrama esquemático do regulador de tensão é mostrado na figura \ref{regulador}.
 
 \begin{equation}
 \label{eqRegulador}
 V_{OUT} = 1,25V (1 + R_{2}/R_{1})
 \end{equation}
-
-O diagrama esquemático do regulador de tensão é mostrado na figura \ref{regulador}.
 
 \begin{figure}[!htb]
   \centering
@@ -76,7 +99,7 @@ O diagrama em blocos do kit, retirado do datasheet é apresentado na figura \ref{
 \subsection{Placa TS-7260}
 \label{sec:espts7260}
 
-A placa TS-7260 é um sistema embarcado equipado com um processador ARM e sistema operacional Linux. O sistema possui periféricos para realização de comunicação serial, ethernet, usb, entre outros. A lista a seguir descreve os componentes mais importantes para o projeto. Os dados, bem como a figura \ref{fotots}, foram retirados do datasheet: \cite{TS-7260}.
+A placa TS-7260 é um sistema embarcado equipado com um processador ARM e sistema operacional Linux. O sistema possui periféricos para realização de comunicação serial, ethernet, usb, entre outros. A lista a seguir descreve os componentes mais importantes para o projeto. Os dados, bem como a figura \ref{fotots}, foram retirados do datasheet \cite{TS-7260}.
 
 \begin{itemize}
   \item Processador ARM9 de 200MHz baseado no Cirrus EP9302
@@ -97,12 +120,25 @@ A placa TS-7260 é um sistema embarcado equipado com um processador ARM e sistema
   \label{fotots}
 \end{figure}
 
-Mais informações sobre o sistema, bem como a documentação completa, estão disponíveis no manual da placa, disponível nas referências bibliográficas: \cite{tsmanual}.
+Mais informações sobre o sistema, bem como a documentação completa, estão disponíveis no manual da placa, disponível nas referências bibliográficas \cite{tsmanual}.
 
 \subsection{Robô Bellator}
-\label{sec:robobellator} %TODO Atualizar figura/Dados
+\label{sec:robobellator} 
 
-O robô Bellator, como mencionado na seção \ref{sec:estpro}, foi reconstruído e adaptado ao projeto. O robô possui duas rodas de tração e uma roda guia. As rodas de tração estão nas laterais da parte dianteira do robô e possuem diâmetro de 20 centímetros e espessura de aproximadamente 4 centímetros. Ambas possuem um encoder de quadratura acoplado, o qual tem resolução de 1800 pulsos por volta. Cada encoder está acoplado a um circuito óptico HEDS-9700 que gera uma onda quadrada na saída à medida que o encoder gira, conforme é ilustrado na figura \ref{fig:HEDS-9700}. A roda guia está no centro da parte traseira do robô e possui diâmetro de aproximadamente 6 centímetros e espessura de 2 centímetros. Todas as rodas são da marca Schioppa. Os outros componentes do robô estão listados a seguir:
+O robô Bellator, como mencionado na seção \ref{sec:estpro}, foi 
+reconstruído e adaptado ao projeto. O robô possui duas rodas de 
+tração e uma roda guia, conforme ilustrado na figura 
+\ref{fig:dispsensor}. As rodas de tração estão nas laterais da parte 
+dianteira do robô e possuem diâmetro de 20 centímetros e espessura 
+de aproximadamente 4 centímetros. Ambas possuem um encoder de 
+quadratura acoplado, o qual tem resolução de 1800 pulsos por volta. 
+Cada encoder está acoplado a um circuito óptico HEDS-9700 que gera 
+uma onda quadrada na saída à medida que o encoder gira, conforme é 
+ilustrado na figura \ref{fig:HEDS-9700}. A roda guia está no centro da 
+parte traseira do robô e possui diâmetro de aproximadamente 6 
+centímetros e espessura de 2 centímetros. Todas as rodas são da 
+marca Schioppa. O robô também foi equipado com sensores de distância, 
+conforme descrito na seção \ref{sec:sensores}. Os outros componentes do robô estão listados a seguir:
 \begin{itemize}
   \item[-] 2 Motores Bosch FPG 12V;
   \item[-] Bateria Unybatt 12V-7,2 Ampére-hora;
@@ -111,19 +147,21 @@ O robô Bellator, como mencionado na seção \ref{sec:estpro}, foi reconstruído e a
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=0.6\textwidth]{./figs/HEDS-9700.png}
+  \includegraphics[width=0.5\textwidth]{./figs/HEDS-9700.png}
   \caption[Formas de onda de saída do encoder óptico]
   {Formas de onda de saída do encoder óptico.}
   \label{fig:HEDS-9700}
   \fonte{\cite{HEDS9700}}
 \end{figure}
 
-Uma imagem do robô, parcialmente montado, pode ser visualizada na figura \ref{bellator}.
+O robô montado pode ser visualizado na figura \ref{bellator}, que 
+ilustra a disposição dos sensores infravermelhos, rodas, baterias e 
+placas no chassi.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=0.8\textwidth]{./figs/bellator.jpg}
-  \caption[Robô Bellator parcialmente montado]{Robô Bellator parcialmente montado.}
+  \includegraphics[width=0.4\textwidth]{./figs/bellator.png}
+  \caption[Robô Bellator montado]{Robô Bellator montado.}
   \fonte{Autoria própria}
   \label{bellator}
 \end{figure}
@@ -131,7 +169,8 @@ Uma imagem do robô, parcialmente montado, pode ser visualizada na figura \ref{be
 \subsection{Placa de Roteamento}
 \label{sec:espplacaroteamento}
 
-A placa de roteamento é um componente desenvolvido com base na placa disponível do projeto Bellator. Como explicado na seção \ref{sec:recrobo}, a placa de roteamento recebida foi reprojetada e reconstruída pela equipe. As especificações da nova placa de roteamento são:
+A placa de roteamento é um componente desenvolvido com base na placa 
+disponível do projeto Bellator \cite{BELLATOR}. Como explicado na seção \ref{sec:recrobo}, a placa de roteamento recebida foi reprojetada e reconstruída pela equipe. O diagrama esquemático da placa pode ser observado na figura \ref{roteamentosch}. As especificações da placa de roteamento são:
 \begin{itemize}
     \item Dimensões: 5 x 9 cm;
     \item Trilhas de cobre de aproximadamente 1 mm;
@@ -139,8 +178,6 @@ A placa de roteamento é um componente desenvolvido com base na placa disponível 
     \item Buffer para PWM: 74LS244;
     \item Conectores para cabos flat, PWM, Sensores e Encoders.
 \end{itemize}
-
-O diagrama esquemático da placa descrita pode ser observado na figura \ref{roteamentosch}.
 
 \begin{figure}[!htb]
   \centering
@@ -154,4 +191,7 @@ O diagrama esquemático da placa descrita pode ser observado na figura \ref{rotea
 O projeto da placa, métodos de desenvolvimento, requisitos, entre outros foram descritos de forma detalhada na seção \ref{sec:desroteamento}.
 
 \subsection{Considerações}
-O robô Bellator foi indicado para esse projeto pois apresenta as capacidades de sensoriamento e movimentação adequadas para a plataforma robótica autônoma necessária para o estudo qualitativo dos algoritmos de navegação. 
+O robô Bellator reconstruído e adequado às necessidades do projeto apresentou as capacidades de sensoriamento e 
+movimentação adequadas para o estudo qualitativo dos algoritmos de 
+navegação. As etapas de reconstrução da plataforma foram descritas na seção 
+\ref{sec:recplat}.
