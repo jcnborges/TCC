@@ -5,7 +5,7 @@ Esta seção tem por objetivo apresentar a metodologia e elaboração dos testes dos
 
 \subsection{Elaboração dos Testes}
 
-A metodologia de elaboração dos testes da equipe visou possibilitar testes de sistema, verificando a funcionalidade básica dos algoritmos,  testes de comportamento visando eliminar erros de desenvolvimento e comportamentos indesejados para ambos os algoritmos e, finalmente, comparar o comportamento dos algoritmos submetidos às mesmas condições iniciais de teste. Ao longo dos testes, várias alterações foram realizadas tanto aos conjuntos fuzzy e regras de inferência do algoritmo de navegação fuzzy como aos conceitos e funções sigmóides do algoritmo baseado em FCM, antes de atingir a configuração final descrita nas seções \ref{sec:algfuzzy} e \ref{sec:algedfcm}.
+A metodologia de elaboração dos testes da equipe visou possibilitar testes de sistema, verificando a funcionalidade básica dos algoritmos,  testes de comportamento visando eliminar erros de desenvolvimento e comportamentos indesejados para ambos os algoritmos e, finalmente, comparar o comportamento dos algoritmos submetidos às mesmas condições iniciais de teste. Ao longo dos testes, várias alterações foram realizadas tanto aos conjuntos fuzzy e regras de inferência do algoritmo de navegação fuzzy quanto aos conceitos e funções sigmóides do algoritmo baseado em FCM, antes de atingir a configuração final descrita nas seções \ref{sec:algfuzzy} e \ref{sec:algedfcm}.
 
 Assim sendo, foram desenvolvidas três principais etapas de testes:
 \begin{enumerate}
@@ -28,9 +28,10 @@ Foram elaborados dois testes iniciais, o primeiro visando observar o deslocament
   \caption[Configuração do primeiro teste inicial.]
   {Configuração do primeiro teste inicial.}
   \label{algtest1}
+  \fonte{Autoria própria}
 \end{figure}
 
-A execução de ambos os algoritmos neste primeiro teste mostrou resultados satisfatórios. Ambos os algoritmos foram capazes de realizar o percurso, porém o algoritmo de navegação fuzzy mostrou-se excessivamente lento próximo aos obstáculos. Concluiu-se que isto ocorreu devido ao valor máximo das funções de pertinência ``Lento"~ e ``Médio", serem muito baixos. A função de pertinência ``Lento"~ e  apresentava um valor máximo de apenas 20\% da velocidade máxima e ``Médio"~ correspondia a 50\%. A partir desta observação, as funções de pertinência da velocidade foram alteradas para os novos valores, descritos na seção \ref{sec:algfuzzy} de 33\% para ``Lento"~ e 66\% para ``Médio". Após os ajustes, o algoritmo mostrou-se mais rápido no corredor, no mesmo teste.
+Ambos os algoritmos obtiveram resultados satisfatórios, sendo capazes de realizar o percurso sem colidir com os obstáculos. Contudo, o algoritmo de navegação fuzzy mostrou-se excessivamente lento próximo aos obstáculos. Concluiu-se que isto ocorreu devido ao valor máximo das funções de pertinência ``Lento"~ e ``Médio", serem muito baixos. A função de pertinência ``Lento"~ apresentava um valor máximo de apenas 20\% da velocidade máxima e ``Médio"~ correspondia a 50\%. A partir desta observação, as funções de pertinência da velocidade foram alteradas para os novos valores, descritos na seção \ref{sec:algfuzzy} de 33\% para ``Lento"~ e 66\% para ``Médio". Após os ajustes, o algoritmo mostrou-se mais rápido no corredor, no mesmo teste.
 
 \begin{figure}[H]
   \centering
@@ -38,6 +39,7 @@ A execução de ambos os algoritmos neste primeiro teste mostrou resultados satisf
   \caption[Configuração do segundo teste inicial.]
   {Configuração do segundo teste inicial.}
   \label{algtest2}
+  \fonte{Autoria própria}
 \end{figure}
 
 O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma barreira imediatamente no caminho do robô e encontrar a saída do corredor, logo após a barreira, como ilustrado na figura \ref{algtest2}. Ao executar este teste pela primeira vez, o algoritmo Fuzzy não foi capaz de fazer o desvio e encontrar a saída, devido a reação muito tardia e, ao mesmo tempo, muito forte. Já o algoritmo FCM foi capaz de realizar o trajeto sem alterações. A figura \ref{algtest2_caminho} apresenta o trajeto esperado, em verde, que é aproximadamente o mesmo que o realizado pelo algoritmo FCM, e o trajeto percorrido pelo algoritmo Fuzzy clássico, em vermelho.
@@ -47,16 +49,17 @@ O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma 
   \includegraphics[width=0.8\textwidth]{./figs/algtest2_caminho.png}
   \caption[Caminho percorrido pelo algoritmo Fuzzy (vermelho) e o caminho esperado (Verde).]
   {Caminhos percorridos no segundo teste inicial.}
-  \label{algtest2_caminho}
+  \label{algtest2_caminho} 
+  \fonte{Autoria própria}
 \end{figure}
 
-Para resolver este problema de reação tardia e tornar a navegação do algoritmo mais suave, a equipe aumentou a faixa de valores da função de pertinência da variável linguística perto, que era inicialmente 16 até 25 como distância de pertinência máxima e descida até pertinência nula na distância de 35 centímetros para os valores finais apresentados na figura \ref{fuzzygraph_des}, função p(d). Além disso, os conjuntos fuzzy ``ViraPoucoEsquerda" e ``ViraPoucoDireita", inexistentes na primeira versão, foram adicionados e utilizados nas regras de inferência da forma como foi apresentado na tabela \ref{tab:regrasinf}, visando iniciar a reação do robô aos obstáculos mais cedo. Estas alterações fizeram com que o algoritmo Fuzzy clássico realizasse o trajeto esperado, após novo teste no mesmo ambiente.
+Para resolver este problema de reação tardia e tornar a navegação do algoritmo Fuzzy mais suave (em relação as curvas), a equipe aumentou a faixa de valores da função de pertinência da variável linguística perto, que era inicialmente 16 até 25cm como distância de pertinência máxima e descida até pertinência nula na distância de 35 centímetros para os valores finais apresentados na figura \ref{fuzzygraph_des}, função p(d). Além disso, os conjuntos fuzzy ``ViraPoucoEsquerda" e ``ViraPoucoDireita", inexistentes na primeira versão, foram adicionados e utilizados nas regras de inferência da forma como foi apresentado na tabela \ref{tab:regrasinf}, visando iniciar a reação do robô aos obstáculos mais cedo. Estas alterações fizeram com que o algoritmo Fuzzy clássico realizasse o trajeto esperado, após novo teste no mesmo ambiente.
 
 \subsection{Testes Avançados}
 \label{sec:testesavan}
 %Corredor largo e estreito C300
 
-Os testes avançados desenvolvidos pela equipe visam observar e otimizar o comportamento dos algoritmos, ou seja, além da simples capacidade de desvio de obstáculos, observar as escolhas realizadas pelos algoritmos em ambientes com mais de uma possibilidade de navegação além da velocidade e agilidade do robô nestes ambientes, com atenção especial a situações específicas que podem levar o robô a ``travar" e parar de navegar.
+Os testes avançados desenvolvidos pela equipe visam observar e otimizar o comportamento dos algoritmos, ou seja, além da simples capacidade de desvio de obstáculos, observar as escolhas realizadas pelos algoritmos em ambientes com mais de uma possibilidade de navegação além da velocidade e agilidade do robô nestes ambientes, com atenção especial a situações específicas que podem levar o robô a ``travar"~e parar de navegar.
 
 A equipe montou duas situações distintas para cumprir estes objetivos: O primeiro em um corredor similar ao segundo teste inicial, porém mais longo e com mais obstáculos dispersos e o segundo em um corredor largo com obstáculos dispersos, provendo um ambiente aberto e imprevisível ao robô.
 
@@ -66,9 +69,10 @@ A equipe montou duas situações distintas para cumprir estes objetivos: O primeir
   \caption[Ilustração do primeiro teste avançado.]
   {Ilustração do primeiro teste avançado.}
   \label{algtestavancado_corredor}
+  \fonte {Autoria própria}
 \end{figure}
 
-O algoritmo fuzzy foi capaz de percorrer o primeiro teste avançado, ilustrado na figura \ref{algtestavancado_corredor}, retornando ao ponto de partida após 5 minutos. Durante o percurso, houve apenas uma pequena colisão com o obstáculo destacado em azul na figura acima. Neste experimento foi possível observar lentidão excessiva do robô próximo a obstáculos, levando a equipe a alterar a base de regras de inferência levemente, de forma a reduzir o numero de regras que contêm o conjunto fuzzy ``Lento" como saída, acelerando a navegação do robô no mesmo teste. O conjunto de regras final, obtido após as alterações feitas a partir deste experimento, pode ser observado na tabela \ref{tab:regrasinf}. O algoritmo FCM, em contrapartida, não foi capaz de percorrer o teste, apresentando indecisão ao aproximar-se do obstáculo destacado em vermelho na figura \ref{algtestavancado_corredor}. Isto ocorreu devido à disponibilidade de espaços iguais para o desvio deste obstáculo em ambas as opções de desvio, o que anulou a intensidade de PWM em ambas as rodas. O efeito de anulação é devido ao fato de as sigmóides utilizadas na ativação dos conceitos serem simétricas, conforme as equações \ref{eq:sig_frente} e \ref{eq:sig_tras}. Desse modo, existe um ponto no qual a distância registrada pelos sensores laterais esquerdo e direito geram valores nos conceitos de entrada, SE e SD, que fazem com que os conceitos de nível GDF, GDT, GEF, GET (ver a explicação desses conceitos na secção \ref{subsec:conceitos}) se igualem, ou seja, a tendência de girar a roda para frente é igual a tendência de girar a roda para trás, anulando, portanto, o PWM das rodas. Este problema foi corrigido através da implementação de um ``evento", específico para auxílio à navegação nesta situação, que permitiu que o FCM modificasse o peso das relações causais dinamicamente, conforme foi descrito na seção \ref{subsec:rel-causal}. Essa modificação retirou do FCM o comportamento simétrico que resultava na anulação dos PWMs e permitiu que o algoritmo resolvesse o problema de indecisão, completando o percurso, sem novas indecisões e travamentos, após nova execução do experimento.
+O algoritmo fuzzy foi capaz de percorrer o primeiro teste avançado, ilustrado na figura \ref{algtestavancado_corredor}, retornando ao ponto de partida após 5 minutos. Durante o percurso, houve apenas uma pequena colisão com o obstáculo destacado em azul na figura acima. Neste experimento foi possível observar lentidão excessiva do robô próximo a obstáculos, levando a equipe a alterar a base de regras de inferência levemente, de forma a reduzir o numero de regras que contêm o conjunto fuzzy ``Lento"~como saída de velocidade, acelerando a navegação do robô no mesmo teste. O conjunto de regras final, obtido após as alterações feitas a partir deste experimento, pode ser observado na tabela \ref{tab:regrasinf}. O algoritmo FCM, em contrapartida, não foi capaz de percorrer o teste, apresentando indecisão ao aproximar-se do obstáculo destacado em vermelho na figura \ref{algtestavancado_corredor}. Isto ocorreu devido à disponibilidade de espaços iguais para o desvio deste obstáculo em ambas as opções de desvio, o que anulou a intensidade de PWM em ambas as rodas. O efeito de anulação é devido ao fato de as sigmóides utilizadas na ativação dos conceitos serem simétricas, conforme as equações \ref{eq:sig_frente} e \ref{eq:sig_tras}. Desse modo, existe um ponto no qual a distância registrada pelos sensores laterais esquerdo e direito geram valores nos conceitos de entrada, SE e SD, que fazem com que os conceitos de nível GDF, GDT, GEF, GET (ver a explicação desses conceitos na secção \ref{subsec:conceitos}) se igualem, ou seja, a tendência de girar a roda para frente é igual a tendência de girar a roda para trás, anulando, portanto, o PWM das rodas. Este problema foi corrigido através da implementação de um ``evento", específico para auxílio à navegação nesta situação, que permitiu que o FCM modificasse o peso das relações causais dinamicamente, conforme foi descrito na seção \ref{subsec:rel-causal}. Essa modificação retirou do FCM o comportamento simétrico que resultava na anulação dos PWMs e permitiu que o algoritmo resolvesse o problema de indecisão, completando o percurso, sem novas indecisões e travamentos, após nova execução do experimento.
 
 \begin{figure}[H]
   \centering
@@ -76,9 +80,10 @@ O algoritmo fuzzy foi capaz de percorrer o primeiro teste avançado, ilustrado na
   \caption[Ilustração do segundo teste avançado.]
   {Ilustração do segundo teste avançado.}
   \label{algtestavancado_esparsos}
+  \fonte{Autoria própria}
 \end{figure}
 
-Após todas as correções realizadas até este ponto, a equipe elaborou um teste com diversos obstáculos esparsos e pontos de partida aleatórios, visando detectar quaisquer problemas e comportamentos indesejáveis remanescentes nos algoritmos de navegação. Em todas as execuções dos algoritmos neste ambiente, representado na figura \ref{algtestavancado_esparsos}, o algoritmo foi capaz de navegar sem indecisões e apenas raramente encostando em um obstáculo. Visto que não foi mais detectada a necessidade de correções e ajustes específicos, este experimento permitiu concluir que os algoritmos estavam prontos para serem comparados em novos experimentos, descritos na seção \ref{sec:testescomp}.
+Após todas as correções realizadas até este ponto, a equipe elaborou um teste com diversos obstáculos esparsos e pontos de partida aleatórios, visando detectar quaisquer problemas e comportamentos indesejáveis remanescentes nos algoritmos de navegação. Em todas as execuções dos algoritmos neste ambiente, representado na figura \ref{algtestavancado_esparsos}, o algoritmo foi capaz de navegar sem indecisões e apenas raramente encostando em um obstáculo. Visto que não foi mais detectada a necessidade de correções e ajustes específicos, este experimento permitiu concluir que os algoritmos estavam prontos para serem comparados em novos experimentos, descritos na seção a seguir.
 
 \subsection{Testes Comparativos}
 \label{sec:testescomp}
@@ -91,10 +96,11 @@ Os testes comparativos são, após o desenvolvimento, correção e aprimoramento de 
   \caption[Ilustração do corredor sem saída.]
   {Ilustração do corredor sem saída.}
   \label{algtestU}
+  \fonte{Autoria própria}
 \end{figure}
 
 O primeiro teste comparativo consiste de um corredor sem saída, observável na figura \ref{algtestU}, visando comparar o comportamento de ambos os algoritmos em uma situação comum de indecisão, na qual só é possível sair através do mesmo caminho de entrada no corredor. Caso o algoritmo não seja capaz de detectar esta situação, poderá ficar preso.
-Neste experimento, ambos os algoritmos de navegação foram capazes de realizar o retorno e sair do corredor. O algoritmo Fuzzy clássico entrou no corredor no centro do mesmo, realizou um giro de 180º aproximadamente e saiu do corredor em um total de 26 segundos, enquanto que o algoritmo baseado em FCM realizou pequenas conversões ao longo da borda do corredor antes de encontrar a saída, o que levou cerca de 48 segundos. O caminho aproximado percorrido por ambos algoritmos pode ser visualizado no esboço da figura \ref{algtestU_caminhos}.
+Neste experimento, ambos os algoritmos de navegação foram capazes de realizar o retorno e sair do corredor. O algoritmo Fuzzy clássico entrou no corredor no centro do mesmo, realizou um giro de 180º aproximadamente e saiu do corredor em um total de 26 segundos, enquanto que o algoritmo baseado em FCM realizou pequenas conversões ao longo da borda do corredor antes de encontrar a saída, o que levou cerca de 48 segundos. O caminho aproximado percorrido por ambos algoritmos pode ser visualizado no esboço da figura \ref{algtestU_caminhos}, onde o caminho executado pelo algoritmo Fuzzy está em vermelho e o FCM em azul.
 
 \begin{figure}[H]
   \centering
@@ -102,14 +108,15 @@ Neste experimento, ambos os algoritmos de navegação foram capazes de realizar o 
   \caption[Esboço do caminho percorrido pelo Fuzzy(Vermelho) e FCM(Azul).]
   {Esboço dos caminhos percorridos no primeiro teste comparativo.}
   \label{algtestU_caminhos}
+  \fonte{Autoria própria}
 \end{figure}
 
 Analisando este resultado, pode-se observar que o algoritmo Fuzzy clássico apresentou facilidade em retornar e sair do corredor. Isto deve-se à tendência de virar para a direita quando a entrada do mecanismo de inferência é ``Perto" para o sensor frontal e igual nos sensores laterais. Esta tendência foi introduzida visando evitar a parada do robô em situações similares a esta, e foi capaz de resolver esse experimento rapidamente, como esperado. As três regras de inferência responsáveis por esta tendência, retiradas da tabela \ref{tab:regrasinf}, são:
 
 \begin{center}
-PertoEsquerda, Perto, PertoDireita => Lento, ViraDireita \\
-MedioEsquerda, Perto, MedioDireita => Lento, ViraDireita \\
-LongeEsquerda, Perto, LongeDireita => Lento, ViraDireita
+PertoEsquerda, Perto, PertoDireita $\implies$ Lento, ViraDireita \\
+MedioEsquerda, Perto, MedioDireita $\implies$ Lento, ViraDireita \\
+LongeEsquerda, Perto, LongeDireita $\implies$ Lento, ViraDireita
 \end{center}
 
 Em compensação, o algoritmo baseado em FCM apresentou dificuldades nesta situação. Na figura \ref{algtestU_caminhos} é visível que o algoritmo FCM tratou inicialmente o corredor como um obstáculo, tentando desviar-se do mesmo pela esquerda. Ao detectar obstáculos em todos os sensores, o evento, implementado como solução do problema detectado no segundo teste avançado, descrito em \ref{sec:testesavan}, fazendo com que o robô retorne e tente, novamente, fazer o desvio do obstáculo pela direita. Porém, na segunda tentativa, é detectada maior disponibilidade de espaço à direita do robô, fazendo com que o mesmo contorne o corredor e encontre a saída.
@@ -120,6 +127,7 @@ Em compensação, o algoritmo baseado em FCM apresentou dificuldades nesta situaçã
   \caption[Esboço do segundo teste comparativo.]
   {Esboço do segundo teste comparativo.}
   \label{algtestfinal}
+  \fonte{Autoria própria}
 \end{figure}
 
 O segundo teste comparativo foi montado em um corredor longo, similarmente ao primeiro teste avançado, porém com mais situações que possam causar indecisões. Este teste possibilitou a observação da capacidade de decisão, evasão de obstáculos e tempo de ida e volta a partir do ponto de partida, visível na figura acima, para ambos os algoritmos. O algoritmo fuzzy foi capaz de percorrer o experimento em 4 minutos e 36 segundos, colidindo suavemente com um dos obstáculos, enquanto que o FCM fez seu percurso em 4 minutos e 2 segundos, colidindo com dois obstáculos que compunham a parede do final do corredor enquanto tentava encontrar a saída do local. A figura abaixo mostra os caminhos percorridos por cada algoritmo, realçando os obstáculos com os quais houve colisão, sendo vermelho para o Fuzzy clássico e azul para o FCM.
@@ -130,6 +138,7 @@ O segundo teste comparativo foi montado em um corredor longo, similarmente ao pr
   \caption[Esboço do caminho percorrido pelo Fuzzy(Vermelho) e FCM(Azul).]
   {Esboço dos caminhos percorridos no primeiro teste comparativo.}
   \label{algtestfinal_caminhos}
+  \fonte{Autoria própria}
 \end{figure}
 
 Neste experimento foi notável a diferença de cerca de 14\% no tempo total levado pelo algoritmo fuzzy para percorrer o experimento em relação ao algoritmo FCM, apesar da colisão com os obstáculos que demarcavam o final da área de testes e da dificuldade do algoritmo FCM em encontrar a saída deste local, circulado em azul na figura \ref{algtestfinal_caminhos}. Esta dificuldade foi causada pela mesma situação encontrada pelo algoritmo no experimento anterior, no corredor sem saída. Ao tentar desviar do obstáculo pela esquerda, o algoritmo FCM demorou cerca de 30 segundos para detectar a impossibilidade do desvio pela esquerda e voltar para o caminho correto. Se desconsiderarmos esta situação e os 30 segundos de atraso causados pela mesma, pode-se observar que o algoritmo FCM percorreu o restante do experimento cerca de 23\% mais rapidamente que o algoritmo Fuzzy clássico, sem pausas prolongadas. O algoritmo Fuzzy, apesar de ter colidido suavemente com um obstáculo, demarcado em vermelho na figura \ref{algtestfinal_caminhos}, mostrou-se mais cauteloso, não apresentando problemas durante o experimento como um todo. A colisão pode ser explicada devido à tentativa de desviar da parede, que fez com que o obstáculo aparecesse subitamente nos sensores do robô. Apenas o parafuso da roda encostou no obstáculo, deslocando a caixa em menos de 5 centímetros.
