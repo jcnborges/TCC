@@ -525,6 +525,10 @@ LongeEsquerda & Longe & LongeDireita & Rapido & Reto \\
 
 Finalmente, as regras definidas podem ser utilizadas para realizar as inferências. A bilioteca FLIE recebe os dados de entrada não fuzzificados, os fuzzifica, atribuindo valores de pertinência para cada categoria definida pelo desenvolvedor e determina o nível de ativação de cada regra de inferência definida. Após esta etapa, a FLIE defuzzifica o resultado seguindo o modelo de defuzzificação escolhido e retorna o resultado final, que pode ser utilizado para controlar a navegação do robô.
 
+\subsubsection{Considerações}
+
+O algoritmo fuzzy produziu o comportamento adequado em navegação robótica permitindo que o robô fosse capaz de desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou o robô a navegar de forma autônoma recebendo como entrada as leituras dos sensores. A versão descrita nessa seção foi produzida após a execução e conclusão dos testes iniciais e avançados, seções \ref{sec:testesini} e \ref{sec:testesavan}, respectivamente. Durante esses testes, o algoritmo foi submetido a uma série de experimentos visando detectar erros de navegação, isolar e corrigí-los. Esse processo foi realizado repetidas vezes e as funções de pertinência e regras fuzzy foram aprimorados gradualmente. A tabela de funções, tabela \ref{tab:varsfuzzy}, e a tabela de regras, tabela \ref{tab:regrasinf}, representa a versão utilizada nos testes comparativos, descritos na seção \ref{sec:testescomp}, que foi utilizada para obtenção do resultado final. 
+
 \subsection{Algoritmo de Navegação Baseado em FCM}
 \label{sec:algedfcm}
 %Descrição da adaptação do código matlab, utilização, conceitos.
@@ -554,7 +558,7 @@ Os movimentos produzidos na segunda situação são:
 
 Desse modo, o algoritmo controla a direção do robô calculando a ``intensidade de girar"~ a roda direita para trás ou para frente e a ``intensidade de girar"~ a roda esquerda para trás ou para frente, sendo que esse cálculo recebe como entradas as distâncias registradas pelos sensores de distância na lateral direita, na frente e na lateral esquerda do robô.
 
-\subsection{Conceitos}
+\subsubsection{Conceitos}
 \label{subsec:conceitos}
 Primeiramente, definiu-se a entrada do sistema de navegação, a qual correspondeu às leituras dos sensores de distância. Desse modo, foram criados três conceitos de entrada:
 
@@ -599,7 +603,7 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 \item RE Out - Representa o nível percentual de potência da roda esquerda.
 \end{enumerate}
 
-\subsection{Relações Causais}
+\subsubsection{Relações Causais}
 \label{subsec:rel-causal}
 Os conceitos foram interligados através das relações causais ilustradas na figura \ref{fig:fcm-proposto}. Esse FCM conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out.
 
@@ -768,7 +772,7 @@ A transição de estado é feita através de uma regra ``SE-ENTÃO"~, sendo que valor
 	\label{tab:limiar-values}
 \end{table}
 
-\subsection{Ativação dos Conceitos}
+\subsubsection{Ativação dos Conceitos}
 
 As equações \ref{eq:gdf} a \ref{eq:get} determinam a ativação dos conceitos de nível GDF, GDT, GEF e GET, respectivamente. Essa ativação é gradual e herda a característica de suavidade das funções sigmoidais \ref{eq:sig_frente} e \ref{eq:sig_tras}. Os conceitos de saída $RD_{Out}$ e $RE_{Out}$ são uma média ponderada entre os conceitos ``girar para frente"~ e ``girar para trás", aplicada às rodas direita e esquerda, conforme as equações \ref{eq:rd_out} e \ref{eq:re_out}, respectivamente.
 
@@ -802,7 +806,10 @@ RD_{Out}=100 \times \frac {w_{11}GDF-w_{12}GDT} {FORTE}
 RD_{Out}=100 \times \frac {w_{13}GEF-w_{14}GET} {FORTE}
 \end{equation}
 
+\subsubsection{Considerações}
+
+O FCM projetado ofereceu a capacidade de o robô desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou o robô a navegar de forma autônoma recebendo como entrada as leituras dos sensores. Contudo, a versão final do FCM foi obtida após diversos testes, nos quais erros de navegação foram encontrados, isolados e corrigidos repetidas vezes. Nesse processo, os pesos das relações causais foram modificados até chegarem aos valores das tabelas \ref{tab:fcm-relacoes-frente} e \ref{tab:fcm-relacoes-tras}. A necessidade de implementação de um FCM com evento surgiu durante a execução de um experimento dos testes avançados, como é descrito na seção \ref{sec:testesavan}. O evento foi implementado para resolver especificamente aquele problema de indecisão. Com isso, a versão final do projeto de FCM apresentada nessa seção foi capaz de resolver os problemas propostos nos experimentos dos testes comparativos, seção \ref{sec:testescomp}, gerando resultados adequados para a comparação com o algoritmo fuzzy, apresentado na seção \ref{sec:algfuzzy}.
+
 \input{testesresultados}
 
-\section{Considerações}
 
