@@ -71,7 +71,7 @@ O algoritmo fuzzy foi capaz de percorrer o primeiro teste avançado, ilustrado na
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{./figs/algtestavancado_esparsos.png}
+  \includegraphics[width=1.0\textwidth]{./figs/algtestavancado_esparsos.png}
   \caption[Ilustração do segundo teste avançado.]
   {Ilustração do segundo teste avançado.}
   \label{algtestavancado_esparsos}
@@ -111,7 +111,7 @@ MedioEsquerda, Perto, MedioDireita => Lento, ViraDireita \\
 LongeEsquerda, Perto, LongeDireita => Lento, ViraDireita
 \end{center}
 
-Em compensação, o algoritmo baseado em FCM apresentou dificuldades nesta situação. %Explicar
+Em compensação, o algoritmo baseado em FCM apresentou dificuldades nesta situação. Na figura \ref{algtestU_caminhos} é visível que o algoritmo FCM tratou inicialmente o corredor como um obstáculo, tentando desviar-se do mesmo pela esquerda. Ao detectar obstáculos em todos os sensores, o evento, implementado como solução do problema detectado no segundo teste avançado, descrito em \ref{sec:testesavan}, fazendo com que o robô retorne e tente, novamente, fazer o desvio do obstáculo pela direita. Porém, na segunda tentativa, é detectada maior disponibilidade de espaço à direita do robô, fazendo com que o mesmo contorne o corredor e encontre a saída.
 
 \begin{figure}[H]
   \centering
@@ -121,14 +121,14 @@ Em compensação, o algoritmo baseado em FCM apresentou dificuldades nesta situaçã
   \label{algtestfinal}
 \end{figure}
 
-O segundo teste comparativo foi montado em um corredor longo, similarmente ao primeiro teste avançado, porém com mais situações que possam causar indecisões. Este teste possibilitou a observação da capacidade de decisão, evasão de obstáculos e tempo de ida e volta a partir do ponto de partida, visível na figura acima, para ambos os algoritmos. O algoritmo fuzzy foi capaz de percorrer o experimento em 4 minutos e 36 segundos, colidindo suavemente com um dos obstáculos, enquanto que o FCM fez seu percurso em 4 minutos e 2 segundos, colidindo com dois obstáculos que compunham a parede do final do corredor. A figura abaixo mostra os caminhos percorridos por cada algoritmo, realçando os obstáculos com os quais houve colisão, sendo vermelho para o Fuzzy clássico e azul para o FCM.
+O segundo teste comparativo foi montado em um corredor longo, similarmente ao primeiro teste avançado, porém com mais situações que possam causar indecisões. Este teste possibilitou a observação da capacidade de decisão, evasão de obstáculos e tempo de ida e volta a partir do ponto de partida, visível na figura acima, para ambos os algoritmos. O algoritmo fuzzy foi capaz de percorrer o experimento em 4 minutos e 36 segundos, colidindo suavemente com um dos obstáculos, enquanto que o FCM fez seu percurso em 4 minutos e 2 segundos, colidindo com dois obstáculos que compunham a parede do final do corredor enquanto tentava encontrar a saída do local. A figura abaixo mostra os caminhos percorridos por cada algoritmo, realçando os obstáculos com os quais houve colisão, sendo vermelho para o Fuzzy clássico e azul para o FCM.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{./figs/algtestfinal_caminhos.png}
+  \includegraphics[width=1.0\textwidth]{./figs/algtestfinal_caminhos.png}
   \caption[Esboço do caminho percorrido pelo Fuzzy(Vermelho) e FCM(Azul).]
   {Esboço dos caminhos percorridos no primeiro teste comparativo.}
   \label{algtestfinal_caminhos}
 \end{figure}
 
-%Análise
+Neste experimento foi notável a diferença de cerca de 14\% no tempo total levado pelo algoritmo fuzzy para percorrer o experimento em relação ao algoritmo FCM, apesar da colisão com os obstáculos que demarcavam o final da área de testes e da dificuldade do algoritmo FCM em encontrar a saída deste local, circulado em azul na figura \ref{algtestfinal_caminhos}. Esta dificuldade foi causada pela mesma situação encontrada pelo algoritmo no experimento anterior, no corredor sem saída. Ao tentar desviar do obstáculo pela esquerda, o algoritmo FCM demorou cerca de 30 segundos para detectar a impossibilidade do desvio pela esquerda e voltar para o caminho correto. Se desconsiderarmos esta situação e os 30 segundos de atraso causados pela mesma, pode-se observar que o algoritmo FCM percorreu o restante do experimento cerca de 23\% mais rapidamente que o algoritmo Fuzzy clássico. O algoritmo Fuzzy, apesar de ter colidido suavemente com um obstáculo, demarcado em vermelho na figura \ref{algtestfinal_caminhos}, mostrou-se mais cauteloso. A colisão pode ser explicada devido à tentativa de desviar da parede, que fez com que o obstáculo aparecesse subitamente nos sensores do robô. Apenas o parafuso da roda encostou no obstáculo, deslocando a caixa em menos de 5 centímetros.
