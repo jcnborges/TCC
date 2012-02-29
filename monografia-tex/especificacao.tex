@@ -5,29 +5,11 @@
 Esta seção visa descrever a composição de hardware do robô 
 Bellator após a reconstrução e adequação do mesmo. Essa decrição 
 inclui a apresentação dos sensores infravermelhos, enconders 
-ópticos, placa microcontrolada C8051F340DK, placa de roteamento e 
-placa TS-7260.
+ópticos, placa microcontrolada C8051F340DK, placa TS-7260, placa de roteamento e a apresentação do produto final, que são esses componentes fixados no chassi do robô.
 
 \subsection{Sensor IR 2Y0A02F98}
 \label{sec:sensores}
-Com o objetivo de auxiliar a navegação do robô e fazer varreduras do 
-ambiente, foram fixados cinco sensores analógicos de distância, por 
-infravermelho, modelo 2Y0A02F98 da Sharp, dispostos uniformemente nas 
-laterais do chassi, conforme ilustra a figura 
-\ref{fig:dispsensor}. A documentação relacionada a esse sensor foi 
-retirada de \cite{BELLATOR} e adaptada à nova situação. Esse sensor 
-mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva}. O código 
-para conversão do sinal analógico em digital e envio dessa leitura 
-por comunição serial está de acordo com o projeto Bellator 
-\cite{BELLATOR}. 
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./figs/dispsensor.png}
-  \caption[Disposição dos sensores de distância]{Disposição dos sensores de distância.}
-  \fonte{Autoria própria}
-  \label{fig:dispsensor}
-\end{figure}
+O sensor 2Y0A02F98 é um sensor analógico infravermelho e mede distâncias no intervalo de 20 a 150 centímetros \cite{datasheetsensor}, sendo que os valores de tensão de resposta do sensor seguem a curva mostrada na figura \ref{curva}. Como o valor de leitura é analógico, foi necessário que a placa C8051F340DK fosse programada para converter essa leitura em digital. O código de conversão está de acordo com o projeto Bellator \cite{BELLATOR} e também efetua a transferência desses dados por comunicação serial. 
 
 \begin{figure}[!htb]
   \centering
@@ -37,11 +19,7 @@ por comunição serial está de acordo com o projeto Bellator
   \label{curva}
 \end{figure}
 
-O modelo é pouco influenciado pelas cores dos objetos refletidos, isto 
-devido ao método de medição baseado em triangulação 
-\cite{datasheetsensor}. O sensor possui uma tensão de alimentação 
-recomendada na faixa de 4,5 a 5,5 V, a qual não é atendida pela 
-plataforma utilizada \cite{datasheetkit}, sendo necessária utilização de alimentação especial. Essa alimentação é realizada através de um circuito regulador de tensão, o qual utiliza alimentação da própria bateria acoplada ao robô. O cálculo dos valores dos resistores foram baseados na equação \ref{eqRegulador} e o diagrama esquemático do regulador de tensão é mostrado na figura \ref{regulador}.
+O modelo é pouco influenciado pelas cores dos objetos refletidos, isso é devido ao método de medição baseado em triangulação \cite{datasheetsensor}. O sensor possui uma tensão de alimentação recomendada na faixa de 4,5 a 5,5 V \cite{datasheetkit}. Como a bateria disponível é de 12 V, foi necessária utilização de um regulador de tensão. O cálculo dos valores dos resistores foram baseados na equação \ref{eqRegulador} e o diagrama esquemático do regulador é mostrado na figura \ref{regulador}. Esse circuito compõe uma das partes da placa de roteamento, conforme mostrado na seção \ref{sec:espplacaroteamento}.
 
 \begin{equation}
 \label{eqRegulador}
@@ -58,18 +36,30 @@ V_{OUT} = 1,25V (1 + R_{2}/R_{1})
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=0.8\textwidth]{./figs/dimsens.png}
+  \includegraphics[width=0.5\textwidth]{./figs/dimsens.png}
   \caption[Dimensões do sensor GP2Y0A02F98YK]{Dimensões do sensor GP2Y0A02F98YK.}
   \fonte{\cite{datasheetsensor}}
   \label{dimsens}
 \end{figure}
 
-As respectivas dimensões do sensor IR, em milímetros, são mostradas na figura \ref{dimsens}. O modelo em questão é adequado ao projeto pois, como sua principal finalidade é a de auxiliar a navegação do robô em ambientes fechados, sua faixa de resposta de 20 a 150 centímetros é suficiente para detecção de objetos. Contudo, há a possibilidade de em um projeto futuro serem acrescentados outros tipos de sensores mais precisos voltados à medição de distâncias menores.
+As respectivas dimensões do sensor IR, em milímetros, são mostradas na figura \ref{dimsens}. O modelo em questão é adequado ao projeto pois apresenta dimensões compatíveis com o chassi do robô e, como a finalidade desses sensores é auxiliar a navegação do robô em ambientes fechados, a faixa de resposta é suficiente para detecção de objetos. Contudo, há a possibilidade de, em projetos futuros, acrescentar outros tipos de sensores mais precisos voltados à medição de distâncias menores.
+
+\subsection{Encoder Óptico HEDS-9700}
+\label{sec:heds9700}
+O encoder óptico HEDS-9700 é um circuito capaz de gerar uma onda quadrada à medida que um encoder de quadratura é rotacionado \cite{HEDS9700}. A curva de resposta desse sensor é ilustrada na figura \ref{fig:HEDS-9700}. Nessa figura são ilustrados dois canais A e B, havendo um defasamento de $\phi$ entre os sinais. Nesse projeto, foi utilizado apenas um dos canais. O encoder de quadratura utilizado na plataforma robótica está fixado no eixo de cada roda e apresenta 1800 pulsos por volta. A placa C8051F340DK foi programada para contar esses pulsos e fornecer uma medida odométrica para realimentação da velocidade. Essa programação é descrita na seção \label{sec:codmicro} e permite ajustar as rodas de forma independentes. Como a placa de roteamento do projeto de oficinas \ref{BELLATOR} não suportava a interface com esse encoder, foi projetada uma nova versão dessa placa, a qual é descrita na seção \ref{sec:espplacaroteamento}.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./figs/HEDS-9700.png}
+  \caption[Formas de onda de saída do encoder óptico]{Formas de onda de saída do encoder óptico.}
+  \label{fig:HEDS-9700}
+  \fonte{\cite{HEDS9700}}
+\end{figure}
 
 \subsection{C8051F340DK}
 \label{sec:C8051F340DK}
 
-O C8051F340 é uma unidade microcontroladora (MCU) equipada com um processador  da família 8051 e vários dispositivos periféricos dispostos em uma placa de circuito impresso. As especificações dessa unidade foram retiradas do relatório do projeto Bellator \cite{BELLATOR}. A C8051F340 possui as seguintes características \cite{datasheetkit}:
+O C8051F340 é uma unidade microcontroladora (MCU) equipada com um processador da família 8051 e vários dispositivos periféricos dispostos em uma placa de circuito impresso. As especificações dessa unidade foram retiradas do relatório do projeto Bellator \cite{BELLATOR}. O diagrama em blocos do kit é apresentado na figura \ref{dbloc}. A C8051F340 possui as seguintes características \cite{datasheetkit}:
 
 \begin{itemize}
   \item Conversor ADC 10 bits de até 200 ksps (amostras por segundo);
@@ -86,8 +76,6 @@ O C8051F340 é uma unidade microcontroladora (MCU) equipada com um processador  d
   \item Seleção de Clock interno de alta ou baixa velocidade ou clock externo.
 \end{itemize}
 
-O diagrama em blocos do kit, retirado do datasheet é apresentado na figura \ref{dbloc}.
-
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.8\textwidth]{./figs/dbloc.png}
@@ -99,7 +87,7 @@ O diagrama em blocos do kit, retirado do datasheet é apresentado na figura \ref{
 \subsection{Placa TS-7260}
 \label{sec:espts7260}
 
-A placa TS-7260 é um sistema embarcado equipado com um processador ARM e sistema operacional Linux. O sistema possui periféricos para realização de comunicação serial, ethernet, usb, entre outros. A lista a seguir descreve os componentes mais importantes para o projeto. Os dados, bem como a figura \ref{fotots}, foram retirados do datasheet \cite{TS-7260}.
+A placa TS-7260 é um sistema embarcado equipado com um processador ARM e sistema operacional Linux. O sistema possui periféricos para realização de comunicação serial, ethernet, usb, entre outros. A lista a seguir descreve os componentes relevantes para o projeto. Os dados, bem como a figura \ref{fotots}, foram retirados do datasheet \cite{TS-7260}.
 
 \begin{itemize}
   \item Processador ARM9 de 200MHz baseado no Cirrus EP9302
@@ -122,55 +110,10 @@ A placa TS-7260 é um sistema embarcado equipado com um processador ARM e sistema
 
 Mais informações sobre o sistema, bem como a documentação completa, estão disponíveis no manual da placa, disponível nas referências bibliográficas \cite{tsmanual}.
 
-\subsection{Robô Bellator}
-\label{sec:robobellator} 
-
-O robô Bellator, como mencionado na seção \ref{sec:estpro}, foi 
-reconstruído e adaptado ao projeto. O robô possui duas rodas de 
-tração e uma roda guia, conforme ilustrado na figura 
-\ref{fig:dispsensor}. As rodas de tração estão nas laterais da parte 
-dianteira do robô e possuem diâmetro de 20 centímetros e espessura 
-de aproximadamente 4 centímetros. Ambas possuem um encoder de 
-quadratura acoplado, o qual tem resolução de 1800 pulsos por volta. 
-Cada encoder está acoplado a um circuito óptico HEDS-9700 que gera 
-uma onda quadrada na saída à medida que o encoder gira, conforme é 
-ilustrado na figura \ref{fig:HEDS-9700}. A roda guia está no centro da 
-parte traseira do robô e possui diâmetro de aproximadamente 6 
-centímetros e espessura de 2 centímetros. Todas as rodas são da 
-marca Schioppa. O robô também foi equipado com sensores de distância, 
-conforme descrito na seção \ref{sec:sensores}. Os outros componentes do robô estão listados a seguir:
-\begin{itemize}
-  \item[-] 2 Motores Bosch FPG 12V;
-  \item[-] Bateria Unybatt 12V-7,2 Ampére-hora;
-  \item[-] Duas pontes H L 298.
-\end{itemize}
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./figs/HEDS-9700.png}
-  \caption[Formas de onda de saída do encoder óptico]
-  {Formas de onda de saída do encoder óptico.}
-  \label{fig:HEDS-9700}
-  \fonte{\cite{HEDS9700}}
-\end{figure}
-
-O robô montado pode ser visualizado na figura \ref{bellator}, que 
-ilustra a disposição dos sensores infravermelhos, rodas, baterias e 
-placas no chassi.
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.4\textwidth]{./figs/bellator.png}
-  \caption[Robô Bellator montado]{Robô Bellator montado.}
-  \fonte{Autoria própria}
-  \label{bellator}
-\end{figure}
-
 \subsection{Placa de Roteamento}
 \label{sec:espplacaroteamento}
 
-A placa de roteamento é um componente desenvolvido com base na placa 
-disponível do projeto Bellator \cite{BELLATOR}. Como explicado na seção \ref{sec:recrobo}, a placa de roteamento recebida foi reprojetada e reconstruída pela equipe. O diagrama esquemático da placa pode ser observado na figura \ref{roteamentosch}. As especificações da placa de roteamento são:
+A placa de roteamento é um componente desenvolvido com base na placa disponível do projeto Bellator \cite{BELLATOR}. Como explicado na seção \ref{sec:recrobo}, a placa de roteamento recebida foi reprojetada e reconstruída pela equipe. O diagrama esquemático da placa pode ser observado na figura \ref{roteamentosch}. As especificações da placa de roteamento são:
 \begin{itemize}
     \item Dimensões: 5 x 9 cm;
     \item Trilhas de cobre de aproximadamente 1 mm;
@@ -190,8 +133,33 @@ disponível do projeto Bellator \cite{BELLATOR}. Como explicado na seção \ref{sec
 
 O projeto da placa, métodos de desenvolvimento, requisitos, entre outros foram descritos de forma detalhada na seção \ref{sec:desroteamento}.
 
+\subsection{Robô Bellator}
+\label{sec:robobellator} 
+
+O robô Bellator, como mencionado na seção \ref{sec:estpro}, foi reconstruído e adaptado ao projeto. O robo consiste de um chassi de 40 cm de largura por 50 cm de comprimento, duas rodas de tração e uma roda guia, conforme ilustrado na figura \ref{fig:dispsensor}. As rodas de tração estão nas laterais da parte dianteira do robô e possuem diâmetro de 20 cm e largura de 4 cm. Ambas possuem o encoder de óptico HEDS-9700, descrito na seção \ref{sec:heds9700}, fixados nos respectivos eixos. A roda guia está no centro da parte traseira do robô e possui diâmetro de aproximadamente 6 centímetros e espessura de 2 centímetros. Todas as rodas são da marca Schioppa e chassi do robô permanece a 3 cm da superfície do solo. Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, foram fixados cinco sensores do modelo 2Y0A02F98, descrito na seção \ref{sec:sensores}, dispostos uniformemente nas laterais do chassi, conforme ilustra a figura \ref{fig:dispsensor}. Os outros componentes do robô estão listados a seguir:
+\begin{itemize}
+  \item[-] 2 Motores Bosch FPG 12V;
+  \item[-] Bateria Unybatt 12V-7,2 Ampére-hora;
+  \item[-] Duas pontes H L 298.
+\end{itemize}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.4\textwidth]{./figs/dispsensor.png}
+  \caption[Disposição dos sensores infravermelhos e rodas]{Disposição dos sensores infravermelhos e rodas.}
+  \fonte{Autoria própria}
+  \label{fig:dispsensor}
+\end{figure}
+
+A plataforma transporta as placas do sistema microcontrolado C8051F340DK, descrito na seção \ref{sec:C8051F340DK}, do sistema embarcado TS-7260, descrito na seção \ref{sec:espts7260} e a placa de roteamento, descrita na seção \ref{sec:espplacaroteamento}. O robô montado pode ser visualizado na figura \ref{bellator}, que ilustra a disposição dos sensores infravermelhos, rodas, baterias e placas no chassi.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.4\textwidth]{./figs/bellator.png}
+  \caption[Robô Bellator montado]{Robô Bellator montado.}
+  \fonte{Autoria própria}
+  \label{bellator}
+\end{figure}
+
 \subsection{Considerações}
-O robô Bellator reconstruído e adequado às necessidades do projeto apresentou as capacidades de sensoriamento e 
-movimentação adequadas para o estudo qualitativo dos algoritmos de 
-navegação. As etapas de reconstrução da plataforma foram descritas na seção 
-\ref{sec:recplat}.
+O robô Bellator reconstruído e adequado às necessidades do projeto apresentou as capacidades de sensoriamento e movimentação adequadas para o estudo qualitativo dos algoritmos de navegação. As etapas de reconstrução da plataforma foram descritas na seção \ref{sec:recplat}.
