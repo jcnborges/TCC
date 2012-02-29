@@ -1,6 +1,6 @@
 %---------- Especificações do hardware do robô ----------
 \section{Especificações do Robô}
-\label{chap:esprob}
+\label{sec:esprob}
 
 Esta seção visa descrever a composição de hardware do robô 
 Bellator após a reconstrução e adequação do mesmo. Essa decrição 
@@ -46,7 +46,7 @@ As respectivas dimensões do sensor IR, em milímetros, são mostradas na figura \r
 
 \subsection{Encoder Óptico HEDS-9700}
 \label{sec:heds9700}
-O encoder óptico HEDS-9700 é um circuito capaz de gerar uma onda quadrada à medida que um encoder de quadratura é rotacionado \cite{HEDS9700}. A curva de resposta desse sensor é ilustrada na figura \ref{fig:HEDS-9700}. Nessa figura são ilustrados dois canais A e B, havendo um defasamento de $\phi$ entre os sinais. Nesse projeto, foi utilizado apenas um dos canais. O encoder de quadratura utilizado na plataforma robótica está fixado no eixo de cada roda e apresenta 1800 pulsos por volta. A placa C8051F340DK foi programada para contar esses pulsos e fornecer uma medida odométrica para realimentação da velocidade. Essa programação é descrita na seção \label{sec:codmicro} e permite ajustar as rodas de forma independentes. Como a placa de roteamento do projeto de oficinas \cite{BELLATOR} não suportava a interface com esse encoder, foi projetada uma nova versão dessa placa, a qual é descrita na seção \ref{sec:espplacaroteamento}.
+O encoder óptico HEDS-9700 é um circuito capaz de gerar uma onda quadrada à medida que um encoder de quadratura é rotacionado \cite{HEDS9700}. A curva de resposta desse sensor é ilustrada na figura \ref{fig:HEDS-9700}. Nessa figura são ilustrados dois canais A e B, havendo um defasamento de $\phi$ entre os sinais. Nesse projeto, foi utilizado apenas um dos canais. O encoder de quadratura utilizado na plataforma robótica está fixado no eixo de cada roda e apresenta 1800 pulsos por volta. A placa C8051F340DK foi programada para contar esses pulsos e fornecer uma medida odométrica para realimentação da velocidade. Essa programação é descrita na seção \ref{sec:codmicro} e permite ajustar as rodas de forma independentes. Como a placa de roteamento do projeto de oficinas \cite{BELLATOR} não suportava a interface com esse encoder, foi projetada uma nova versão dessa placa, a qual é descrita na seção \ref{sec:espplacaroteamento}.
 
 \begin{figure}[!htb]
   \centering
