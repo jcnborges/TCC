@@ -90,7 +90,7 @@ Valor da conversão & Distância (cm) \\
 A partir destes valores, foi realizada uma interpolação polinomial para obtenção da equação aproximada
 da curva. O grau do polinômio interpolador escolhido foi o de grau 4, que aproximou-se bem da curva
 real (medida), conforme é possível visualizar na figura~\ref{fig:curvasensores}, onde o eixo das abscissas
-contém os valores de conversão, e o eixo das ordenadas a distância correspondente. Segue a equação 
+contém os valores de conversão, e o eixo das ordenadas a distância correspondente. Segue a equação
 da interpolação polinomial:
 
 \begin{equation}
@@ -533,7 +533,7 @@ Finalmente, as regras definidas podem ser utilizadas para realizar as inferência
 
 \subsubsection{Considerações}
 
-O algoritmo fuzzy produziu o comportamento adequado em navegação robótica permitindo que o robô fosse capaz de desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou o robô a navegar de forma autônoma recebendo como entrada as leituras dos sensores. A versão descrita nessa seção foi produzida após a execução e conclusão dos testes iniciais e avançados, seções \ref{sec:testesini} e \ref{sec:testesavan}, respectivamente. Durante esses testes, o algoritmo foi submetido a uma série de experimentos visando detectar erros de navegação, isolá-los e corrigí-los. Esse processo foi realizado repetidas vezes e as funções de pertinência e regras fuzzy foram aprimorados gradualmente. A tabela de funções, tabela \ref{tab:varsfuzzy}, e a tabela de regras, tabela \ref{tab:regrasinf}, representam a versão utilizada nos testes comparativos, descritos na seção \ref{sec:testescomp}, que foi utilizada para obtenção do resultado final. 
+O algoritmo fuzzy produziu o comportamento adequado em navegação robótica permitindo que o robô fosse capaz de desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou o robô a navegar de forma autônoma recebendo como entrada as leituras dos sensores. A versão descrita nessa seção foi produzida após a execução e conclusão dos testes iniciais e avançados, seções \ref{sec:testesini} e \ref{sec:testesavan}, respectivamente. Durante esses testes, o algoritmo foi submetido a uma série de experimentos visando detectar erros de navegação, isolá-los e corrigí-los. Esse processo foi realizado repetidas vezes e as funções de pertinência e regras fuzzy foram aprimorados gradualmente. A tabela de funções, tabela \ref{tab:varsfuzzy}, e a tabela de regras, tabela \ref{tab:regrasinf}, representam a versão utilizada nos testes comparativos, descritos na seção \ref{sec:testescomp}, que foi utilizada para obtenção do resultado final.
 
 \subsection{Algoritmo de Navegação Baseado em FCM}
 \label{sec:algedfcm}
@@ -613,7 +613,7 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 \label{subsec:rel-causal}
 Os conceitos foram interligados através das relações causais ilustradas na figura \ref{fig:fcm-proposto}. Esse FCM conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\begin{tikzpicture}[node distance=1.3cm,>=stealth',bend angle=45,auto]
 
@@ -687,7 +687,7 @@ Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema 
 \begin{table}[htb!]
 	\centering
 	\caption[Relações causais do controlador FCM proposto (Estado = FRENTE)]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		
-	\begin{tabular}[!htb]{ l l l l }
+	\begin{tabular}[H]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
 	  \hline
@@ -716,7 +716,7 @@ Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema 
 \begin{table}[htb!]
 	\centering
 	\caption[Relações causais do controlador FCM proposto (Estado = TRÁS)]{Relações causais do controlador FCM proposto (Estado = TRÁS).}		
-	\begin{tabular}[!htb]{ l l l l }
+	\begin{tabular}[H]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
 	  \hline
@@ -745,7 +745,7 @@ Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema 
 \begin{table}[htb!]
 	\centering
 	\caption[Valor numérico dos pesos]{Valor numérico dos pesos.}		
-	\begin{tabular}[!htb]{ l l l l }
+	\begin{tabular}[H]{ l l l l }
 	  \hline
 	  Intensidade & Valor numérico \\
 	  \hline
@@ -767,7 +767,7 @@ A transição de estado é feita através de uma regra ``SE-ENTÃO"~, sendo que os va
 \begin{table}[htb!]
 	\centering
 	\caption[Valor numérico dos limiares L0 e L1]{Valor numérico dos limiares L0 e L1.}		
-	\begin{tabular}[!htb]{ l l l l }
+	\begin{tabular}[H]{ l l l l }
 	  \hline
 	  Limiar & Valor numérico \\
 	  \hline

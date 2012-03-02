@@ -1,8 +1,8 @@
 \chapter{Fundamentação Teórica}
 \label{chap:fundteor}
 
-Este capítulo apresentará a fundamentação teórica, que consiste na 
-descrição do estado inicial robô Bellator, com uma visão geral do 
+Este capítulo apresentará a fundamentação teórica, que consiste na
+descrição do estado inicial robô Bellator, com uma visão geral do
 projeto no qual esse robô estivera em uso, a descrição do material entregue à equipe, a especificação do robô após a reconstrução e adequação, a apresentação dos estudos de Lógica Fuzzy e FCM (\emph{Fuzzy Cognitive Maps}).
 
 %---------- Estado inicial do Projeto ----------
@@ -15,7 +15,7 @@ Esta seção visa descrever com quais recursos a equipe iniciou a execução do trab
 
 O robô Bellator, disponibilizado à equipe para realização deste trabalho, é proveniente de um projeto de Oficinas de Integração 3, que visou a implementação de uma plataforma robótica controlada remotamente por joystick \cite{BELLATOR}. Esse projeto consistiu na implementação de um uma plataforma robótica dividida em três camadas: baixo nível, alto nível e supervisória. A camada de baixo nível era responsável por controlar os motores do robô e receber as leituras dos sensores. A camada de alto nível tinha como responsabilidades comunicar-se com a camada de baixo nível via conexão serial, fazer obtenção de vídeo através de uma webcam e comunicar-se com a camada supervisória através de uma conexão sem fio (para transmissão dos dados de vídeo captados pela webcam). Finalmente, a camada supervisória era responsável por receber os dados de vídeo, mostrar na tela para o usuário, e permitir o controle do robô remotamente através de um joystick. O diagrama esquemático da figura \ref{fig:diagsis} ilustra a configuração do projeto de oficinas, ponto de partida para a reconstrução do robô Bellator.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figs/diagsis.png}
 	\caption[Diagrama do projeto de oficinas]{Diagrama do projeto de oficinas.}
@@ -23,15 +23,15 @@ O robô Bellator, disponibilizado à equipe para realização deste trabalho, é prov
 	\label{fig:diagsis}
 \end{figure}
 
-A partir da figura \ref{fig:diagsis}, o funcionamento do projeto 
-Bellator pode ser explicado: a camada de baixo nível é composta pelo 
-robô Bellator, equipado com dois motores elétricos Bosch FPG 12V, 
-cinco sensores de distância ``2Y0A02F98"~ da Sharp, uma bateria 
-Unybatt 12V-7,2 Ampère hora, duas pontes H, dois encoders ópticos 
-HEDS-9700 e uma placa microcontrolada C8051F340, que é capaz de ler e 
+A partir da figura \ref{fig:diagsis}, o funcionamento do projeto
+Bellator pode ser explicado: a camada de baixo nível é composta pelo
+robô Bellator, equipado com dois motores elétricos Bosch FPG 12V,
+cinco sensores de distância ``2Y0A02F98"~ da Sharp, uma bateria
+Unybatt 12V-7,2 Ampère hora, duas pontes H, dois encoders ópticos
+HEDS-9700 e uma placa microcontrolada C8051F340, que é capaz de ler e
 converter leituras de tensão analógicas dos sensores bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os níveis de PWM dos motores de acordo com os comandos recebidos.
 
-Os componentes de hardware do robô, o software de controle 
+Os componentes de hardware do robô, o software de controle
 supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340, utilizados no projeto de oficinas estão documentados em detalhes em \cite{BELLATOR}. Essa documentação foi utilizada como referência para a reconstrução e adequação do robô Bellator, com exceção das seções referentes ao software de controle supervisório, que não foi consultado. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram aproveitados.
 
 \subsection{Recebimento do Robô}
@@ -49,35 +49,35 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 \item Um PC Embarcado VIA EPIA ME60000 Mini-ITX.
 \end{itemize}
 
-O chassi do robô e os componentes acoplados foram a base da plataforma 
-robótica utilizada pela equipe e foram essenciais para a execução 
-desse trabalho. Os sensores de distância foram utilizados na 
-localização de obstáculos, fornecendo dados de entrada aos 
-algoritmos de navegação para tomada de decisão e determinação de 
-ações de controle. Os encoders foram utilizados para fornecer uma 
-realimentação odométrica para ajustar a velocidade das rodas. A 
-placa microcontrolada foi utilizada para realizar o controle de baixo 
-nível do robô, que foram: cionamento dos motores, conversão 
+O chassi do robô e os componentes acoplados foram a base da plataforma
+robótica utilizada pela equipe e foram essenciais para a execução
+desse trabalho. Os sensores de distância foram utilizados na
+localização de obstáculos, fornecendo dados de entrada aos
+algoritmos de navegação para tomada de decisão e determinação de
+ações de controle. Os encoders foram utilizados para fornecer uma
+realimentação odométrica para ajustar a velocidade das rodas. A
+placa microcontrolada foi utilizada para realizar o controle de baixo
+nível do robô, que foram: cionamento dos motores, conversão
 analógica para digital das leituras dos sensores, contagem dos pulsos dos encoders e comunicação serial com o hardware acoplado. As baterias foram utilizadas para alimentar os sensores, encoders, os motores e a placa microcontrolada.
 
-Alguns itens mencionados na seção \ref{sec:visgeral}, referentes ao 
-projeto de oficinas, não foram recebidos ou não foram utilizados 
-nesse trabalho. A webcam e joystick, por exemplo, não foram entregues 
-pois não foram necessários. O joystick não foi necessário porque 
-esse trabalho se trata de um sistema de navegação autônomo, que 
-descarta a necessidade de um controle remoto, e a webcam não foi 
-necessária porque esse trabalho não abordou a navegação através de 
-imagem de vídeo. A placa de roteamento entregue foi utilizada nos 
-testes dos componentes, visto que foi necessária para testar o 
-funcionamento do robô. Essa placa foi reprojetada e reconstruída. O 
+Alguns itens mencionados na seção \ref{sec:visgeral}, referentes ao
+projeto de oficinas, não foram recebidos ou não foram utilizados
+nesse trabalho. A webcam e joystick, por exemplo, não foram entregues
+pois não foram necessários. O joystick não foi necessário porque
+esse trabalho se trata de um sistema de navegação autônomo, que
+descarta a necessidade de um controle remoto, e a webcam não foi
+necessária porque esse trabalho não abordou a navegação através de
+imagem de vídeo. A placa de roteamento entregue foi utilizada nos
+testes dos componentes, visto que foi necessária para testar o
+funcionamento do robô. Essa placa foi reprojetada e reconstruída. O
 PC embarcado foi entregue destituído de qualquer documentação e, além disso, como o novo objetivo do robô não implicou a necessidade de comunicação sem fio ou implementação de stream de vídeo, motivo principal para a utilização desse PC no projeto Bellator~\cite{BELLATOR}, a equipe optou por descartar esse recurso e utilizar outra placa, que foi descrita em detalhes na seção \ref{sec:espts7260}. O processo de reconstrução e adaptação da plataforma robótica é descrito em detalhes no capítulo \ref{chap:desenv}.
 
 \subsection{Considerações}
-A possibilidade de reconstruir e adequar o robô Bellator e o 
-recebimento desse material consistiram uma importante etapa nesse 
-projeto. A plataforma Bellator foi uma opção de recurso ao apoio do 
-estudo qualitativo proposto, mas precisou ser reconstruída e adequada 
-às necessidades do projeto. Essa reconstrução mostrou-se viável porque o material estava disponível. A especificação do robô 
+A possibilidade de reconstruir e adequar o robô Bellator e o
+recebimento desse material consistiram uma importante etapa nesse
+projeto. A plataforma Bellator foi uma opção de recurso ao apoio do
+estudo qualitativo proposto, mas precisou ser reconstruída e adequada
+às necessidades do projeto. Essa reconstrução mostrou-se viável porque o material estava disponível. A especificação do robô
 após a reconstrução foi descrita na seção \ref{sec:esprob}.
 
 \input{especificacao}
@@ -126,7 +126,7 @@ Considere também os seguintes conjuntos fuzzy:
 \end{equation}
 sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, aos conjuntos fuzzy \emph{\mbox{F, M e Q}}, com valores de pertinência pertencentes ao intervalo [0,1] e \emph{t} uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy \emph{\mbox{F, M e Q}} aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável \emph{t} pode ser traduzido em um valor equivalente para a variável linguística \emph{T}, dependendo apenas da definição das funções de pertinência \emph{\mbox{f(t), m(t) e q(t)}}.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figs/fuzzygraph.png}
 	\caption[Exemplo de Pertinências Fuzzy]{Funções de Pertinência f(t), m(t), q(t).}
@@ -147,7 +147,7 @@ Regras de inferência sobre conjuntos fuzzy podem ser categorizadas como uma gene
 \end{center}
 Sendo ``medio"~ e ``forte"~ valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio"~ correspondendo a função de pertinência vm e ``forte"~ correspondendo a vf, apresentados na figura \ref{fig:defuzzygraph}:
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figs/defuzzygraph.png}
 	\caption[Exemplo de Pertinências Fuzzy - Defuzzificação]{Funções de Pertinência vm e vf.}
@@ -169,7 +169,7 @@ Esta seção tem como objetivos: explicar o que são mapas cognitivos fuzzy, também
 
 O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo fuzzy é gerado quando se agrega à essa estrutura a incerteza característica da lógica Fuzzy.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{./figs/fcm.png}
     \caption[Exemplo de um FCM]{Exemplo de um FCM (grafo).}
@@ -229,7 +229,7 @@ processo modelado.
 
 Um FCM apresenta as propriedades de elasticidade e estabilidade, sendo que a elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais e a estabilidade é a capacidade de o mapa evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{./figs/fcm-exemplo-planta.png}
     \caption[Aplicação do FCM em processo industrial]{Aplicação do FCM em processo industrial.}
@@ -259,7 +259,7 @@ G_{min}<G<G_{max}
 
 Interligando-se os conceitos através de relações de causa e efeito, o FCM da figura \ref{fig:fcm-exemplo-fcm} foi construído.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{./figs/fcm-exemplo-fcm.png}
     \caption[Mapa Cognitivo Fuzzy]{FCM do controlador.}
@@ -328,7 +328,7 @@ Nesse exemplo, a estabilização (ou sintonia) foi realizada através de três métod
 
 Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é empregada em navegação robótica. Nesse artigo, um modelo de FCM novo é implementado para suportar as condições dinâmicas dos sistemas de navegação, nas quais os valores das relações causais são modificados dinamicamente através da ocorrência de eventos especiais. Os autores do artigo chamaram esse modelo de ED-FCM (\emph{Event-Driven Fuzzy Cognitive Map}).
 
-\begin{figure}[!htb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{./figs/reinforcement.png}
     \caption[Algoritmo de aprendizado por reforço]{Algoritmo de aprendizado por reforço.}
@@ -338,7 +338,7 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é 
 
 O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendizado por reforço, conforme ilustra a figura \ref{fig:reinforcement-alg}, e permite que o robô (agente) aprenda diretamente através de sua interação com o ambiente. A cada instante de tempo \emph{t}, o agente estabelece, por meio de seus sensores, um estado \emph{st} e, de acordo com suas regras, determina uma ação \emph{at} a ser efetuada pelos atuadores. Essa ação causa uma transição para o estado $s_{t+1}$ e o ambiente retorna uma medida de reforço $r_{t+1}$, que pode ser uma recompensa (caso a ação seja boa) ou uma punição (caso a ação seja ruim).
 
-\begin{figure}[!htb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{./figs/fcm-robot.png}
     \caption[FCM do comportamento reativo do robô]{FCM do comportamento reativo do robô.}
@@ -360,7 +360,7 @@ O FCM descreve o comportamento reativo do robô (figura \ref{fig:fcm-robot}), no 
 \begin{table}[htb!]
 	\centering
 	\caption[Relações causais do controlador do robô]{Relações causais do controlador do robô.}		
-	\begin{tabular}[!htb]{ l l l l }
+	\begin{tabular}[H]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
 	  \hline
