@@ -19,7 +19,7 @@ O sensor 2Y0A02F98 é um sensor analógico infravermelho e mede distâncias no inte
   \label{curva}
 \end{figure}
 
-O modelo é pouco influenciado pelas cores dos objetos refletidos, isso é devido ao método de medição baseado em triangulação \cite{datasheetsensor}. O sensor possui uma tensão de alimentação recomendada na faixa de 4,5 a 5,5 V \cite{datasheetkit}. Como a bateria disponível é de 12 V, foi necessária utilização de um regulador de tensão. O cálculo dos valores dos resistores foram baseados na equação \ref{eqRegulador} e o diagrama esquemático do regulador é mostrado na figura \ref{regulador}. Esse circuito compõe uma das partes da placa de roteamento, conforme mostrado na seção \ref{sec:espplacaroteamento}.
+O modelo é pouco influenciado pelas cores dos objetos refletidos, isso é devido ao método de medição baseado em triangulação \cite{datasheetsensor}. O sensor possui uma tensão de alimentação recomendada na faixa de 4,5 a 5,5 V \cite{datasheetkit}. Como as baterias disponíveis eram de 12 V, foi necessária utilização de um regulador de tensão. O cálculo dos valores dos resistores foram baseados na equação \ref{eqRegulador} e o diagrama esquemático do regulador é mostrado na figura \ref{regulador}. Esse circuito compõe uma das partes da placa de roteamento, conforme mostrado na seção \ref{sec:espplacaroteamento}.
 
 \begin{equation}
 \label{eqRegulador}
@@ -136,10 +136,10 @@ O projeto da placa, métodos de desenvolvimento, requisitos, entre outros foram d
 \subsection{Robô Bellator}
 \label{sec:robobellator} 
 
-O robô Bellator, como mencionado na seção \ref{sec:estpro}, foi reconstruído e adaptado ao projeto. O robo consiste de um chassi de 40 cm de largura por 50 cm de comprimento, duas rodas de tração e uma roda guia, conforme ilustrado na figura \ref{fig:dispsensor}. As rodas de tração estão nas laterais da parte dianteira do robô e possuem diâmetro de 20 cm e largura de 4 cm. Ambas possuem o encoder de óptico HEDS-9700, descrito na seção \ref{sec:heds9700}, fixados nos respectivos eixos. A roda guia está no centro da parte traseira do robô e possui diâmetro de aproximadamente 6 centímetros e espessura de 2 centímetros. Todas as rodas são da marca Schioppa e chassi do robô permanece a 3 cm da superfície do solo. Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, foram fixados cinco sensores do modelo 2Y0A02F98, descrito na seção \ref{sec:sensores}, dispostos uniformemente nas laterais do chassi, conforme ilustra a figura \ref{fig:dispsensor}. Os outros componentes do robô estão listados a seguir:
+O robô Bellator, como mencionado na seção \ref{sec:estpro}, foi reconstruído e adaptado ao projeto. O robô consiste de um chassi de 40 cm de largura por 50 cm de comprimento, duas rodas de tração e uma roda guia, conforme ilustrado na figura \ref{fig:dispsensor}. As rodas de tração estão nas laterais da parte dianteira do robô e possuem diâmetro de 20 cm e largura de 4 cm. Ambas possuem o encoder óptico HEDS-9700, descrito na seção \ref{sec:heds9700}, fixados nos respectivos eixos. A roda guia está no centro da parte traseira do robô e possui diâmetro de aproximadamente 6 centímetros e espessura de 2 centímetros. Todas as rodas são da marca Schioppa e chassi do robô permanece a 3 cm da superfície do solo. Com o objetivo de auxiliar a navegação do robô e fazer varreduras do ambiente, foram fixados cinco sensores do modelo 2Y0A02F98, descrito na seção \ref{sec:sensores}, dispostos uniformemente nas laterais do chassi, conforme ilustra a figura \ref{fig:dispsensor}. Os outros componentes do robô estão listados a seguir:
 \begin{itemize}
   \item[-] 2 Motores Bosch FPG 12V;
-  \item[-] Bateria Unybatt 12V-7,2 Ampére-hora;
+  \item[-] 2 Baterias Unybatt 12V-7,2 Ampére-hora;
   \item[-] Duas pontes H L 298.
 \end{itemize}
 
@@ -151,7 +151,7 @@ O robô Bellator, como mencionado na seção \ref{sec:estpro}, foi reconstruído e a
   \label{fig:dispsensor}
 \end{figure}
 
-A plataforma transporta as placas do sistema microcontrolado C8051F340DK, descrito na seção \ref{sec:C8051F340DK}, do sistema embarcado TS-7260, descrito na seção \ref{sec:espts7260} e a placa de roteamento, descrita na seção \ref{sec:espplacaroteamento}. O robô montado pode ser visualizado na figura \ref{bellator}, que ilustra a disposição dos sensores infravermelhos, rodas, baterias e placas no chassi.
+A plataforma transporta as placas do sistema microcontrolado C8051F340DK, descrito na seção \ref{sec:C8051F340DK}, o sistema embarcado TS-7260, descrito na seção \ref{sec:espts7260} e a placa de roteamento, descrita na seção \ref{sec:espplacaroteamento}. O robô montado pode ser visualizado na figura \ref{bellator}, que ilustra a disposição dos sensores infravermelhos, rodas, baterias e placas no chassi.
 
 \begin{figure}[!htb]
   \centering

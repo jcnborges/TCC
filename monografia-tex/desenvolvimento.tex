@@ -5,7 +5,7 @@
 Este capítulo contém, em detalhes, o desenvolvimento do trabalho realizado pela equipe, dividido nas seguintes seções:
 \begin{itemize}
     \item[-] Reconstrução da Plataforma Robótica Bellator: Todos os passos realizados para reconstruir e adaptar a plataforma robótica para utilização no projeto.
-    \item[-] Algoritmos de Navegação: Detalha a implementação dos algoritmos de navegação fuzzy e FCM, de acordo com as respectivas revisões bibliográficas apresentadas no capítulo \ref{chap:fundteor}.
+    \item[-] Algoritmos de Navegação: Detalha a implementação dos algoritmos de navegação \emph{fuzzy} e FCM, de acordo com as respectivas revisões bibliográficas apresentadas no capítulo \ref{chap:fundteor}.
     \item[-] Testes e Análise de Resultados: Apresenta a metodologia, elaboração dos testes dos algoritmos e a análise dos resultados obtidos para ambos os algoritmos de navegação.
     \item[-] Considerações: Conclusão do capítulo e considerações sobre o desenvolvimento do projeto.
 \end{itemize}
@@ -27,7 +27,7 @@ o regulador de tensão não estava funcionando. Este foi substituído e a placa fin
 Com a placa de roteamento antiga funcionando, foi possível realizar o teste dos motores, utilizando os PWMs gerados pelo
 microcontrolador C8051F340 (entrada do buffer da placa de roteamento). Nesse teste, não ocorreram problemas, os motores funcionaram conforme esperado.
 
-Das duas baterias inicialmente disponíveis, uma não estava funcionando conforme a especificação, o que levou a equipe
+Das duas baterias inicialmente disponíveis, uma não estava funcionando conforme a especifica\-ção, o que levou a equipe
 a adquirir uma nova bateria 12V para reposição da bateria danificada.
 
 Com todos os componentes acima citados testados, o que faltava para completar os testes da camada de baixo nível era apenas
@@ -41,7 +41,7 @@ sua documentação era escassa e o tempo perdido na tentativa de utilizá-la já est
 foi gasto em tentativas frustradas). O PC Embarcado foi substituído pela placa TS-7260, que possui uma documentação muito
 melhor, poder de processamento superior, e funcionou nos primeiros testes. Esta substituição não gerou custos para o projeto,
 pois a placa TS-7260 já havia sido adquirida para um projeto anterior e não estava sendo utilizada,
-e foi então disponibilizada à equipe pelo professor orientador Dr. João Alberto Fabro.
+e foi então disponibilizada à equipe pelo professor orientador.
 
 \subsection{Levantamento da curva dos sensores}
 \label{sec:curvasensores}
@@ -236,7 +236,7 @@ De posse do diagrama esquemático apresentado na figura \ref{fig:roteamento_sch} 
   \fonte{Autoria própria}
 \end{figure}
 
-A placa de roteamento foi confeccionada manualmente em uma placa de circuito impresso. O desenho da placa foi impresso em uma folha de transparência A4 com uma impressora à laser. Esse desenho foi passado da trasparência para a placa com o auxílio de um ferro de passar roupa e a placa foi corroída usando-se o percloreto de ferro. A placa foi perfurada com broca e perfurador de placa e os componentes eletrônicos foram soldados com ferro de solda, estanho e pasta de solda. A figura \ref{fig:confeccao} ilustra o processo de confeccção da placa.
+A placa de roteamento foi confeccionada manualmente em uma placa de circuito impresso. O desenho da placa foi impresso em uma folha de transparência A4 com uma impressora à laser. Esse desenho foi passado da transparência para a placa com o auxílio de um ferro de passar roupa e a placa foi corroída usando-se o percloreto de ferro. A placa foi perfurada com broca e perfurador de placa e os componentes eletrônicos foram soldados com ferro de solda, estanho e pasta de solda. A figura \ref{fig:confeccao} ilustra o processo de confecção da placa.
 
 \begin{figure}[H]
   \centering
@@ -261,7 +261,7 @@ Para realização de testes na placa, o código foi compilado para a TS-7260 atravé
 foi então movido para uma pasta compartilhada na rede. Esta pasta foi disponibilizada através de um
 servidor NFS (\emph{Network File System}) instalado no computador
 onde o código foi desenvolvido. A placa TS-7260 contém em um pendrive um linux compilado para a sua
-arquitetura, que disponibiliza o cliente nfs, através do qual foi possível montar a pasta compartilhada e rodar
+arquitetura, que disponibiliza o cliente nfs, através do qual foi possível montar a pasta compartilhada e executar
 o algoritmo. Posteriormente, para testes totalmente autônomos, o arquivo binário foi copiado da pasta
 compartilhada para o pendrive conectado à TS-7260, o que permite que o robô execute a navegação sem
 necessidade de conexão com o computador. O comando utilizado no terminal da TS-7260 para montar a pasta
@@ -298,14 +298,14 @@ anterior.
 
 \subsection{Software da TS-7260}
 \label{sec:softwarets}
-O código que roda na TS-7260 é o que efetivamente controla o robô. A parte principal do código consiste
+Os algoritmos de controle gravados no pen-drive conectado à placa TS-7260 são o que efetivamente controla o robô. A parte principal do código consiste
 de um loop infinito, que executa os seguintes passos:
 
 \begin{itemize}
-	\item Envio de um SYNC para o microcontrolador: isto faz com que o microcontrolador responda
+	\item Envio de um comando SYNC para o microcontrolador: isto faz com que o microcontrolador responda enviando
 		um pacote com as leituras mais recentes dos sensores de distância, juntamente com as leituras
 		dos encoders (esta comunicação é realizada via porta serial);
-	\item Leitura do pacote enviado pelo microcontrolador: recebe os dados do microcontrolador e
+	\item Leitura do pacote enviado pelo microcontrolador: o programa recebe os dados do microcontrolador e
 		utiliza os dados de conversão dos sensores para acessar a tabela que mapeia
 		o valor da conversão para a distância em centímetros, tabela esta que foi obtida conforme
 		o procedimento especificado na seção~\ref{sec:curvasensores}. Os valores de distância para
@@ -314,14 +314,14 @@ de um loop infinito, que executa os seguintes passos:
 		de navegação, passando os valores de leitura dos sensores de distância. O algoritmo utiliza
 		os dados para realizar a inferência, retornando valores que indicam qual ação o robô deve tomar.
 		O algoritmo de navegação é executado também na placa TS-7260, mas não faz parte do mesmo software;
-	\item Ajuste dos setpoints: nesta etapa, os dados retornados pelo algoritmo de navegação são
-		utilizados para o cálculo do setpoint de cada roda (velocidade desejada), o setpoint é então
+	\item Ajuste dos \emph{setpoints}: nesta etapa, os dados retornados pelo algoritmo de navegação são
+		utilizados para o cálculo do \emph{setpoint| de cada roda (velocidade desejada), o \emph{setpoint} é então
 		alterado de acordo;
 	\item Ajuste de velocidade: esta etapa consiste do ajuste dos níveis de PWM de cada roda, e utiliza
 		para tal os valores de leitura dos encoders e o setpoint do passo anterior.
 		O objetivo do ajuste de velocidade é fazer com que cada motor fique o mais próximo possível
 		do setpoint estabelecido previamente. Este ajuste é apenas proporcional, simplesmente aumentando
-		a velocidade caso a contagem do encoder esteja abaixo do setpoint ou diminuindo caso esteja
+		a velocidade caso a contagem do encoder esteja abaixo do \emph{setpoint} ou diminuindo caso esteja
 		acima;
 	\item Envio das ações: os níveis de PWM definidos pelo ajuste de velocidade são enviados para
 		o microcontrolador C8051F340, que efetiva a mudança.
@@ -330,7 +330,7 @@ de um loop infinito, que executa os seguintes passos:
 O diagrama em blocos a seguir representa o funcionamento do software, demonstrando
 também em que etapas ocorre a comunicação com o microcontrolador (setas tracejadas) e quando o algoritmo
 de navegação é executado. Vale lembrar que o algoritmo de navegação (Fuzzy ou FCM) executa na placa
-TS-7260 também, mas seu código não faz parte do software da TS-7260 (tslogic), por este motivo está
+TS-7260 também, mas seu código não faz parte do software desta placa (tslogic), por este motivo está
 em um bloco separado no diagrama. As ações descritas no bloco C8051F340 são executadas no
 microcontrolador.
 
@@ -391,15 +391,15 @@ Esta seção dedica-se à descrição da implementação dos algoritmos de navegação co
 \subsection{Algoritmo de Navegação Fuzzy}
 \label{sec:algfuzzy}
 %Descrição e referencia básica da biblioteca do fabro, adaptação e utilização. Descrição das regras. INCOMPLETO
-O algoritmo de Navegação Fuzzy, baseado em inferências sobre conjuntos Fuzzy, foi desenvolvido utilizando-se a biblioteca FLIE, desenvolvida originalmente pelo professor João Alberto Fabro~\cite{FABRO}. A FLIE, ou \emph{Fuzzy Logic Inference Engine}, é uma biblioteca que já implementa um ambiente para a definição de conjuntos fuzzy e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos fuzzy e as regras de inferência, seguindo a fundamentação teórica sobre o assunto apresentada na seção \ref{sec:logfuzzy}.
+O algoritmo de Navegação \emph{Fuzzy} foi desenvolvido utilizando-se a biblioteca FLIE(\emph{Fuzzy Logic Inference Engine}), ~\cite{FABRO}, que já implementa um ambiente para a definição de conjuntos \emph{fuzzy} e regras de inferência sobre os mesmos, proporcionando à equipe mais tempo para o aprimoramento das regras e conjuntos e o teste dos mesmos. Este algoritmo será utilizado como base de comparação para determinação da eficiência do ED-FCM, descrito na seção \ref{sec:algedfcm}. Nesta seção, será descrito como a biblioteca FLIE foi utilizada neste projeto e como foram definidos os conjuntos \emph{fuzzy} e as regras de inferência, seguindo a fundamentação teórica sobre o assunto apresentada na seção \ref{sec:logfuzzy}.
 
 \subsubsection{Variáveis Linguísticas}
 \label{sec:devarling}
-A biblioteca FLIE, desenvolvida em C++ por Jõao Alberto Fabro, possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas para bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis linguísticas, sendo apropriada para a elaboração de um algoritmo de navegação fuzzy. A biblioteca funciona de acordo com os princípios teóricos fuzzy apresentados na seção \ref{sec:logfuzzy}.
+A biblioteca FLIE possui estruturas de dados, ou classes, prontas para serem utilizadas para definição de variáveis linguísticas, bem como estruturas para a definição de regras de inferência baseadas neste conjunto de variáveis linguísticas, sendo apropriada para a elaboração de sistemas de controle \emph{fuzzy}. A biblioteca funciona de acordo com os princípios teóricos apresentados na seção \ref{sec:logfuzzy}.
 
-Para elaborar o controle fuzzy responsável pelo algoritmo de navegação, é necessário, primeiramente, definir as variáveis linguísticas e os conjuntos fuzzy associados às mesmas. Posteriormente, deve-se definir as variáveis linguísticas de entrada e saída do sistema e as associar apropriadamente. Em seguida, é necessário definir o método de defuzzificação e, finalmente, as regras de inferência. Cada um destes passos será descrito em detalhes a seguir.
+Para elaborar o controle \emph{fuzzy} responsável pelo algoritmo de navegação, é necessário, primeiramente, definir as variáveis linguísticas e os conjuntos \emph{fuzzy} associados às mesmas. Posteriormente, deve-se definir as variáveis linguísticas de entrada e saída do sistema e as associar apropriadamente. Em seguida, é necessário definir o método de defuzzificação e, finalmente, as regras de inferência. Cada um destes passos será descrito em detalhes a seguir.
 
-A biblioteca FLIE permite a definição de variáveis linguísticas na classe \emph{linguisticvariable}, que pode ser composta por diversos conjuntos fuzzy, definidos a partir da classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com seu nível de pertinência a cada categoria (conjunto fuzzy) pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
+A biblioteca FLIE permite a definição de variáveis linguísticas na classe \emph{linguisticvariable}, que pode ser composta por diversos conjuntos \emph{fuzzy}, definidos a partir da classe \emph{category}. Cada \emph{category} é definida por uma faixa de valores válidos (\emph{range}), por 4 pontos que definem um trapézio com os intervalos de subida, máximo e descida do nível de pertinência do conjunto de entrada, para fuzzificação dos dados, e um nome apropriado, tal como Perto, Longe, Rápido, dependendo do contexto. Ou seja, cada valor de entrada é fuzzificado de acordo com seu nível de pertinência a cada categoria (conjunto \emph{fuzzy}) pertencente à variável linguística. A figura \ref{lingvar}, apresentada a seguir, demonstra de forma gráfica esta estrutura.
 
 \begin{figure}[H]
   \centering
@@ -410,7 +410,7 @@ A biblioteca FLIE permite a definição de variáveis linguísticas na classe \emph{
   \fonte{Autoria própria}
 \end{figure}
 
-Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. Deve-se observar que foram definidas apenas três variáveis linguísticas de entrada por dois motivos: A biblioteca FLIE não aceita mais que três entradas em uma regra de inferência e um número maior de entradas levaria à uma quantidade excessiva de regras de inferência. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente"~ e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda"~ e ``SensorDireita"~ sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos fuzzy, totalizando nove conjuntos fuzzy organizados de acordo com a tabela \ref{tab:varsfuzzy}.
+Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para a entrada do sistema e duas variáveis linguísticas para a saída do sistema. Deve-se observar que foram definidas apenas três variáveis linguísticas de entrada por dois motivos: A biblioteca FLIE não aceita mais que três entradas em uma regra de inferência e um número maior de entradas levaria à uma quantidade excessiva de regras de inferência. As variáveis linguísticas de entrada correspondem aos cinco sensores do robô, sendo que o sensor frontal utiliza uma variável linguística, ``SensorFrente"~ e os dois pares de sensores laterais são agrupados em duas variáveis linguísticas, ``SensorEsquerda"~ e ``SensorDireita"~ sendo que apenas o menor valor de leitura válida é selecionado nos pares de sensores laterais para ser fuzzificado. Cada uma destas variáveis linguísticas está definida com três conjuntos \emph{fuzzy}, totalizando nove conjuntos \emph{fuzzy} organizados de acordo com a tabela \ref{tab:varsfuzzy}.
 
 \begin{table}[H]
 \centering
@@ -444,9 +444,9 @@ As funções de pertinência p(d), m(d), l(d), correspondentes a perto, médio e lon
   \fonte{Autoria própria}
 \end{figure}
 
-Embora as funções de pertinência sejam as mesmas para os conjuntos fuzzy representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca FLIE, e não é possível utilizar o mesmo conjunto fuzzy para duas ou mais variáveis linguísticas diferentes.
+Embora as funções de pertinência sejam as mesmas para os conjuntos \emph{fuzzy} representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca FLIE, e não é possível utilizar o mesmo conjunto \emph{fuzzy} para duas ou mais variáveis linguísticas diferentes.
 
-De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor"~ e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos fuzzy associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de PWM de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos fuzzy são l(p), m(p), r(p), onde p é a percentagem do PWM. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
+De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor"~ e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos \emph{fuzzy} associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de PWM de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos \emph{fuzzy} são l(p), m(p), r(p), onde p é a percentagem do PWM. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
 
 \begin{figure}[H]
   \centering
@@ -457,7 +457,7 @@ De forma análoga, as variáveis linguísticas de saída do sistema são definidas pe
   \fonte{Autoria própria}
 \end{figure}
 
-Similarmente, foram definidos 5 conjuntos fuzzy para a variável linguística ``Direção": ViraEsquerda, ViraPoucoEsquerda, Reto, ViraPoucoDireita, ViraDireita, distribuindo igualmente entre estas classes todas as possibilidades de direção, desde virar totalmente para a esquerda (0º) até totalmente para direita(180º), sendo que 90º representa movimento em linha reta. As funções de pertinência que definem estes conjuntos fuzzy são ve(a), vpe(a), r(a), vpd(a), vd(a). O gráfico da figura \ref{defuzzygraph_ang} ilustra estas funções.
+Similarmente, foram definidos 5 conjuntos \emph{fuzzy} para a variável linguística ``Direção": ViraEsquerda, ViraPoucoEsquerda, Reto, ViraPoucoDireita, ViraDireita, distribuindo igualmente entre estas classes todas as possibilidades de direção, desde virar totalmente para a esquerda (0º) até totalmente para direita(180º), sendo que 90º representa movimento em linha reta. As funções de pertinência que definem estes conjuntos \emph{fuzzy} são ve(a), vpe(a), r(a), vpd(a), vd(a). O gráfico da figura \ref{defuzzygraph_ang} ilustra estas funções.
 
 \begin{figure}[H]
   \centering
@@ -482,13 +482,13 @@ Após definidas as variáveis linguísticas, regras de inferência podem ser elabora
   \fonte{Autoria própria}
 \end{figure}
 
-Com as variáveis linguísticas de entrada e saída pode-se criar regras de inferência. Primeiramente, é necessário associar as variáveis linguísticas que compõe as regras de inferência de entrada e saída à um objeto da classe \emph{fuzzy\_control}. Em seguida, cada regra é definida por uma sequência de valores fuzzy pertencentes às variáveis linguísticas de entrada e saída associadas com o objeto da classe \emph{fuzzy\_control}, sendo o último valor da sequência a saída fuzzy desejada para uma entrada correspondente aos um, dois ou três valores antecedentes, que é o limite de entradas da biblioteca FLIE, como mencionado em \ref{sec:devarling}. Como deseja-se obter duas saídas, uma para a velocidade e outra para a direção, foram necessários dois objetos desta classe, ambos com as mesmas entradas. Além disso, é necessário definir o método de defuzzificação a ser utilizado pelo controle fuzzy. A equipe utilizou o método da Média do Máximo, descrito na seção \ref{sec:fuzzycontrol}. Assim, as regras de inferência seguem o padrão abaixo, de acordo com as variáveis linguísticas definidas em \ref{sec:devarling}:
+Com as variáveis linguísticas de entrada e saída pode-se criar regras de inferência. Primeiramente, é necessário associar as variáveis linguísticas que compõe as regras de inferência de entrada e saída à um objeto da classe \emph{fuzzy\_control}. Em seguida, cada regra é definida por uma sequência de valores \emph{fuzzy} pertencentes às variáveis linguísticas de entrada e saída associadas com o objeto da classe \emph{fuzzy\_control}, sendo o último valor da sequência a saída \emph{fuzzy} desejada para uma entrada correspondente aos um, dois ou três valores antecedentes, que é o limite de entradas da biblioteca FLIE, como mencionado em \ref{sec:devarling}. Como deseja-se obter duas saídas, uma para a velocidade e outra para a direção, foram necessários dois objetos desta classe, ambos com as mesmas entradas. Além disso, é necessário definir o método de defuzzificação a ser utilizado pelo controle \emph{fuzzy}. A equipe utilizou o método da Média do Máximo, descrito na seção \ref{sec:fuzzycontrol}. Assim, as regras de inferência seguem o padrão abaixo, de acordo com as variáveis linguísticas definidas em \ref{sec:devarling}:
 \begin{center}
 SensorEsquerda, SensorFrente, SensorDireita, Velocidade Motor\\
 SensorEsquerda, SensorFrente, SensorDireita, Direção
 \end{center}
 
-Em seguida, pode-se definir as regras através dos valores fuzzy válidos para cada variável linguística associada aos objetos \emph{fuzzy\_control}. A definição das regras é bastante intuitiva, empírica e altamente dependente da aplicação. A equipe optou por definir um conjunto de regras arbitrário, realizar testes e, analisando os resultados preliminares, aprimorar o conjunto de regras. A tabela \ref{tab:regrasinf} representa o conjunto definitivo de 27 regras elaboradas pela equipe, que correspondem a todas as combinações possíveis de entradas para o controle fuzzy (3 opções de classificação para cada entrada, sendo 3 entradas).
+Em seguida, pode-se definir as regras através dos valores \emph{fuzzy} válidos para cada variável linguística associada aos objetos \emph{fuzzy\_control}. A definição das regras é bastante intuitiva, empírica e altamente dependente da aplicação. A equipe optou por definir um conjunto de regras arbitrário, realizar testes e, analisando os resultados preliminares, aprimorar o conjunto de regras. A tabela \ref{tab:regrasinf} representa o conjunto definitivo de 27 regras elaboradas pela equipe, que correspondem a todas as combinações possíveis de entradas para o controle \emph{fuzzy} (3 opções de classificação para cada entrada, sendo 3 entradas).
 
 \begin{table}[H]
 \centering
@@ -533,7 +533,7 @@ Finalmente, as regras definidas podem ser utilizadas para realizar as inferência
 
 \subsubsection{Considerações}
 
-O algoritmo fuzzy produziu o comportamento adequado em navegação robótica permitindo que o robô fosse capaz de desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou o robô a navegar de forma autônoma recebendo como entrada as leituras dos sensores. A versão descrita nessa seção foi produzida após a execução e conclusão dos testes iniciais e avançados, seções \ref{sec:testesini} e \ref{sec:testesavan}, respectivamente. Durante esses testes, o algoritmo foi submetido a uma série de experimentos visando detectar erros de navegação, isolá-los e corrigí-los. Esse processo foi realizado repetidas vezes e as funções de pertinência e regras fuzzy foram aprimorados gradualmente. A tabela de funções, tabela \ref{tab:varsfuzzy}, e a tabela de regras, tabela \ref{tab:regrasinf}, representam a versão utilizada nos testes comparativos, descritos na seção \ref{sec:testescomp}, que foi utilizada para obtenção do resultado final. 
+O algoritmo \emph{fuzzy} produziu o comportamento adequado em navegação robótica permitindo que o robô fosse capaz de desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou o robô a navegar de forma autônoma recebendo como entrada as leituras dos sensores. A versão descrita nessa seção foi produzida após a execução e conclusão dos testes iniciais e avançados, seções \ref{sec:testesini} e \ref{sec:testesavan}, respectivamente. Durante esses testes, o algoritmo foi submetido a uma série de experimentos visando detectar erros de navegação, isolá-los e corrigí-los. Esse processo foi realizado repetidas vezes e as funções de pertinência e regras \emph{fuzzy} foram aprimorados gradualmente. A tabela de funções, tabela \ref{tab:varsfuzzy}, e a tabela de regras, tabela \ref{tab:regrasinf}, representam a versão utilizada nos testes comparativos, descritos na seção \ref{sec:testescomp}, que foi utilizada para obtenção do resultado final. 
 
 \subsection{Algoritmo de Navegação Baseado em FCM}
 \label{sec:algedfcm}
@@ -814,7 +814,7 @@ RD_{Out}=100 \times \frac {w_{13}GEF-w_{14}GET} {FORTE}
 
 \subsubsection{Considerações}
 
-O FCM projetado ofereceu a capacidade de o robô desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou o robô a navegar de forma autônoma recebendo como entrada as leituras dos sensores. Contudo, a versão final do FCM foi obtida após diversos testes, nos quais erros de navegação foram encontrados, isolados e corrigidos repetidas vezes. Nesse processo, os pesos das relações causais foram modificados até chegarem aos valores das tabelas \ref{tab:fcm-relacoes-frente} e \ref{tab:fcm-relacoes-tras}. A necessidade de implementação de um FCM com evento surgiu durante a execução de um experimento dos testes avançados, como é descrito na seção \ref{sec:testesavan}. O evento foi implementado para resolver especificamente aquele problema de indecisão. Com isso, a versão final do projeto de FCM apresentada nessa seção foi capaz de resolver os problemas propostos nos experimentos dos testes comparativos, seção \ref{sec:testescomp}, gerando resultados adequados para a comparação com o algoritmo fuzzy, apresentado na seção \ref{sec:algfuzzy}.
+O FCM projetado ofereceu a capacidade de o robô desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou ao robô navegar de forma autônoma recebendo como entrada as leituras dos sensores. Contudo, a versão final do FCM foi obtida após diversos testes, nos quais erros de navegação foram encontrados, isolados e corrigidos repetidas vezes. Nesse processo, os pesos das relações causais foram modificados até chegarem aos valores das tabelas \ref{tab:fcm-relacoes-frente} e \ref{tab:fcm-relacoes-tras}. A necessidade de implementação de um FCM com evento surgiu durante a execução de um experimento dos testes avançados, como é descrito na seção \ref{sec:testesavan}. O evento foi implementado para resolver especificamente aquele problema de indecisão. Com isso, a versão final do projeto de FCM apresentada nessa seção foi capaz de resolver os problemas propostos nos experimentos dos testes comparativos, seção \ref{sec:testescomp}, gerando resultados adequados para a comparação com o algoritmo \emph{fuzzy}, apresentado na seção \ref{sec:algfuzzy}.
 
 \input{testesresultados}
 
