@@ -13,7 +13,7 @@ Esta seção visa descrever com quais recursos a equipe iniciou a execução do trab
 \subsection{Visão Geral}
 \label{sec:visgeral}
 
-O robô Bellator, disponibilizado à equipe para realização deste trabalho, é proveniente de um projeto de Oficinas de Integração 3, que visou a implementação de uma plataforma robótica controlada remotamente por joystick \cite{BELLATOR}. Esse projeto consistiu na implementação de um uma plataforma robótica dividida em três camadas: baixo nível, alto nível e supervisória. A camada de baixo nível era responsável por controlar os motores do robô e receber as leituras dos sensores. A camada de alto nível tinha como responsabilidades comunicar-se com a camada de baixo nível via conexão serial, fazer obtenção de vídeo através de uma webcam e comunicar-se com a camada supervisória através de uma conexão sem fio (para transmissão dos dados de vídeo captados pela webcam). Finalmente, a camada supervisória era responsável por receber os dados de vídeo, mostrar na tela para o usuário, e permitir o controle do robô remotamente através de um joystick. O diagrama esquemático da figura \ref{fig:diagsis} ilustra a configuração do projeto de oficinas, ponto de partida para a reconstrução do robô Bellator.
+O robô Bellator, disponibilizado à equipe para realização deste trabalho, já havia sido utilizado anteriormente em um projeto de Oficinas de Integração 3, que visou a implementação da eletrônica embarcada que permitisse que a plataforma robótica pudesse ser controlada remotamente por joystick \cite{BELLATOR}. Tal projeto consistiu no projeto e implementação de uma plataforma robótica dividida em três camadas: baixo nível, alto nível e supervisória. A camada de baixo nível era responsável por controlar os motores do robô e receber as leituras dos sensores. A camada de alto nível tinha como responsabilidades comunicar-se com a camada de baixo nível via conexão serial, fazer obtenção de vídeo através de uma webcam e comunicar-se com a camada supervisória através de uma conexão sem fio (para transmissão dos dados de vídeo captados pela webcam). Finalmente, a camada supervisória era responsável por receber os dados de vídeo, mostrar na tela para o usuário, e permitir o controle do robô remotamente através de um joystick. O diagrama esquemático da figura \ref{fig:diagsis} ilustra a configuração do projeto de oficinas, ponto de partida para a reconstrução do robô Bellator.
 
 \begin{figure}[H]
 	\centering
@@ -27,9 +27,9 @@ A partir da figura \ref{fig:diagsis}, o funcionamento do projeto
 Bellator pode ser explicado: a camada de baixo nível é composta pelo
 robô Bellator, equipado com dois motores elétricos Bosch FPG 12V,
 cinco sensores de distância ``2Y0A02F98"~ da Sharp, uma bateria
-Unybatt 12V-7,2 Ampère hora, duas pontes H, dois encoders ópticos
+Unybatt 12V-7,2 Ampère hora, duas pontes H LN298, dois encoders ópticos
 HEDS-9700 e uma placa microcontrolada C8051F340, que é capaz de ler e
-converter leituras de tensão analógicas dos sensores bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um stream de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os níveis de PWM dos motores de acordo com os comandos recebidos.
+converter leituras de tensão analógicas dos sensores bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um fluxo(\emph{stream}) de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os níveis de tensão dos motores de acordo com os comandos recebidos, controlando suas velocidades.
 
 Os componentes de hardware do robô, o software de controle
 supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340, utilizados no projeto de oficinas estão documentados em detalhes em \cite{BELLATOR}. Essa documentação foi utilizada como referência para a reconstrução e adequação do robô Bellator, com exceção das seções referentes ao software de controle supervisório, que não foi consultado. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram aproveitados.
@@ -37,10 +37,10 @@ supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340, 
 \subsection{Recebimento do Robô}
 \label{sec:recrobo}
 
-O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado, juntamente com toda a documentação de \cite{BELLATOR}  disponível por mídia digital. A caixa continha os seguintes itens:
+O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado, juntamente com toda a documentação \cite{BELLATOR} disponível por mídia digital. A caixa continha os seguintes itens:
 
 \begin{itemize}
-\item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acoplados;
+\item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acopladas;
 \item Um par de encoders ópticos HEDS-9700 acoplados ao eixo de cada roda;
 \item Cinco sensores de distância ``2Y0A02F98"~ da Sharp;
 \item Duas baterias Unybatt 12V-7,2 Ampére hora;
@@ -57,7 +57,7 @@ algoritmos de navegação para tomada de decisão e determinação de
 ações de controle. Os encoders foram utilizados para fornecer uma
 realimentação odométrica para ajustar a velocidade das rodas. A
 placa microcontrolada foi utilizada para realizar o controle de baixo
-nível do robô, que foram: cionamento dos motores, conversão
+nível do robô, que foram: acionamento dos motores, conversão
 analógica para digital das leituras dos sensores, contagem dos pulsos dos encoders e comunicação serial com o hardware acoplado. As baterias foram utilizadas para alimentar os sensores, encoders, os motores e a placa microcontrolada.
 
 Alguns itens mencionados na seção \ref{sec:visgeral}, referentes ao
@@ -70,7 +70,7 @@ necessária porque esse trabalho não abordou a navegação através de
 imagem de vídeo. A placa de roteamento entregue foi utilizada nos
 testes dos componentes, visto que foi necessária para testar o
 funcionamento do robô. Essa placa foi reprojetada e reconstruída. O
-PC embarcado foi entregue destituído de qualquer documentação e, além disso, como o novo objetivo do robô não implicou a necessidade de comunicação sem fio ou implementação de stream de vídeo, motivo principal para a utilização desse PC no projeto Bellator~\cite{BELLATOR}, a equipe optou por descartar esse recurso e utilizar outra placa, que foi descrita em detalhes na seção \ref{sec:espts7260}. O processo de reconstrução e adaptação da plataforma robótica é descrito em detalhes no capítulo \ref{chap:desenv}.
+PC embarcado foi entregue destituído de qualquer documentação e, além disso, como o novo objetivo do robô não implicou a necessidade de comunicação sem fio ou implementação de stream de vídeo, motivo principal para a utilização desse PC no projeto Bellator~\cite{BELLATOR}, a equipe optou por descartar esse recurso e utilizar outra placa, descrita em detalhes na seção \ref{sec:espts7260}. O processo de reconstrução e adaptação da plataforma robótica é descrito em detalhes no capítulo \ref{chap:desenv}.
 
 \subsection{Considerações}
 A possibilidade de reconstruir e adequar o robô Bellator e o
@@ -78,18 +78,18 @@ recebimento desse material consistiram uma importante etapa nesse
 projeto. A plataforma Bellator foi uma opção de recurso ao apoio do
 estudo qualitativo proposto, mas precisou ser reconstruída e adequada
 às necessidades do projeto. Essa reconstrução mostrou-se viável porque o material estava disponível. A especificação do robô
-após a reconstrução foi descrita na seção \ref{sec:esprob}.
+após a reconstrução é descrita na seção \ref{sec:esprob}.
 
 \input{especificacao}
 
 \section{Lógica Fuzzy}
 \label{sec:logfuzzy}
-Esta seção descreve os conceitos fundamentais utilizados pela equipe para o entendimento e implementação do algoritmo de navegação fuzzy, descrito em detalhes na seção \ref{sec:algfuzzy}.
+Esta seção descreve os conceitos fundamentais utilizados pela equipe para o entendimento e implementação do algoritmo de navegação \emph{fuzzy}, descrito em detalhes na seção \ref{sec:algfuzzy}.
 
-\subsection{Conjuntos Fuzzy}
+\subsection{Conjuntos \emph{Fuzzy}}
 
-A teoria de conjuntos fuzzy foi elaborada inicialmente por Lofti Zadeh \cite{ZADEH}, visando explorar a possibilidade de criar um novo critério de afiliação à conjuntos. Na teoria clássica de conjuntos, um elemento pode apenas pertencer ou não a um conjunto, sendo impossível um nível de pertinência parcial. Já em um conjunto fuzzy, isto torna-se possível.
-Um conjunto fuzzy pode ser definido por um conjunto de pares ordenados com o elemento e sua pertinência ao conjunto fuzzy. Seja F um conjunto fuzzy e X um conjunto de objetos arbitrários, tem-se:
+A teoria de conjuntos \emph{fuzzy} foi elaborada inicialmente por Lofti Zadeh \cite{ZADEH}, visando explorar a possibilidade de criar um novo critério de afiliação à conjuntos. Na teoria clássica de conjuntos, um elemento pode apenas pertencer ou não a um conjunto, sendo impossível um nível de pertinência parcial. Já em um conjunto \emph{fuzzy}, isto torna-se possível.
+Um conjunto \emph{fuzzy} pode ser definido por um conjunto de pares ordenados com o elemento e sua pertinência ao conjunto \emph{fuzzy}. Seja F um conjunto \emph{fuzzy} e X um conjunto de objetos arbitrários, tem-se:
 
 \begin{equation}
 F=\{(x,f(x)),x\in X\}, f(x) = [0,1]
@@ -97,7 +97,7 @@ F=\{(x,f(x)),x\in X\}, f(x) = [0,1]
 
 Assim sendo, considere um conjunto ``A"~ simples que contenha tudo o que tem sabor doce. Neste conjunto uma barra de chocolate é doce da mesma forma que cana de açucar, visto que ambos pertencem ao conjunto, ou seja:
 (barra de chocolate) $\in$ A e (cana de açucar) $\in$ A.
-Em um conjunto fuzzy B que contemple tudo o que tem sabor doce, torna-se possível atribuir um nível de afiliação ao conjunto através de uma função de pertinência \emph{f} permitindo dizer que, por exemplo, a cana de açucar é doce com nível de pertinencia 1, enquanto que a barra de chocolate é doce com nível de pertinência 0.8, ou seja:\\*
+Em um conjunto \emph{fuzzy} B que contemple tudo o que tem sabor doce, torna-se possível atribuir um nível de afiliação ao conjunto através de uma função de pertinência \emph{f} permitindo dizer que, por exemplo, a cana de açucar é doce com nível de pertinência 1, enquanto que a barra de chocolate é doce com nível de pertinência 0.8, ou seja:\\*
 
 \begin{center}
 ((cana de açucar),f(cana de açucar)) $\in$ B, f(cana de açucar) = 1\\*
@@ -109,14 +109,14 @@ Estas definições são mais próximas à forma como a cognição e intuição humana fun
 \subsection{Variável Linguística}
 \label{varling}
 
-Uma aplicação direta de conjuntos fuzzy é a definição de variáveis linguísticas~\cite{PEDRYCZ}.
-Considerando que uma variável \emph{x} pode assumir um valor qualquer dentro de um dado conjunto A, pode-se definir uma variável linguística como uma variável cujo conjunto A de valores possíveis é um conjunto de termos linguísticos, tais como: alto, baixo, curto, longo, entre outros. Pode-se estender este conceito associando cada termo linguístico possível de uma variável linguística a um conjunto fuzzy.
+Uma aplicação direta de conjuntos \emph{fuzzy} é a definição de variáveis linguísticas~\cite{PEDRYCZ}.
+Considerando que uma variável \emph{x} pode assumir um valor qualquer dentro de um dado conjunto A, pode-se definir uma variável linguística como uma variável cujo conjunto A de valores possíveis é um conjunto de termos linguísticos, tais como: alto, baixo, curto, longo, entre outros. Pode-se estender este conceito associando cada termo linguístico possível de uma variável linguística a um conjunto \emph{fuzzy}.
 
 Para entender esta definição, considere a variável linguística Temperatura (T) composta pelos termos linguísticos frio, morno e quente:
 \begin{equation}
 T = \{frio, morno, quente\}
 \end{equation}
-Considere também os seguintes conjuntos fuzzy:
+Considere também os seguintes conjuntos \emph{fuzzy}:
 \begin{equation}
 	\begin{array}{lcl}
 		F & = & \{(t,f(t)),t \in \mathbb{R}\} \\
@@ -124,7 +124,7 @@ Considere também os seguintes conjuntos fuzzy:
 		Q & = & \{(t,q(t)),t \in \mathbb{R}\} \\
 	\end{array}
 \end{equation}
-sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, aos conjuntos fuzzy \emph{\mbox{F, M e Q}}, com valores de pertinência pertencentes ao intervalo [0,1] e \emph{t} uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos fuzzy \emph{\mbox{F, M e Q}} aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável \emph{t} pode ser traduzido em um valor equivalente para a variável linguística \emph{T}, dependendo apenas da definição das funções de pertinência \emph{\mbox{f(t), m(t) e q(t)}}.
+sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, aos conjuntos \emph{fuzzy} \emph{\mbox{F, M e Q}}, com valores de pertinência pertencentes ao intervalo [0,1] e \emph{t} uma variável representando a temperatura em um material qualquer. Considere ainda a associação dos conjuntos \emph{fuzzy} \emph{\mbox{F, M e Q}} aos termos linguísticos frio, morno e quente, respectivamente. Neste cenário, um dado valor para a variável \emph{t} pode ser traduzido em um valor equivalente para a variável linguística \emph{T}, dependendo apenas da definição das funções de pertinência \emph{\mbox{f(t), m(t) e q(t)}}.
 
 \begin{figure}[H]
 	\centering
@@ -136,11 +136,11 @@ sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, a
 Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f(t), m(t) e q(t)}} dada na figura \ref{fig:fuzzygraph}, e três valores de temperatura, \emph{\mbox{t1 = 30, t2 = 50 e t3 = 90}}, temos que os valores correspondentes de temperatura para a variável linguística T são \mbox{T1 = (0.5 frio, 0.5 morno, 0.0 quente)}, \mbox{T2 = (0.0 frio, 1.0 morno, 0.0 quente)} e \mbox{T3 = (0.0 frio, 0.0 morno, 1.0 quente)}, respectivamente. Ou seja, informalmente, a temperatura t1 representa que o material está ``meio frio"~ e ``meio morno"~, a temperatura t2 indica que está ``morno"~ e a temperatura t3, por sua vez, ``quente"~. Este processo de conversão para uma variável linguística é comumente chamado de ``fuzzificação".
 
 
-\subsection{Controle Fuzzy}
+\subsection{Controle \emph{Fuzzy}}
 \label{sec:fuzzycontrol}
-Após definidas as variáveis linguísticas, conjuntos fuzzy e suas funções de pertinência, descritas na seção \ref{varling}, pode-se construir um controle fuzzy baseado em um conjunto de regras de inferência.
+Após definidas as variáveis linguísticas, conjuntos \emph{fuzzy} e suas funções de pertinência, descritas na seção \ref{varling}, pode-se construir um controle \emph{fuzzy} baseado em um conjunto de regras de inferência.
 
-Regras de inferência sobre conjuntos fuzzy podem ser categorizadas como uma generalização do \emph{modus ponens} binário. Em lógica binária, dada regra ``se X então Y", onde X e Y são variáveis binárias, a partir do momento que a premissa, representada pela variável X, assume valor lógico verdadeiro, a conclusão, dada por Y, é verdadeira também. Em lógica fuzzy, o mesmo raciocínio é valido, porém X e Y são variáveis linguísticas, e as regras de inferência são definidas a partir dos valores que estas variáveis linguísticas podem assumir, permitindo inclusive ativação parcial de regras de inferência. Estendendo o exemplo das temperaturas, apresentado na seção \ref{varling}, imagine que seja necessário controlar a velocidade de um \emph{cooler} de processador, de acordo com a temperatura que este se encontra, utilizando um controle fuzzy. As regras de inferência para este controle podem ser, por exemplo:
+Regras de inferência sobre conjuntos \emph{fuzzy} podem ser categorizadas como uma generalização do \emph{modus ponens} binário. Em lógica binária, dada a regra ``se X então Y", onde X e Y são variáveis binárias, a partir do momento que a premissa, representada pela variável X, assume valor lógico verdadeiro, a conclusão, dada por Y, é verdadeira também. Em lógica \emph{fuzzy}, o mesmo raciocínio é valido, porém X e Y são variáveis linguísticas, e as regras de inferência são definidas a partir dos valores que estas variáveis linguísticas podem assumir, permitindo inclusive ativação parcial de regras de inferência. Estendendo o exemplo das temperaturas, apresentado na seção \ref{varling}, e supondo que seja necessário controlar a velocidade de um \emph{cooler} de processador, de acordo com a temperatura em que este se encontra, pode-se utilizar um sistema de controle \emph{fuzzy}. As regras de inferência para este controle podem ser, por exemplo:
 \begin{center}
     Se \emph{morno} então \emph{medio}\\*
     Se \emph{quente} então \emph{forte}
@@ -150,24 +150,24 @@ Sendo ``medio"~ e ``forte"~ valores possíveis da variável linguística Velocidade
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figs/defuzzygraph.png}
-	\caption[Exemplo de Pertinências Fuzzy - Defuzzificação]{Funções de Pertinência vm e vf.}
+	\caption[Exemplo de Pertinências \emph{Fuzzy} - Defuzzificação]{Funções de Pertinência vm e vf.}
 	\label{fig:defuzzygraph}
 \end{figure}
 
-De acordo com estas regras de inferência, se a temperatura \emph{fuzzificada} for inteiramente fria, nenhuma regra será ativada e a velocidade do \emph{cooler} será nula. Porém, se a temperatura for maior que a mínima necessária para começar a ser classificada como morna, haverá ativação integral ou parcial de uma ou ambas as regras de inferência. Neste caso, é necessário determinar o grau de ativação de cada uma das regras e produzir uma saída que contemple estes graus de ativação, que é o processo inverso à \emph{fuzzificação}, a \emph{defuzzificação}. Um destes métodos é a média do máximo, que consiste da média ponderada dos máximos de cada valor fuzzy de saída, com os pesos correspondendo às ativações das regras de inferência. Considerando novamente o exemplo do controle de velocidade de um \emph{cooler} e considerando que, em um determinado momento, a temperatura está ``meio morno"~ e ``meio quente"~, ou seja, 0.5 de pertinência à classe ``morno"~ e a classe ``quente"~, ambas as regras serão ativadas igualmente e a velocidade do \emph{cooler} será:
+De acordo com estas regras de inferência, se a temperatura \emph{fuzzificada} for inteiramente fria, nenhuma regra será ativada e a velocidade do \emph{cooler} será nula. Porém, se a temperatura for maior que a mínima necessária para começar a ser classificada como morna, haverá ativação integral ou parcial de uma ou ambas as regras de inferência. Neste caso, é necessário determinar o grau de ativação de cada uma das regras e produzir uma saída que contemple estes graus de ativação, que é o processo inverso à \emph{fuzzificação}, a \emph{defuzzificação}. Um destes métodos é a média do máximo, que consiste da média ponderada dos máximos de cada valor \emph{fuzzy} de saída, com os pesos correspondendo às ativações das regras de inferência. Considerando novamente o exemplo do controle de velocidade de um \emph{cooler} e considerando que, em um determinado momento, a temperatura está ``meio morno"~ e ``meio quente"~, ou seja, 0.5 de pertinência à classe ``morno"~ e a classe ``quente"~, ambas as regras serão ativadas igualmente e a velocidade do \emph{cooler} será:
 \begin{equation}
 v = \frac{\left( 0.5*50 + 0.5*100 \right ) } {1} = 75
 \end{equation}
 
 \subsection{Considerações}
 
-O conceito de incerteza introduzido pela Lógica Fuzzy permite a modelagem de sistemas com problemas de decisão cujas variáveis são dinâmicas, reduzindo a influencia de ruídos e possibilitando a construção de um sistema de inferências análogo à cognição humana. O problema de navegação robótica é altamente dinâmico, pois as decisões são tomadas sob a influência de vários sensores simultaneamente, todos passíveis de ruído, e a abordagem Fuzzy é uma opção plausível para tratá-lo.
+O conceito de imprecisão introduzido pela Lógica Fuzzy permite a modelagem de sistemas com problemas de decisão cujas variáveis são dinâmicas, reduzindo a influência de ruídos e possibilitando a construção de um sistema de inferências análogo à cognição humana. O problema de navegação robótica é altamente dinâmico, pois as decisões são tomadas sob a influência de vários sensores simultaneamente, todos passíveis de ruído, e a abordagem Fuzzy é uma opção plausível para tratá-lo.
 
-\section{Mapas Cognitivos Fuzzy}
+\section{Mapas Cognitivos \emph{Fuzzy}}
 \label{sec:fcm}
-Esta seção tem como objetivos: explicar o que são mapas cognitivos fuzzy, também conhecidos como FCM (Fuzzy Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo; apresentar os passos para contrução de um FCM; apresentar exemplos, que descrevem o uso dessa abordagem em situações reais.
+Esta seção tem como objetivos: explicar o que são mapas cognitivos \emph{fuzzy}, também conhecidos como FCM (\emph{Fuzzy} Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo; apresentar os passos para contrução de um FCM; apresentar exemplos, que descrevem o uso dessa abordagem em situações reais.
 
-O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo fuzzy é gerado quando se agrega à essa estrutura a incerteza característica da lógica Fuzzy.
+O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo \emph{fuzzy} é gerado quando se agrega à essa estrutura a incerteza característica da lógica Fuzzy.
 
 \begin{figure}[H]
     \centering
@@ -177,7 +177,7 @@ O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cogniti
     \label{fig:fcm}
 \end{figure}
 
-A estrutura de um FCM é um grafo direcionado, como o exemplo da figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos fuzzy, os ``nós"~ são conceitos linguísticos, representados por conjuntos fuzzy e cada ``nó"~ é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável fuzzy relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
+A estrutura de um FCM é um grafo direcionado, como o exemplo da figura \ref{fig:fcm}, em que os valores numéricos são variáveis ou conjuntos \emph{fuzzy}, os ``nós"~ são conceitos linguísticos, representados por conjuntos \emph{fuzzy} e cada ``nó"~ é associado a outros nós através de conexões (relacionamentos), a cada qual está associado um peso numérico, que representa a variável \emph{fuzzy} relacionada ao nível de causalidade entre os conceitos. De acordo com \cite{MENDONCA}, um FCM suporta diversos tipos de conceitos e relacionamentos:
 
 \begin{itemize}
     \item Conceito de nível: Esse conceito pode pode ser representado por um valor absoluto;
@@ -188,7 +188,7 @@ A estrutura de um FCM é um grafo direcionado, como o exemplo da figura \ref{fig:
     \item Declarações condicionais: Esses elementos são as relações causais expressas na forma de regras \emph{se-então} e são atualizadas temporalmente.
 \end{itemize}
 
-Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual j é o contador das iterações, n é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f \ref{sigmoide} é uma função do tipo sigmóide.
+Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual \emph{j} é o contador das iterações, \emph{n} é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f (\ref{sigmoide}) é uma função do tipo sigmóide.
 
 \begin{equation}\label{fcm-matrix}
     w_{i,j}=\left(
@@ -220,14 +220,14 @@ conceitos;
 especialistas e ou análise do sistema de equações, quando se conhece o modelo
 matemático;
 \item Passo 3 - Apresentação dos dados referentes à opinião dos diversos especialistas a
-um sistema lógico fuzzy que tem como saída os valores dos pesos do FCM;
+um sistema lógico \emph{fuzzy} que tem como saída os valores dos pesos do FCM;
 \item Passo 4 - Tratamento da informação, adaptação e ou otimização do FCM
 inicialmente proposto, ajustando suas respostas às saídas desejadas;
 \item Passo 5 - Validação do FCM ajustado nas condições de operação do sistema ou
 processo modelado.
 \end{itemize}
 
-Um FCM apresenta as propriedades de elasticidade e estabilidade, sendo que a elasticidade, ou auto organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais e a estabilidade é a capacidade de o mapa evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
+Um FCM apresenta as propriedades de elasticidade e estabilidade, sendo que a elasticidade, ou auto-organização, é a capacidade de reforçar ou enfraquecer o peso das relações causais e a estabilidade é a capacidade de o mapa evoluir, estabilizando-se em um ponto fixo ou após um número máximo de iterações. Uma vantagem do FCM é a modularidade, a qual permite que um problema complexo seja representado por vários mapas modulares e outra vantagem é que os pesos das relações causais e dos conceitos podem ser obtidos via treinamento a partir dos dados históricos do sistema ou através de um algoritmo adaptativo, que atualiza os pesos constantemente.
 
 \begin{figure}[H]
     \centering
@@ -237,7 +237,7 @@ Um FCM apresenta as propriedades de elasticidade e estabilidade, sendo que a ela
     \label{fig:fcm-exemplo-planta}
 \end{figure}
 
-Em \cite{GROUMPOS} os mapas cognitivos fuzzy são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada (V1 e V2) para diferentes tipos de líquidos, um misturador, uma válvula de saída (V3) para o líquido misturado e um medidor de massa específica (G) que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem dois líquidos diferentes. Durante a mistura, o medidor de massa específica verifica quando o produto atingiu o ponto adequado e, desse modo, a válvula V3 é ativada e o produto da mistura é esvaziado. Analisando-se o problema, os seguintes conceitos podem ser definidos:
+Em \cite{GROUMPOS} os mapas cognitivos \emph{fuzzy} são aplicados no controle de processos industriais. Um exemplo de aplicação é mostrado na figura \ref{fig:fcm-exemplo-planta}, na qual é ilustrado um tanque com duas válvulas de entrada (V1 e V2) para diferentes tipos de líquidos, um misturador, uma válvula de saída (V3) para o líquido misturado e um medidor de massa específica (G) que mede a quantidade de líquido produzida. As válvulas V1 e V2 introduzem dois líquidos diferentes. Durante a mistura, o medidor de massa específica verifica quando o produto atingiu o ponto adequado e, desse modo, a válvula V3 é ativada e o produto da mistura é esvaziado. Analisando-se o problema, os seguintes conceitos podem ser definidos:
 
 \begin{itemize}
 \item Conceito 1: Volume de líquido no tanque, o qual depende do estado das válvulas V1, V2 e V3;
@@ -247,7 +247,7 @@ Em \cite{GROUMPOS} os mapas cognitivos fuzzy são aplicados no controle de proces
 \item Conceito 5: Valor de massa específica do líquido medido pelo sensor G.
 \end{itemize}
 
-O controlador do processo deve manter as variáveis V e G, sendo V o volume e G a massa especifica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ (equação \ref{lim-V}) e $[G_{min}, G_{max}]$ (equação \ref{lim-G}), respectivamente.
+O controlador do processo deve manter as variáveis V e G, sendo V o volume e G a massa específica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ (equação \ref{lim-V}) e $[G_{min}, G_{max}]$ (equação \ref{lim-G}), respectivamente.
 
 \begin{equation}\label{lim-V}
 V_{min}<V<V_{max}
@@ -346,7 +346,7 @@ O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendiza
     \label{fig:fcm-robot}
 \end{figure}
 
-O FCM descreve o comportamento reativo do robô (figura \ref{fig:fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations} e as regras de a seguir determinam o comportamento do mapa:
+O FCM descreve o comportamento reativo do robô (figura \ref{fig:fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations} e as regras a seguir determinam o comportamento do mapa:
 
 \begin{enumerate}
 \item SE a intensidade do sensor frontal (FS) for maior que um limiar médio ENTÃO $W_{lim}$ aplicado para computar o relacionamento $w_3$ é o valor máximo de $WF_{max}$;
