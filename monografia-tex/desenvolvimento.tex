@@ -214,7 +214,7 @@ De acordo com os fatores descritos, a equipe construiu uma lista de requisitos p
     \item[-] Fornecer amplificação para o sinal do encoder.
 \end{itemize}
 
-Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou essencial a utilização de um regulador de tensão, o LM317, que era o mesmo utilizado na versão antiga da placa, e suporta corrente de até 1.5A, valor suficiente para alimentar os componentes da placa. O buffer para o sinal de PWM foi feito através do CI 74LS244N e a amplificação dos sinais dos Encoders utilizando-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos flat, para a interação com a C8051F340, bem como pinos para conectores do hardware do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio do software Eagle e o resultado pode ser visualizado a seguir.
+Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou essencial a utilização de um regulador de tensão, o LM317, que era o mesmo utilizado na versão antiga da placa, e suporta corrente de até 1.5A, valor suficiente para alimentar os componentes da placa. Também foi utilizado um buffer para o sinal de PWM, feito através do CI 74LS244N, proporcionando isolamento elétrico entre os motores e a placa de roteamento. Para a amplificação dos sinais dos Encoders utilizandou-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos flat, para a interação com a C8051F340, bem como pinos para conectores do hardware do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio da versão gratuita, de uso exclusivamente não comercial do software Eagle \cite{EAGLE}, versão 5.11.0, que mostrou-se suficiente para a elaboração da placa. O resultado pode ser visualizado na figura \ref{fig:roteamento_sch}.
 
 \begin{figure}[H]
   \centering
@@ -686,7 +686,7 @@ Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema 
 
 \begin{table}[htb!]
 	\centering
-	\caption[Relações causais do controlador ED-FCM proposto (Estado = FRENTE)]{Relações causais do controlador ED-FCM proposto (Estado = FRENTE).}		
+	\caption[Relações causais do controlador ED-FCM proposto (Estado = FRENTE)]{Relações causais do controlador ED-FCM proposto (Estado = FRENTE).}		 
 	\begin{tabular}[H]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
