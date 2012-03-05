@@ -5,7 +5,7 @@
 Este capítulo contém, em detalhes, o desenvolvimento do trabalho realizado pela equipe, dividido nas seguintes seções:
 \begin{itemize}
     \item[-] Reconstrução da Plataforma Robótica Bellator: Todos os passos realizados para reconstruir e adaptar a plataforma robótica para utilização no projeto.
-    \item[-] Algoritmos de Navegação: Detalha a implementação dos algoritmos de navegação \emph{fuzzy} e FCM, de acordo com as respectivas revisões bibliográficas apresentadas no capítulo \ref{chap:fundteor}.
+    \item[-] Algoritmos de Navegação: Detalha a implementação dos algoritmos de navegação \emph{fuzzy} e ED-FCM, de acordo com as respectivas revisões bibliográficas apresentadas no capítulo \ref{chap:fundteor}.
     \item[-] Testes e Análise de Resultados: Apresenta a metodologia, elaboração dos testes dos algoritmos e a análise dos resultados obtidos para ambos os algoritmos de navegação.
     \item[-] Considerações: Conclusão do capítulo e considerações sobre o desenvolvimento do projeto.
 \end{itemize}
@@ -21,7 +21,7 @@ Após o recebimento do robô, foram realizados testes para garantir a funcionalida
 estava com suas peças empilhadas numa caixa e não era possível confiar no funcionamento adequado de nenhum dos componentes, além de que a falha de alguns componentes implicaria na impossibilidade de continuar o projeto ou em atrasos significativos. Estes testes também foram necessários para determinar de forma mais precisa o que poderia ser reaproveitado do projeto Bellator. De acordo com a documentação do projeto Bellator~\cite{BELLATOR}, o robô deveria ser capaz de, se montado conforme as instruções na mesma, funcionar como um sistema controlado remotamente. Como o objetivo deste projeto não envolve controlar
 o robô remotamente, foi testada apenas a camada de baixo nível.
 
-O primeiro passo da etapa de testes foi verificar o funcionamento da placa C8051F340, peça fundamental para o desenvolvimento do projeto, que apresentou o funcionamento adequado, gerando os PWMs dos motores conforme necessário (visualizados no osciloscópio), e realizando a leitura dos sensores e conversão A/D conforme esperado. Em seguida, foram iniciados os testes utilizando a placa de roteamento já existente, que apresentou defeito. Após alguns testes, foi constatado que a placa havia sido desconfigurada, várias soldas foram removidas, o circuito em si estava alterado. Então, a equipe reorganizou a placa, realizou novos testes, mas não obteve sucesso. Foi então verificado que
+O primeiro passo da etapa de testes foi verificar o funcionamento da placa C8051F340, peça fundamental para o desenvolvimento do projeto, que apresentou o funcionamento adequado, gerando os PWMs, cujo conceito é descrito na seção \ref{sec:pwm}, dos motores conforme necessário (visualizados no osciloscópio), e realizando a leitura dos sensores e conversão A/D conforme esperado. Em seguida, foram iniciados os testes utilizando a placa de roteamento já existente, que apresentou defeito. Após alguns testes, foi constatado que a placa havia sido desconfigurada, várias soldas foram removidas, o circuito em si estava alterado. Então, a equipe reorganizou a placa, realizou novos testes, mas não obteve sucesso. Foi então verificado que
 o regulador de tensão não estava funcionando. Este foi substituído e a placa finalmente funcionou conforme esperado.
 
 Com a placa de roteamento antiga funcionando, foi possível realizar o teste dos motores, utilizando os PWMs gerados pelo
@@ -193,11 +193,11 @@ em detalhes na seção~\ref{sec:ts}.
 A placa de roteamento é um componente fundamental do projeto, responsável por realizar a interligação entre a placa C8051F340 e os componentes de hardware do robô. A equipe constatou a necessidade deste componente devido aos seguintes fatores:
 
 \begin{itemize}
-    \item[-] Necessidade de alimentação dedicada para alguns componentes
-    \item[-] Necessidade de tratamento dos sinais dos encoders
-    \item[-] Roteamento das leituras de cada sensor para o pino I/O correto da C8051F340
-    \item[-] Necessidade de um buffer para o PWM
-    \item[-] Melhor organização do robô
+    \item[-] Necessidade de alimentação dedicada para alguns componentes;
+    \item[-] Necessidade de tratamento dos sinais dos encoders;
+    \item[-] Roteamento das leituras de cada sensor para o pino I/O correto da C8051F340;
+    \item[-] Necessidade de um buffer para o PWM;
+    \item[-] Melhor organização do robô.
 \end{itemize}
 
 Como descrito nas especificações do robô (\ref{sec:esprob}), o robô Bellator possui, dentre outros componentes, cinco sensores, dois encoders e duas pontes H. Os cinco sensores e dois encoders necessitam de alimentação de aproximadamente 5 Volts para operação. Os encoders produzem um sinal que precisa ser amplificado antes da utilização, e as duas pontes H necessitam de um sinal de PWM de baixa impedância. Além disso, o consumo de corrente total destes componentes ultrapassa a capacidade de fornecimento de corrente da C8051F340. Medições durante os testes com os componentes foram realizadas, e foi constatado que cada sensor de distância utiliza cerca de 30mA de corrente, enquanto os encoders utilizam 20mA cada, totalizando quase 200mA para estes componentes.
@@ -207,11 +207,11 @@ Por fim, a dificuldade de conectar, de forma prática, todos os componentes do ro
 De acordo com os fatores descritos, a equipe construiu uma lista de requisitos para a placa de roteamento:
 
 \begin{itemize}
-    \item[-] Fornecer alimentação de aproximadamente 5 Volts DC
-    \item[-] Capacidade de corrente suficiente %Atualizar com valores!
-    \item[-] Conectores práticos para interface com a C8051F340 e o resto do robô
-    \item[-] Fornecer um buffer para o sinal de PWM
-    \item[-] Fornecer amplificação para o sinal do encoder
+    \item[-] Fornecer alimentação de aproximadamente 5 Volts DC;
+    \item[-] Capacidade de corrente suficiente; %Atualizar com valores!
+    \item[-] Conectores práticos para interface com a C8051F340 e o resto do robô;
+    \item[-] Fornecer um buffer para o sinal de PWM;
+    \item[-] Fornecer amplificação para o sinal do encoder.
 \end{itemize}
 
 Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou essencial a utilização de um regulador de tensão, o LM317, que era o mesmo utilizado na versão antiga da placa, e suporta corrente de até 1.5A, valor suficiente para alimentar os componentes da placa. O buffer para o sinal de PWM foi feito através do CI 74LS244N e a amplificação dos sinais dos Encoders utilizando-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos flat, para a interação com a C8051F340, bem como pinos para conectores do hardware do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio do software Eagle e o resultado pode ser visualizado a seguir.
@@ -251,7 +251,7 @@ A placa de roteamento foi confeccionada manualmente em uma placa de circuito imp
 \label{sec:ts}
 Esta seção explicará como foi estruturado o software desenvolvido para a placa
 TS-7260, cuja função principal é realizar a interface entre o software do microcontrolador
-C8051F340 e o algoritmo de navegação (Fuzzy ou FCM).
+C8051F340 e o algoritmo de navegação (Fuzzy ou ED-FCM).
 
 \subsection{Configuração da TS-7260}
 O software da TS-7260 foi desenvolvido em C++, assim como os algoritmos de navegação, a serem
@@ -329,7 +329,7 @@ de um loop infinito, que executa os seguintes passos:
 
 O diagrama em blocos a seguir representa o funcionamento do software, demonstrando
 também em que etapas ocorre a comunicação com o microcontrolador (setas tracejadas) e quando o algoritmo
-de navegação é executado. Vale lembrar que o algoritmo de navegação (Fuzzy ou FCM) executa na placa
+de navegação é executado. Vale lembrar que o algoritmo de navegação (Fuzzy ou ED-FCM) executa na placa
 TS-7260 também, mas seu código não faz parte do software desta placa (tslogic), por este motivo está
 em um bloco separado no diagrama. As ações descritas no bloco C8051F340 são executadas no
 microcontrolador.
@@ -371,7 +371,7 @@ microcontrolador.
 		\begin{pgfonlayer}{background}
 			\node [background, fit=(nrcv) (end) (opentty), label=above:TS-7260] {};
 			\node [backgroundb, fit=(opentty) (end), label=below:tslogic] {};
-			\node [backgroundb, fit=(nrcv) (nret), label=below:Fuzzy/FCM] {};
+			\node [backgroundb, fit=(nrcv) (nret), label=below:Fuzzy/ED-FCM] {};
 			\node [background, fit=(rcv) (pwm), label=above:C8051F340] {};
 		\end{pgfonlayer}
 	\end{tikzpicture}
@@ -535,10 +535,10 @@ Finalmente, as regras definidas podem ser utilizadas para realizar as inferência
 
 O algoritmo \emph{fuzzy} produziu o comportamento adequado em navegação robótica permitindo que o robô fosse capaz de desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou o robô a navegar de forma autônoma recebendo como entrada as leituras dos sensores. A versão descrita nessa seção foi produzida após a execução e conclusão dos testes iniciais e avançados, seções \ref{sec:testesini} e \ref{sec:testesavan}, respectivamente. Durante esses testes, o algoritmo foi submetido a uma série de experimentos visando detectar erros de navegação, isolá-los e corrigí-los. Esse processo foi realizado repetidas vezes e as funções de pertinência e regras \emph{fuzzy} foram aprimorados gradualmente. A tabela de funções, tabela \ref{tab:varsfuzzy}, e a tabela de regras, tabela \ref{tab:regrasinf}, representam a versão utilizada nos testes comparativos, descritos na seção \ref{sec:testescomp}, que foi utilizada para obtenção do resultado final.
 
-\subsection{Algoritmo de Navegação Baseado em FCM}
+\subsection{Algoritmo de Navegação Baseado em ED-FCM}
 \label{sec:algedfcm}
 %Descrição da adaptação do código matlab, utilização, conceitos.
-Esta seção tem por objetivo descrever o projeto e a implementação do algoritmo de navegação baseado na abordagem FCM, apresentada na seção \ref{sec:fcm} da fundamentação teórica. O projeto consistiu na definição dos conceitos de entrada, nível e saída, relações causais e respectivos pesos. A implementação foi desenvolvida em linguagem C++ e compilada para ser executada na placa TS-7260.
+Esta seção tem por objetivo descrever o projeto e a implementação do algoritmo de navegação baseado na abordagem ED-FCM, apresentada na seção \ref{sec:fcm} da fundamentação teórica. O projeto consistiu na definição dos conceitos de entrada, nível e saída, relações causais, respectivos pesos e um evento. A implementação foi desenvolvida em linguagem C++ e compilada para ser executada na placa TS-7260.
 
 A idéia do algoritmo foi controlar a direção do robô ajustando a potência aplicada em cada roda, de forma independente, sendo que esta pode ser aplicada para a roda girar em ambos os sentidos. As seguintes hipóteses foram elaboradas para projetar o algoritmo:
 
@@ -562,7 +562,7 @@ Os movimentos produzidos na segunda situação são:
 \item Quando a roda esquerda girar para frente e a roda direita girar para trás, o movimento é ``desviar para a direita".
 \end{enumerate}
 
-Desse modo, o algoritmo controla a direção do robô calculando a ``intensidade de girar"~ a roda direita para trás ou para frente e a ``intensidade de girar"~ a roda esquerda para trás ou para frente, sendo que esse cálculo recebe como entradas as distâncias registradas pelos sensores de distância na lateral direita, na frente e na lateral esquerda do robô. O mesmo agrupamento realizado para o algoritmo Fuzzy foi utilizado para o FCM, tomando o mínimo de cada par de sensores laterais como uma entrada, totalizando 2 entradas, e o sensor frontal representando a terceira entrada.
+Desse modo, o algoritmo controla a direção do robô calculando a ``intensidade de girar"~ a roda direita para trás ou para frente e a ``intensidade de girar"~ a roda esquerda para trás ou para frente, sendo que esse cálculo recebe como entradas as distâncias registradas pelos sensores de distância na lateral direita, na frente e na lateral esquerda do robô. O mesmo agrupamento realizado para o algoritmo Fuzzy foi utilizado para o ED-FCM, tomando o mínimo de cada par de sensores laterais como uma entrada, totalizando 2 entradas, e o sensor frontal representando a terceira entrada.
 
 \subsubsection{Conceitos}
 \label{subsec:conceitos}
@@ -581,7 +581,7 @@ Esses conceitos guardam o valor da leitura da distância normalizada na faixa de 
 y=\frac {x-MIN} {MAX-MIN}
 \end{equation}
 
-Em seguida, foram determinados os conceitos de nível do FCM, os quais estabelecem as inferências resultantes dos valores dos conceitos de entrada. Foram definidos quatro conceitos de nível:
+Em seguida, foram determinados os conceitos de nível do ED-FCM, os quais estabelecem as inferências resultantes dos valores dos conceitos de entrada. Foram definidos quatro conceitos de nível:
 
 \begin{enumerate}
 \item GDF - Representa a intensidade da decisão de girar a roda direita para frente;
@@ -611,7 +611,7 @@ Por fim, definiu-se a saída do sistema de navegação, a qual são os níveis percen
 
 \subsubsection{Relações Causais}
 \label{subsec:rel-causal}
-Os conceitos foram interligados através das relações causais ilustradas na figura \ref{fig:fcm-proposto}. Esse FCM conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out.
+Os conceitos foram interligados através das relações causais ilustradas na figura \ref{fig:fcm-proposto}. Esse ED-FCM conecta os conceitos de entrada SD, SF e SE, através dos conceitos de nível GDF, GDT, GEF e GET, aos conceitos de saída RD Out e RE Out.
 
 \begin{figure}[H]
 	\centering
@@ -677,16 +677,16 @@ Os conceitos foram interligados através das relações causais ilustradas na figur
 			edge [thick] (GET)
 			edge [post,thick] (REO);
 	\end{tikzpicture}
-	\caption[FCM proposto]{FCM proposto.}
+	\caption[ED-FCM proposto]{ED-FCM proposto.}
 	\fonte{Autoria própria.}
 	\label{fig:fcm-proposto}
 \end{figure}
 
-Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema um conceito de estado que influencia os pesos de todas as relações causais. Os estados que o FCM proposto pode assumir são ``FRENTE"~ e ``TRÁS", sendo que os pesos das relações causais quando o FCM estiver no primeiro estado estão de acordo com a tabela \ref{tab:fcm-relacoes-frente} e os pesos no segundo estado, com a tabela \ref{tab:fcm-relacoes-tras}. O valor numérico das intensidades das relações causais estão de acordo com a tabela \ref{tab:pesos}.
+Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema um conceito de estado que influencia os pesos de todas as relações causais. Os estados que o ED-FCM proposto pode assumir são ``FRENTE"~ e ``TRÁS", sendo que os pesos das relações causais quando o ED-FCM estiver no primeiro estado estão de acordo com a tabela \ref{tab:fcm-relacoes-frente} e os pesos no segundo estado, com a tabela \ref{tab:fcm-relacoes-tras}. O valor numérico das intensidades das relações causais estão de acordo com a tabela \ref{tab:pesos}.
 
 \begin{table}[htb!]
 	\centering
-	\caption[Relações causais do controlador FCM proposto (Estado = FRENTE)]{Relações causais do controlador FCM proposto (Estado = FRENTE).}		
+	\caption[Relações causais do controlador ED-FCM proposto (Estado = FRENTE)]{Relações causais do controlador ED-FCM proposto (Estado = FRENTE).}		
 	\begin{tabular}[H]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
@@ -715,7 +715,7 @@ Para modificar o valor dos pesos em tempo de execução, introduziu-se ao sistema 
 
 \begin{table}[htb!]
 	\centering
-	\caption[Relações causais do controlador FCM proposto (Estado = TRÁS)]{Relações causais do controlador FCM proposto (Estado = TRÁS).}		
+	\caption[Relações causais do controlador ED-FCM proposto (Estado = TRÁS)]{Relações causais do controlador ED-FCM proposto (Estado = TRÁS).}		
 	\begin{tabular}[H]{ l l l l }
 	  \hline
 	  Relação causal & Descrição & Efeito & Intensidade \\
@@ -814,7 +814,7 @@ RD_{Out}=100 \times \frac {w_{13}GEF-w_{14}GET} {FORTE}
 
 \subsubsection{Considerações}
 
-O FCM projetado ofereceu a capacidade de o robô desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou ao robô navegar de forma autônoma recebendo como entrada as leituras dos sensores. Contudo, a versão final do FCM foi obtida após diversos testes, nos quais erros de navegação foram encontrados, isolados e corrigidos repetidas vezes. Nesse processo, os pesos das relações causais foram modificados até chegarem aos valores das tabelas \ref{tab:fcm-relacoes-frente} e \ref{tab:fcm-relacoes-tras}. A necessidade de implementação de um FCM com evento surgiu durante a execução de um experimento dos testes avançados, como é descrito na seção \ref{sec:testesavan}. O evento foi implementado para resolver especificamente aquele problema de indecisão. Com isso, a versão final do projeto de FCM apresentada nessa seção foi capaz de resolver os problemas propostos nos experimentos dos testes comparativos, seção \ref{sec:testescomp}, gerando resultados adequados para a comparação com o algoritmo \emph{fuzzy}, apresentado na seção \ref{sec:algfuzzy}.
+O ED-FCM projetado ofereceu a capacidade de o robô desviar obstáculos posicionados à direita, à esquerda e à frente do mesmo. Conforme foi descrito na seção de testes, seção \ref{sec:testes}, esse algoritmo possibilitou ao robô navegar de forma autônoma recebendo como entrada as leituras dos sensores. Contudo, a versão final do ED-FCM foi obtida após diversos testes, nos quais erros de navegação foram encontrados, isolados e corrigidos repetidas vezes. Nesse processo, os pesos das relações causais foram modificados até chegarem aos valores das tabelas \ref{tab:fcm-relacoes-frente} e \ref{tab:fcm-relacoes-tras}. A necessidade de implementação de um ED-FCM com evento surgiu durante a execução de um experimento dos testes avançados, como é descrito na seção \ref{sec:testesavan}. O evento foi implementado para resolver especificamente aquele problema de indecisão. Com isso, a versão final do projeto de ED-FCM apresentada nessa seção foi capaz de resolver os problemas propostos nos experimentos dos testes comparativos, seção \ref{sec:testescomp}, gerando resultados adequados para a comparação com o algoritmo \emph{fuzzy}, apresentado na seção \ref{sec:algfuzzy}.
 
 \input{testesresultados}
 

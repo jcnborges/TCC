@@ -40,7 +40,7 @@ lógica \emph{fuzzy}, redes neurais ou uma combinação de ambas denominada ``neuro
 trabalho é um estudo comparativo entre dois algoritmos de navegação, que serão implementados para
 desempenhar o comportamento reativo de um robô móvel autônomo, o qual deverá desviar obstáculos.
 Um dos algoritmos é uma implemen\-ta\-ção utilizando lógica \emph{fuzzy}, com tomada de decisão baseada
-diretamente em regras \emph{fuzzy}, enquanto que o outro é um algoritmo baseado em FCM (\emph{Fuzzy Cognitive
+diretamente em regras \emph{fuzzy}, enquanto que o outro é um algoritmo baseado em ED-FCM (\emph{Event-Driven Fuzzy Cognitive
 Maps}), que é considerado por alguns autores como um sistema neuro-\emph{fuzzy} \cite{MENDONCA}. Para
 realizar a comparação desses algoritmos, será necessária uma plataforma robótica real, obtida pela 
 reconstrução do robô ``Bellator", cordialmente cedido à equipe pelo professor Heitor Silvério 
@@ -59,16 +59,16 @@ locomover e tomar decisões sem necessidade de comunicação com um sistema externo
 
 A lógica \emph{fuzzy} é uma abordagem estudada no sétimo período, na disciplina de Sistemas Inteligentes, do curso de Engenharia de Computação
 da Universidade Tecnológica Federal do Paraná. Este trabalho então propôs a reconstrução e adequação do robô Bellator, e da
-implemen\-ta\-ção de dois algoritmos de controle de navegação autônoma para o mesmo: um controlador \emph{fuzzy} e um controlador baseado no algoritmo FCM, como proposto por 
- \citeonline{MENDONCA}, o qual defendeu recentemente sua tese de doutorado. O algoritmo FCM possui uma proposta inovadora, cujos conceitos podem ser aplicados na 
+implemen\-ta\-ção de dois algoritmos de controle de navegação autônoma para o mesmo: um controlador \emph{fuzzy} e um controlador baseado no algoritmo ED-FCM, como proposto por 
+ \citeonline{MENDONCA}, o qual defendeu recentemente sua tese de doutorado. O algoritmo ED-FCM possui uma proposta inovadora, cujos conceitos podem ser aplicados na 
 robótica móvel, porém também em controladores industriais \cite{MENDONCA}. O presente trabalho também apresenta uma avaliação qualitativa dos controladores desenvolvidos, 
-permitindo uma discussão sobre a adequação das abordagens \emph{fuzzy} e FCM na tarefa de controlar o comportamento reativo de um robô móvel real. 
+permitindo uma discussão sobre a adequação das abordagens \emph{fuzzy} e ED-FCM na tarefa de controlar o comportamento reativo de um robô móvel real. 
 
 Através deste trabalho, a equipe espera integrar vários assuntos condizentes com a área da 
 Engenharia de Computação. A reconstrução do robô levou em conta conhecimentos de hardware e 
 eletrônica, programação de baixo nível, experimentos e testes em bancada de laboratório de eletrônica. 
 A programação dos algoritmos avaliaou a capacidade dos integrantes de colocar em prática conceitos
-previamente conhecidos, como a lógica \emph{fuzzy}, e assimilarem novos conceitos, como o FCM. O resultado 
+previamente conhecidos, como a lógica \emph{fuzzy}, e assimilarem novos conceitos, como o ED-FCM. O resultado 
 final foi obtido ao unir e integrar o hardware ao software de controle do robô, o que 
 representou um grande desafio e uma experiência enriquecedora como trabalho de 
 graduação.
@@ -90,7 +90,7 @@ preço é de 2795 dólares \cite{X80}, ao decidir entre adquirir uma plataforma
 comercial nova ou reconstruir e adequar o Bellator. A possibilidade de disponibilizar
 essa plataforma reconstruída e documentada para trabalhos acadêmicos futuros também foi um fator decisivo nessa escolha.
 
-Os algoritmos escolhidos para implemen\-ta\-ção foram o algoritmo de navegação \emph{fuzzy}, baseado em inferências sobre conjuntos \emph{fuzzy}, e o algoritmo de navegação FCM, 
+Os algoritmos escolhidos para implemen\-ta\-ção foram o algoritmo de navegação \emph{fuzzy}, baseado em inferências sobre conjuntos \emph{fuzzy}, e o algoritmo de navegação ED-FCM, 
 tendo em vista a oportunidade de analisar o comportamento de uma nova abordagem de navegação robótica em relação à uma abordagem já conhecida e estudada ao 
 longo do curso de graduação, ambas utilizando conceitos de lógica \emph{fuzzy} de maneiras distintas.
 
@@ -107,8 +107,8 @@ A metodologia deste trabalho foi dividida nas seguintes etapas: reconstrução e a
 
 A reconstrução e adequação consistiram na avaliação do estado do robô, o projeto e implemen\-tação do hardware e software necessários para o funcionamento adequado do mesmo. Durante a avaliação, foram testados os sensores de distância, os encoders das rodas, baterias, motores e demais componentes disponíveis. A elaboração do hardware consistiu na confecção de uma placa de roteamento para alimentar os sensores e encoders, tratar os sinais dos enconders amplificando-os, rotear os sinais dos sensores de distância e encoders aos respectivos pinos de entrada do microcontrolador e rotear os sinais de controle para os motores (utilizando drivers de potência contendo pontes H). O software consistiu na adequação do código dispobilizado no projeto Bellator \cite{BELLATOR}, nas quais as rotinas de leitura dos sensores, comunicação de dados, recepção de comandos de controle do robô e protocolo de comunicação foram atualizadas de acordo com as necessidades desse projeto. O hardware acoplado à plataforma foi configurado para comunicar-se com o microcontrolador e um software foi implementado para executar os algoritmos de navegação.
 
-O estudo dos algoritmos de navegação consistiu na revisão bibliográfica da Lógica \emph{Fuzzy} e do FCM. Os projetos dos algoritmos tomaram como base esse estudo, e a implemen\-ta\-ção consistiu no desenvolvimento dos códigos em linguagem C++, compilados para execução no hardware acoplado, e os testes consistiram na realização de diversos experimentos nos quais o robô navegou guiando-se exclusivamente pelos algoritmos implementados. Esses experimentos foram registrados em gravação de vídeo e a análise consistiu na interpretação qualitativa desses resultados, evidenciando as vantagens e desvantagens de cada algoritmo.
+O estudo dos algoritmos de navegação consistiu na revisão bibliográfica da Lógica \emph{Fuzzy} e do ED-FCM. Os projetos dos algoritmos tomaram como base esse estudo, e a implemen\-ta\-ção consistiu no desenvolvimento dos códigos em linguagem C++, compilados para execução no hardware acoplado, e os testes consistiram na realização de diversos experimentos nos quais o robô navegou guiando-se exclusivamente pelos algoritmos implementados. Esses experimentos foram registrados em gravação de vídeo e a análise consistiu na interpretação qualitativa desses resultados, evidenciando as vantagens e desvantagens de cada algoritmo.
 
 \section{Estrutura do Documento}
 
-Esta monografia está dividida em cinco capítulos: o primeiro corresponde à introdução, na qual são apresentadas a motivação, os objetivos e a metodologia empregada. O segundo capítulo é a fundamentação teórica do projeto, em que são apresentados o estado inicial e o estado final do robô após a reconstrução e adequação, a explicação da Lógica \emph{Fuzzy} e da abordagem FCM. O terceiro capítulo é o desenvolvimento do trabalho, no qual são descritas as atividades realizadas pela equipe, incluindo a reconstrução e adequação do robô, o projeto e a implemen\-ta\-ção dos algoritmos, o desenvolvimento dos testes em campo e análise dos resultados. O quarto capítulo é a conclusão do projeto e o quinto lista as referências bibliográficas.
+Esta monografia está dividida em cinco capítulos: o primeiro corresponde à introdução, na qual são apresentadas a motivação, os objetivos e a metodologia empregada. O segundo capítulo é a fundamentação teórica do projeto, em que são apresentados o estado inicial e o estado final do robô após a reconstrução e adequação, a explicação da Lógica \emph{Fuzzy} e da abordagem ED-FCM. O terceiro capítulo é o desenvolvimento do trabalho, no qual são descritas as atividades realizadas pela equipe, incluindo a reconstrução e adequação do robô, o projeto e a implemen\-ta\-ção dos algoritmos, o desenvolvimento dos testes em campo e análise dos resultados. O quarto capítulo é a conclusão do projeto e o quinto lista as referências bibliográficas.

@@ -3,7 +3,7 @@
 
 Este capítulo apresentará a fundamentação teórica, que consiste na
 descrição do estado inicial robô Bellator, com uma visão geral do
-projeto no qual esse robô estivera em uso, a descrição do material entregue à equipe, a especificação do robô após a reconstrução e adequação, a apresentação dos estudos de Lógica Fuzzy e FCM (\emph{Fuzzy Cognitive Maps}).
+projeto no qual esse robô estivera em uso, a descrição do material entregue à equipe, a especificação do robô após a reconstrução e adequação, a apresentação dos estudos de Lógica Fuzzy e ED-FCM (\emph{Event-Driven Fuzzy Cognitive Maps}).
 
 %---------- Estado inicial do Projeto ----------
 \section{Estado Inicial do Projeto} \label{sec:estpro}
@@ -81,6 +81,54 @@ estudo qualitativo proposto, mas precisou ser reconstruída e adequada
 após a reconstrução é descrita na seção \ref{sec:esprob}.
 
 \input{especificacao}
+
+\section{\emph{Pulse Width Modulation} (PWM)}
+\label{sec:pwm}
+PWM é a abreviação de \emph{Pulse Width Modulation} ou Modulação de Largura de Pulso e pode ser aplicado no controle de potência de motores DC. Em \cite{PWMREF}, o circuito da \ref{fig:interrpwm}, que é formado por um interruptor de ação muito rápida e uma carga que deve ser controlada, foi utilizado para explicar o princípio de funcionamento dessa tecnologia. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./figs/interrpwm.png}
+	\caption[Interruptor de ação muito rápida e o controle de potência através de PWM]{Interruptor de ação muito rápida e o controle de potência através de PWM.}
+	\label{fig:interrpwm}
+	\fonte{\cite{PWMREF}}
+\end{figure}
+
+Nessa figura, quando o interruptor é aberto, não há corrente na carga e a potência aplicada é nula e, no instante em que o interruptor é fechado, a carga recebe a tensão total da fonte e a potência aplicada é máxima. Controlando a abertura e fechamento da chave, pode-se determinar um nível de potência intermediário aplicado à carga. Desse modo, se a chave permanecer aberta por um instante de tempo $t_1$ e fechada por um instante de tempo $t_2$, sendo $t_1$ igual a $t_2$, então a potência média aplicada será de 50\%, conforme ilustra a figura \ref{fig:pwm-50}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./figs/pwm-50.png}
+	\caption[Situação na qual a potência média aplicada à carga é 50\% da potência máxima]{Situação na qual a potência média aplicada à carga é 50\% da potência máxima.}
+	\label{fig:pwm-50}
+	\fonte{\cite{PWMREF}}
+\end{figure}
+
+\begin{equation}
+\label{eq:cicloativo}
+d=100 \times \frac{t_1} {t}
+\end{equation}
+
+ A soma dos intervalos t1 e t2 define o período t do sinal de PWM e variando-se o intervalo t1, tempo pelo qual a chave permanece fechada, define-se a largura de pulso do ciclo ativo. A equação \ref{eq:cicloativo} determina o ciclo ativo do PWM, que é utilizada para controlar a potência média aplicada a uma carga. Assim, quando o ciclo ativo do sinal for variado, conforme a figura \ref{fig:pwmfinal}, modifica-se a potência média aplicada à carga.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./figs/cicloativo.png}
+	\caption[Ilustração do ciclo ativo do PWM]{Ilustração do ciclo ativo do PWM.}
+	\label{fig:cicloativo}
+	\fonte{\cite{PWMREF}}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./figs/pwmfinal.png}
+	\caption[Variação do ciclo ativo do PWM e controle da potência]{Variação do ciclo ativo do PWM e controle da potência.}
+	\label{fig:pwmfinal}
+	\fonte{\cite{PWMREF}}
+\end{figure}
+
+\subsection{Considerações}
+O controle de potência por PWM é indicado para esse trabalho porque essa tecnologia pode ser aplicada em motores DC, que constituem parte do robô Bellator. O microcontrolador C8051F340DK foi programado para gerar os sinais de PWM de ambos os motores, conforme foi explicado na seção \ref{sec:codmicro}.
 
 \section{Lógica Fuzzy}
 \label{sec:logfuzzy}
@@ -163,9 +211,9 @@ v = \frac{\left( 0.5*50 + 0.5*100 \right ) } {1} = 75
 
 O conceito de imprecisão introduzido pela Lógica Fuzzy permite a modelagem de sistemas com problemas de decisão cujas variáveis são dinâmicas, reduzindo a influência de ruídos e possibilitando a construção de um sistema de inferências análogo à cognição humana. O problema de navegação robótica é altamente dinâmico, pois as decisões são tomadas sob a influência de vários sensores simultaneamente, todos passíveis de ruído, e a abordagem Fuzzy é uma opção plausível para tratá-lo.
 
-\section{Mapas Cognitivos \emph{Fuzzy}}
+\section{\emph{Event-Driven Fuzzy Congnitive Maps} (ED-FCM)}
 \label{sec:fcm}
-Esta seção tem como objetivos: explicar o que são mapas cognitivos \emph{fuzzy}, também conhecidos como FCM (\emph{Fuzzy} Cognitive Maps), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo; apresentar os passos para contrução de um FCM; apresentar exemplos, que descrevem o uso dessa abordagem em situações reais.
+Esta seção tem como objetivos: explicar o que são mapas cognitivos \emph{fuzzy}, também conhecidos como FCM (\emph{Fuzzy Cognitive Maps}), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo; apresentar os passos para contrução de um FCM; apresentar exemplos, que descrevem o uso dessa abordagem em situações reais. O capítulo também visa a apresentação do ED-FCM (\emph{Event-Driven Fuzzy Cognitive Maps}), que é uma modificação do FCM para suportar a atualização dos pesos dinamicamente.
 
 O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo \emph{fuzzy} é gerado quando se agrega à essa estrutura a incerteza característica da lógica Fuzzy.
 
@@ -346,7 +394,7 @@ O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendiza
     \label{fig:fcm-robot}
 \end{figure}
 
-O FCM descreve o comportamento reativo do robô (figura \ref{fig:fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations} e as regras a seguir determinam o comportamento do mapa:
+O ED-FCM descreve o comportamento reativo do robô (figura \ref{fig:fcm-robot}), no qual a leitura dos sensores de distância (esquerdo, frontal e direito) levam a uma ação imediata que interfere no movimento. Os conceitos RS, FS e LS representam as leituras dos sensores, os conceitos LO e RO representam as decisões de virar à esquerda ou virar à direita, respectivamente,  decisões anteriores, representadas pelos conceitos LO(-1) e RO(-1), exercem influência sobre as decisões atuais e a saída do algoritmo é representada pelos conceitos \emph{Out Left}, \emph{Out Front} e \emph{Out Right}. As relações causais do mapa são descritas na tabela \ref{tab:causal-relations} e as regras a seguir determinam o comportamento do mapa:
 
 \begin{enumerate}
 \item SE a intensidade do sensor frontal (FS) for maior que um limiar médio ENTÃO $W_{lim}$ aplicado para computar o relacionamento $w_3$ é o valor máximo de $WF_{max}$;
@@ -388,5 +436,5 @@ w_i(k)=w_i(k-1)+\alpha \times [r+\gamma \times W_{lim}-w_i(k-1)]
 Por fim, nesse artigo, são descritos os resultados nos quais o robô, em simulação, foi capaz de desviar obstáculos à direita e à esquerda do mesmo ao longo da trajetória.
 
 \subsection{Considerações}
-O FCM representa um problema em termos de conceitos e relações causais, podendo ser empregado em controladores de processos industriais ou no controle de robôs autônomos. O problema do desvio de obstáculos em navegação robótica pôde ser modelado, conforme o exemplo apresentado (figura \ref{fig:fcm-robot}), através de três conceitos de entrada (RS, FS e LS), dois conceitos de decisão (RO e LO), três conceitos de saída (Right Out, Front Out e Left Out), relações causais, regras \emph{SE-ENTÃO} e um algoritmo de aprendizado. O controlador proposto permitiu que o robô desviasse obstáculos reagindo à leitura de sensores que medem a distância de objetos posicionados à esquerda e à direita do mesmo, concluindo-se que a abordagem FCM é adequada para esse trabalho.
+O ED-FCM representa um problema em termos de conceitos e relações causais, podendo ser empregado em controladores de processos industriais ou no controle de robôs autônomos. O problema do desvio de obstáculos em navegação robótica pôde ser modelado, conforme o exemplo apresentado (figura \ref{fig:fcm-robot}), através de três conceitos de entrada (RS, FS e LS), dois conceitos de decisão (RO e LO), três conceitos de saída (Right Out, Front Out e Left Out), relações causais, regras \emph{SE-ENTÃO} e um algoritmo de aprendizado. O controlador proposto permitiu que o robô desviasse obstáculos reagindo à leitura de sensores que medem a distância de objetos posicionados à esquerda e à direita do mesmo. A ocorrência de eventos especiais permitiram modificar o estado do ED-FCM e alterar os pesos das relações causais de forma dinamica. Em \cite{MENDONCA}, esse modelo foi utilizado no problema de navegação e, por isso, concluiu-se que essa abordagem é adequada para esse trabalho.
 
