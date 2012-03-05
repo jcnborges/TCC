@@ -105,10 +105,15 @@ y = 3.6404 \cdot 10^{-7} x^4 - 2.4435 \cdot 10^{-4} x^3 + 6.0732 \cdot 10^{-2} x
 \label{fig:curvasensores}
 \end{figure}
 
-Com esta equação, bastou iterar pelos valores \emph{x} possíveis de conversão (0 a 255, pois a conversão
+Com esta equação, só foi necessário iterar pelos valores \emph{x} possíveis de conversão (0 a 255, pois a conversão
 analógica/digital usa 8 bits) e montar a tabela para acessar com os valores de conversão e obter
-a distância em centímetros. Esta tabela que mapeia os valores da conversão para a distância em centímetros
-foi inserida no código da placa TS-7260, que será explicado em detalhes na seção~\ref{sec:softwarets}.
+a distância em centímetros.
+Para exemplificar, suponha que a conversão analógica digital de algum sensor
+resultou num valor de \emph{x = 120}. Para obter a distância correspondente em centímetros, basta 
+acessar a tabela na posição 120, e o valor armazenado nesta posição é a distância em centímetros, que
+foi obtido diretamente da substituição de \emph{x} na equação, ou seja, sendo \emph{y = f(x)}, a distância
+em centímetros para a conversão analógica digital com valor 120 é f(120). A tabela foi montada simplesmente
+para evitar recálculos através da equação, e foi inserida no código da placa TS-7260, que será explicado em detalhes na seção~\ref{sec:softwarets}.
 
 \subsection{Código do microcontrolador C8051F340}
 \label{sec:codmicro}
@@ -137,7 +142,8 @@ ao Port 0 do microcontrolador.
 A geração dos PWMs foi mantida como estava no projeto Bellator~\cite{BELLATOR}, com 76 níveis possíveis de PWM.
 Os PWMs gerados são disponibilizados no Port 1 do microcontrolador, que é então conectado à placa de
 roteamento, onde os PWMs são utilizados como entrada para um buffer 74LS244~\cite{74LS244}, cujas saídas
-são utilizadas como PWM para as pontes H dos motores.
+são utilizadas como PWM para as pontes H dos motores. Este buffer é necessário pois as saídas
+do microcontrolador não possuem corrente suficiente para os motores.
 
 A leitura dos sensores de distância, que é realizada através de uma varredura (ao fim de cada conversão,
 o próximo sensor é selecionado para conversão), teve seu período (este período inclui a conversão
