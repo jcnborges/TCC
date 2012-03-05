@@ -84,7 +84,7 @@ após a reconstrução é descrita na seção \ref{sec:esprob}.
 
 \section{\emph{Pulse Width Modulation} (PWM)}
 \label{sec:pwm}
-PWM é a abreviação de \emph{Pulse Width Modulation} ou Modulação de Largura de Pulso e pode ser aplicado no controle de potência de motores DC. Em \cite{PWMREF}, o circuito da \ref{fig:interrpwm}, que é formado por um interruptor de ação muito rápida e uma carga que deve ser controlada, foi utilizado para explicar o princípio de funcionamento dessa tecnologia. 
+PWM é a abreviação de \emph{Pulse Width Modulation} ou Modulação de Largura de Pulso e pode ser aplicado no controle de potência de motores DC. Em \cite{PWMREF}, o circuito da figura \ref{fig:interrpwm}, que é formado por um interruptor de ação muito rápida e uma carga que deve ser controlada, foi utilizado para explicar o princípio de funcionamento dessa tecnologia. 
 
 \begin{figure}[H]
 	\centering
@@ -104,13 +104,6 @@ Nessa figura, quando o interruptor é aberto, não há corrente na carga e a potênc
 	\fonte{\cite{PWMREF}}
 \end{figure}
 
-\begin{equation}
-\label{eq:cicloativo}
-d=100 \times \frac{t_1} {t}
-\end{equation}
-
- A soma dos intervalos t1 e t2 define o período t do sinal de PWM e variando-se o intervalo t1, tempo pelo qual a chave permanece fechada, define-se a largura de pulso do ciclo ativo. A equação \ref{eq:cicloativo} determina o ciclo ativo do PWM, que é utilizada para controlar a potência média aplicada a uma carga. Assim, quando o ciclo ativo do sinal for variado, conforme a figura \ref{fig:pwmfinal}, modifica-se a potência média aplicada à carga.
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{./figs/cicloativo.png}
@@ -118,6 +111,13 @@ d=100 \times \frac{t_1} {t}
 	\label{fig:cicloativo}
 	\fonte{\cite{PWMREF}}
 \end{figure}
+
+ A soma dos intervalos $t_1$ e $t_2$ define o período t do sinal de PWM e variando-se o intervalo $t_1$, tempo pelo qual a chave permanece fechada, define-se a largura de pulso do ciclo ativo, ilustrado na figura \ref{fig:cicloativo}. A equação \ref{eq:cicloativo} determina o ciclo ativo do PWM, que é utilizada para controlar a potência média aplicada a uma carga. Assim, quando o ciclo ativo do sinal for variado, conforme a figura \ref{fig:pwmfinal}, modifica-se a potência média aplicada à carga.
+
+\begin{equation}
+\label{eq:cicloativo}
+d=100 \times \frac{t_1} {t}
+\end{equation}
 
 \begin{figure}[H]
 	\centering
