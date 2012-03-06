@@ -217,11 +217,9 @@ valor é um byte, cuja faixa de variação é [0, 255].
 valor\_high e valor\_low juntos formam um inteiro de 16 bits que contém o valor da contagem do encoder.
 \end{itemize}
 
-Esta seção definiu o funcionamento do protocolo de comunicação com o microcontrolador C8051F340,
-para mais detalhes, basta consultar o arquivo do protocolo  (protocolo.h), onde os valores são definidos,
-ou o código do microcontrolador C8051F340, que define como as mensagens são interpretadas. O código
-da placa TS-7260 (tslogic.cpp), que contém as mensagens enviadas para a C8051F340, será explicado
-em detalhes na seção~\ref{sec:ts}.
+Esta seção explicou o protocolo de comunicação do robô, definindo como é realizada a troca de mensagens entre
+o microcontrolador C8051F340 e a placa TS-7260 (através de comunicação serial). Todas as mensagens
+utilizadas no projeto foram abordadas acima.
 
 \subsection{Placa de Roteamento}
 \label{sec:desroteamento}
