@@ -115,6 +115,36 @@ foi obtido diretamente da substituição de \emph{x} na equação, ou seja, sendo \e
 em centímetros para a conversão analógica digital com valor 120 é f(120). A tabela foi montada simplesmente
 para evitar recálculos através da equação, e foi inserida no código da placa TS-7260, que será explicado em detalhes na seção~\ref{sec:softwarets}.
 
+\subsection{Repositório de trabalho}
+Nesta seção será apresentada um dos pontos mais importantes do projeto: a ferramenta de controle
+de versão e armazenamento de arquivos \emph{git}.
+
+Para realizar o trabalho de forma mais organizada, garantir versionamento e sincronia dos arquivos relacionados
+ao projeto, foi utilizado um repositório \emph{git}~\cite{GIT}. Este repositório foi armazenado no GitHub~\cite{GITHUB},
+site cujo propósito é disponibilizar uma interface para criação, administração e armazenamento remoto
+de repositórios \emph{git}. Dentre os arquivos armazenados neste repositório, os principais são: 
+códigos que foram utilizados neste projeto (microcontrolador C8051F340, TS-7260, algoritmos Fuzzy e ED-FCM);
+datasheets dos componentes utilizados; diversas referências da monografia; o texto da monografia em si; figuras
+utilizadas na monografia. O repositório está disponível para cópia, podendo ser obtido através do
+seguinte comando:
+
+\begin{verbatim}
+git clone git@github.com:jcnborges/TCC.git
+\end{verbatim}
+
+Para tal, é necessário antes configurar o \emph{git} na máquina em que for utilizar, tarefa esta que pode ser
+realizada através do tutorial disponível no site do GitHub~\cite{GITHELP}. Após configuração e execução do comando
+acima, todos os arquivos armazenados no repositório serão copiados (em sua versão mais recente). Após
+configuração do \emph{git} e execução do comando acima, todos os arquivos do repositório (na sua versão mais recente)
+serão copiados para a máquina em que o comando foi executado, e imediatamente disponíveis para alterações.
+
+Esta seção apresentou a ferramenta \emph{git}, utilizada para versionamento dos arquivos relacionados ao projeto, 
+armazenados em um ambiente remoto, reduzindo significativamente os riscos de perda de trabalho e a consequente
+necessidade de retrabalho. Por este motivo, sua utilização foi peça fundamental para realização de 
+um trabalho organizado e seguro. A equipe também considera que esta praticidade é fundamental para
+trabalhos futuros, sendo uma maneira muito simples e direta de obter os resultados deste trabalho para
+uma possível continuação do projeto.
+
 \subsection{Código do microcontrolador C8051F340}
 \label{sec:codmicro}
 Esta seção apresentará as funções do código do microcontrolador, quais funções foram aproveitadas
