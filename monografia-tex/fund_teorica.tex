@@ -233,7 +233,9 @@ A estrutura de um FCM é um grafo direcionado, como o exemplo da figura \ref{fig:
     \item Conceitos de entradas: Esses conceitos recebem um valor de entrada e podem interagir com outros conceitos;
     \item Conceitos de saída ou de decisão: Esses conceitos representam o resultado das inferências do FCM e não interagem com outros conceitos;
     \item Relações causais: Essas conexões representam as relações de causa e efeito entre os conceitos e são calculadas através da matriz de pesos (matriz W);
-    \item Declarações condicionais: Esses elementos são as relações causais expressas na forma de regras \emph{se-então} e são atualizadas temporalmente.
+    \item Declarações condicionais: Esses elementos são as 
+    relações causais expressas na forma de regras \emph{se-então} e 
+    são a\-tua\-li\-za\-das temporalmente.
 \end{itemize}
 
 Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual \emph{j} é o contador das iterações, \emph{n} é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f (\ref{sigmoide}) é uma função do tipo sigmóide.

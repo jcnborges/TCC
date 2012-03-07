@@ -4,7 +4,7 @@
 
 Este capítulo contém, em detalhes, o desenvolvimento do trabalho realizado pela equipe, dividido nas seguintes seções:
 \begin{itemize}
-    \item[-] Reconstrução da Plataforma Robótica Bellator: Todos os passos realizados para reconstruir e adaptar a plataforma robótica para utilização no projeto.
+    \item[-] Reconstrução da Plataforma Robótica Bellator: Todos os passos realizados para re\-cons\-tru\-ir e adaptar a plataforma robótica para utilização no projeto.
     \item[-] Algoritmos de Navegação: Detalha a implementação dos algoritmos de navegação \emph{fuzzy} e ED-FCM, de acordo com as respectivas revisões bibliográficas apresentadas no capítulo \ref{chap:fundteor}.
     \item[-] Testes e Análise de Resultados: Apresenta a metodologia, elaboração dos testes dos algoritmos e a análise dos resultados obtidos para ambos os algoritmos de navegação.
     \item[-] Considerações: Conclusão do capítulo e considerações sobre o desenvolvimento do projeto.
@@ -90,7 +90,7 @@ Valor da conversão & Distância (cm) \\
 A partir destes valores, foi realizada uma interpolação polinomial para obtenção da equação aproximada
 da curva. O grau do polinômio interpolador escolhido foi o de grau 4, que aproximou-se bem da curva
 real (medida), conforme é possível visualizar na figura~\ref{fig:curvasensores}, onde o eixo das abscissas
-contém os valores de conversão, e o eixo das ordenadas a distância correspondente. Segue a equação
+contém os valores de conversão, e o eixo das ordenadas a distância cor\-res\-pon\-den\-te. Segue a equação
 da interpolação polinomial:
 
 \begin{equation}
@@ -109,7 +109,7 @@ Com esta equação, só foi necessário iterar pelos valores \emph{x} possíveis de c
 analógica/digital usa 8 bits) e montar a tabela para acessar com os valores de conversão e obter
 a distância em centímetros.
 Para exemplificar, suponha que a conversão analógica digital de algum sensor
-resultou num valor de \emph{x = 120}. Para obter a distância correspondente em centímetros, basta 
+resultou num valor de \emph{x = 120}. Para obter a distância cor\-res\-pon\-den\-te em centímetros, basta 
 acessar a tabela na posição 120, e o valor armazenado nesta posição é a distância em centímetros, que
 foi obtido diretamente da substituição de \emph{x} na equação, ou seja, sendo \emph{y = f(x)}, a distância
 em centímetros para a conversão analógica digital com valor 120 é f(120). A tabela foi montada simplesmente
@@ -200,7 +200,7 @@ de mensagem. Todas as mensagens, sejam elas recebidas ou enviadas pelo C8051F340
 para sinalizar o fim de um comando/mensagem. As mensagens reconhecidas pelo microcontrolador C8051F340 são as seguintes:
 
 \begin{itemize}
-	\item \textbf{SYNC END\_CMD}: quando o microcontrolador C8051F340 recebe esta mensagem, responde
+	\item \textbf{SYNC END\_CMD}: quando o microcontrolador C8051F340 recebe esta mensagem, res\-pon\-de
 com as leituras mais recentes de cada sensor de distância, em seguida as leituras dos encoders;
 	\item \textbf{LEFT\_WHEEL valor END\_CMD}: ao receber este comando, o microcontrolador utiliza o valor
 para definir o nível de PWM para a roda esquerda do robô. valor é representado por apenas um byte,
@@ -292,7 +292,7 @@ O software da TS-7260 foi desenvolvido em C++, assim como os algoritmos de naveg
 explicados em detalhes na seção~\ref{sec:algs}. A programação foi realizada em um computador comum.
 Para realização de testes na placa, o código foi compilado para a TS-7260 através da utilização de um
 \emph{cross-compiler}, que pode ser baixado em~\cite{CC}. O arquivo binário gerado pela compilação
-foi então movido para uma pasta compartilhada na rede. Esta pasta foi disponibilizada através de um
+foi então movido para uma pasta com\-par\-ti\-lha\-da na rede. Esta pasta foi disponibilizada através de um
 servidor NFS (\emph{Network File System}) instalado no computador
 onde o código foi desenvolvido. A placa TS-7260 contém em um pendrive um linux compilado para a sua
 arquitetura, que disponibiliza o cliente nfs, através do qual foi possível montar a pasta compartilhada e executar
