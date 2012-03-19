@@ -8,12 +8,12 @@ projeto no qual esse robô estivera em uso, a descrição do material entregue à eq
 %---------- Estado inicial do Projeto ----------
 \section{Estado Inicial do Projeto} \label{sec:estpro}
 
-Esta seção visa descrever com quais recursos a equipe iniciou a execução do trabalho, ou seja, a situação do robô e seus componentes de hardware, o principal e mais importante recurso desse projeto, os componentes de software e a documentação de ambos, da forma como foram entregues à equipe.
+Esta seção visa descrever com quais recursos a equipe iniciou a execução do trabalho, ou seja, a situação do robô e seus componentes de \emph{hardware}, o principal e mais importante recurso desse projeto, os componentes de \emph{software} e a documentação de ambos, da forma como foram entregues à equipe.
 
 \subsection{Visão Geral}
 \label{sec:visgeral}
 
-O robô Bellator, disponibilizado à equipe para realização deste trabalho, já havia sido utilizado anteriormente em um projeto de Oficinas de Integração 3, que visou a implementação da eletrônica embarcada que permitisse que a plataforma robótica pudesse ser controlada remotamente por joystick \cite{BELLATOR}. Tal projeto consistiu no projeto e implementação de uma plataforma robótica dividida em três camadas: baixo nível, alto nível e supervisória. A camada de baixo nível era responsável por controlar os motores do robô e receber as leituras dos sensores. A camada de alto nível tinha como responsabilidades comunicar-se com a camada de baixo nível via conexão serial, fazer obtenção de vídeo através de uma webcam e comunicar-se com a camada supervisória através de uma conexão sem fio (para transmissão dos dados de vídeo captados pela webcam). Finalmente, a camada supervisória era responsável por receber os dados de vídeo, mostrar na tela para o usuário, e permitir o controle do robô remotamente através de um joystick. O diagrama esquemático da figura \ref{fig:diagsis} ilustra a configuração do projeto de oficinas, ponto de partida para a reconstrução do robô Bellator.
+O robô Bellator, disponibilizado à equipe para realização deste trabalho, já havia sido utilizado anteriormente em um projeto de Oficinas de Integração 3, que visou a implementação da eletrônica embarcada que permitisse que a plataforma robótica pudesse ser controlada remotamente por \emph{joystick} \cite{BELLATOR}. Tal projeto consistiu no projeto e implementação de uma plataforma robótica dividida em três camadas: baixo nível, alto nível e supervisória. A camada de baixo nível era responsável por controlar os motores do robô e receber as leituras dos sensores. A camada de alto nível tinha como responsabilidades comunicar-se com a camada de baixo nível via conexão serial, fazer obtenção de vídeo através de uma \emph{webcam} e comunicar-se com a camada supervisória através de uma conexão sem fio (para transmissão dos dados de vídeo captados pela \emph{webcam}). Finalmente, a camada supervisória era responsável por receber os dados de vídeo, mostrar na tela para o usuário, e permitir o controle do robô remotamente através de um \emph{joystick}. O diagrama esquemático da figura \ref{fig:diagsis} ilustra a configuração do projeto de oficinas, ponto de partida para a reconstrução do robô Bellator.
 
 \begin{figure}[H]
 	\centering
@@ -27,12 +27,12 @@ A partir da figura \ref{fig:diagsis}, o funcionamento do projeto
 Bellator pode ser explicado: a camada de baixo nível é composta pelo
 robô Bellator, equipado com dois motores elétricos Bosch FPG 12V,
 cinco sensores de distância ``2Y0A02F98"~ da Sharp, uma bateria
-Unybatt 12V-7,2 Ampère hora, duas pontes H LN298, dois encoders ópticos
+Unybatt 12V-7,2 Ampère hora, duas pontes H LN298, dois \emph{encoders} ópticos
 HEDS-9700 e uma placa microcontrolada C8051F340, que é capaz de ler e
-converter leituras de tensão analógicas dos sensores bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um fluxo(\emph{stream}) de vídeo gerado por uma webcam Genius iLook 316. Finalmente, o software supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O software também recebe comandos de movimentação do usuário, gerados em um Joystick do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os níveis de tensão dos motores de acordo com os comandos recebidos, controlando suas velocidades.
+converter leituras de tensão analógicas dos sensores bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um fluxo(\emph{stream}) de vídeo gerado por uma \emph{webcam} Genius iLook 316. Finalmente, o \emph{software} supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O \emph{software} também recebe comandos de movimentação do usuário, gerados em um \Emph{joystick} do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os níveis de tensão dos motores de acordo com os comandos recebidos, controlando suas velocidades.
 
-Os componentes de hardware do robô, o software de controle
-supervisório e a camada de baixo nível, ou seja, o software da placa C8051F340, utilizados no projeto de oficinas estão documentados em detalhes em \cite{BELLATOR}. Essa documentação foi utilizada como referência para a reconstrução e adequação do robô Bellator, com exceção das seções referentes ao software de controle supervisório, que não foi consultado. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram aproveitados.
+Os componentes de \emph{hardware} do robô, o \emph{software} de controle
+supervisório e a camada de baixo nível, ou seja, o \emph{software} da placa C8051F340, utilizados no projeto de oficinas estão documentados em detalhes em \cite{BELLATOR}. Essa documentação foi utilizada como referência para a reconstrução e adequação do robô Bellator, com exceção das seções referentes ao \emph{software} de controle supervisório, que não foi consultado. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram aproveitados.
 
 \subsection{Recebimento do Robô}
 \label{sec:recrobo}
@@ -41,7 +41,7 @@ O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado
 
 \begin{itemize}
 \item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acopladas;
-\item Um par de encoders ópticos HEDS-9700 acoplados ao eixo de cada roda;
+\item Um par de \emph{encoders} ópticos HEDS-9700 acoplados ao eixo de cada roda;
 \item Cinco sensores de distância ``2Y0A02F98"~ da Sharp;
 \item Duas baterias Unybatt 12V-7,2 Ampére hora;
 \item Uma placa microcontrolada C8051F340;
@@ -54,18 +54,18 @@ robótica utilizada pela equipe e foram essenciais para a execução
 desse trabalho. Os sensores de distância foram utilizados na
 localização de obstáculos, fornecendo dados de entrada aos
 algoritmos de navegação para tomada de decisão e determinação de
-ações de controle. Os encoders foram utilizados para fornecer uma
+ações de controle. Os \emph{encoders} foram utilizados para fornecer uma
 realimentação odométrica para ajustar a velocidade das rodas. A
 placa microcontrolada foi utilizada para realizar o controle de baixo
 nível do robô, que foram: acionamento dos motores, conversão
-analógica para digital das leituras dos sensores, contagem dos pulsos dos encoders e comunicação serial com o hardware acoplado. As baterias foram utilizadas para alimentar os sensores, encoders, os motores e a placa microcontrolada.
+analógica para digital das leituras dos sensores, contagem dos pulsos dos \emph{encoders} e comunicação serial com o \emph{hardware} acoplado. As baterias foram utilizadas para alimentar os sensores, \emph{encoders}, os motores e a placa microcontrolada.
 
 Alguns itens mencionados na seção \ref{sec:visgeral}, referentes ao
 projeto de oficinas, não foram recebidos ou não foram utilizados
-nesse trabalho. A webcam e joystick, por exemplo, não foram entregues
-pois não foram necessários. O joystick não foi necessário porque
+nesse trabalho. A \emph{webcam} e \emph{joystick}, por exemplo, não foram entregues
+pois não foram necessários. O \emph{joystick} não foi necessário porque
 esse trabalho se trata de um sistema de navegação autônomo, que
-descarta a necessidade de um controle remoto, e a webcam não foi
+descarta a necessidade de um controle remoto, e a \emph{webcam} não foi
 necessária porque esse trabalho não abordou a navegação através de
 imagem de vídeo. A placa de roteamento entregue foi utilizada nos
 testes dos componentes, visto que foi necessária para testar o
@@ -84,7 +84,7 @@ após a reconstrução é descrita na seção \ref{sec:esprob}.
 
 \section{\emph{Pulse Width Modulation} (PWM)}
 \label{sec:pwm}
-PWM é a abreviação de \emph{Pulse Width Modulation} ou Modulação de Largura de Pulso e pode ser aplicado no controle de potência de motores DC. Em \cite{PWMREF}, o circuito da figura \ref{fig:interrpwm}, que é formado por um interruptor de ação muito rápida e uma carga que deve ser controlada, foi utilizado para explicar o princípio de funcionamento dessa tecnologia. 
+PWM é a abreviação de \emph{Pulse Width Modulation} ou Modulação de Largura de Pulso e pode ser aplicado no controle de potência de motores DC. Em \cite{PWMREF}, o circuito da figura \ref{fig:interrpwm}, que é formado por um interruptor de ação muito rápida e uma carga que deve ser controlada, foi utilizado para explicar o princípio de funcionamento dessa tecnologia.
 
 \begin{figure}[H]
 	\centering
@@ -233,8 +233,8 @@ A estrutura de um FCM é um grafo direcionado, como o exemplo da figura \ref{fig:
     \item Conceitos de entradas: Esses conceitos recebem um valor de entrada e podem interagir com outros conceitos;
     \item Conceitos de saída ou de decisão: Esses conceitos representam o resultado das inferências do FCM e não interagem com outros conceitos;
     \item Relações causais: Essas conexões representam as relações de causa e efeito entre os conceitos e são calculadas através da matriz de pesos (matriz W);
-    \item Declarações condicionais: Esses elementos são as 
-    relações causais expressas na forma de regras \emph{se-então} e 
+    \item Declarações condicionais: Esses elementos são as
+    relações causais expressas na forma de regras \emph{se-então} e
     são a\-tua\-li\-za\-das temporalmente.
 \end{itemize}
 
