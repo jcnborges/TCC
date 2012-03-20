@@ -248,7 +248,7 @@ De acordo com os fatores descritos, a equipe construiu uma lista de requisitos p
     \item[-] Fornecer amplificação para o sinal do \emph{encoder}.
 \end{itemize}
 
-Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou essencial a utilização de um regulador de tensão, o LM317, que era o mesmo utilizado na versão antiga da placa, e suporta corrente de até 1.5A, valor suficiente para alimentar os componentes da placa. Também foi utilizado um \emph{buffer} para o sinal de PWM, feito através do CI 74LS244N, proporcionando isolamento elétrico entre os motores e a placa de roteamento. Para a amplificação dos sinais dos \Emph{encoders} utilizandou-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos \emph{flat}, para a interação com a C8051F340, bem como pinos para conectores do \emph{hardware} do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio da versão gratuita, de uso exclusivamente não comercial do \emph{software} Eagle \cite{EAGLE}, versão 5.11.0, que mostrou-se suficiente para a elaboração da placa. O resultado pode ser visualizado na figura \ref{fig:roteamento_sch}.
+Após a análise dos requisitos, a equipe iniciou o desenvolvimento de uma placa de circuito impresso para atender a todos os requisitos. A necessidade de uma alimentação de 5 Volts tornou essencial a utilização de um regulador de tensão, o LM317, que era o mesmo utilizado na versão antiga da placa, e suporta corrente de até 1.5A, valor suficiente para alimentar os componentes da placa. Também foi utilizado um \emph{buffer} para o sinal de PWM, feito através do CI 74LS244N, proporcionando isolamento elétrico entre os motores e a placa de roteamento. Para a amplificação dos sinais dos \emph{encoders} utilizandou-se um amplificador operacional LM324N. O restante da placa consiste de pinos para conectar cabos \emph{flat}, para a interação com a C8051F340, bem como pinos para conectores do \emph{hardware} do robô Bellator. O diagrama esquemático de tal placa foi produzido com o auxílio da versão gratuita, de uso exclusivamente não comercial do \emph{software} Eagle \cite{EAGLE}, versão 5.11.0, que mostrou-se suficiente para a elaboração da placa. O resultado pode ser visualizado na figura \ref{fig:roteamento_sch}.
 
 \begin{figure}[H]
   \centering
@@ -454,20 +454,20 @@ Utilizando esta estrutura, foram desenvolvidas três variáveis linguísticas para 
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
   \textbf{Variável Linguística} & \textbf{Conjunto Fuzzy} & \textbf{Função de Pertinência} \\
   \hline
-  SensorEsquerda & PertoEsquerda & p(d) \\
-  SensorEsquerda & MedioEsquerda & m(d) \\
-  SensorEsquerda & LongeEsquerda & l(d) \\
-  SensorFrente & Perto & p(d) \\
-  SensorFrente & Medio & m(d) \\
-  SensorFrente & Longe & l(d) \\
-  SensorDireita & PertoDireita & p(d) \\
-  SensorDireita & MedioDireita & m(d) \\
-  SensorDireita & LongeDireita & l(d) \\
+  SensorEsquerda & PertoEsquerda & sp(d) \\
+  SensorEsquerda & MedioEsquerda & sm(d) \\
+  SensorEsquerda & LongeEsquerda & sl(d) \\
+  SensorFrente & Perto & sp(d) \\
+  SensorFrente & Medio & sm(d) \\
+  SensorFrente & Longe & sl(d) \\
+  SensorDireita & PertoDireita & sp(d) \\
+  SensorDireita & MedioDireita & sm(d) \\
+  SensorDireita & LongeDireita & sl(d) \\
   \hline
 \end{tabular}
 \label{tab:varsfuzzy}
 \end{table}
-As funções de pertinência p(d), m(d), l(d), correspondentes a perto, médio e longe, são definitas pelos trapézios da figura \ref{fuzzygraph_des}:
+As funções de pertinência sp(d), sm(d), sl(d), correspondentes a perto, médio e longe, são definitas pelos trapézios da figura \ref{fuzzygraph_des}:
 
 \begin{figure}[H]
   \centering
@@ -480,7 +480,7 @@ As funções de pertinência p(d), m(d), l(d), correspondentes a perto, médio e lon
 
 Embora as funções de pertinência sejam as mesmas para os conjuntos \emph{fuzzy} representando perto, médio e longe para as três variáveis linguísticas, cada variável linguística necessita de objetos da classe \emph{category} exclusivos e únicos, por uma restrição da biblioteca FLIE, e não é possível utilizar o mesmo conjunto \emph{fuzzy} para duas ou mais variáveis linguísticas diferentes.
 
-De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor"~ e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos \emph{fuzzy} associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de PWM de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos \emph{fuzzy} são l(p), m(p), r(p), onde p é a percentagem do PWM. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
+De forma análoga, as variáveis linguísticas de saída do sistema são definidas pelas variáveis linguísticas ``Velocidade Motor"~ e ``Direção", representando a velocidade e a direção do deslocamento do robô. Os conjuntos \emph{fuzzy} associados à variável linguística Velocidade Motor foram definidos de forma a distribuir igualmente as faixas de PWM de 0 a 100\% da capacidade do motor em três categorias: Lento, Médio e Rápido. As funções de pertinência que definem estes conjuntos \emph{fuzzy} são pl(p), pm(p), pr(p), onde p é a percentagem do PWM. Pode-se visualizar estas funções na figura \ref{defuzzygraph_velmotor}.
 
 \begin{figure}[H]
   \centering
@@ -491,7 +491,7 @@ De forma análoga, as variáveis linguísticas de saída do sistema são definidas pe
   \fonte{Autoria própria}
 \end{figure}
 
-Similarmente, foram definidos 5 conjuntos \emph{fuzzy} para a variável linguística ``Direção": ViraEsquerda, ViraPoucoEsquerda, Reto, ViraPoucoDireita, ViraDireita, distribuindo igualmente entre estas classes todas as possibilidades de direção, desde virar totalmente para a esquerda (0º) até totalmente para direita(180º), sendo que 90º representa movimento em linha reta. As funções de pertinência que definem estes conjuntos \emph{fuzzy} são ve(a), vpe(a), r(a), vpd(a), vd(a). O gráfico da figura \ref{defuzzygraph_ang} ilustra estas funções.
+Similarmente, foram definidos 5 conjuntos \emph{fuzzy} para a variável linguística ``Direção": ViraEsquerda, ViraPoucoEsquerda, Reto, ViraPoucoDireita, ViraDireita, distribuindo igualmente entre estas classes todas as possibilidades de direção, desde virar totalmente para a esquerda (0º) até totalmente para direita(180º), sendo que 90º representa movimento em linha reta. As funções de pertinência que definem estes conjuntos \emph{fuzzy} são ve(a), vpe(a), rt(a), vpd(a), vd(a). O gráfico da figura \ref{defuzzygraph_ang} ilustra estas funções.
 
 \begin{figure}[H]
   \centering
