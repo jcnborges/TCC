@@ -170,7 +170,7 @@ sinais para utilização no microcontrolador. Na placa de roteamento, os sinais do
 amplificados em um amplificador operacional LM324~\cite{LM324}, e o sinal amplificado é então conectado
 ao Port 0 do microcontrolador.
 
-A geração dos PWMs foi mantida como estava no projeto Bellator~\cite{BELLATOR}, com 76 níveis possíveis de PWM 
+A geração dos PWMs foi mantida como estava no projeto Bellator~\cite{BELLATOR}, com 76 níveis possíveis de PWM
 (este número de níveis é resultado da forma como foi definida a frequencia da forma de onda resultante).
 Os PWMs são gerados através do Timer0 do microcontrolador C8051F340 e disponibilizados no Port 1 do mesmo, que é então conectado à placa de
 roteamento, onde os PWMs são utilizados como entrada para um \emph{buffer} 74LS244~\cite{74LS244}, cujas saídas
@@ -367,7 +367,7 @@ de um loop infinito, que executa os seguintes passos:
 O diagrama em blocos a seguir representa o funcionamento do \emph{software}, demonstrando
 também em que etapas ocorre a comunicação com o microcontrolador (setas tracejadas) e quando o algoritmo
 de navegação é executado. Vale lembrar que o algoritmo de navegação (Fuzzy ou ED-FCM) executa na placa
-TS-7260 também, mas seu código não faz parte do \emph{software} de controle do robô (conforme explicado acima), 
+TS-7260 também, mas seu código não faz parte do \emph{software} de controle do robô (conforme explicado acima),
 por este motivo está em um bloco separado no diagrama. As ações descritas no bloco C8051F340 são executadas no
 microcontrolador C8051F340.
 
@@ -532,7 +532,7 @@ SensorEsquerda, SensorFrente, SensorDireita, Velocidade Motor\\
 SensorEsquerda, SensorFrente, SensorDireita, Direção
 \end{center}
 
-Em seguida, pode-se definir as regras através dos valores \emph{fuzzy} válidos para cada variável linguística associada aos objetos \emph{fuzzy\_control}. A definição das regras é bastante intuitiva, empírica e altamente dependente da aplicação. A equipe optou por definir um conjunto de regras arbitrário, realizar testes e, analisando os resultados preliminares, aprimorar o conjunto de regras. A tabela \ref{tab:regrasinf} representa o conjunto definitivo de 27 regras elaboradas pela equipe, que correspondem a todas as combinações possíveis de entradas para o controle \emph{fuzzy} (3 opções de classificação para cada entrada, sendo 3 entradas).
+Em seguida, pode-se definir as regras através dos valores \emph{fuzzy} válidos para cada variável linguística associada aos objetos \emph{fuzzy\_control}. A definição das regras é bastante intuitiva, empírica e altamente dependente da aplicação. A equipe optou por definir um conjunto de regras arbitrário, realizar testes e, analisando os resultados preliminares, aprimorar o conjunto de regras. A tabela \ref{tab:regrasinf} representa o conjunto definitivo de 27 regras elaboradas pela equipe, que correspondem a todas as combinações possíveis de entradas para o controle \emph{fuzzy} (3 opções de classificação para cada entrada, sendo 3 entradas). Algumas regras podem ser redundantes, tendo em vista que, a partir dos testes, o melhor curso de ação observado para algumas situações diferentes é o mesmo.
 
 \begin{table}[H]
 \centering
