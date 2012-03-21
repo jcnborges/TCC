@@ -3,7 +3,7 @@
 
 Este capítulo apresentará a fundamentação teórica, que consiste na
 descrição do estado inicial robô Bellator, com uma visão geral do
-projeto no qual esse robô estivera em uso, a descrição do material entregue à equipe, a especificação do robô após a reconstrução e adequação, a apresentação dos estudos de Lógica Fuzzy e ED-FCM (\emph{Event-Driven Fuzzy Cognitive Maps}).
+projeto no qual este robô estivera em uso, a descrição do material entregue à equipe, a especificação do robô após a reconstrução e adequação, a apresentação dos estudos de Lógica Fuzzy e ED-FCM (\emph{Event-Driven Fuzzy Cognitive Maps}).
 
 %---------- Estado inicial do Projeto ----------
 \section{Estado Inicial do Projeto} \label{sec:estpro}
@@ -13,12 +13,12 @@ Esta seção visa descrever com quais recursos a equipe iniciou a execução do trab
 \subsection{Visão Geral}
 \label{sec:visgeral}
 
-O robô Bellator, disponibilizado à equipe para realização deste trabalho, já havia sido utilizado anteriormente em um projeto de Oficinas de Integração 3, que visou a implementação da eletrônica embarcada que permitisse que a plataforma robótica pudesse ser controlada remotamente por \emph{joystick} \cite{BELLATOR}. Tal projeto consistiu no projeto e implementação de uma plataforma robótica dividida em três camadas: baixo nível, alto nível e supervisória. A camada de baixo nível era responsável por controlar os motores do robô e receber as leituras dos sensores. A camada de alto nível tinha como responsabilidades comunicar-se com a camada de baixo nível via conexão serial, fazer obtenção de vídeo através de uma \emph{webcam} e comunicar-se com a camada supervisória através de uma conexão sem fio (para transmissão dos dados de vídeo captados pela \emph{webcam}). Finalmente, a camada supervisória era responsável por receber os dados de vídeo, mostrar na tela para o usuário, e permitir o controle do robô remotamente através de um \emph{joystick}. O diagrama esquemático da figura \ref{fig:diagsis} ilustra a configuração do projeto de oficinas, ponto de partida para a reconstrução do robô Bellator.
+O robô Bellator, disponibilizado à equipe para realização deste trabalho, já havia sido utilizado anteriormente em um projeto de Oficina de Integração 3, que visou a implementação da eletrônica embarcada que permitisse que a plataforma robótica pudesse ser controlada remotamente por \emph{joystick} \cite{BELLATOR}. O trabalho desempenhado na disciplina consistiu no projeto e implementação de uma plataforma robótica dividida em três camadas: baixo nível, alto nível e supervisória. A camada de baixo nível era responsável por controlar os motores do robô e receber as leituras dos sensores. A camada de alto nível tinha como responsabilidades comunicar-se com a camada de baixo nível via conexão serial, fazer obtenção de vídeo através de uma \emph{webcam} e comunicar-se com a camada supervisória através de uma conexão sem fio (para transmissão dos dados de vídeo captados pela \emph{webcam}). Finalmente, a camada supervisória era responsável por receber os dados de vídeo, mostrar na tela para o usuário, e permitir o controle do robô remotamente através de um \emph{joystick}. O diagrama esquemático da figura \ref{fig:diagsis} ilustra a configuração do projeto de oficinas, ponto de partida para a reconstrução do robô Bellator.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figs/diagsis.png}
-	\caption[Diagrama do projeto de oficinas]{Diagrama do projeto de oficinas.}
+	\caption[Diagrama do projeto de oficina 3]{Diagrama do projeto de oficina 3.}
 	\fonte{\cite{BELLATOR}}
 	\label{fig:diagsis}
 \end{figure}
@@ -29,15 +29,15 @@ robô Bellator, equipado com dois motores elétricos Bosch FPG 12V,
 cinco sensores de distância ``2Y0A02F98"~ da Sharp, uma bateria
 Unybatt 12V-7,2 Ampère hora, duas pontes H LN298, dois \emph{encoders} ópticos
 HEDS-9700 e uma placa microcontrolada C8051F340, que é capaz de ler e
-converter leituras de tensão analógicas dos sensores bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME60000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um fluxo(\emph{stream}) de vídeo gerado por uma \emph{webcam} Genius iLook 316. Finalmente, o \emph{software} supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O \emph{software} também recebe comandos de movimentação do usuário, gerados em um \emph{joystick} do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os níveis de tensão dos motores de acordo com os comandos recebidos, controlando suas velocidades.
+converter leituras de tensão analógicas dos sensores bem como produzir sinais de controle para os motores do robô. Esta placa é conectada à camada de alto nível, composta por um PC Embarcado VIA EPIA ME6000 Mini-ITX com sistema operacional Linux, através de uma conexão serial. Utilizando-se de um protocolo de comunicação, esse PC embarcado envia comandos de movimentação para a camada de baixo nível (conexão serial) e recebe as leituras dos sensores obtidas pela camada de baixo nível. O PC embarcado também comunica-se com a camada supervisória para receber comandos de movimentação do usuário e enviar as leituras dos sensores para o mesmo (comunicação sem fio). Além disso, o PC embarcado envia à camada supervisória um fluxo(\emph{stream}) de vídeo gerado por uma \emph{webcam} Genius iLook 316. Finalmente, o \emph{software} supervisor remoto, o qual é executado em um PC com máquina virtual Java, fornece as informações recebidas da camada de alto nível para o usuário, permitindo-o tomar decisões sobre a locomoção do robô. O \emph{software} também recebe comandos de movimentação do usuário, gerados em um \emph{joystick} do videogame Sony Playstation 2, enviando-os para a camada de alto nível pela mesma conexão. Ao receber os comandos de movimentação, a camada de alto-nível repassa para a camada de baixo nível, responsável pela efetivação dos comandos, alterando os PWMs enviados aos motores de acordo com os comandos recebidos, controlando suas velocidades.
 
 Os componentes de \emph{hardware} do robô, o \emph{software} de controle
-supervisório e a camada de baixo nível, ou seja, o \emph{software} da placa C8051F340, utilizados no projeto de oficinas estão documentados em detalhes em \cite{BELLATOR}. Essa documentação foi utilizada como referência para a reconstrução e adequação do robô Bellator, com exceção das seções referentes ao \emph{software} de controle supervisório, que não foi consultado. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram aproveitados.
+supervisório e a camada de baixo nível, ou seja, o \emph{software} da placa C8051F340, utilizados no projeto de oficina estão documentados em detalhes em \cite{BELLATOR}. A seguir, será descrito como o robô foi recebido pela equipe e quais componentes foram aproveitados.
 
 \subsection{Recebimento do Robô}
 \label{sec:recrobo}
 
-O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado, juntamente com toda a documentação \cite{BELLATOR} disponível por mídia digital. A caixa continha os seguintes itens:
+O robô Bellator foi entregue à equipe em Abril de 2011, em uma caixa, desmontado, juntamente com toda a documentação \cite{BELLATOR} disponível em mídia digital. A caixa continha os seguintes itens:
 
 \begin{itemize}
 \item Chassi do robô Bellator com dois motores Bosch FPG12V e pontes H acopladas;
@@ -84,7 +84,7 @@ após a reconstrução é descrita na seção \ref{sec:esprob}.
 
 \section{\emph{Pulse Width Modulation} (PWM)}
 \label{sec:pwm}
-PWM é a abreviação de \emph{Pulse Width Modulation} ou Modulação de Largura de Pulso e pode ser aplicado no controle de potência de motores DC. Em \cite{PWMREF}, o circuito da figura \ref{fig:interrpwm}, que é formado por um interruptor de ação muito rápida e uma carga que deve ser controlada, foi utilizado para explicar o princípio de funcionamento dessa tecnologia.
+PWM é a abreviação de \emph{Pulse Width Modulation} ou Modulação por Largura de Pulso e pode ser aplicado no controle de potência de motores DC. Em \cite{PWMREF}, o circuito da figura \ref{fig:interrpwm}, que é formado por um interruptor de ação muito rápida e uma carga que deve ser controlada, foi utilizado para explicar o princípio de funcionamento dessa tecnologia.
 
 \begin{figure}[H]
 	\centering
@@ -127,9 +127,6 @@ d=100 \times \frac{t_1} {t}
 	\fonte{\cite{PWMREF}}
 \end{figure}
 
-\subsection{Considerações}
-O controle de potência por PWM é indicado para esse trabalho porque essa tecnologia pode ser aplicada em motores DC, que constituem parte do robô Bellator. O microcontrolador C8051F340DK foi programado para gerar os sinais de PWM de ambos os motores, conforme foi explicado na seção \ref{sec:codmicro}.
-
 \section{Lógica Fuzzy}
 \label{sec:logfuzzy}
 Esta seção descreve os conceitos fundamentais utilizados pela equipe para o entendimento e implementação do algoritmo de navegação \emph{fuzzy}, descrito em detalhes na seção \ref{sec:algfuzzy}.
@@ -140,7 +137,7 @@ A teoria de conjuntos \emph{fuzzy} foi elaborada inicialmente por Lofti Zadeh \c
 Um conjunto \emph{fuzzy} pode ser definido por um conjunto de pares ordenados com o elemento e sua pertinência ao conjunto \emph{fuzzy}. Seja F um conjunto \emph{fuzzy} e X um conjunto de objetos arbitrários, tem-se:
 
 \begin{equation}
-F=\{(x,f(x)),x\in X\}, f(x) = [0,1]
+F=\{(x,f(x)),x\in X\}, f(x) \in [0,1]
 \end{equation}
 
 Assim sendo, considere um conjunto ``A"~ simples que contenha tudo o que tem sabor doce. Neste conjunto uma barra de chocolate é doce da mesma forma que cana de açucar, visto que ambos pertencem ao conjunto, ou seja:
@@ -190,10 +187,10 @@ Após definidas as variáveis linguísticas, conjuntos \emph{fuzzy} e suas funções 
 
 Regras de inferência sobre conjuntos \emph{fuzzy} podem ser categorizadas como uma generalização do \emph{modus ponens} binário. Em lógica binária, dada a regra ``se X então Y", onde X e Y são variáveis binárias, a partir do momento que a premissa, representada pela variável X, assume valor lógico verdadeiro, a conclusão, dada por Y, é verdadeira também. Em lógica \emph{fuzzy}, o mesmo raciocínio é valido, porém X e Y são variáveis linguísticas, e as regras de inferência são definidas a partir dos valores que estas variáveis linguísticas podem assumir, permitindo inclusive ativação parcial de regras de inferência. Estendendo o exemplo das temperaturas, apresentado na seção \ref{varling}, e supondo que seja necessário controlar a velocidade de um \emph{cooler} de processador, de acordo com a temperatura em que este se encontra, pode-se utilizar um sistema de controle \emph{fuzzy}. As regras de inferência para este controle podem ser, por exemplo:
 \begin{center}
-    Se \emph{morno} então \emph{medio}\\*
+    Se \emph{morno} então \emph{médio}\\*
     Se \emph{quente} então \emph{forte}
 \end{center}
-Sendo ``medio"~ e ``forte"~ valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``medio"~ correspondendo a função de pertinência vm e ``forte"~ correspondendo a vf, apresentados na figura \ref{fig:defuzzygraph}:
+Sendo ``médio"~ e ``forte"~ valores possíveis da variável linguística Velocidade (V), que controla a velocidade do \emph{cooler}, com ``médio"~ correspondendo a função de pertinência vm e ``forte"~ correspondendo a vf, apresentados na figura \ref{fig:defuzzygraph}:
 
 \begin{figure}[H]
 	\centering
@@ -209,13 +206,13 @@ v = \frac{\left( 0.5*50 + 0.5*100 \right ) } {1} = 75
 
 \subsection{Considerações}
 
-O conceito de imprecisão introduzido pela Lógica Fuzzy permite a modelagem de sistemas com problemas de decisão cujas variáveis são dinâmicas, reduzindo a influência de ruídos e possibilitando a construção de um sistema de inferências análogo à cognição humana. O problema de navegação robótica é altamente dinâmico, pois as decisões são tomadas sob a influência de vários sensores simultaneamente, todos passíveis de ruído, e a abordagem Fuzzy é uma opção plausível para tratá-lo.
+O conceito de imprecisão introduzido pela Lógica Fuzzy permite a modelagem de sistemas com problemas de decisão cujas variáveis são dinâmicas. O problema de navegação robótica é altamente dinâmico, pois as decisões são tomadas sob a influência de vários sensores simultaneamente, todos passíveis de ruído, e a abordagem Fuzzy é uma opção plausível para tratá-lo.
 
 \section{\emph{Event-Driven Fuzzy Congnitive Maps} (ED-FCM)}
 \label{sec:fcm}
-Esta seção tem como objetivos: explicar o que são mapas cognitivos \emph{fuzzy}, também conhecidos como FCM (\emph{Fuzzy Cognitive Maps}), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo; apresentar os passos para contrução de um FCM; apresentar exemplos, que descrevem o uso dessa abordagem em situações reais. O capítulo também visa a apresentação do ED-FCM (\emph{Event-Driven Fuzzy Cognitive Maps}), que é uma modificação do FCM para suportar a atualização dos pesos dinamicamente.
+Esta seção tem como objetivos: explicar o que são mapas cognitivos \emph{fuzzy}, também co\-nhe\-ci\-dos como FCM (\emph{Fuzzy Cognitive Maps}), abordando o conceito, a estrutura, as propriedades e vantagens desse modelo; apresentar os passos para contrução de um FCM; apresentar exemplos, que descrevem o uso dessa abordagem em situações reais. Além disso, visa a apresentação do ED-FCM (\emph{Event-Driven Fuzzy Cognitive Maps}), que é uma modificação do FCM para suportar a atualização dos pesos dinamicamente.
 
-O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam predizer as consequências que essa organização implica ao universo representado. O mapa cognitivo \emph{fuzzy} é gerado quando se agrega à essa estrutura a incerteza característica da lógica Fuzzy.
+O modelo FCM é abordado na tese de doutorado de \cite{FCMENDONCA}. Mapas cognitivos são diagramas que representam ligações entre palavras, idéias, tarefas ou outros itens ligados a um conceito central, dispostos radialmente, intuitivamente e de acordo com a importância de cada conceito. Crenças ou afirmações a respeito de um domínio de conhecimento limitado são expressas por palavras ou expressões linguísticas interligadas por relações de causa e efeito, que possibilitam prever as consequências que essa organização implica ao universo representado. O mapa cognitivo \emph{fuzzy} é gerado quando se agrega à essa estrutura a incerteza característica da lógica Fuzzy.
 
 \begin{figure}[H]
     \centering
@@ -232,13 +229,13 @@ A estrutura de um FCM é um grafo direcionado, como o exemplo da figura \ref{fig:
     \item Conceito de variação: Esse tipo de conceito representa a variação de um valor no tempo;
     \item Conceitos de entradas: Esses conceitos recebem um valor de entrada e podem interagir com outros conceitos;
     \item Conceitos de saída ou de decisão: Esses conceitos representam o resultado das inferências do FCM e não interagem com outros conceitos;
-    \item Relações causais: Essas conexões representam as relações de causa e efeito entre os conceitos e são calculadas através da matriz de pesos (matriz W);
+    \item Relações causais: Essas conexões representam as relações de causa e efeito entre os conceitos e são calculadas através da matriz de pesos (matriz W, ver exemplo na equação \ref{fcm-matrix});
     \item Declarações condicionais: Esses elementos são as
     relações causais expressas na forma de regras \emph{se-então} e
     são a\-tua\-li\-za\-das temporalmente.
 \end{itemize}
 
-Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz \ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual \emph{j} é o contador das iterações, \emph{n} é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f (\ref{sigmoide}) é uma função do tipo sigmóide.
+Na figura \ref{fig:fcm}, os conceitos (C1 a C5) podem ser atualizados através da interação com outros conceitos por meio das relações causais ($w_{i,j}$) e com seu próprio valor. A matriz na equação~\ref{fcm-matrix} representa o peso das relações causais entre os conceitos e podem ser atualizados através da equação \ref{fcm-update}. Esta descreve a evolução do FCM, na qual \emph{j} é o contador das iterações, \emph{n} é o número de nós do grafo, $W_{ji}$ é o peso do arco que conecta o conceito $C_j$ ao conceito $C_i$, $A_i$ e $A_i^{anterior}$ são o valor do conceito $C_i$ na iteração atual e anterior, respectivamente, e a função f (\ref{sigmoide}) é uma função do tipo sigmóide.
 
 \begin{equation}\label{fcm-matrix}
     w_{i,j}=\left(
@@ -297,15 +294,7 @@ Em \cite{GROUMPOS} os mapas cognitivos \emph{fuzzy} são aplicados no controle de
 \item Conceito 5: Valor de massa específica do líquido medido pelo sensor G.
 \end{itemize}
 
-O controlador do processo deve manter as variáveis V e G, sendo V o volume e G a massa específica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ (equação \ref{lim-V}) e $[G_{min}, G_{max}]$ (equação \ref{lim-G}), respectivamente.
-
-\begin{equation}\label{lim-V}
-V_{min}<V<V_{max}
-\end{equation}
-
-\begin{equation}\label{lim-G}
-G_{min}<G<G_{max}
-\end{equation}
+O controlador do processo deve manter as variáveis V e G, sendo V o volume e G a massa específica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ e $[G_{min}, G_{max}]$, respectivamente.
 
 Interligando-se os conceitos através de relações de causa e efeito, o FCM da figura \ref{fig:fcm-exemplo-fcm} foi construído.
 
@@ -344,7 +333,7 @@ Interligando-se os conceitos através de relações de causa e efeito, o FCM da fig
 0,30<w_{54}<0,40
 \end{equation}
 
-O controlador do processo foi executado e, após a estabilização, obtiveram-se os pesos da matriz \ref{W-matrix} e os valores dos conceitos da matriz \ref{A-matrix}. Os limites das equações \ref{lim-V} e \ref{lim-G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente, correspondendo ao ponto de operação desejado.
+O controlador do processo foi executado e, após a estabilização, obtiveram-se os pesos da matriz \ref{W-matrix} e os valores dos conceitos da matriz \ref{A-matrix}. Os limites de \emph{V} e \emph{G} são reajustados para os valores correspondentes às equações \ref{lim-V-adj} e \ref{lim-G-adj}, respectivamente, correspondendo ao ponto de operação desejado.
 
 \begin{equation}\label{W-matrix}
     W^{inicial}=\left(
@@ -386,7 +375,7 @@ Outra aplicação é descrita no artigo \cite{MENDONCA}, na qual a abordagem FCM é 
     \label{fig:reinforcement-alg}
 \end{figure}
 
-O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendizado por reforço, conforme ilustra a figura \ref{fig:reinforcement-alg}, e permite que o robô (agente) aprenda diretamente através de sua interação com o ambiente. A cada instante de tempo \emph{t}, o agente estabelece, por meio de seus sensores, um estado \emph{st} e, de acordo com suas regras, determina uma ação \emph{at} a ser efetuada pelos atuadores. Essa ação causa uma transição para o estado $s_{t+1}$ e o ambiente retorna uma medida de reforço $r_{t+1}$, que pode ser uma recompensa (caso a ação seja boa) ou uma punição (caso a ação seja ruim).
+O ajuste dos pesos das relações causais é efetuado por um algoritmo de aprendizado por reforço, conforme ilustra a figura \ref{fig:reinforcement-alg}, e permite que o robô (agente) aprenda diretamente através de sua interação com o ambiente. A cada instante de tempo \emph{t}, o agente estabelece, por meio de seus sensores, um estado \emph{$s(t)$} e, de acordo com suas regras, determina uma ação \emph{$\alpha(t)$} a ser efetuada pelos atuadores. Essa ação causa uma transição para o estado \emph{$s(t+1)$} e o ambiente retorna uma medida de reforço \emph{$r(t+1)$}, que pode ser uma recompensa (caso a ação seja boa) ou uma punição (caso a ação seja ruim).
 
 \begin{figure}[H]
     \centering
@@ -419,8 +408,8 @@ O ED-FCM descreve o comportamento reativo do robô (figura \ref{fig:fcm-robot}), 
 	  $w_3$ & Sensor frontal (FS) influencia a saída frontal (FO) & Positivo & Forte \\
 	  $w_4$ & Sensor frontal (FS) influencia a saída direita (RO) & Positivo & Médio \\
 	  $w_5$ & Sensor esquerdo (LS) influencia a saída direita (RO) & Positivo & Forte \\
-	  $w_6$ & Sensor esquerdo (LS) influencia a saída direita (RO) & Negativo & Fraco \\
-	  $w_7$ & Sensor direito (RS) influencia a saída esquerda (LO) & Negativo & Fraco \\
+	  $w_6$ & Saída esquerda (LO) influencia a saída direita (RO) & Negativo & Fraco \\
+	  $w_7$ & Saída direita (RO) influencia a saída esquerda (LO) & Negativo & Fraco \\
 	  $w_8$ & Sensor direito (RS) influencia a saída direita (RO) & Negativo & Fraco \\
 	  $w_9$ & Sensor esquerdo (LS) influencia a saída esquerda (LO) & Negativo & Fraco \\
 	  \hline  	
@@ -429,14 +418,14 @@ O ED-FCM descreve o comportamento reativo do robô (figura \ref{fig:fcm-robot}), 
 	\label{tab:causal-relations}
 \end{table}
 
-Essas regras determinam a política de mudança de estados do mapa e os pesos dos relacionamentos são responsáveis pelas decisões de o robô virar à esquerda, acelerar ou virar à direita. Nesse contexto, o valor atual desses pesos depende da diferença entre os valores anteriores e o valor máximo admissível ponderado por um fator $\gamma$ . O incremento dos pesos também leva em conta o valor da recompensa ou punicão (r) e de um fator de aprendizagem $\alpha$ , os quais estão associados ao algoritmo de aprendizado por reforço escolhido, equação \ref{q-learning}.
+Essas regras determinam a política de mudança de estados do mapa e os pesos dos relacionamentos são responsáveis pelas decisões de o robô virar à esquerda, acelerar ou virar à direita. Nesse contexto, o valor atual desses pesos depende da diferença entre os valores anteriores e o valor máximo admissível ponderado por um fator $\gamma$ . O incremento dos pesos também leva em conta o valor da recompensa ou punição (r) e de um fator de aprendizagem $\alpha$ , os quais estão associados ao algoritmo de aprendizado por reforço escolhido (equação \ref{q-learning}).
 
 \begin{equation}\label{q-learning}
 w_i(k)=w_i(k-1)+\alpha \times [r+\gamma \times W_{lim}-w_i(k-1)]
 \end{equation}
 
-Por fim, nesse artigo, são descritos os resultados nos quais o robô, em simulação, foi capaz de desviar obstáculos à direita e à esquerda do mesmo ao longo da trajetória.
+Por fim, o artigo descreve os resultados nos quais o robô, em simulação, foi capaz de desviar obstáculos à direita e à esquerda do mesmo ao longo da trajetória.
 
 \subsection{Considerações}
-O ED-FCM representa um problema em termos de conceitos e relações causais, podendo ser empregado em controladores de processos industriais ou no controle de robôs autônomos. O problema do desvio de obstáculos em navegação robótica pôde ser modelado, conforme o exemplo apresentado (figura \ref{fig:fcm-robot}), através de três conceitos de entrada (RS, FS e LS), dois conceitos de decisão (RO e LO), três conceitos de saída (Right Out, Front Out e Left Out), relações causais, regras \emph{SE-ENTÃO} e um algoritmo de aprendizado. O controlador proposto permitiu que o robô desviasse obstáculos reagindo à leitura de sensores que medem a distância de objetos posicionados à esquerda e à direita do mesmo. A ocorrência de eventos especiais permitiram modificar o estado do ED-FCM e alterar os pesos das relações causais de forma dinamica. Em \cite{MENDONCA}, esse modelo foi utilizado no problema de navegação e, por isso, concluiu-se que essa abordagem é adequada para esse trabalho.
+O ED-FCM representa a solução de um problema em termos de conceitos e relações causais, podendo ser empregado em controladores de processos industriais ou no controle de robôs autônomos. O problema do desvio de obstáculos em navegação robótica pôde ser modelado, conforme o exemplo apresentado (figura \ref{fig:fcm-robot}), através de três conceitos de entrada (RS, FS e LS), dois conceitos de decisão (RO e LO), três conceitos de saída (Right Out, Front Out e Left Out), relações causais, regras \emph{SE-ENTÃO} e um algoritmo de aprendizado. O controlador proposto permitiu que o robô desviasse obstáculos reagindo à leitura de sensores que medem a distância de objetos posicionados à esquerda e à direita do mesmo. A ocorrência de eventos especiais permitiram modificar o estado do ED-FCM e alterar os pesos das relações causais de forma dinâmica. Em \cite{MENDONCA}, esse modelo foi utilizado no problema de navegação e, por isso, concluiu-se que essa abordagem é adequada para esse trabalho.
 

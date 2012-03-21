@@ -5,7 +5,7 @@ Esta seção tem por objetivo apresentar a metodologia e elaboração dos testes dos
 
 \subsection{Elaboração dos Testes}
 
-A metodologia de elaboração dos testes da equipe visou possibilitar testes de sistema, verificando a funcionalidade básica dos algoritmos,  testes de comportamento visando eliminar erros de desenvolvimento e comportamentos indesejados para ambos os algoritmos e, finalmente, comparar o comportamento dos algoritmos submetidos às mesmas condições iniciais de teste. Ao longo dos testes, várias alterações foram realizadas tanto aos conjuntos \emph{fuzzy} e regras de inferência do algoritmo de navegação \emph{fuzzy} quanto aos conceitos e funções sigmóides do algoritmo baseado em ED-FCM, antes de atingir a configuração final descrita nas seções \ref{sec:algfuzzy} e \ref{sec:algedfcm}.
+A metodologia de elaboração dos testes da equipe visou possibilitar testes de sistema, verificando a funcionalidade básica dos algoritmos,  testes de comportamento visando eliminar erros de desenvolvimento e comportamentos indesejados para ambos os algoritmos e, finalmente, comparar o comportamento dos algoritmos submetidos às mesmas condições iniciais de teste. Ao longo dos testes, várias alterações foram realizadas tanto nos conjuntos \emph{fuzzy} e regras de inferência do algoritmo de navegação \emph{fuzzy} quanto nos conceitos e funções sigmóides do algoritmo baseado em ED-FCM, antes de atingir a configuração final descrita nas seções \ref{sec:algfuzzy} e \ref{sec:algedfcm}.
 
 Assim sendo, foram desenvolvidas três principais etapas de testes:
 \begin{enumerate}
@@ -20,7 +20,7 @@ Tanto os testes iniciais quanto os avançados são essenciais para proporcionar um
 \label{sec:testesini}
 
 %corredor interno e externo dainf
-Foram elaborados dois testes iniciais, o primeiro visando observar o deslocamento simples e detecção de um obstáculo simples próximo a parede em um corredor (Figura \ref{algtest1}), e o segundo teste foi construído em um corredor mais largo que o primeiro, com alguns obstáculos obstruindo a passagem, definindo apenas um caminho possível entre os obstáculos (figura \ref{algtest2}).
+Foram elaborados dois testes iniciais, o primeiro visando observar o deslocamento simples e detecção de um obstáculo simples próximo à parede em um corredor (Figura \ref{algtest1}), e o segundo teste foi construído em um corredor mais largo que o primeiro, com alguns obstáculos obstruindo a passagem, definindo apenas um caminho possível entre os obstáculos (figura \ref{algtest2}).
 
 \begin{figure}[H]
   \centering
@@ -42,7 +42,7 @@ Ambos os algoritmos obtiveram resultados satisfatórios, sendo capazes de realiza
   \fonte{Autoria própria}
 \end{figure}
 
-O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma barreira imediatamente no caminho do robô e encontrar a saída do corredor, logo após a barreira, como ilustrado na figura \ref{algtest2}. Ao executar este teste pela primeira vez, o algoritmo \emph{Fuzzy} não foi capaz de fazer o desvio e encontrar a saída, devido a reação muito tardia e, ao mesmo tempo, muito forte. Já o algoritmo ED-FCM foi capaz de realizar o trajeto sem alterações. A figura \ref{algtest2_caminho} apresenta o trajeto esperado, em verde, que é aproximadamente o mesmo que o realizado pelo algoritmo ED-FCM, e o trajeto percorrido pelo algoritmo \emph{Fuzzy} clássico, em vermelho.
+O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma barreira imediatamente no caminho do robô e encontrar a saída do corredor, logo após a barreira, como ilustrado na figura \ref{algtest2}. Ao executar este teste pela primeira vez, o algoritmo \emph{Fuzzy} não foi capaz de fazer o desvio e encontrar a saída, devido a uma reação muito tardia e, ao mesmo tempo, muito forte. Já o algoritmo ED-FCM foi capaz de realizar o trajeto sem alterações. A figura \ref{algtest2_caminho} apresenta o trajeto esperado, em verde, que é aproximadamente o mesmo que o realizado pelo algoritmo ED-FCM, e o trajeto percorrido pelo algoritmo \emph{Fuzzy} clássico, em vermelho.
 
 \begin{figure}[H]
   \centering
