@@ -178,14 +178,14 @@ sendo \emph{\mbox{f(t), m(t) e q(t)}} funções de pertinência, respectivamente, a
 	\label{fig:fuzzygraph}
 \end{figure}
 
-Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f(t), m(t) e q(t)}} dada na figura \ref{fig:fuzzygraph}, e três valores de temperatura, \emph{\mbox{t1 = 30, t2 = 50 e t3 = 90}}, temos que os valores correspondentes de temperatura para a variável linguística T são \mbox{T1 = (0.5 frio, 0.5 morno, 0.0 quente)}, \mbox{T2 = (0.0 frio, 1.0 morno, 0.0 quente)} e \mbox{T3 = (0.0 frio, 0.0 morno, 1.0 quente)}, respectivamente. Ou seja, informalmente, a temperatura t1 representa que o material está ``meio frio"~ e ``meio morno"~, a temperatura t2 indica que está ``morno"~ e a temperatura t3, por sua vez, ``quente"~. Este processo de conversão para uma variável linguística é comumente chamado de ``fuzzificação".
+Se considerarmos, por exemplo, a definição gráfica para as funções \emph{\mbox{f(t), m(t) e q(t)}} dada na figura \ref{fig:fuzzygraph}, e três valores de temperatura, \emph{\mbox{t1 = 30, t2 = 50 e t3 = 90}}, temos que os valores cor\-res\-pon\-den\-tes de temperatura para a variável linguística T são \mbox{T1 = (0.5 frio, 0.5 morno, 0.0 quente)}, \mbox{T2 = (0.0 frio, 1.0 morno, 0.0 quente)} e \mbox{T3 = (0.0 frio, 0.0 morno, 1.0 quente)}, respectivamente. Ou seja, informalmente, a temperatura t1 representa que o material está ``meio frio"~ e ``meio morno"~, a temperatura t2 indica que está ``morno"~ e a temperatura t3, por sua vez, ``quente"~. Este processo de conversão para uma variável linguística é comumente chamado de ``fuzzificação".
 
 
 \subsection{Controle \emph{Fuzzy}}
 \label{sec:fuzzycontrol}
-Após definidas as variáveis linguísticas, conjuntos \emph{fuzzy} e suas funções de pertinência, descritas na seção \ref{varling}, pode-se construir um controle \emph{fuzzy} baseado em um conjunto de regras de inferência.
+Após definidas as variáveis linguísticas, conjuntos \emph{fuzzy} e suas funções de pertinência, des\-cri\-tas na seção \ref{varling}, pode-se construir um controle \emph{fuzzy} baseado em um conjunto de regras de inferência.
 
-Regras de inferência sobre conjuntos \emph{fuzzy} podem ser categorizadas como uma generalização do \emph{modus ponens} binário. Em lógica binária, dada a regra ``se X então Y", onde X e Y são variáveis binárias, a partir do momento que a premissa, representada pela variável X, assume valor lógico verdadeiro, a conclusão, dada por Y, é verdadeira também. Em lógica \emph{fuzzy}, o mesmo raciocínio é valido, porém X e Y são variáveis linguísticas, e as regras de inferência são definidas a partir dos valores que estas variáveis linguísticas podem assumir, permitindo inclusive ativação parcial de regras de inferência. Estendendo o exemplo das temperaturas, apresentado na seção \ref{varling}, e supondo que seja necessário controlar a velocidade de um \emph{cooler} de processador, de acordo com a temperatura em que este se encontra, pode-se utilizar um sistema de controle \emph{fuzzy}. As regras de inferência para este controle podem ser, por exemplo:
+Regras de inferência sobre conjuntos \emph{fuzzy} podem ser categorizadas como uma generalização do \emph{modus ponens} binário. Em lógica binária, dada a regra ``se X então Y", onde X e Y são variáveis binárias, a partir do momento que a premissa, representada pela variável X, assume valor lógico verdadeiro, a conclusão, dada por Y, é verdadeira também. Em lógica \emph{fuzzy}, o mesmo raciocínio é valido, porém X e Y são variáveis linguísticas, e as regras de inferência são definidas a partir dos valores que estas variáveis linguísticas podem assumir, permitindo inclusive ativação parcial de regras de inferência. Estendendo o exemplo das temperaturas, a\-pre\-sen\-ta\-do na seção \ref{varling}, e supondo que seja necessário controlar a velocidade de um \emph{cooler} de processador, de acordo com a temperatura em que este se encontra, pode-se utilizar um sistema de controle \emph{fuzzy}. As regras de inferência para este controle podem ser, por exemplo:
 \begin{center}
     Se \emph{morno} então \emph{médio}\\*
     Se \emph{quente} então \emph{forte}
@@ -294,7 +294,7 @@ Em \cite{GROUMPOS} os mapas cognitivos \emph{fuzzy} são aplicados no controle de
 \item Conceito 5: Valor de massa específica do líquido medido pelo sensor G.
 \end{itemize}
 
-O controlador do processo deve manter as variáveis V e G, sendo V o volume e G a massa específica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ e $[G_{min}, G_{max}]$, respectivamente.
+O controlador do processo deve manter as variáveis V e G, sendo V o volume e G a massa específica do produto no tanque, dentro das faixas de operação $[V_{min}, V_{max}]$ e $[G_{min}, G_{max}]$, res\-pec\-ti\-va\-men\-te.
 
 Interligando-se os conceitos através de relações de causa e efeito, o FCM da figura \ref{fig:fcm-exemplo-fcm} foi construído.
 
@@ -418,7 +418,7 @@ O ED-FCM descreve o comportamento reativo do robô (figura \ref{fig:fcm-robot}), 
 	\label{tab:causal-relations}
 \end{table}
 
-Essas regras determinam a política de mudança de estados do mapa e os pesos dos relacionamentos são responsáveis pelas decisões de o robô virar à esquerda, acelerar ou virar à direita. Nesse contexto, o valor atual desses pesos depende da diferença entre os valores anteriores e o valor máximo admissível ponderado por um fator $\gamma$ . O incremento dos pesos também leva em conta o valor da recompensa ou punição (r) e de um fator de aprendizagem $\alpha$ , os quais estão associados ao algoritmo de aprendizado por reforço escolhido (equação \ref{q-learning}).
+Essas regras determinam a política de mudança de estados do mapa e os pesos dos relacionamentos são responsáveis pelas decisões de o robô virar à esquerda, acelerar ou virar à direita. Nesse contexto, o valor atual desses pesos depende da diferença entre os valores an\-te\-rio\-res e o valor máximo admissível ponderado por um fator $\gamma$ . O incremento dos pesos também leva em conta o valor da recompensa ou punição (r) e de um fator de aprendizagem $\alpha$ , os quais estão associados ao algoritmo de aprendizado por reforço escolhido (equação \ref{q-learning}).
 
 \begin{equation}\label{q-learning}
 w_i(k)=w_i(k-1)+\alpha \times [r+\gamma \times W_{lim}-w_i(k-1)]

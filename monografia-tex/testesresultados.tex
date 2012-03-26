@@ -5,7 +5,7 @@ Esta seção tem por objetivo apresentar a metodologia e elaboração dos testes dos
 
 \subsection{Elaboração dos Testes}
 
-A metodologia de elaboração dos testes da equipe visou possibilitar testes de sistema, verificando a funcionalidade básica dos algoritmos,  testes de comportamento visando eliminar erros de desenvolvimento e comportamentos indesejados para ambos os algoritmos e, finalmente, comparar o comportamento dos algoritmos submetidos às mesmas condições iniciais de teste. Ao longo dos testes, várias alterações foram realizadas tanto nos conjuntos \emph{fuzzy} e regras de inferência do algoritmo de navegação \emph{fuzzy} quanto nos conceitos e funções sigmóides do algoritmo baseado em ED-FCM, antes de atingir a configuração final descrita nas seções \ref{sec:algfuzzy} e \ref{sec:algedfcm}.
+A metodologia de elaboração dos testes da equipe visou possibilitar testes de sistema, ve\-ri\-fi\-can\-do a funcionalidade básica dos algoritmos,  testes de comportamento visando eliminar erros de desenvolvimento e comportamentos indesejados para ambos os algoritmos e, finalmente, comparar o comportamento dos algoritmos submetidos às mesmas condições iniciais de teste. Ao longo dos testes, várias alterações foram realizadas tanto nos conjuntos \emph{fuzzy} e regras de inferência do algoritmo de navegação \emph{fuzzy} quanto nos conceitos e funções sigmóides do algoritmo baseado em ED-FCM, antes de atingir a configuração final descrita nas seções \ref{sec:algfuzzy} e \ref{sec:algedfcm}.
 
 Assim sendo, foram desenvolvidas três principais etapas de testes:
 \begin{enumerate}
@@ -53,7 +53,7 @@ O segundo teste, ao contrário do primeiro, força os algoritmos a desviar de uma 
   \fonte{Autoria própria}
 \end{figure}
 
-Para resolver este problema de reação tardia e tornar a navegação do algoritmo \emph{Fuzzy} mais suave (em relação as curvas), a equipe aumentou a faixa de valores da função de pertinência da variável linguística perto, que era inicialmente 16 até 25cm como distância de pertinência máxima e descida até pertinência nula na distância de 35 centímetros para os valores finais apresentados na figura \ref{fuzzygraph_des}, função p(d). Além disso, os conjuntos \emph{fuzzy} ``ViraPoucoEsquerda" e ``ViraPoucoDireita", inexistentes na primeira versão, foram adicionados e utilizados nas regras de inferência da forma como foi apresentado na tabela \ref{tab:regrasinf}, visando iniciar a reação do robô aos obstáculos mais cedo. Estas alterações fizeram com que o algoritmo \emph{Fuzzy} clássico realizasse o trajeto esperado, após novo teste no mesmo ambiente.
+Para resolver este problema de reação tardia e tornar a navegação do algoritmo \emph{Fuzzy} mais suave (em relação as curvas), a equipe aumentou a faixa de valores da função de pertinência da variável linguística perto, que era inicialmente 16 até 25 cm como distância de pertinência máxima e descida até pertinência nula na distância de 35 centímetros para os valores finais apresentados na figura \ref{fuzzygraph_des}, função p(d). Além disso, os conjuntos \emph{fuzzy} ``ViraPoucoEsquerda" e ``ViraPoucoDireita", inexistentes na primeira versão, foram adicionados e utilizados nas regras de inferência da forma como foi apresentado na tabela \ref{tab:regrasinf}, visando iniciar a reação do robô aos obstáculos mais cedo. Estas alterações fizeram com que o algoritmo \emph{Fuzzy} clássico realizasse o trajeto esperado, após novo teste no mesmo ambiente.
 
 \subsection{Testes Avançados}
 \label{sec:testesavan}

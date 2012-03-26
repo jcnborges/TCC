@@ -41,8 +41,8 @@ trabalho é um estudo comparativo entre dois algoritmos de navegação, que foram i
 desempenhar o comportamento reativo de um robô móvel autônomo, o qual deverá desviar de obstáculos.
 Um dos algoritmos consiste de um mecanismo de inferências utilizando conjuntos \emph{fuzzy}, com tomada de decisão baseada
 diretamente em regras de inferência, enquanto que o outro é um algoritmo baseado em ED-FCM (\emph{Event-Driven Fuzzy Cognitive
-Maps}), que é considerado por alguns autores como um sistema neuro-\emph{fuzzy} \cite{MENDONCA}. Para
-realizar a comparação desses algoritmos, é necessária uma plataforma robótica real, obtida pela
+Maps}), que é considerado por alguns autores como um sistema neuro-\emph{fuzzy}, o que pode ser lido no artigo de \cite{MENDONCA}. Para
+realizar a com\-pa\-ra\-ção desses algoritmos, é necessária uma plataforma robótica real, obtida pela
 reconstrução do robô ``Bellator", cordialmente cedido à equipe pelo professor Heitor Silvério
 Lopes, do Departamento de Eletrônica da Universidade Tecnológica Federal do Paraná (DAELN/UTFPR).
 
@@ -57,11 +57,11 @@ para controlá-lo, ou necessidade de comunicação sem fio. Desse modo o robô pode 
 locomover e tomar decisões sem necessidade de comunicação com um sistema externo de controle.
 
 A lógica \emph{fuzzy} é uma abordagem estudada no sétimo período, na disciplina de Sistemas Inteligentes, do curso de Engenharia de Computação
-da Universidade Tecnológica Federal do Paraná. Este trabalho então propôs a reconstrução e adequação do robô Bellator, e da
+da Universidade Tecnológica Federal do Paraná. Este trabalho então propôs a reconstrução e a\-de\-qua\-ção do robô Bellator, e da
 implemen\-ta\-ção de dois algoritmos de controle de navegação autônoma para o mesmo: um controlador \emph{fuzzy} e um controlador baseado no algoritmo ED-FCM, como proposto por
  \citeonline{MENDONCA}. O algoritmo ED-FCM possui uma proposta inovadora, cujos conceitos podem ser aplicados na
 robótica móvel, porém também em controladores industriais \cite{MENDONCA}. O presente trabalho também apresenta uma avaliação qualitativa dos controladores desenvolvidos,
-permitindo uma discussão sobre a adequação das abordagens \emph{fuzzy} e ED-FCM na tarefa de controlar o comportamento reativo de um robô móvel real.
+permitindo uma discussão sobre a a\-de\-qua\-ção das abordagens \emph{fuzzy} e ED-FCM na tarefa de controlar o comportamento reativo de um robô móvel real.
 
 Através deste trabalho, a equipe integrou vários assuntos condizentes com a área da
 Engenharia de Computação. A reconstrução do robô levou em conta conhecimentos de \emph{hardware} e
@@ -86,13 +86,13 @@ plataforma robótica real, o que agregou a necessidade de conhecimentos
 de \emph{hardware} à equipe, porém forneceu resultados mais significativos
 do que se fosse utilizada uma simulação computacional. A plataforma foi obtida através da reconstrução e adaptação do ``Bellator", o qual fora usado em um projeto da disciplina de Oficina de Integração 3~\cite{BELLATOR}, mas em um escopo diferente. Teve-se em vista a possibilidade de adquirir uma plataforma comercial, porém o custo elevado de plataformas robóticas móveis disponíveis no mercado levou a equipe à optar por reconstruir o Bellator. Uma das plataformas comerciais foi a X80, cujo preço é de 2795 dólares \cite{X80}. A possibilidade de disponibilizar essa plataforma reconstruída e documentada para trabalhos acadêmicos futuros também foi um fator decisivo nessa escolha.
 
-Os algoritmos escolhidos para im\-ple\-men\-ta\-ção foram o algoritmo de navegação \emph{fuzzy}, baseado em inferências sobre conjuntos \emph{fuzzy}, e o algoritmo de navegação ED-FCM, tendo em vista a oportunidade de analisar o comportamento de uma nova abordagem de navegação robótica em relação à uma abordagem já conhecida e estudada ao longo do curso de graduação, ambas utilizando conceitos de lógica \emph{fuzzy} de maneiras distintas.
+Os algoritmos escolhidos para im\-ple\-men\-ta\-ção foram o algoritmo de navegação \emph{fuzzy}, ba\-se\-a\-do em inferências sobre conjuntos \emph{fuzzy}, e o algoritmo de navegação ED-FCM, tendo em vista a oportunidade de analisar o comportamento de uma nova abordagem de navegação robótica em relação à uma abordagem já conhecida e estudada ao longo do curso de graduação, ambas utilizando conceitos de lógica \emph{fuzzy} de maneiras distintas.
 
 \section{Objetivos}
 \label{rec:obj}
 Os objetivos do presente trabalho foram a reconstrução e adequação da plataforma robótica Bellator, a descrição do \emph{hardware} e \emph{software} do mesmo, o estudo, projeto e a implemen\-ta\-ção dos algoritmos de navegação, a execução de testes de comparação do comportamento dos algoritmos e a análise dos resultados provenientes desses testes.
 
-O robô deve ser reconstruído e adequado, equipado com sensores de distância e \emph{\emph{encoders}} acoplados às rodas, e deve ser alimentado através de baterias que forneçam adequadamente energia ao sistema microcontrolado, sensores e motores; deve ser capaz de ajustar a velocidade de cada roda de maneira independente, deve processar os sinais dos sensores de distância e dos \emph{\emph{encoders}} e implementar rotinas para disponibilizar esses dados.
+O robô deve ser reconstruído e adequado, equipado com sensores de distância e \emph{encoders} acoplados às rodas, e deve ser alimentado através de baterias que forneçam adequadamente energia ao sistema microcontrolado, sensores e motores; deve ser capaz de ajustar a velocidade de cada roda de maneira independente, deve processar os sinais dos sensores de distância e dos \emph{encoders} e implementar rotinas para disponibilizar esses dados.
 
 Os algoritmos de navegação devem ser executados em um \emph{hardware} independente acoplado à plataforma, visando minimizar atrasos de comunicação e tornar o robô autônomo. Esse \emph{hardware} deve ser capaz de ler os dados dos sensores do robô, como fonte de dados para os algoritmos, e enviar comandos de movimentação. Cada teste dos algoritmos deve ser realizado em um ambiente igual para ambos algoritmos, sendo que o objetivo de cada algoritmo é guiar o robô no deslocamento, desviando-o de possíveis obstáculos, tendo como entradas os valores de leitura dos sensores de distância e dos \emph{\emph{encoders}} e como saída, a velocidade e direção do robô. Os experimentos devem ser registrados em gravação de vídeo e a análise deve ser baseada nesses resultados.
 
